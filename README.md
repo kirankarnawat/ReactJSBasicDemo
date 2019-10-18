@@ -11,8 +11,7 @@ The React.js integration for ABP Boilerplate framework. This template is built o
 After cloning repository, first install npm packages:
 
 ```sh
-cd reactjs
-npm install 
+cd applicationname
 ```
 
 And then start
