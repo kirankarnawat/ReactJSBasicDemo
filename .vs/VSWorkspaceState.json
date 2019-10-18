@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src\\components\\Router",
+    "\\src\\models",
+    "\\src\\scenes",
+    "\\src\\scenes\\Dashboard",
+    "\\src\\scenes\\Exception",
+    "\\src\\services",
+    "\\src\\services\\user",
+    "\\src\\stores",
+    "\\src\\utils"
+  ],
+  "SelectedNode": "\\src",
+  "PreviewInSolutionExplorer": false
+}
