@@ -1,4 +1,4 @@
-# ASP.NET Boilerplate ReactJS Template
+# ReactJS Sample Framework
 
 The React.js integration for ABP Boilerplate framework. This template is built on React+Mobx+Typescript. SOLID, SoC principles are used.
 
