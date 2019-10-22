@@ -1,5 +1,5 @@
 const rules = {
-  userNameOrEmailAddress: [
+  emailAddress: [
     {
       required: true,
       message: 'Required',

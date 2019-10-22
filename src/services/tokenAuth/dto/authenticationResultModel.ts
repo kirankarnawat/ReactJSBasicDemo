@@ -1,6 +1,9 @@
 export interface AuthenticationResultModel {
-  accessToken: string;
-  encryptedAccessToken: string;
-  expireInSeconds: number;
-  userId: number;
+    token: string;
+    userId: string;
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    isSuccess: boolean;
+    expireInSeconds: number;
 }

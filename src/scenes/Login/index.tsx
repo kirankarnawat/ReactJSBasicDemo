@@ -60,8 +60,8 @@ class Login extends React.Component<ILoginProps> {
                                         <h3>{'Well come' }</h3>
                                     </div>
                                     <FormItem>
-                                        {getFieldDecorator('userNameOrEmailAddress', { rules: rules.userNameOrEmailAddress })(
-                                            <Input placeholder={'UserNameOrEmail'} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} size="large" />
+                                        {getFieldDecorator('emailAddress', { rules: rules.emailAddress })(
+                                            <Input placeholder={'EmailAddress'} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} size="large" />
                                         )}
                                     </FormItem>
 

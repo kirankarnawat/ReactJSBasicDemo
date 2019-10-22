@@ -1,16 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src\\components\\Router",
-    "\\src\\models",
-    "\\src\\scenes",
-    "\\src\\scenes\\Dashboard",
-    "\\src\\scenes\\Exception",
-    "\\src\\services",
-    "\\src\\services\\user",
-    "\\src\\stores",
-    "\\src\\utils"
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\Footer",
+    "\\src\\components\\Header"
   ],
-  "SelectedNode": "\\src",
+  "SelectedNode": "\\.env.production",
   "PreviewInSolutionExplorer": false
 }
