@@ -2,10 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components",
-    "\\src\\components\\Footer",
-    "\\src\\components\\Header"
+    "\\src\\components\\SiderMenu",
+    "\\src\\scenes"
   ],
-  "SelectedNode": "\\.env.production",
+  "SelectedNode": "\\src\\scenes",
   "PreviewInSolutionExplorer": false
 }

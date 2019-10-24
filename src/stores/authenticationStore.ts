@@ -27,7 +27,7 @@ class AuthenticationStore {
             password: model.password
             //rememberClient: model.rememberMe,
         });
-
+        
         var info = new GetCurrentLoginInformations();
         var user = new UserLoginInfoDto();
         user.userId = result.userId;
@@ -35,6 +35,7 @@ class AuthenticationStore {
         user.lastName = result.lastName;
         user.emailAddress = result.emailAddress;
         info.user = user;
+        info.features = result.userFeatures;
         sessionStorage.setItem('loginuser', JSON.stringify(info));
 
         result.expireInSeconds = 3600;

@@ -8,7 +8,7 @@ const qs = require('qs');
 
 const http = axios.create({
     baseURL: AppConsts.remoteServiceBaseUrl,
-    timeout: 30000,
+    timeout: 30000,    
     paramsSerializer: function (params) {
         return qs.stringify(params, {
             encode: false,

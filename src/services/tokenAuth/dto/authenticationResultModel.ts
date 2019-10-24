@@ -6,4 +6,5 @@ export interface AuthenticationResultModel {
     emailAddress: string;
     isSuccess: boolean;
     expireInSeconds: number;
+    userFeatures: [];
 }
