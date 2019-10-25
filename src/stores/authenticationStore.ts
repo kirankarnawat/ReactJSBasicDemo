@@ -50,7 +50,6 @@ class AuthenticationStore {
         localStorage.clear();
         sessionStorage.clear();
         Cookies.remove('access_token');
-        // abp.auth.clearToken();
     }
 }
 export default AuthenticationStore;
