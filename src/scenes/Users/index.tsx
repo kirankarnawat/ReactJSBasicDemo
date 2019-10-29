@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table, Tag } from 'antd';
+import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table, Tag, Icon  } from 'antd';
 import { inject, observer } from 'mobx-react';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
 import { EntityDto } from '../../services/dto/entityDto';
@@ -111,7 +111,9 @@ class User extends React.Component<IUserProps, IUserState> {
     };
 
     public render() {
-        const { users } = this.props.userStore;
+
+        const { users } = this.props.userStore;       
+
         const columns = [
             { title: 'FirstName', dataIndex: 'firstName', key: 'firstName', width: 150, render: (text: string) => <div>{text}</div> },
             { title: 'LastName', dataIndex: 'lastName', key: 'lastName', width: 150, render: (text: string) => <div>{text}</div> },
@@ -134,15 +136,19 @@ class User extends React.Component<IUserProps, IUserState> {
                             trigger={['click']}
                             overlay={
                                 <Menu>
-                                    <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}>{'Edit'}</Menu.Item>
-                                    <Menu.Item onClick={() => this.delete({ id: item.id })}>{'Delete'}</Menu.Item>
+                                    <Menu.Item onClick={() => this.createOrUpdateModalOpen({ id: item.id })}> <Icon type="edit" /> <span>{ 'Edit'}</span></Menu.Item>
+                                    <Menu.Item onClick={() => this.delete({ id: item.id })}><Icon type="delete" /><span>{' Delete'}</span></Menu.Item>
                                 </Menu>
                             }
                             placement="bottomLeft"
                         >
-                            <Button type="primary" icon="setting">
+                            {/* <Button type="primary" icon="setting">
                                 {'Actions'}
-                            </Button>
+                            </Button> */}
+
+                            <Icon type="ellipsis"/>
+
+                            
                         </Dropdown>
                     </div>
                 ),
@@ -188,16 +194,19 @@ class User extends React.Component<IUserProps, IUserState> {
                         xl={{ span: 24, offset: 0 }}
                         xxl={{ span: 24, offset: 0 }}
                     >
-                        <Table
-                            rowKey={record => record.id.toString()}
-                            size={'default'}
-                            bordered={true}
-                            columns={columns}
-                            pagination={{ pageSize: 10, total: users === undefined ? 0 : users.totalCount, defaultCurrent: 1 }}
-                            loading={users === undefined ? true : false}
-                            dataSource={users === undefined ? [] : users.items}
-                            onChange={this.handleTableChange}
-                        />
+                        <div className="table-responsive">
+                            <Table
+                                rowKey={record => record.id.toString()}
+                                size={'default'}
+                                bordered={true}
+                                columns={columns}
+                                pagination={{ size:'small', pageSize: 10, total: users === undefined ? 0 : users.totalCount, defaultCurrent: 1 }}
+                                loading={users === undefined ? true : false}
+                                dataSource={users === undefined ? [] : users.items}
+                                onChange={this.handleTableChange}
+                                className="table"
+                            />
+                        </div>
                     </Col>
                 </Row>
                 <CreateOrUpdateUser
