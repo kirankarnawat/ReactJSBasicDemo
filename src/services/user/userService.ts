@@ -37,10 +37,10 @@ class UserService {
     public async get(entityDto: EntityDto): Promise<CreateOrUpdateUserInput> {
         //let result = await http.get('api/services/app/User/Get', { params: entityDto });
         //return result.data.result;
-        
+
         var data = <CreateOrUpdateUserInput>{};
         if (entityDto.id == 1)
-            data = { "id": 1, "firstName": "Amit", "lastName": "Dhivar", "userType": "Head", "department": "IT", "emailAddress": "amit.dhivar@deplhianlogic.com", "isActive": true, "password": "P@ssw0rd" , "roleNames": ["HOD"]};
+            data = { "id": 1, "firstName": "Amit", "lastName": "Dhivar", "userType": "Head", "department": "IT", "emailAddress": "amit.dhivar@deplhianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["HOD"] };
         else
             data = { "id": 2, "firstName": "Rajesh", "lastName": "Deshpande", "userType": "Lead", "department": "IT", "emailAddress": "rajesh.deshpande@delphianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["LEAD"] };
         var result = data;
@@ -52,12 +52,18 @@ class UserService {
         //return result.data.result;
 
         var arr: GetAllUserOutput[] = [
-            { "id": 1, "firstName": "Amit", "lastName": "Dhivar", "userType": "Head", "department": "IT", "emailAddress": "amit.dhivar@deplhianlogic.com", "isActive": true, "roleNames": ["HOD"]},
-            { "id": 2, "firstName": "Rajesh", "lastName": "Deshpande", "userType": "Lead", "department": "IT", "emailAddress": "rajesh.deshpande@delphianlogic.com", "isActive": true, "roleNames": ["LEAD"]}
+            { "id": 1, "firstName": "Amit", "lastName": "Dhivar", "userType": "Head", "department": "IT", "emailAddress": "amit.dhivar@deplhianlogic.com", "isActive": true, "roleNames": ["HOD"] },
+            { "id": 2, "firstName": "Rajesh", "lastName": "Deshpande", "userType": "Lead", "department": "IT", "emailAddress": "rajesh.deshpande@delphianlogic.com", "isActive": true, "roleNames": ["LEAD"] }
         ];
 
+        if (pagedFilterAndSortedRequest.keyword != "") {
+            var searchresult: GetAllUserOutput[];
+            searchresult = arr.filter(e => e.firstName.toLowerCase().match(pagedFilterAndSortedRequest.keyword.toLowerCase()))
+            arr = searchresult;
+        }
+
         let result = {
-            totalCount: 2,
+            totalCount: arr.length,
             items: arr
         }
 
