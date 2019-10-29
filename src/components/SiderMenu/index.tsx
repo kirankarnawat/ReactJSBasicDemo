@@ -2,9 +2,8 @@ import './index.less';
 
 import * as React from 'react';
 
-import { Avatar, Col, Icon, Layout, Menu } from 'antd';
+import { Icon, Layout, Menu } from 'antd';
 
-import AbpLogo from '../../images/abp-logo-long.png';
 import { appRouters } from '../../components/Router/router.config';
 import { GetCurrentLoginInformations } from '../../services/session/dto/getCurrentLoginInformations';
 
@@ -27,18 +26,9 @@ const SiderMenu = (props: ISiderMenuProps) => {
     let dtfeatures = result.features;
 
     return (
-        <Sider trigger={null} className={'sidebar'} width={256} collapsible collapsed={collapsed} onCollapse={onCollapse}>
-            {collapsed ? (
-                <Col style={{ textAlign: 'center', marginTop: 15, marginBottom: 10 }}>
-                    <Avatar shape="square" style={{ height: 27, width: 64 }} src={AbpLogo} />
-                </Col>
-            ) : (
-                    <Col style={{ textAlign: 'center', marginTop: 15, marginBottom: 10 }}>
-                        <Avatar shape="square" style={{ height: 54, width: 128 }} src={AbpLogo} />
-                    </Col>
-                )}
+        <Sider trigger={null} className={'sidebar'} width={200} collapsible collapsed={collapsed} onCollapse={onCollapse}>
 
-            <Menu theme="dark" mode="inline">
+            <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%', borderRight: 0 }}>
                 {appRouters
                     .filter((item: any) => !item.isLayout && item.showInMenu && !item.parentFeatureId && dtfeatures.filter(e => e['featureId'] === item.featureId).length > 0)
                     .map((route: any, index: number) => {

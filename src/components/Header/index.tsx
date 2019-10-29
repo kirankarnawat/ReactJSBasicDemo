@@ -9,38 +9,47 @@ import { Link } from 'react-router-dom';
 import profilePicture from '../../images/user.png';
 
 export interface IHeaderProps {
-  collapsed?: any;
-  toggle?: any;
+    collapsed?: any;
+    toggle?: any;
 }
 
 const userDropdownMenu = (
-  <Menu>
-    <Menu.Item key="2">
-      <Link to="/logout">
-        <Icon type="logout" />
-        <span> {'Logout'}</span>
-      </Link>
-    </Menu.Item>
-  </Menu>
+    <Menu>
+        <Menu.Item key="2">
+            <Link to="/logout">
+                <Icon type="logout" />
+                <span> {'Logout'}</span>
+            </Link>
+        </Menu.Item>
+    </Menu>
 );
 
 export class Header extends React.Component<IHeaderProps> {
-  render() {
-    return (
-      <Row className={'header-container'}>
-        <Col style={{ textAlign: 'left' }} span={12}>
-          <Icon className="trigger" type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'} onClick={this.props.toggle} />
-        </Col>
-        <Col style={{ padding: '0px 15px 0px 15px', textAlign: 'right' }} span={12}>
-          <Dropdown overlay={userDropdownMenu} trigger={['click']}>
-            <Badge style={{}} count={3}>
-              <Avatar style={{height:24, width:24}} shape="circle" alt={'profile'} src={profilePicture} />
-            </Badge>
-          </Dropdown>
-        </Col>
-      </Row>
-    );
-  }
+    render() {
+        return (
+
+            <Row className={'header-container'}>
+                <div className="navbarLeft">
+                    <a href="#"><i className="fa fa-home"></i></a>
+                </div>
+                <div className="logoDiv">
+                    <img src={require('../../images/main-logo.png')} alt="logo" />
+                </div>
+                <Col className="togglebtn" span={12}>
+                    <Icon className="trigger" type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'} onClick={this.props.toggle} />
+                </Col>
+                <div className="navbarRight">
+                <Col style={{ padding: '0px 15px 0px 15px', textAlign: 'right' }} span={12}>
+                    <Dropdown overlay={userDropdownMenu} trigger={['click']}>
+                        <Badge style={{}} count={3}>
+                            <Avatar style={{ height: 24, width: 24 }} shape="circle" alt={'profile'} src={profilePicture} />
+                        </Badge>
+                    </Dropdown>
+                    </Col>
+                   </div>
+            </Row>
+        );
+    }
 }
 
 export default Header;

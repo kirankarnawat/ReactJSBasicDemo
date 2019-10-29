@@ -1,8 +1,8 @@
-import './index.less';
+//import './index.less';
 
 import * as React from 'react';
 
-import { Button, Card, Checkbox, Col, Form, Icon, Input, Row } from 'antd';
+import { Button, Checkbox, Form, Input } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AuthenticationStore from '../../stores/authenticationStore';
@@ -35,7 +35,7 @@ class Login extends React.Component<ILoginProps> {
         await this.props.form.validateFields(async (err: any, values: any) => {
             if (!err) {
                 await this.props.authenticationStore!.login(values);
-                sessionStorage.setItem('rememberMe', loginModel.rememberMe ? '1' : '0');   
+                sessionStorage.setItem('rememberMe', loginModel.rememberMe ? '1' : '0');
                 const { state } = this.props.location;
                 window.location = state ? state.from.pathname : '/';
             }
@@ -50,51 +50,69 @@ class Login extends React.Component<ILoginProps> {
         const { getFieldDecorator } = this.props.form;
 
         return (
-            <Col className="name">
-                <Form className="" onSubmit={this.handleSubmit}>
-                    <Row>
-                        <Row style={{ marginTop: 10 }}>
-                            <Col span={8} offset={8}>
-                                <Card>
-                                    <div style={{ textAlign: 'center' }}>
-                                        <h3>{'Well come' }</h3>
-                                    </div>
+            <Form className="" onSubmit={this.handleSubmit}>
+                <div className="loginConatiner">
+                <div className="loginBox">
+                    <div className="loginBoxCon">
+                        <div className="colLogLeft">
+                            <h4>Welcome</h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown</p>
+                        </div>
+
+                        <div className="colLogRight">
+                            <div className="loginLogo">
+                                <img src={require('../../images/main-logo.png')} alt="logo"/>
+                            </div>
+                            <div className="loginForm">
+                                <div className="form-group">
+                                    <label className="lblText">Email Address</label>
                                     <FormItem>
                                         {getFieldDecorator('emailAddress', { rules: rules.emailAddress })(
-                                            <Input placeholder={'EmailAddress'} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} size="large" />
+                                            <Input className="form-control" placeholder={'EmailAddress'} />
                                         )}
                                     </FormItem>
+                                </div>
+                                <div className="form-group mb5">
+                                    <label className="lblText">Password</label>
+                                    <div className="posRel">
+                                        <FormItem>
+                                            {getFieldDecorator('password', { rules: rules.password })(
+                                                <Input className="form-control"
+                                                    placeholder={'Password'}
+                                                    type="password"
+                                                    size="large"
+                                                />
+                                            )}
+                                        </FormItem>
+                                        <button type="button" className="passIcon"><i className="fa fa-eye"></i></button>
+                                    </div>
+                                </div>
 
-                                    <FormItem>
-                                        {getFieldDecorator('password', { rules: rules.password })(
-                                            <Input
-                                                placeholder={'Password'}
-                                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                                type="password"
-                                                size="large"
-                                            />
-                                        )}
-                                    </FormItem>
-                                    <Row style={{ margin: '0px 0px 10px 15px ' }}>
-                                        <Col span={12} offset={0}>
-                                            <Checkbox checked={loginModel.rememberMe} onChange={loginModel.toggleRememberMe} style={{ paddingRight: 8 }} />
-                                            {'RememberMe'}
-                                            <br />
-                                            <a>{'ForgotPassword'}</a>
-                                        </Col>
-
-                                        <Col span={8} offset={4}>
-                                            <Button style={{ backgroundColor: '#f5222d', color: 'white' }} htmlType={'submit'} type="danger">
-                                                {'LogIn'}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </Row>
-                </Form>
-            </Col>
+                                <div className="loginFooter">
+                                    <div className="float-left">
+                                        <div className="form-group form-check">
+                                            <Checkbox checked={loginModel.rememberMe} onChange={loginModel.toggleRememberMe} />
+                                            <label className="form-check-label ml5">{'Check me out'}</label>
+                                        </div>
+                                    </div>
+                                    <div className="float-right fotPass">
+                                        <a href="#">{'ForgotPassword'}</a>
+                                    </div>
+                                </div>
+                            <Button className="btn btn-primary" htmlType={'submit'} type="danger">
+                                {'Login'}
+                                </Button>
+                            </div>
+                          
+                        </div>
+                    </div>
+                    <div className="logoutIcon">
+                        <img src={require('../../images/login-icon.png')} alt=""/>
+                    </div>
+                   
+                    </div>
+                </div>
+            </Form>
         );
     }
 }

@@ -1,19 +1,19 @@
 import * as React from 'react';
 
-import { Redirect, Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import Cookies from 'js-cookie'
 
 const ProtectedRoute = ({ path, component: Component, permission, render, ...rest }: any) => {
-    let data = Cookies.get('access_token');
-    //let userdata = sessionStorage.getItem('loginuser');
+     let data = Cookies.get('access_token');
+     let userdata = sessionStorage.getItem('loginuser');
     return (
         <Route
             {...rest}
             render={props => {
 
                 const isauth = (!data) ? false : true;
-                //const issession = (!userdata) ? false : true;
+                const issession = (!userdata) ? false : true;
 
                 if (!isauth)
                     return (
@@ -25,11 +25,11 @@ const ProtectedRoute = ({ path, component: Component, permission, render, ...res
                         />
                     );
 
-                //if (!issession) {
-                //    return (
-                //        <Redirect to="/user/login" />
-                //    );
-                //}
+                if (!issession) {
+                    return (
+                        <Redirect to="/user/login" />
+                    );
+                }
 
                 return Component ? <Component {...props} /> : render(props);
             }}

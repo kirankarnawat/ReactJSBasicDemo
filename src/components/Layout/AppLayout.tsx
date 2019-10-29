@@ -41,11 +41,11 @@ class AppLayout extends React.Component<any> {
 
         const layout = (
             <Layout style={{ minHeight: '100vh' }}>
-                <SiderMenu path={path} onCollapse={this.onCollapse} history={history} collapsed={collapsed} />
-                <Layout>
                     <Layout.Header style={{ background: '#fff', minHeight: 52, padding: 0 }}>
                         <Header collapsed={this.state.collapsed} toggle={this.toggle} />
-                    </Layout.Header>
+                </Layout.Header>
+                <Layout>
+                    <SiderMenu path={path} onCollapse={this.onCollapse} history={history} collapsed={collapsed} />
                     <Content style={{ margin: 16 }}>
                         <Switch>
                             {appRouters
@@ -57,10 +57,10 @@ class AppLayout extends React.Component<any> {
                             <Redirect from="/" to="/dashboard" />
                         </Switch>
                     </Content>
-                    <Layout.Footer style={{ textAlign: 'center' }}>
-                        <Footer />
-                    </Layout.Footer>
                 </Layout>
+                <Layout.Footer style={{ textAlign: 'center' }}>
+                    <Footer />
+                </Layout.Footer>
             </Layout>
         );
 

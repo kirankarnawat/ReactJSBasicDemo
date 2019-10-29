@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Col } from 'antd';
+//import { Col } from 'antd';
 import './index.less';
 
 const Footer = () => {
   return (
-      <Col className={"footer"}>
-      Copyright © 2019
-      </Col>
+      <div className="mainFooter">
+          <p>Powered by Learning Bridge</p>
+      </div>
   );
 };
 export default Footer;

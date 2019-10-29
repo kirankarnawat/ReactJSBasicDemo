@@ -1,8 +1,9 @@
 const rules = {
-  name: [{ required: true, message: 'Please input your name!' }],
-  surname: [{ required: true, message: 'Please input your surname!' }],
-  userName: [{ required: true, message: 'Please input your username!' }],
-  emailAddress: [{ required: true, message: 'Please input your email!' }],
+    firstName: [{ required: true, message: 'First name is required!' }],
+    lastName: [{ required: true, message: 'Last name is required!' }],
+    userType: [{ required: true, message: 'Usertype is required!' }],
+    department: [{ required: true, message: 'Department is required!' }],
+    emailAddress: [{ required: true, message: 'Emailaddress is required!' }]
 };
 
 export default rules;

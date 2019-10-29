@@ -15,23 +15,22 @@ class UserLayout extends React.Component<any> {
         const {
             location: { pathname },
         } = this.props;
-        
-        return (
-        <DocumentTitle title={utils.getPageTitle(pathname)}>
-            <Col className="container">
-                <Switch>
-                    {userRouter
-                        .filter((item: any) => !item.isLayout)
-                        .map((item: any, index: number) => (
-                            <Route key={index} path={item.path} component={item.component} exact={item.exact} />
-                        ))}
 
-                    <Redirect from="/user" to="/user/login" />
-                </Switch>
-                <Footer />
-            </Col>
-        </DocumentTitle>
-    );
+        return (
+            <DocumentTitle title={utils.getPageTitle(pathname)}>
+                <Col className="container">
+                    <Switch>
+                        {userRouter
+                            .filter((item: any) => !item.isLayout)
+                            .map((item: any, index: number) => (
+                                <Route key={index} path={item.path} component={item.component} exact={item.exact} />
+                            ))}
+                        <Redirect from="/user" to="/user/login" />
+                    </Switch>
+                    <Footer />
+                </Col>
+            </DocumentTitle>
+        );
     }
 }
 

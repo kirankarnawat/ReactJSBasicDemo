@@ -1,9 +1,10 @@
 export interface CreateUserInput {
-  userName: string;
-  name: string;
-  surname: string;
-  emailAddress: string;
-  isActive: boolean;
-  roleNames: string[];
-  password: string;
+    firstName: string;
+    lastName: string;
+    userType: string;
+    department: string;
+    emailAddress: string;
+    isActive: boolean;
+    roleNames: string[];
+    password: string;
 }

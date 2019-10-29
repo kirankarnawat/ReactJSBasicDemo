@@ -1,34 +1,131 @@
-.App {
-  text-align: center;
-  background: #142c52;
+﻿body{font-size:11px; color:#424242; background:#eceff1; font-family: 'Conv_Roboto-Light';}
+@font-face {
+    font-family: 'Conv_Roboto-Bold';
+    src: url('fonts/Roboto-Bold.eot');
+    src: url('fonts/Roboto-Bold.woff') format('woff'), url('fonts/Roboto-Bold.ttf') format('truetype'), url('fonts/Roboto-Bold.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+@font-face {
+    font-family: 'Conv_Roboto-Light';
+    src: url('fonts/Roboto-Light.eot');
+    src: url('fonts/Roboto-Light.woff') format('woff'), url('fonts/Roboto-Light.ttf') format('truetype'), url('fonts/Roboto-Light.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Conv_Roboto-Medium';
+    src: url('fonts/Roboto-Medium.eot');
+    src: url('fonts/Roboto-Medium.woff') format('woff'), url('fonts/Roboto-Medium.ttf') format('truetype'), url('fonts/Roboto-Medium.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+@font-face {
+    font-family: 'Conv_Roboto-Regular';
+    src: url('fonts/Roboto-Regular.eot');
+    src: url('fonts/Roboto-Regular.woff') format('woff'), url('fonts/Roboto-Regular.ttf') format('truetype'), url('fonts/Roboto-Regular.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
+.logoDiv img {max-width: 127px;}
+.ml5{margin-left:5px !important}
+.ant-clearfix{clear:both}
+.loginConatiner{padding-top:14%;}
+.loginBox{max-width:533px; position:relative; display:table; margin:0px auto; -webkit-box-shadow: 1px 1px 5px 0px rgba(191,191,191,1); -moz-box-shadow: 1px 1px 5px 0px rgba(191,191,191,1); box-shadow: 1px 1px 5px 0px rgba(191,191,191,1);}
+.loginBox .loginBoxCon{}
+.loginBox .loginBoxCon .colLogLeft{width:250px; float:left; min-height:310px; background:#e41e35; color:#ffffff; padding:35px; padding-top:100px}
+.loginBox .loginBoxCon .colLogLeft h4{font-size:11px; font-family: 'Conv_Roboto-Bold'; margin-bottom:0px;color:#fff !important;font-weight:bold}
+.loginBox .loginBoxCon .colLogRight{width:283px; padding:20px 50px 0px 50px; float:left; min-height:310px; background:#ffffff}
+.loginBox .loginBoxCon .colLogRight .loginLogo{margin-bottom:20px; text-align:center}
+.loginBox .loginBoxCon .colLogRight .loginLogo img{max-width:118px;}
+.loginBox .loginBoxCon .colLogRight .loginForm .form-group{margin-bottom:10px}
+.loginBox .loginBoxCon .colLogRight .loginForm .form-group label{margin-bottom:2px;font-size:11px !important}
+.loginBox .loginBoxCon .colLogRight .loginForm .loginFooter{margin-bottom:5px; float:left; width:100%}
+.loginBox .loginBoxCon .colLogRight .loginForm .btn-primary{width:100%; float:left; padding:4px; border-bottom:0px}
+.loginBox .loginBoxCon .colLogRight .loginForm .passIcon{position:absolute; top:8px; right: 0; background: none; border: none;}
+.loginBox .loginBoxCon .colLogRight .loginForm .passIcon:focus{outline:none}
+.loginBox .loginBoxCon .colLogRight .loginForm .passIcon i{font-size:14px; color:#dbdbdb}
+.form-check-label{margin-top:3px; color:#a9a9a9}
+.loginBox .loginBoxCon .colLogRight .loginForm .ant-input-lg{height:31px;padding:5px;}
+.loginBox .loginBoxCon .colLogRight .ant-form-item{margin-bottom:0}
+.loginBox .loginBoxCon .colLogRight .loginForm .fotPass a{color:#4f94b3 !important;font-size:11px !important}
+.logoutIcon{position:absolute; margin-left:42%; top:38%; width:58px; height:58px; border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; background:#e41e35; border:7px solid #ffffff; padding-left:11px; padding-top:9px}
+.loginBox .float-left{float:left}
+.loginBox .ant-btn{height:auto;padding:0}
+.loginBox .loginBoxCon .colLogRight .loginForm .btn-primary{padding:0}
+.loginBox .float-right{float:right}
+.ant-form{font-size:11px !important}
+.ant-input,.ant-form-explain{font-size:11px !important}
+.ant-form-explain, .ant-form-extra{min-height:inherit !important}
+/*Login page End*/
 
-.App-title {
-  font-size: 1.5em;
+.ant-btn{text-transform:uppercase; text-align:center; padding:8.5px; font-size:11px}
+.ant-btn-default{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
+.ant-btn-default:hover{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
+.ant-btn-danger{background:#d63031; color:#ffffff; border-color:#d63031; border-bottom:2px solid #a61726}
+.ant-btn-primary:hover{background:#c22b2c; color:#ffffff; border-color:#c22b2c; border-bottom:2px solid #a61726}
+#root .togglebtn{position:absolute;left:0;top:0}
+/******************** Header CSS ********************/ 
+#root .ant-layout-header{height:auto}
+.logoDiv{text-align:center; width:100%; background:#ffffff; padding:10px 0px 7px 0px; -webkit-box-shadow: -1px 4px 5px 0px rgba(222,222,222,1); -moz-box-shadow: -1px 4px 5px 0px rgba(222,222,222,1); box-shadow: -1px 4px 5px 0px rgba(222,222,222,1);}
+.logoDiv img{max-width:127px}
+.navbarLeft{position:absolute; left:10px; top:10px;}
+.navbarLeft a .fa{font-size: 24px; color: #e41f35; padding-top: 10px;}
+.navbarRight{background:#fff;/*border-bottom:1px solid #e2e2e2;*/padding:5px 15px 0px 20px; position:absolute; right:0px; top:0px; z-index:1}
+.tblFilter{float: left; width: 100%; padding: 10px; padding-bottom:4px}
+.tblFilter h6{font-size:11px}
+.filterWrapp{}
+.filterWrapp .filterText{float:left; padding-right:10px}
+.filterWrapp .filterIcon{float:left; background-image: url("images/filter.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px}
+.filterWrapp .filterIcon:hover{background-image: url("images/filter-hover.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px}
+.navbarRight .userCircle::after{content:none}
+.navbarRight .userCircle{background:#e41f35; color:#ffffff; text-align:center; width:32px; height:32px; border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%}
+.userBox .dropdown-menu {}
+.userBox .dropdown-menu a{font-size:11px}
+.bellIcon{padding-top:7px; margin-right:23px}
+.bellIcon .fa{font-size:18px; color:#888888}
+/******************** Header CSS END ********************/
+
+/******************** Left Menu CSS ********************/
+.sidebarmenus {background: #fff}
+
+@keyframes swing {0% {transform: rotate(0deg);}
+10% {transform: rotate(10deg);}
+30% {transform: rotate(0deg);}
+40% {transform: rotate(-10deg);}
+50% {transform: rotate(0deg);}
+60% {transform: rotate(5deg);}
+70% {transform: rotate(0deg);}
+80% {transform: rotate(-5deg);}
+100% {transform: rotate(0deg);}
 }
-
-.App-intro {
-  font-size: large;
+@keyframes sonar {0% {transform: scale(0.9);opacity: 1;}
+100% {transform: scale(2);opacity: 0;}
 }
+#root .ant-layout-sider{background:#fff}
+#root .ant-menu-dark, #root .ant-menu-dark .ant-menu-sub{background:#fff}
+#root .sidebar{-webkit-box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);-moz-box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);}
+#root .ant-menu-dark, #root .ant-menu-dark .ant-menu-sub{color: #878787;}
+#root .ant-menu-item:hover, #root .ant-menu-item-active, #root .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, #root .ant-menu-submenu-active, #root .ant-menu-submenu-title:hover{color:#d63031;background:none}
+#root .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{background:none;color:#d63031;}
+#root .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{border-bottom: 4px solid #d63031;border-right:none}
+#root .ant-menu-submenu-selected{color:#d63031;}
+#root .ant-menu-vertical .ant-menu-item::after, #root .ant-menu-vertical-left .ant-menu-item::after, #root .ant-menu-vertical-right .ant-menu-item::after, #root .ant-menu-inline .ant-menu-item::after{border-right:0}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+#root .ant-layout-footer {
+    padding: 0;
+    font-size: 11px
 }
+.mainFooter{background:#4a5960; color:#ffffff; text-align:center; padding:5px; position:fixed; width:100%; bottom:0px; z-index:1}
+.mainFooter p{margin-bottom:0px}
+.table{margin-bottom:0px}
+.table thead{}
+.table thead tr th{font-weight:bold; color:#333333; font-weight:bold; border-bottom:2px solid #e1e1e1; padding:25px 5px 7px 5px}
+.table tbody{}
+.table tbody tr td{padding:25px 5px; color:#717171}
+.table thead tr th, .table tbody tr td{}
+ 
+.chkTBL .table thead tr th:first-child, .chkTBL .table tbody tr td:first-child{width:40px}
+

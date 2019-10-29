@@ -111,11 +111,12 @@ class User extends React.Component<IUserProps, IUserState> {
     };
 
     public render() {
-        sessionStorage.clear();
         const { users } = this.props.userStore;
         const columns = [
-            { title: 'UserName', dataIndex: 'userName', key: 'userName', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'FullName', dataIndex: 'name', key: 'name', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'FirstName', dataIndex: 'firstName', key: 'firstName', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'LastName', dataIndex: 'lastName', key: 'lastName', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'UserType', dataIndex: 'userType', key: 'userType', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'Department', dataIndex: 'department', key: 'department', width: 150, render: (text: string) => <div>{text}</div> },
             { title: 'EmailAddress', dataIndex: 'emailAddress', key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
             {
                 title: 'IsActive',

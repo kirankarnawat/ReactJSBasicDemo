@@ -2,9 +2,16 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components\\SiderMenu",
-    "\\src\\scenes"
+    "\\src\\components\\Header",
+    "\\src\\components\\Logout",
+    "\\src\\components\\Router",
+    "\\src\\scenes",
+    "\\src\\scenes\\Dashboard",
+    "\\src\\scenes\\Exception",
+    "\\src\\scenes\\Users",
+    "\\src\\scenes\\Users\\components",
+    "\\src\\services\\user"
   ],
-  "SelectedNode": "\\src\\scenes",
+  "SelectedNode": "\\src\\scenes\\Users\\components\\createOrUpdateUser.tsx",
   "PreviewInSolutionExplorer": false
 }
