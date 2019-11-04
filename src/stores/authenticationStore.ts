@@ -5,16 +5,18 @@ import tokenAuthService from '../services/tokenAuth/tokenAuthService';
 import { GetCurrentLoginInformations } from '../services/session/dto/getCurrentLoginInformations';
 import UserLoginInfoDto from '../services/session/dto/userLoginInfoDto';
 
-import Cookies from 'js-cookie'
+/*import Cookies from 'js-cookie'*/
 
-export const getAccessToken = () => Cookies.get('access_token')
+declare var lms: any;
+
+export const getAccessToken = () => lms.auth.getToken();
 
 class AuthenticationStore {
     @observable loginModel: LoginModel = new LoginModel();
 
     get isAuthenticated(): boolean
     {
-        let data = Cookies.get('access_token')
+        let data = lms.session.getUserCookie();
         if (!data) return false;
         return true;
     }
@@ -36,20 +38,20 @@ class AuthenticationStore {
         user.emailAddress = result.emailAddress;
         info.user = user;
         info.features = result.userFeatures;
-        sessionStorage.setItem('loginuser', JSON.stringify(info));
+
+        lms.session.setUserCookie(info);
 
         result.expireInSeconds = 3600;
 
         var tokenExpireDate = model.rememberMe ? new Date(new Date().getTime() + 1000 * result.expireInSeconds) : undefined;
 
-        Cookies.set('access_token', result.token, { expires: tokenExpireDate })
+        lms.auth.setToken(result.token,tokenExpireDate);
     }
 
     @action
     logout() {
-        localStorage.clear();
-        sessionStorage.clear();
-        Cookies.remove('access_token');
+        lms.session.removeUserCookie();
+        lms.auth.clearToken();
     }
 }
 export default AuthenticationStore;

@@ -2,16 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components\\Header",
-    "\\src\\components\\Logout",
-    "\\src\\components\\Router",
-    "\\src\\scenes",
-    "\\src\\scenes\\Dashboard",
-    "\\src\\scenes\\Exception",
-    "\\src\\scenes\\Users",
-    "\\src\\scenes\\Users\\components",
-    "\\src\\services\\user"
+    "\\src\\components",
+    "\\src\\lib",
+    "\\src\\services",
+    "\\src\\services\\dto",
+    "\\src\\services\\session",
+    "\\src\\services\\tokenAuth",
+    "\\src\\stores",
+    "\\src\\utils"
   ],
-  "SelectedNode": "\\src\\scenes\\Users\\components\\createOrUpdateUser.tsx",
+  "SelectedNode": "\\src\\lib\\lms.js",
   "PreviewInSolutionExplorer": false
 }

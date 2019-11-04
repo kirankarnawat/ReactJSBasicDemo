@@ -11,6 +11,8 @@ const { Sider } = Layout;
 
 const { SubMenu } = Menu;
 
+declare var lms: any;
+
 export interface ISiderMenuProps {
     path: any;
     collapsed: boolean;
@@ -18,10 +20,11 @@ export interface ISiderMenuProps {
     history: any;
 }
 
-const SiderMenu = (props: ISiderMenuProps) => {
+    const SiderMenu = (props: ISiderMenuProps) => {
     const { collapsed, history, onCollapse } = props;
 
-    const userJson = sessionStorage.getItem('loginuser');
+    const userJson = lms.session.getUserCookie();
+
     let result = userJson !== null ? JSON.parse(userJson) as GetCurrentLoginInformations : new GetCurrentLoginInformations();
     let dtfeatures = result.features;
 

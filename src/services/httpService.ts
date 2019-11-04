@@ -2,9 +2,9 @@ import AppConsts from './../lib/appconst';
 import { Modal } from 'antd';
 import axios from 'axios';
 
-import { getAccessToken } from '../stores/authenticationStore'
-
 const qs = require('qs');
+
+declare var lms: any;
 
 const http = axios.create({
     baseURL: AppConsts.remoteServiceBaseUrl,
@@ -18,9 +18,9 @@ const http = axios.create({
 
 http.interceptors.request.use(
     function (config) {
-        var token = getAccessToken();
-        if (!!token) {
-            config.headers.common['Authorization'] = 'Bearer ' + token;
+      
+        if (!!lms.auth.getToken()) {
+          config.headers.common['Authorization'] = 'Bearer ' + lms.auth.getToken();
         }
 
         return config;

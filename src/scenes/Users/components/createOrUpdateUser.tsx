@@ -151,7 +151,8 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
 
                 <Button onClick={onCancel} style={{ marginRight: 8 }}>
                     Cancel
-            </Button>
+               </Button>
+
                 <Button onClick={onCreate} type="primary">
                     Submit
             </Button>

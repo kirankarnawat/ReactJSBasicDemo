@@ -26,13 +26,13 @@ module.exports = {
         process.env.NODE_ENV === 'production'
           ? new CopyWebpackPlugin([
               {
-                from: 'node_modules/@aspnet/signalr/dist/browser/signalr.min.js',
-              }
+                from: 'src/lib/lms.js',
+              },
             ])
           : new CopyWebpackPlugin([
               {
-                from: 'node_modules/@aspnet/signalr/dist/browser/signalr.min.js',
-              }
+                from: 'src/lib/lms.js',
+              },
             ])
       );
 

@@ -2,16 +2,18 @@ import * as React from 'react';
 
 import { Route, Redirect } from 'react-router-dom';
 
-import Cookies from 'js-cookie'
+declare var lms: any;
 
 const ProtectedRoute = ({ path, component: Component, permission, render, ...rest }: any) => {
-     let data = Cookies.get('access_token');
-     let userdata = sessionStorage.getItem('loginuser');
+
+    let data = lms.auth.getToken();
+    let userdata = lms.session.getUserCookie();
+
     return (
         <Route
             {...rest}
             render={props => {
-
+                
                 const isauth = (!data) ? false : true;
                 const issession = (!userdata) ? false : true;
 
