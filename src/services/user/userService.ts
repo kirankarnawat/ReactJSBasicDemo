@@ -1,11 +1,11 @@
-import { CreateOrUpdateUserInput } from './vmodel/createOrUpdateUserInput';
-import { EntityDto } from '../../services/vmodel/entityDto';
-import { GetAllUserOutput } from './vmodel/getAllUserOutput';
-import { PagedResultDto } from '../../services/vmodel/pagedResultDto';
-import { PagedUserResultRequestDto } from "./vmodel/PagedUserResultRequestDto";
-import { UpdateUserInput } from './vmodel/updateUserInput';
+import { CreateOrUpdateUserInput } from './dto/createOrUpdateUserInput';
+import { EntityDto } from '../../services/dto/entityDto';
+import { GetAllUserOutput } from './dto/getAllUserOutput';
+import { PagedResultDto } from '../../services/dto/pagedResultDto';
+import { PagedUserResultRequestDto } from "./dto/PagedUserResultRequestDto";
+import { UpdateUserInput } from './dto/updateUserInput';
 import http from '../httpService';
-import { GetRoles } from './vmodel/getRolesOuput';
+import { GetRoles } from './dto/getRolesOuput';
 
 class UserService {
     public async create(createUserInput: CreateOrUpdateUserInput) {

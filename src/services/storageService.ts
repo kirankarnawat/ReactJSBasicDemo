@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 
 import AppConsts from './../lib/appconst';
 
-import { GetCurrentLoginInformations } from './session/vmodel/getCurrentLoginInformations';
+import { GetCurrentLoginInformations } from './session/dto/getCurrentLoginInformations';
 
 class StorageService {
 

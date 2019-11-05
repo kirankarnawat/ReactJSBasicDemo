@@ -1,5 +1,5 @@
-import { AuthenticationModel } from './vmodel/authenticationModel';
-import { AuthenticationResultModel } from './vmodel/authenticationResultModel';
+import { AuthenticationModel } from './dto/authenticationModel';
+import { AuthenticationResultModel } from './dto/authenticationResultModel';
 import http from '../httpService';
 
 declare var lms: any;

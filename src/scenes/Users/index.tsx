@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Button, Card, Col, Dropdown, Input, Menu, Modal, Row, Table, Tag, Icon  } from 'antd';
 import { inject, observer } from 'mobx-react';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
-import { EntityDto } from '../../services/vmodel/entityDto';
+import { EntityDto } from '../../services/dto/entityDto';
 
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';

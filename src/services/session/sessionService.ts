@@ -1,4 +1,4 @@
-import { GetCurrentLoginInformations } from './vmodel/getCurrentLoginInformations';
+import { GetCurrentLoginInformations } from './dto/getCurrentLoginInformations';
 
 import storageService from '../storageService';
 

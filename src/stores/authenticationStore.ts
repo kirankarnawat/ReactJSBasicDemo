@@ -2,8 +2,8 @@ import { action, observable } from 'mobx';
 import LoginModel from '../models/Login/loginModel';
 import tokenAuthService from '../services/tokenAuth/tokenAuthService';
 
-import { GetCurrentLoginInformations } from '../services/session/vmodel/getCurrentLoginInformations';
-import UserLoginInfoDto from '../services/session/vmodel/userLoginInfoDto';
+import { GetCurrentLoginInformations } from '../services/session/dto/getCurrentLoginInformations';
+import UserLoginInfoDto from '../services/session/dto/userLoginInfoDto';
 
 import storageService from '../services/storageService';
 
