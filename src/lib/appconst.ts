@@ -13,5 +13,6 @@ const AppConsts = {
     userCookieName: 'Lms.LoginUser',
     tokenCookieName: 'Lms.AuthToken',
     usercookieExpDays: 1,
+    encdecSecretKey: "P%T1<-:1$n!O189r^e"
 };
 export default AppConsts;

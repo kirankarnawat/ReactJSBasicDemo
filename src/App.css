@@ -1,4 +1,4 @@
-﻿body{font-size:11px; color:#424242; background:#eceff1; font-family: 'Conv_Roboto-Light';}
+﻿body{font-size:11px !important; color:#424242; background:#eceff1; font-family: 'Conv_Roboto-Light' !important;}
 @font-face {
     font-family: 'Conv_Roboto-Bold';
     src: url('fonts/Roboto-Bold.eot');
@@ -29,12 +29,17 @@
     font-weight: normal;
     font-style: normal;
 }
+.mb10 {margin-bottom: 10px !important;}
+body .ant-col-lg-1, body .ant-col-lg-2, body .ant-col-lg-3, body .ant-col-lg-4, body .ant-col-lg-5, body .ant-col-lg-6, body .ant-col-lg-7, body .ant-col-lg-8, body .ant-col-lg-9, body .ant-col-lg-10, body .ant-col-lg-11, body .ant-col-lg-12, body .ant-col-lg-13, body .ant-col-lg-14, body .ant-col-lg-15, body .ant-col-lg-16, body .ant-col-lg-17, body .ant-col-lg-18, body .ant-col-lg-19, body .ant-col-lg-20,body .ant-col-lg-21, body .ant-col-lg-22, body .ant-col-lg-23, body .ant-col-lg-24{padding-left:8px;padding-right:8px;}
+body .ant-col-sm-1, body .ant-col-sm-2, body .ant-col-sm-3, body .ant-col-sm-4, body .ant-col-sm-5, body .ant-col-sm-6, body .ant-col-sm-7, body .ant-col-sm-8, body .ant-col-sm-9, body .ant-col-sm-10, body .ant-col-sm-11, body .ant-col-sm-12, body .ant-col-sm-13, body .ant-col-sm-14, body .ant-col-sm-15, body .ant-col-sm-16, body .ant-col-sm-17, body .ant-col-sm-18, body .ant-col-sm-19, body .ant-col-sm-20,body .ant-col-sm-21, body .ant-col-sm-22, body .ant-col-sm-23, body .ant-col-sm-24{padding-left:8px;padding-right:8px;}
+body .ant-col-md-1, body .ant-col-md-2, body .ant-col-md-3, body .ant-col-md-4, body .ant-col-md-5, body .ant-col-md-6, body .ant-col-md-7, body .ant-col-md-8, body .ant-col-md-9, body .ant-col-md-10, body .ant-col-md-11, body .ant-col-md-12, body .ant-col-md-13, body .ant-col-md-14, body .ant-col-md-15, body .ant-col-md-16, body .ant-col-md-17, body .ant-col-md-18, body .ant-col-md-19, body .ant-col-md-20,body .ant-col-md-21, body .ant-col-md-22, body .ant-col-md-23, body .ant-col-md-24{padding-left:8px;padding-right:8px;}
+body .ant-col-xs-1, body .ant-col-xs-2, body .ant-col-xs-3, body .ant-col-xs-4, body .ant-col-xs-5, body .ant-col-xs-6, body .ant-col-xs-7, body .ant-col-xs-8, body .ant-col-xs-9, body .ant-col-xs-10, body .ant-col-xs-11, body .ant-col-xs-12, body .ant-col-xs-13, body .ant-col-xs-14, body .ant-col-xs-15, body .ant-col-xs-16, body .ant-col-xs-17, body .ant-col-xs-18, body .ant-col-xs-19, body .ant-col-xs-20,body .ant-col-xs-21, body .ant-col-xs-22, body .ant-col-xs-23, body .ant-col-xs-24{padding-left:8px;padding-right:8px;}
+body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right:-8px;margin-left:-8px;}
 .logoDiv img {max-width: 127px;}
 .ml5{margin-left:5px !important}
 .ant-clearfix{clear:both}
 .loginConatiner{padding-top:14%;}
 .loginBox{max-width:533px; position:relative; display:table; margin:0px auto; -webkit-box-shadow: 1px 1px 5px 0px rgba(191,191,191,1); -moz-box-shadow: 1px 1px 5px 0px rgba(191,191,191,1); box-shadow: 1px 1px 5px 0px rgba(191,191,191,1);}
-.loginBox .loginBoxCon{}
 .loginBox .loginBoxCon .colLogLeft{width:250px; float:left; min-height:310px; background:#e41e35; color:#ffffff; padding:35px; padding-top:100px}
 .loginBox .loginBoxCon .colLogLeft h4{font-size:11px; font-family: 'Conv_Roboto-Bold'; margin-bottom:0px;color:#fff !important;font-weight:bold}
 .loginBox .loginBoxCon .colLogRight{width:283px; padding:20px 50px 0px 50px; float:left; min-height:310px; background:#ffffff}
@@ -61,11 +66,11 @@
 .ant-form-explain, .ant-form-extra{min-height:inherit !important}
 /*Login page End*/
 
-.ant-btn{text-transform:uppercase; text-align:center; padding:8.5px; font-size:11px}
-.ant-btn-default{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
-.ant-btn-default:hover{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
-.ant-btn-danger{background:#d63031; color:#ffffff; border-color:#d63031; border-bottom:2px solid #a61726}
-.ant-btn-primary:hover{background:#c22b2c; color:#ffffff; border-color:#c22b2c; border-bottom:2px solid #a61726}
+#root .ant-btn{text-transform:uppercase; text-align:center; padding:8.5px; font-size:11px}
+#root .ant-btn-default{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
+#root .ant-btn-default:hover{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
+#root .ant-btn-danger{background:#d63031; color:#ffffff; border-color:#d63031; border-bottom:2px solid #a61726}
+#root .ant-btn-primary:hover{background:#c22b2c; color:#ffffff; border-color:#c22b2c; border-bottom:2px solid #a61726}
 #root .togglebtn{position:absolute;left:0;top:0}
 /******************** Header CSS ********************/ 
 #root .ant-layout-header{height:auto}
@@ -76,13 +81,10 @@
 .navbarRight{background:#fff;/*border-bottom:1px solid #e2e2e2;*/padding:5px 15px 0px 20px; position:absolute; right:0px; top:0px; z-index:1}
 .tblFilter{float: left; width: 100%; padding: 10px; padding-bottom:4px}
 .tblFilter h6{font-size:11px}
-.filterWrapp{}
-.filterWrapp .filterText{float:left; padding-right:10px}
 .filterWrapp .filterIcon{float:left; background-image: url("images/filter.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px}
 .filterWrapp .filterIcon:hover{background-image: url("images/filter-hover.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px}
 .navbarRight .userCircle::after{content:none}
 .navbarRight .userCircle{background:#e41f35; color:#ffffff; text-align:center; width:32px; height:32px; border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%}
-.userBox .dropdown-menu {}
 .userBox .dropdown-menu a{font-size:11px}
 .bellIcon{padding-top:7px; margin-right:23px}
 .bellIcon .fa{font-size:18px; color:#888888}
@@ -104,6 +106,7 @@
 @keyframes sonar {0% {transform: scale(0.9);opacity: 1;}
 100% {transform: scale(2);opacity: 0;}
 }
+#root .ant-card{font-size:11px}
 #root .ant-layout-sider{background:#fff}
 #root .ant-menu-dark, #root .ant-menu-dark .ant-menu-sub{background:#fff}
 #root .sidebar{-webkit-box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);-moz-box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);box-shadow: 4px 3px 5px 0px rgba(199,195,199,1);}
@@ -113,19 +116,152 @@
 #root .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{border-bottom: 4px solid #d63031;border-right:none}
 #root .ant-menu-submenu-selected{color:#d63031;}
 #root .ant-menu-vertical .ant-menu-item::after, #root .ant-menu-vertical-left .ant-menu-item::after, #root .ant-menu-vertical-right .ant-menu-item::after, #root .ant-menu-inline .ant-menu-item::after{border-right:0}
+#root .ant-layout-footer {padding: 0;font-size: 11px}
 
-#root .ant-layout-footer {
-    padding: 0;
-    font-size: 11px
-}
 .mainFooter{background:#4a5960; color:#ffffff; text-align:center; padding:5px; position:fixed; width:100%; bottom:0px; z-index:1}
 .mainFooter p{margin-bottom:0px}
-.table{margin-bottom:0px}
-.table thead{}
-.table thead tr th{font-weight:bold; color:#333333; font-weight:bold; border-bottom:2px solid #e1e1e1; padding:25px 5px 7px 5px}
-.table tbody{}
-.table tbody tr td{padding:25px 5px; color:#717171}
-.table thead tr th, .table tbody tr td{}
- 
-.chkTBL .table thead tr th:first-child, .chkTBL .table tbody tr td:first-child{width:40px}
 
+.table{margin-bottom:0px}
+#root table{border:none}
+#root .ant-table-bordered .ant-table-thead > tr > th, #root .ant-table-bordered .ant-table-tbody > tr > td{border-right:none}
+#root .ant-table-thead > tr > th{background:none}
+#root .conHeader {border-bottom: 1px solid #ddd;}
+
+.table thead tr th{font-weight:bold; color:#333333; font-weight:bold; border-bottom:2px solid #e1e1e1; padding:25px 5px 7px 5px}
+.table tbody tr td{padding:10px 5px; color:#717171}
+.chkTBL .table thead tr th:first-child, .chkTBL .table tbody tr td:first-child{width:40px}
+/* .editbtn{background-image: url("images/filter.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px;display:inline-block}
+.editbtn{background-image: url("images/filter.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px;display:inline-block} */
+.tablehoverbuttons{position:relative; cursor:pointer}
+.buttonshover{position:absolute;top:0;left:-10px;z-index:100;display:none; background:#d63032; border-radius:10px; padding:3px;}
+.tablehoverbuttons:hover .buttonshover{display:block}
+.tablehoverbuttons .editbtn,.tablehoverbuttons .deletebtn{display:inline-block;color:#fff;padding:2px 5px}
+
+.floatleft{float: left}
+.floatright{float: right}
+
+.filterWrapp .filterText{float:left; padding-right:10px}
+.filterWrapp .filterIcon{float:left; background-image: url("images/filter.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px}
+.filterWrapp .filterIcon:hover{background-image: url("images/filter-hover.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px}
+
+.co-Breadcrumb .breadcrumb{background:none; padding:0px; margin-bottom:10px}
+.co-Breadcrumb .breadcrumb .ant-breadcrumb-link{color:#969696; font-size:18px}
+.co-Breadcrumb .breadcrumb .ant-breadcrumb-link .active{font-family:'Conv_Roboto-Bold'; color:#333333}
+.co-Breadcrumb .breadcrumb .ant-breadcrumb-link a{color:#333333}
+
+ul li{list-style: none;}
+ul.headerListing li{float:left; padding-left:43px; font-size:11px;}
+ul.headerListing li a{color:#5b5b5b; float:left}
+ul.headerListing li a span.text{float:left; padding-top:8px}
+ul.headerListing li a span.icon{float:left; width:28px; height:28px; margin-left:10px; background:#333333; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px;}
+ul.headerListing li a .icon.iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat; background-position: 7px 7px;}
+ul.headerListing li a .icon.iconbulkImp{background-image: url("images/bulk-import.png"); background-repeat: no-repeat, repeat; background-position:4px 4px;}
+ul.headerListing li a .icon.iconExTOEx{background-image: url("images/export-xls.png"); background-repeat: no-repeat, repeat; background-position:6px 5px;}
+ul.headerListing li a:hover{color:#d63032} 
+ul.headerListing li a:hover span.icon{background-color:#d63032}
+ul.headerListing li.active a span.icon{background-color:#d63032 !important;}
+ul.headerListing li.active a{color:#d63032; float:left}
+
+.sysId{float: right;font-family: 'Conv_Roboto-Bold';position: absolute;right:0px;top: 5px;font-size: 16px;}
+.ant-drawer .ant-drawer-body{font-size:11px}
+.ant-drawer .ant-drawer-close{background:url("images/back-icon.png") 0 0 no-repeat;top:30%;width:32px;}
+.ant-drawer .anticon-close{display:none}
+.ant-drawer .ant-drawer-header{padding: 16px 10px;}
+.ant-drawer .ant-drawer-body{padding: 16px 10px;}
+.ant-drawer .ant-form-item-control-wrapper{margin-bottom:10px;font-size:11px}
+.ant-drawer .ant-form-item{margin-bottom:0px}
+.ant-drawer .ant-form-item-label{line-height:inherit;margin-bottom:5px}
+.ant-drawer .ant-form-item-control{line-height:inherit;margin-bottom:5px}
+.ant-drawer .ant-form-item label{margin-bottom:5px;display: inline-block;font-size: 12px;font-family: 'Conv_Roboto-Regular'; color:#333333}
+.start{color:#f00}
+
+.filterBody{float:left; width:100%; padding:0}
+.filterBody .clearFilter {float:right; padding:7px 0px 12px 0px}
+.filterBody .clearFilter .span{float:left}
+.filterBody .clearFilter .cleText{color:#3a4042; float:left; padding-right:10px}
+.filterBody .clearFilter .cleIcon{background-image: url("images/clear-all.png"); background-repeat: no-repeat, repeat; background-position:0px 0px;float:left; width:18px; height:19px;}
+.filterForm {float:left; width:100%}
+.filterForm .lblText{float:left;color:#333333;font-size:12px;font-family: 'Conv_Roboto-Regular';}
+.filterForm .clearText{text-decoration:underline; float:right; color:#a2a2a2; font-family: 'Conv_Roboto-Light'; padding-top:2px}
+.filterForm .form-control{height:31px; padding:5px}
+.filterFooter{width:100%; float:left}
+.filterFooter .btn{width:100%; float:left}
+.filterFooter .ant-btn-primary{width: 100%;float: left;}
+
+.oigStatus{background:#edf3f7; float:left; width:100%; padding:10px;font-size:11px}
+.oigStatus h5 .text{color:#3e3f3f; font-size:12px}
+.oigStatus h5 .faExIcon .fa{color:#2196f3; font-size:20px}
+.oigStatus p.noRecord{color:#d8671e; margin-bottom:0px}
+.oigStatus .ant-btn-default{margin-top:5px}
+.SystemGenTExt {color:#b5b5b5;margin-left: 5px; font-size:10px;}
+
+.hrLine{border-bottom: 1px solid #dcdcdc;}
+.bulkImpFooter{border-top:1px solid #d4d4d4; float:left; width:100%; padding:30px 0px; width:520px;}
+ul.bulkImpListing{margin: 0px auto; display: table;}
+ul.bulkImpListing li{width:200px; float: left; margin-left: 30px;}
+ul.bulkImpListing li:first-child{margin:0px}
+ul.bulkImpListing li .ant-btn{width:100%; min-width:200px}
+.pos{position:relative}
+
+.ant-drawer .ant-drawer-title{font-family: 'Conv_Roboto-Bold'; font-size:18px}
+.ant-drawer .ant-tabs-nav {float:left; width:100%; border-bottom:2px solid #e0e0e0}
+.ant-drawer .ant-tabs-nav .ant-tabs-tab{padding:10px 5px; font-size:16px; color:#848484; margin:0px 15px;font-family: 'Conv_Roboto-Bold'; margin:0px 20px 0px 0px}
+.ant-drawer .ant-tabs .ant-tabs-small-bar .ant-tabs-tab{padding:8px 12px}
+.ant-drawer .ant-tabs-nav .ant-tabs-tab:hover{border:none;color:#e41f35}
+.ant-drawer .ant-tabs-nav .ant-tabs-ink-bar{border:none; border-bottom:3px solid #e41f35 !important; }
+.ant-drawer .ant-tabs-nav .ant-tabs-tab-active{font-family: 'Conv_Roboto-Bold';}
+.ant-drawer .ant-btn{text-transform:uppercase; text-align:center; padding:8.5px; font-size:11px}
+.ant-drawer .ant-btn-default{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
+.ant-drawer .ant-btn-default:hover{background:#d63031; color:#ffffff; border-color:#d63031; border-bottom:2px solid #a61726}
+.ant-drawer .ant-btn-danger{background:#d63031; color:#ffffff; border-color:#d63031; border-bottom:2px solid #a61726}
+.ant-drawer .ant-btn-danger:hover{background:#c22b2c; color:#ffffff; border-color:#c22b2c; border-bottom:2px solid #a61726}
+.ant-drawer .ant-btn-primary{background:#d63031; color:#ffffff; border-color:#d63031; border-bottom:2px solid #a61726}
+.ant-drawer .ant-btn-primary:hover{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
+
+.successBox{background:#edf3f7; float:left; width:100%; padding:10px;margin-bottom:6px;}
+.successBox  .iconLeft{width:10%; text-align:center}
+.successBox  .iconLeft .fa-check-circle{font-size:40px; color:#05b654}
+.successBox  .successBoxText{width:90%; padding-left:10px}
+.successBox  .successBoxText h4{margin-bottom:0px; font-size:16px;}
+.successBox  .successBoxText p{margin-bottom:0px; font-size:11px}
+.successBox p{color:#3e3f3f; font-size:12px}
+
+.assignHead{float:left; width:100%; border-bottom:2px solid #e0e0e0; padding:0px 0px 10px 0px}
+.assignHead h5{margin-bottom:0px; margin-top:0px; font-size:14px; font-weight:bold}
+.assignHead h6{margin-bottom:0px; margin-top:0px; font-size:11px; padding-top:3px}
+.assignedBox{border-bottom:1px solid #cdcdcd}
+.assignedBoxLeft{width:75%}
+.assignedBoxRight{width:25%}
+.assignedBox h5{font-weight:bold; font-size:16px; padding:10px 0px 0px 0px}
+.assignedBox h6{font-weight:bold; font-size:12px; margin-bottom:0px}
+.assignedBox p{font-size:11px}
+.buttonfooter {position: fixed;bottom: 0px;}
+.bulkUpload .ant-upload.ant-upload-drag{border:2px dashed #629cda; margin-top:10px; padding:20px; text-align:center; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
+.bulkUpload .ant-btn{width:110px}
+.bulkUpload .hintText{margin-bottom:15px; font-size:11px;}
+.bulkUpload .decorated{overflow: hidden;text-align: center; width: 180px; margin: 0 auto; margin-bottom:15px; color:#9a9a9a}
+.bulkUpload .decorated > span{position: relative; display: inline-block;}
+.bulkUpload .decorated > span:before, .decorated > span:after{ content: ''; position: absolute; top: 50%; border-bottom:1px solid #b7b7b7; width: 591px; /* half of limiter*/ margin: 0 20px;}
+.bulkUpload .decorated > span:before{right: 100%;}
+.bulkUpload .decorated > span:after{left: 100%;}
+.bulkUpload .downloadTemp{padding-top:15px; float:right}
+.bulkUpload .ant-btn-primary{min-width:190px}
+.bulkUpload .bulkImpFooter{border-top:1px solid #d4d4d4; float:left; width:100%; padding:30px 0px; width:520px;}
+.bulkUpload ul.bulkImpListing{margin: 0px auto; display: table;}
+.bulkUpload ul.bulkImpListing li{width:200px; float: left; margin-left: 30px;}
+.bulkUpload ul.bulkImpListing li:first-child{margin:0px}
+.bulkUpload ul.bulkImpListing li .btn{width:100%; min-width:200px}
+
+ul.assListing{padding:0px 0px 10px 0px; float:left; width:100%}
+ul.assListing li{float:left; padding-right:20px}
+ul.assListing li .text{padding-left:5px}
+ul.assListing li .iconCourse{background-image: url("images/course.png"); background-repeat: no-repeat, repeat; background-position:0px 0px; float:left; width:14px; height:18px;}
+ul.assListing li.course{color:#585d5e}
+ul.assListing li.mins{color:#329adf}
+ul.assListing li.free{color:#34b99a}
+ul.assListing li.date{color:#ac71c4}
+ul.assListing li.program{color:#d45300}
+ul.assListing li .iconMins{background-image: url("images/mins.png"); background-repeat: no-repeat, repeat; background-position:0px 0px; float:left; width:16px; height:15px;}
+ul.assListing li .iconFree{background-image: url("images/free.png"); background-repeat: no-repeat, repeat; background-position:0px 0px; float:left; width:18px; height:17px;}
+ul.assListing li .iconDate{background-image: url("images/date.png"); background-repeat: no-repeat, repeat; background-position:0px 0px; float:left; width:15px; height:16px;}
+ul.assListing li .iconprogram{background-image: url("images/program.png"); background-repeat: no-repeat, repeat; background-position:0px 0px; float:left; width:15px; height:16px;}

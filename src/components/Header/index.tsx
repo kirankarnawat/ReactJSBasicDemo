@@ -2,7 +2,7 @@ import './index.less';
 
 import * as React from 'react';
 
-import { Avatar, Badge, Col, Dropdown, Icon, Menu, Row } from 'antd';
+import { Avatar, Badge, Col, Dropdown, Icon, Menu } from 'antd';
 
 import { Link } from 'react-router-dom';
 
@@ -28,7 +28,8 @@ export class Header extends React.Component<IHeaderProps> {
     render() {
         return (
 
-            <Row className={'header-container'}>
+            <Col className={'header-container'}>
+            
                 <div className="navbarLeft">
                     <a href="#"><i className="fa fa-home"></i></a>
                 </div>
@@ -47,7 +48,7 @@ export class Header extends React.Component<IHeaderProps> {
                     </Dropdown>
                     </Col>
                    </div>
-            </Row>
+            </Col>
         );
     }
 }

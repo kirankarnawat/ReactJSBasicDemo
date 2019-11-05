@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import * as CryptoJS from "crypto-js";
 
 import AppConsts from './../lib/appconst';
 
@@ -8,12 +9,15 @@ class StorageService {
 
     //Token actions
     public async setToken(value: any, expireDate: any) {
-        Cookies.set(AppConsts.tokenCookieName, JSON.stringify(value), { expires: expireDate } );
+        var enckey = CryptoJS.AES.encrypt(JSON.stringify(value), AppConsts.encdecSecretKey);
+        Cookies.set(AppConsts.tokenCookieName, enckey, { expires: expireDate } );
     }
 
     public async getToken() {
         const userJson = Cookies.get(AppConsts.tokenCookieName);
-        let result = userJson !== undefined ? JSON.parse(userJson) : userJson;
+        var bytes = userJson !== undefined ? CryptoJS.AES.decrypt(userJson.toString(), AppConsts.encdecSecretKey) : userJson;
+        var result = bytes !== undefined ? JSON.parse(bytes.toString(CryptoJS.enc.Utf8)) : bytes;
+
         return result;
     }
 
@@ -24,12 +28,15 @@ class StorageService {
 
     //Loged User Action
     public async setUserCookie(value: any) {
-        Cookies.set(AppConsts.userCookieName, JSON.stringify(value), { expires: new Date(new Date().getTime() + AppConsts.usercookieExpDays * 86400000) });
+        var enckey = CryptoJS.AES.encrypt(JSON.stringify(value), AppConsts.encdecSecretKey);
+        Cookies.set(AppConsts.userCookieName, enckey, { expires: new Date(new Date().getTime() + AppConsts.usercookieExpDays * 86400000) });
     }
 
     public getUserCookie(): GetCurrentLoginInformations {
         const userJson = Cookies.get(AppConsts.userCookieName);
-        let result = userJson !== undefined ? JSON.parse(userJson) : userJson;
+        var bytes = userJson !== undefined ? CryptoJS.AES.decrypt(userJson.toString(), AppConsts.encdecSecretKey) : userJson;
+        var result = bytes !== undefined ? JSON.parse(bytes.toString(CryptoJS.enc.Utf8)) : bytes;
+
         return result;
     }
 
