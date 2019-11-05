@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 
-import { GetCurrentLoginInformations } from '../services/session/dto/getCurrentLoginInformations';
+import { GetCurrentLoginInformations } from '../services/session/vmodel/getCurrentLoginInformations';
 import sessionService from '../services/session/sessionService';
 
 class SessionStore {
@@ -11,6 +11,13 @@ class SessionStore {
         let result = await sessionService.getCurrentLoginInformations();
 
         this.currentLogin = result;
+    }
+
+    @action
+    async getCurrentLoginFeatures() {
+        let result = await sessionService.getCurrentLoginInformations();
+
+        return result.features;
     }
 }
 

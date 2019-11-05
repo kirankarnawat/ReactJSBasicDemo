@@ -1,5 +1,3 @@
-//import './index.less';
-
 import * as React from 'react';
 
 import { Button, Checkbox, Form, Input } from 'antd';
@@ -10,7 +8,6 @@ import { FormComponentProps } from 'antd/lib/form';
 
 import { Redirect } from 'react-router-dom';
 
-import SessionStore from '../../stores/sessionStore';
 import Stores from '../../stores/storeIdentifier';
 
 import rules from './index.validation';
@@ -19,12 +16,11 @@ const FormItem = Form.Item;
 
 export interface ILoginProps extends FormComponentProps {
     authenticationStore?: AuthenticationStore;
-    sessionStore?: SessionStore;
     history: any;
     location: any;
 }
 
-@inject(Stores.AuthenticationStore, Stores.SessionStore)
+@inject(Stores.AuthenticationStore)
 
 @observer
 class Login extends React.Component<ILoginProps> {

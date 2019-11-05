@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { Route, Redirect } from 'react-router-dom';
 
-declare var lms: any;
+import storageService from '../../services/storageService';
 
 const ProtectedRoute = ({ path, component: Component, permission, render, ...rest }: any) => {
 
-    let data = lms.auth.getToken();
-    let userdata = lms.session.getUserCookie();
+    var data = storageService.getToken();
+    var userdata = storageService.getUserCookie();
 
     return (
         <Route

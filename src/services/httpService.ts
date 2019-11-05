@@ -1,10 +1,9 @@
 import AppConsts from './../lib/appconst';
 import { Modal } from 'antd';
 import axios from 'axios';
+import storageService from './storageService';
 
 const qs = require('qs');
-
-declare var lms: any;
 
 const http = axios.create({
     baseURL: AppConsts.remoteServiceBaseUrl,
@@ -19,8 +18,8 @@ const http = axios.create({
 http.interceptors.request.use(
     function (config) {
       
-        if (!!lms.auth.getToken()) {
-          config.headers.common['Authorization'] = 'Bearer ' + lms.auth.getToken();
+        if (!!storageService.getToken()) {
+            config.headers.common['Authorization'] = 'Bearer ' + storageService.getToken();
         }
 
         return config;

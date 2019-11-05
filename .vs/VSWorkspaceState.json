@@ -4,12 +4,12 @@
     "\\src",
     "\\src\\components",
     "\\src\\lib",
+    "\\src\\scenes",
+    "\\src\\scenes\\Dashboard",
     "\\src\\services",
     "\\src\\services\\dto",
     "\\src\\services\\session",
-    "\\src\\services\\tokenAuth",
-    "\\src\\stores",
-    "\\src\\utils"
+    "\\src\\services\\tokenAuth"
   ],
   "SelectedNode": "\\src\\lib\\lms.js",
   "PreviewInSolutionExplorer": false

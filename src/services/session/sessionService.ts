@@ -1,15 +1,12 @@
-import { GetCurrentLoginInformations } from './dto/getCurrentLoginInformations';
+import { GetCurrentLoginInformations } from './vmodel/getCurrentLoginInformations';
 
-declare var lms: any;
+import storageService from '../storageService';
 
 class SessionService {
 
     public async getCurrentLoginInformations(): Promise<GetCurrentLoginInformations>
     {
-        const userJson =lms.session.getUserCookie();
-        
-        let result = userJson !== null ? JSON.parse(userJson) as GetCurrentLoginInformations : new GetCurrentLoginInformations();
-
+        const result = storageService.getUserCookie();
         return result;
     }
 }

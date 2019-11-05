@@ -2,21 +2,19 @@ import { action, observable } from 'mobx';
 import LoginModel from '../models/Login/loginModel';
 import tokenAuthService from '../services/tokenAuth/tokenAuthService';
 
-import { GetCurrentLoginInformations } from '../services/session/dto/getCurrentLoginInformations';
-import UserLoginInfoDto from '../services/session/dto/userLoginInfoDto';
+import { GetCurrentLoginInformations } from '../services/session/vmodel/getCurrentLoginInformations';
+import UserLoginInfoDto from '../services/session/vmodel/userLoginInfoDto';
 
-/*import Cookies from 'js-cookie'*/
+import storageService from '../services/storageService';
 
-declare var lms: any;
-
-export const getAccessToken = () => lms.auth.getToken();
+export const getAccessToken = () => storageService.getToken(); 
 
 class AuthenticationStore {
     @observable loginModel: LoginModel = new LoginModel();
 
     get isAuthenticated(): boolean
     {
-        let data = lms.session.getUserCookie();
+        let data = storageService.getUserCookie(); 
         if (!data) return false;
         return true;
     }
@@ -27,7 +25,6 @@ class AuthenticationStore {
         let result = await tokenAuthService.authenticate({
             emailAddress: model.emailAddress,
             password: model.password
-            //rememberClient: model.rememberMe,
         });
         
         var info = new GetCurrentLoginInformations();
@@ -39,19 +36,20 @@ class AuthenticationStore {
         info.user = user;
         info.features = result.userFeatures;
 
-        lms.session.setUserCookie(info);
+        storageService.setUserCookie(info);
 
         result.expireInSeconds = 3600;
 
         var tokenExpireDate = model.rememberMe ? new Date(new Date().getTime() + 1000 * result.expireInSeconds) : undefined;
 
-        lms.auth.setToken(result.token,tokenExpireDate);
+        storageService.setToken(result.token, tokenExpireDate);
     }
 
     @action
     logout() {
-        lms.session.removeUserCookie();
-        lms.auth.clearToken();
+        debugger;
+        storageService.removeUserCookie();
+        storageService.clearToken();
     }
 }
 export default AuthenticationStore;

@@ -5,13 +5,11 @@ import * as React from 'react';
 import { Icon, Layout, Menu } from 'antd';
 
 import { appRouters } from '../../components/Router/router.config';
-import { GetCurrentLoginInformations } from '../../services/session/dto/getCurrentLoginInformations';
+import storageService from '../../services/storageService';
 
 const { Sider } = Layout;
 
 const { SubMenu } = Menu;
-
-declare var lms: any;
 
 export interface ISiderMenuProps {
     path: any;
@@ -20,13 +18,12 @@ export interface ISiderMenuProps {
     history: any;
 }
 
-    const SiderMenu = (props: ISiderMenuProps) => {
+
+const SiderMenu = (props: ISiderMenuProps) => {
     const { collapsed, history, onCollapse } = props;
-
-    const userJson = lms.session.getUserCookie();
-
-    let result = userJson !== null ? JSON.parse(userJson) as GetCurrentLoginInformations : new GetCurrentLoginInformations();
-    let dtfeatures = result.features;
+  
+    let result = storageService.getUserCookie();
+    let dtfeatures = (result.features !== undefined) ? result.features : [];
 
     return (
         <Sider trigger={null} className={'sidebar'} width={200} collapsible collapsed={collapsed} onCollapse={onCollapse}>
