@@ -58,7 +58,7 @@ class AppLayout extends React.Component<any> {
                         </Switch>
                     </Content>
                 </Layout>
-                <Layout.Footer style={{ textAlign: 'center' }}>
+                <Layout.Footer style={{ textAlign: 'center',padding:'0',fontSize:'11px' }}>
                     <Footer />
                 </Layout.Footer>
             </Layout>

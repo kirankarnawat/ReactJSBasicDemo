@@ -1,16 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\node_modules\\webpack",
     "\\src",
-    "\\src\\components",
     "\\src\\lib",
     "\\src\\scenes",
-    "\\src\\scenes\\Dashboard",
-    "\\src\\services",
-    "\\src\\services\\dto",
-    "\\src\\services\\session",
-    "\\src\\services\\tokenAuth"
+    "\\src\\scenes\\Dashboard"
   ],
-  "SelectedNode": "\\src\\lib\\lms.js",
+  "SelectedNode": "\\node_modules",
   "PreviewInSolutionExplorer": false
 }

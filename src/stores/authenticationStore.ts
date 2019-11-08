@@ -24,7 +24,8 @@ class AuthenticationStore {
 
         let result = await tokenAuthService.authenticate({
             emailAddress: model.emailAddress,
-            password: model.password
+            password: model.password,
+            salt: ''
         });
         
         var info = new GetCurrentLoginInformations();

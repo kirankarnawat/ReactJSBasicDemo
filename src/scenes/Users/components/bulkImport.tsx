@@ -28,7 +28,7 @@ class BulkImport extends React.Component<ICreateOrUpdateUserProps> {
     render() {
         const { visible, onCancel } = this.props;
         return (
-            <Drawer title={'Filter'} width={560} onClose={onCancel} visible={visible}>
+            <Drawer title={'Bulk Import'} width={560} onClose={onCancel} visible={visible}>
                     <div className="bulkUpload">
                         <div className="pos">
                     <Dragger {...uploadprops}>
@@ -51,9 +51,6 @@ class BulkImport extends React.Component<ICreateOrUpdateUserProps> {
                                 <ul className="bulkImpListing">
                                     <li>
                                         <button type="submit" className="ant-btn ant-btn-primary">Submit</button>
-                                    </li>
-                                    <li>
-                                        <button type="submit" className="ant-btn ant-btn-default">Cancel</button>
                                     </li>
                                 </ul>
                             </div>

@@ -153,14 +153,14 @@ class User extends React.Component<IUserProps, IUserState> {
     
            
             {
-                title: 'Actions',
+                title: 'Options',
                 width: 150,
                 render: (text: string, item: any) => (
                     <div>
                    <div className="tablehoverbuttons"> <Icon type="ellipsis" />
                     <div className="buttonshover">
-                     <div className="editbtn" onClick={() => this.createOrUpdateModalOpen({ id: item.id })}><Icon type="edit" /></div>
-                     <div className="deletebtn" onClick={() => this.delete({ id: item.id })}><Icon type="delete" /></div>
+                     <div className="editbtn" onClick={() => this.createOrUpdateModalOpen({ id: item.id })}><Icon type="bar-chart" /> </div>
+                     <div className="deletebtn" onClick={() => this.delete({ id: item.id })}><Icon type="edit" /></div>
                      </div>
                      </div>
                         {/* <Dropdown
@@ -188,7 +188,7 @@ class User extends React.Component<IUserProps, IUserState> {
                 <Row>
                 <Col className="contentHeader">
                 <div className="conHeader">
-                    <div className="ant-row">
+                    <div className="antd-row">
                     <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
                     <Col className="floatleft"
                        xs={{ span:12}}
@@ -237,7 +237,7 @@ class User extends React.Component<IUserProps, IUserState> {
                     </Col>
                 </Row> */}
                       <div className="conHeader">
-                      <div className="ant-row">
+                      <div className="antd-row">
                         <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
                         <div className="tblFilter">
                                 <div className="floatleft">
@@ -253,7 +253,7 @@ class User extends React.Component<IUserProps, IUserState> {
                             </div>
                             </div>
                             </div>
-                <Row style={{ marginTop: 20 }}>
+                <Row className="antd-row">
                     <Col
                         xs={{ span: 24, offset: 0 }}
                         sm={{ span: 24, offset: 0 }}
@@ -262,7 +262,7 @@ class User extends React.Component<IUserProps, IUserState> {
                         xl={{ span: 24, offset: 0 }}
                         xxl={{ span: 24, offset: 0 }}
                     >
-                        <div className="table-responsive">
+                        <div className="tableContainer table-responsive">
                             <Table
                                 rowKey={record => record.id.toString()}
                                 size={'default'}

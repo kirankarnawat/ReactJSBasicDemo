@@ -29,16 +29,15 @@ export class Header extends React.Component<IHeaderProps> {
         return (
 
             <Col className={'header-container'}>
-            
                 <div className="navbarLeft">
-                    <a href="#"><i className="fa fa-home"></i></a>
+                    <a href="#"><Icon type="home" /></a>
                 </div>
+                <Col className="togglebtn">
+                    <Icon className="trigger" type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'} onClick={this.props.toggle} />
+                </Col>
                 <div className="logoDiv">
                     <img src={require('../../images/main-logo.png')} alt="logo" />
                 </div>
-                <Col className="togglebtn" span={12}>
-                    <Icon className="trigger" type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'} onClick={this.props.toggle} />
-                </Col>
                 <div className="navbarRight">
                 <Col style={{ padding: '0px 15px 0px 15px', textAlign: 'right' }} span={12}>
                     <Dropdown overlay={userDropdownMenu} trigger={['click']}>

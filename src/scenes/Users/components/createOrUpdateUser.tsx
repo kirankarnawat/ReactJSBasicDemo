@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import { Form, Input, Tabs, Drawer, Button,Col, message,Row } from 'antd';
+import { Form, Input, Tabs, Drawer, Button,Col,Icon, message,Row } from 'antd';
 
 //import CheckboxGroup from 'antd/lib/checkbox/Group';
 import { FormComponentProps } from 'antd/lib/form';
 import FormItem from 'antd/lib/form/FormItem';
-import AntdIcon from '@ant-design/icons-react';
 import { GetRoles } from '../../../services/user/dto/getRolesOuput';
 import rules from './createOrUpdateUser.validation';
 const TabPane = Tabs.TabPane;
@@ -67,7 +66,7 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
                     <Col xs={{ span:24}} sm={{ span:24}} md={{ span:24}} lg={{ span:24}}>
                     <div className="successBox">
                         <div className="iconLeft floatleft">
-                            <i className="fa fa-check-circle"></i>
+                        <Icon type="check-circle" />
                         </div>
                         <div className="successBoxText floatleft">
                             <h4>Success</h4>
@@ -115,7 +114,7 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
                             <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
                             <div className="oigStatus">
                                 <div className="floatleft">
-                                    <h5><span className="text">OIG Status</span> <span className="faExIcon"> <AntdIcon type="ant-design-o" /></span></h5>
+                                    <h5><span className="text">OIG Status</span> <span className="faExIcon"> <Icon type="exclamation-circle" /> </span></h5>
                                     <p className="noRecord">There was no record found</p>
                                 </div>
                                 <div className="floatright">
