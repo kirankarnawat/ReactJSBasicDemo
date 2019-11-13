@@ -60,6 +60,7 @@ body .ant-col-sm-1, body .ant-col-sm-2, body .ant-col-sm-3, body .ant-col-sm-4, 
 body .ant-col-md-1, body .ant-col-md-2, body .ant-col-md-3, body .ant-col-md-4, body .ant-col-md-5, body .ant-col-md-6, body .ant-col-md-7, body .ant-col-md-8, body .ant-col-md-9, body .ant-col-md-10, body .ant-col-md-11, body .ant-col-md-12, body .ant-col-md-13, body .ant-col-md-14, body .ant-col-md-15, body .ant-col-md-16, body .ant-col-md-17, body .ant-col-md-18, body .ant-col-md-19, body .ant-col-md-20,body .ant-col-md-21, body .ant-col-md-22, body .ant-col-md-23, body .ant-col-md-24{padding-left:8px;padding-right:8px;}
 body .ant-col-xs-1, body .ant-col-xs-2, body .ant-col-xs-3, body .ant-col-xs-4, body .ant-col-xs-5, body .ant-col-xs-6, body .ant-col-xs-7, body .ant-col-xs-8, body .ant-col-xs-9, body .ant-col-xs-10, body .ant-col-xs-11, body .ant-col-xs-12, body .ant-col-xs-13, body .ant-col-xs-14, body .ant-col-xs-15, body .ant-col-xs-16, body .ant-col-xs-17, body .ant-col-xs-18, body .ant-col-xs-19, body .ant-col-xs-20,body .ant-col-xs-21, body .ant-col-xs-22, body .ant-col-xs-23, body .ant-col-xs-24{padding-left:8px;padding-right:8px;}
 body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right:-8px;margin-left:-8px; position: relative}
+.rel{position:relative;}
 /*Globally  CSS END*/
 
 .logoDiv img {max-width: 127px;}
@@ -184,9 +185,9 @@ ul.headerListing li.active a{color:#d63032; float:left}
 .sysId{float: right;font-family: 'Conv_Roboto-Bold';position: absolute;right:0px;top: 5px;font-size: 16px;}
 .ant-drawer .ant-drawer-body{font-size:12px;}
 .ant-drawer .ant-drawer-close{background:url("images/close.png") 0 0 no-repeat;top:30%;width:32px;}
-.filterpopup .ant-drawer-close{background:url("images/back-icon.png") 0 0 no-repeat;top:30%;width:32px;}
+/* .filterpopup .ant-drawer-close{background:url("images/back-icon.png") 0 0 no-repeat;top:30%;width:32px;} */
 .ant-drawer .anticon-close{display:none}
-.ant-drawer .ant-drawer-header{padding:16px 24px}
+.ant-drawer .ant-drawer-header{padding:16px 24px;border-bottom:1px solid #E41F35}
 .ant-drawer .ant-drawer-body{padding:16px 24px}
 .ant-drawer .ant-form-item-control-wrapper{margin-bottom:10px;font-size:12px}
 .ant-drawer .ant-form-item{margin-bottom:0px}
@@ -217,7 +218,7 @@ ul.headerListing li.active a{color:#d63032; float:left}
 
 .hrLine{border-bottom: 1px solid #dcdcdc;}
 .bulkImpFooter{border-top:1px solid #d4d4d4; float:left; width:100%; padding:30px 0px; width:520px;}
-.filterpopup .bulkImpFooter{width:220px;}
+.filterpopup .bulkImpFooter{width:280px;}
 ul.bulkImpListing{margin: 0px auto; display: table;}
 ul.bulkImpListing li{width:200px; float: left; margin-left: 30px;}
 ul.bulkImpListing li:first-child{margin:0px}
@@ -348,6 +349,10 @@ footer{padding: 0;font-size: 11px}
 .switchbutton .labeltext{ padding:0px 5px;font-size:12px;}
 .switchbutton .ant-switch-checked{background-color: #fff;border: 1px solid #333333;}
 .switchbutton .ant-switch{height:20px;border: 1px solid #333333;background: #fff;}
-.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{width:13px;height: 13px;}
+.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{width:10px;height: 10px;}
 .switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{background-color:#333333;}
-.switchbutton .ant-switch{height:17px;}
+.switchbutton .ant-switch{height:15px; min-width:28px;}
+.filterdatelist{margin:0;padding:0;float: left; width:100%}
+.filterdatelist .calIcon{position:absolute;right: 6px;top: 2px;font-size: 12px;cursor: pointer;}
+.filterdatelist li{width:40%; float: left;}
+.filterdatelist li.width10per{width:20%; text-align: center; font-weight: bold; padding-top:4px;}
