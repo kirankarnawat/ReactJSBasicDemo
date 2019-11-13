@@ -19,21 +19,10 @@ export interface IUserState {
     modalVisible: boolean;
     filtermodalVisible: boolean;
     bulkmodalVisible: boolean;
-    skipCount: number;
-    maxResultCount: number;
-
     userId: string;
-    firstname: string;
-    groupid: string;
-    searchongroupId: string;
-
-    pageIndex: number;
-    pagesize: number;
-    sortexp: string;
 }
 
 const confirm = Modal.confirm;
-// const Search = Input.Search;
 
 @inject(Stores.UserStore)
 
@@ -45,15 +34,7 @@ class User extends React.Component<IUserProps, IUserState> {
         modalVisible: false,
         filtermodalVisible: false,
         bulkmodalVisible: false,
-        skipCount: 0,
-        maxResultCount: 0,
-        userId: '',
-        firstname: '',
-        groupid: '',
-        searchongroupId: '',
-        pageIndex: 1,
-        pagesize: 10,
-        sortexp: ''
+        userId: ''
     };
 
     //run on start
@@ -62,40 +43,17 @@ class User extends React.Component<IUserProps, IUserState> {
         await this.getAll();
     }
 
+    //Pagination with sorting
+    handleTableChange = (pagination: any, filters: any, sorter: any) => {
+        if (sorter.order) { this.props.userStore.filters.sortExp = sorter.field + " " + (sorter.order == "ascend" ? "asc" : "desc"); }
+        this.props.userStore.filters.pageIndex = pagination.current;
+        this.setState({ userId: '' }, async () => await this.getAll());
+    };
+
     //get data from stores
     async getAll() {
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
     }
-
-    //common method to set the filter values as per the state
-    SetUserFilter = () => {
-       debugger;
-        this.props.userStore.setFilter({
-            emailAddress: '', departmentId: '', jobCodeId: '', lastName: '',
-            firstName: this.state.firstname, groupId: this.state.groupid, requesterUserId: this.props.userStore.filters.requesterUserId,
-            pageIndex: this.state.pageIndex, pageSize: this.state.pagesize, searchOnGroupId: this.state.searchongroupId,
-            sortExp: this.state.sortexp, status: true
-        });
-    }
-
-    //Pagination with sorting
-    // handleTableChange = (pagination: any) => {
-    //     this.setState({ skipCount: (pagination.current - 1) * this.state.maxResultCount! }, async () => await this.getAll());
-    // };
-
-    //Pagination with sorting
- handleTableChange = (pagination :any, filters:any, sorter:any) => {     
-    debugger;   
-    var sordOrder="";
-    if(sorter.order){
-         sordOrder = sorter.order=="ascend"?"asc":"desc";
-        sordOrder = sorter.field+" "+ sordOrder;
-    }
-    
-     this.props.userStore.filters.sortExp = sordOrder;
-     this.props.userStore.filters.pageIndex = pagination.current;
-     this.setState({ skipCount: (pagination.current - 1) * this.state.maxResultCount! ,sortexp : sordOrder, pageIndex: pagination.current}, async () => await this.getAll());
-   };
 
     //Drawer visibility
     Modal = () => {
@@ -190,11 +148,14 @@ class User extends React.Component<IUserProps, IUserState> {
         const { users } = this.props.userStore;
 
         const columns = [
-            { title: 'FirstName', dataIndex: 'firstName',sorter : true, key: 'firstName', width: 150, render: (text: string) => <div><span className="disabledrow"></span> <span className="adminIcon"></span> {text}</div> },
-            { title: 'LastName', dataIndex: 'lastName',sorter : true, key: 'lastName', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'EmailAddress', dataIndex: 'emailAddress',sorter : true, key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'Job Code', dataIndex: 'jobCode',sorter : true, key: 'jobCode', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'Group Name', dataIndex: 'group1Name',sorter : true, key: 'group1Name', width: 150, render: (text: string) => <div>{text}</div> },
+            {
+                title: 'FirstName', dataIndex: 'firstName', sorter: true, key: 'firstName', width: 150,
+                render: (text: string, item: any) => <div> {(item.status === false)? <span className="disabledrow"></span> : <span></span>} <span className="adminIcon"></span> {text}</div>
+            },
+            { title: 'LastName', dataIndex: 'lastName', sorter: true, key: 'lastName', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'EmailAddress', dataIndex: 'emailAddress', sorter: true, key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'Job Code', dataIndex: 'jobCode', sorter: true, key: 'jobCode', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'Group Name', dataIndex: 'group1Name', sorter: true, key: 'group1Name', width: 150, render: (text: string) => <div>{text}</div> },
             {
                 title: 'Options',
                 width: 150, dataIndex: 'userId', key: 'userId',
@@ -250,11 +211,6 @@ class User extends React.Component<IUserProps, IUserState> {
                         </div>
                     </Col>
                 </Row>
-                {/* <Row>
-                    <Col sm={{ span: 10, offset: 0 }}>
-                        <Search placeholder={'Filter'} onSearch={this.handleSearch} />
-                    </Col>
-                </Row> */}
                 <div className="filtercontainer">
                     <div className="conHeader">
                         <div className="tblFilter">
@@ -282,7 +238,7 @@ class User extends React.Component<IUserProps, IUserState> {
                                             </div>
                                         </li>
                                         <li>
-                                            <div className="filterWrapp floatright" onClick={() => this.filterModalOpen({ id: 1 })}>
+                                            <div className="filterWrapp floatright" onClick={() => this.filterModalOpen({ id: '' })}>
                                                 <a href="#">
                                                     <span id="sidebarCollapse" className="filterIcon">&nbsp;</span>
                                                 </a>
