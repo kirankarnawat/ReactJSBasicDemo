@@ -19,9 +19,17 @@ export interface IUserState {
     modalVisible: boolean;
     filtermodalVisible: boolean;
     bulkmodalVisible: boolean;
-    skipCount: number,
-    maxResultCount: number,
+    skipCount: number;
+    maxResultCount: number;
+
     userId: number;
+    firstname: string;
+    groupid: string;
+    searchongroupId: string;
+
+    pageindex: number;
+    pagesize: number;
+    sortexp: string;
 }
 
 const confirm = Modal.confirm;
@@ -40,6 +48,12 @@ class User extends React.Component<IUserProps, IUserState> {
         skipCount: 0,
         maxResultCount: 0,
         userId: 0,
+        firstname: '',
+        groupid: '',
+        searchongroupId: '',
+        pageindex: 1,
+        pagesize: 10,
+        sortexp: ''
     };
 
     async componentDidMount() {
@@ -50,6 +64,16 @@ class User extends React.Component<IUserProps, IUserState> {
     //get data from stores
     async getAll() {
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
+    }
+
+    //common method to set the filter values as per the state
+    SetUserFilter = () => {
+        this.props.userStore.setFilter({
+            emailAddress: '', departmentId: '', jobCodeId: '', lastName: '',
+            firstName: this.state.firstname, groupId: this.state.groupid, requesterUserId: this.props.userStore.filters.requesterUserId,
+            pageIndex: this.state.pageindex, pageSize: this.state.pagesize, searchOnGroupId: this.state.searchongroupId,
+            sortExp: this.state.sortexp, status: true
+        });
     }
 
     //Pagination with sorting
@@ -145,6 +169,8 @@ class User extends React.Component<IUserProps, IUserState> {
     };
 
     handleSearch = (value: any) => {
+        
+
         //this.setState({ this.props.userStore.filters: value }, async () => await this.getAll());
     };
 
