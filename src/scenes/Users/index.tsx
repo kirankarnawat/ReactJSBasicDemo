@@ -1,3 +1,4 @@
+// #region
 import * as React from 'react';
 
 import { Card, Col, Modal, Row, Table, Icon, Switch, Input } from 'antd';
@@ -10,7 +11,9 @@ import { EntityDto } from '../../services/dto/entityDto';
 
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
+// #endregion
 
+// #region Local State and Property
 export interface IUserProps {
     userStore: UserStore;
 }
@@ -23,11 +26,14 @@ export interface IUserState {
 }
 
 const confirm = Modal.confirm;
+// #endregion
+
 
 @inject(Stores.UserStore)
-
 @observer
 class User extends React.Component<IUserProps, IUserState> {
+
+    //#region Initialization
     formRef: any;
 
     state = {
@@ -36,26 +42,29 @@ class User extends React.Component<IUserProps, IUserState> {
         bulkmodalVisible: false,
         userId: ''
     };
-
+    
     //run on start
     async componentDidMount() {
         await this.props.userStore.initFilter();
         await this.getAll();
     }
+    // #endregion
 
-    //Pagination with sorting
+    //#region Pagination with sorting
     handleTableChange = (pagination: any, filters: any, sorter: any) => {
         if (sorter.order) { this.props.userStore.filters.sortExp = sorter.field + " " + (sorter.order == "ascend" ? "asc" : "desc"); }
         this.props.userStore.filters.pageIndex = pagination.current;
         this.setState({ userId: '' }, async () => await this.getAll());
     };
+    //#endregion
 
-    //get data from stores
+    //#region get data from stores
     async getAll() {
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
     }
+    //#endregion
 
-    //Drawer visibility
+    //#region Drawer visibility
     Modal = () => {
         this.setState({
             modalVisible: !this.state.modalVisible,
@@ -73,8 +82,9 @@ class User extends React.Component<IUserProps, IUserState> {
             bulkmodalVisible: !this.state.bulkmodalVisible,
         });
     };
-    //-----------------------------
+    // #endregion -----------------------------
 
+    //#region Add/Edit
     async createOrUpdateModalOpen(entityDto: EntityDto) {
         if (entityDto.id === '') {
             await this.props.userStore.createUser();
@@ -95,13 +105,17 @@ class User extends React.Component<IUserProps, IUserState> {
         this.FilterModal();
         // this.formRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
+    //#endregion
 
+    //#region Bulk Import
     async bulkImportmedelOpen(entityDto: EntityDto) {
         this.setState({ userId: entityDto.id });
         this.bulkmodal();
         // this.formRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
+    //#endregion
 
+    //#region Events
     delete(input: EntityDto) {
         const self = this;
         confirm({
@@ -142,6 +156,7 @@ class User extends React.Component<IUserProps, IUserState> {
     handleSearch = (value: any) => {
         //this.setState({ this.props.userStore.filters: value }, async () => await this.getAll());
     };
+    //#endregion
 
     public render() {
 
