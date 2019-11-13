@@ -1,20 +1,26 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const { createWebpackDevConfig } = require("@craco/craco");
+const cracoConfig = require("./craco.config.js");
+const webpackConfig = createWebpackDevConfig(cracoConfig);
+
 
 module.exports = {
-
+   
     // webpack will take the files from ./src/index
     entry: './src/index',
 
     // and output it into /dist as bundle.js
     output: {
         path: path.join(__dirname, '/build'),
-        filename: 'bundle.js' 
+        filename: 'bundle.js',
     },
 
     // adding .ts and .tsx to resolve.extensions will help babel look for .ts and .tsx files to transpile
     resolve: {
-        extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js', '.json'],
     },
 
     module: {
@@ -34,22 +40,33 @@ module.exports = {
                 test: /\.(css|less)$/,
                 use: ['style-loader', 'css-loader']
             },
-
+            {
+                test: /\.js$/,
+                use: ["source-map-loader"],
+            },
             {
                 test: /\.(jpe?g|png|gif|svg|woff|woff2|eot|ttf|ico)(\?v=\d+\.\d+\.\d+)?$/,
                 use: {
-                        loader: 'file-loader',
-                    }
+                    loader: 'file-loader',
+                }
             }
         ]
     },
     devServer: {
         compress: true,
-        port: 9000
+        //port: 9000
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './public/index.html'
-        })
+            template: './public/index.html',
+            filename: "./index.html"
+        }),
+        new CopyWebpackPlugin([
+            { from: 'src/lib/lms.js' },
+            { from: './public/favicon.ico' },
+            { from: './public/manifest.json', to: './manifest.json' }
+        ]),
     ]
 };
+
+module.exports = webpackConfig;

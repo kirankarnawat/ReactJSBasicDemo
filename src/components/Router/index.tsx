@@ -10,10 +10,10 @@ const Router = () => {
     const AppLayout = utils.getRoute('/').component;
 
     return (
-    <Switch>
-        <Route path="/user" render={(props: any) => <UserLayout {...props} />} />
-        <ProtectedRoute path="/" render={(props: any) => <AppLayout {...props} exact />} />
-    </Switch>
+        <Switch>
+            <Route path="/user" render={(props: any) => <UserLayout {...props} />} />
+            <ProtectedRoute path="/" render={(props: any) => <AppLayout {...props} exact />} />
+        </Switch>
     );
 };
 

@@ -1,11 +1,16 @@
 import { CreateOrUpdateUserInput } from './dto/createOrUpdateUserInput';
 import { EntityDto } from '../../services/dto/entityDto';
-import { GetAllUserOutput } from './dto/getAllUserOutput';
+
+
 import { PagedResultDto } from '../../services/dto/pagedResultDto';
-import { PagedUserResultRequestDto } from "./dto/PagedUserResultRequestDto";
-import { UpdateUserInput } from './dto/updateUserInput';
-import http from '../httpService';
+import { GetAllUserRequest } from "./dto/Request/getAllUserRequest";
+import { GetAllUserResponse } from "./dto/Response/getAllUserResponse";
+
 import { GetRoles } from './dto/getRolesOuput';
+
+import http from '../httpService';
+
+declare var lms: any;
 
 class UserService {
     public async create(createUserInput: CreateOrUpdateUserInput) {
@@ -13,9 +18,9 @@ class UserService {
         return result.data.result;
     }
 
-    public async update(updateUserInput: UpdateUserInput) {
-        let result = await http.put('api/services/app/User/Update', updateUserInput);
-        return result.data;
+    public async update(getAllUserRequest: GetAllUserRequest) {
+        //let result = await http.put('api/services/app/User/Update', updateUserInput);
+        //return result.data;
     }
 
     public async delete(entityDto: EntityDto) {
@@ -47,27 +52,15 @@ class UserService {
         return result;
     }
 
-    public async getAll(pagedFilterAndSortedRequest: PagedUserResultRequestDto): Promise<PagedResultDto<GetAllUserOutput>> {
-        //let result = await http.get('api/services/app/User/GetAll', { params: pagedFilterAndSortedRequest });
-        //return result.data.result;
+    public async getAll(getAllUserRequest: GetAllUserRequest): Promise<PagedResultDto<GetAllUserResponse>> {
+        debugger;
+        let result = await http.post(lms.toAPIPath(lms.APIType.USERLIST), getAllUserRequest);
 
-        var arr: GetAllUserOutput[] = [
-            { "id": 1, "firstName": "Amit", "lastName": "Dhivar", "userType": "Head", "department": "IT", "emailAddress": "amit.dhivar@deplhianlogic.com", "isActive": true, "roleNames": ["HOD"] },
-            { "id": 2, "firstName": "Rajesh", "lastName": "Deshpande", "userType": "Lead", "department": "IT", "emailAddress": "rajesh.deshpande@delphianlogic.com", "isActive": true, "roleNames": ["LEAD"] }
-        ];
+        var data = <PagedResultDto<GetAllUserResponse>>{};
+        data.items = result.data;
+        data.totalCount = data.items.length;
 
-        if (pagedFilterAndSortedRequest.keyword != "") {
-            var searchresult: GetAllUserOutput[];
-            searchresult = arr.filter(e => e.firstName.toLowerCase().match(pagedFilterAndSortedRequest.keyword.toLowerCase()))
-            arr = searchresult;
-        }
-
-        let result = {
-            totalCount: arr.length,
-            items: arr
-        }
-
-        return result;
+        return data;
     }
 }
 

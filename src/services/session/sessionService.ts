@@ -1,5 +1,4 @@
 import { GetCurrentLoginInformations } from './dto/getCurrentLoginInformations';
-
 import storageService from '../storageService';
 
 class SessionService {
@@ -8,6 +7,12 @@ class SessionService {
     {
         const result = storageService.getUserCookie();
         return result;
+    }
+
+    public async getLoginUserId(): Promise<string>
+    {
+        const result = storageService.getUserCookie();
+        return result.user.userId;
     }
 }
 

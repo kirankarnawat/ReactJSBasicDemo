@@ -1,4 +1,5 @@
 export interface PagedFilterAndSortedRequest {
-  maxResultCount: number;
-  skipCount: number;
+    pageIndex: number,
+    pageSize: number,
+    sortExp: string
 }

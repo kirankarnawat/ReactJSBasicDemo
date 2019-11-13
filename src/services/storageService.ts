@@ -13,11 +13,10 @@ class StorageService {
         Cookies.set(AppConsts.tokenCookieName, enckey, { expires: expireDate } );
     }
 
-    public async getToken() {
+    public getToken(): string {
         const userJson = Cookies.get(AppConsts.tokenCookieName);
         var bytes = userJson !== undefined ? CryptoJS.AES.decrypt(userJson.toString(), AppConsts.encdecSecretKey) : userJson;
         var result = bytes !== undefined ? JSON.parse(bytes.toString(CryptoJS.enc.Utf8)) : bytes;
-
         return result;
     }
 

@@ -3,16 +3,28 @@ import { action, observable } from 'mobx';
 import { CreateOrUpdateUserInput } from '../services/user/dto/createOrUpdateUserInput';
 import { EntityDto } from '../services/dto/entityDto';
 import { GetRoles } from '../services/user/dto/getRolesOuput';
-import { GetUserOutput } from '../services/user/dto/getUserOutput';
+
 import { PagedResultDto } from '../services/dto/pagedResultDto';
-import { PagedUserResultRequestDto } from '../services/user/dto/PagedUserResultRequestDto';
-import { UpdateUserInput } from '../services/user/dto/updateUserInput';
+
+import { GetAllUserRequest } from "../services/user/dto/Request/getAllUserRequest";
+import { GetAllUserResponse } from "../services/user/dto/Response/getAllUserResponse";
+
 import userService from '../services/user/userService';
+import sessionService from '../services/session/sessionService';
 
 class UserStore {
-    @observable users!: PagedResultDto<GetUserOutput>;
+
+    @observable users!: PagedResultDto<GetAllUserResponse>;
+    @observable filters!: GetAllUserRequest;
     @observable editUser!: CreateOrUpdateUserInput;
     @observable roles: GetRoles[] = [];
+
+    @action
+    async getAll(getAllUserRequest: GetAllUserRequest) {
+        let result = await userService.getAll(getAllUserRequest);
+        this.users = result;
+    }
+
 
     @action
     async create(createUserInput: CreateOrUpdateUserInput) {
@@ -21,18 +33,18 @@ class UserStore {
     }
 
     @action
-    async update(updateUserInput: UpdateUserInput) {
-        let result = await userService.update(updateUserInput);
-        this.users.items = this.users.items.map((x: GetUserOutput) => {
-            if (x.id === updateUserInput.id) x = result;
-            return x;
-        });
+    async update(getAllUserRequest: GetAllUserRequest) {
+        //let result = await userService.update(updateUserInput);
+        //this.users.items = this.users.items.map((x: GetUserOutput) => {
+        //    if (x.id === updateUserInput.id) x = result;
+        //    return x;
+        //});
     }
 
     @action
     async delete(entityDto: EntityDto) {
-        await userService.delete(entityDto);
-        this.users.items = this.users.items.filter((x: GetUserOutput) => x.id !== entityDto.id);
+        //await userService.delete(entityDto);
+        //this.users.items = this.users.items.filter((x: GetUserOutput) => x.id !== entityDto.id);
     }
 
     @action
@@ -64,9 +76,11 @@ class UserStore {
     }
 
     @action
-    async getAll(pagedFilterAndSortedRequest: PagedUserResultRequestDto) {
-        let result = await userService.getAll(pagedFilterAndSortedRequest);
-        this.users = result;
+    async initFilter() {
+        var userid = await sessionService.getLoginUserId();
+        this.filters = {
+            emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true
+        };
     }
 }
 

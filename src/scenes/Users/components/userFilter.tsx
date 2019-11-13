@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { Form, Input, Drawer, Button } from 'antd';
 
-//import CheckboxGroup from 'antd/lib/checkbox/Group';
 import { FormComponentProps } from 'antd/lib/form';
 import FormItem from 'antd/lib/form/FormItem';
 import { GetRoles } from '../../../services/user/dto/getRolesOuput';
@@ -10,7 +9,7 @@ import rules from './userFilter.validation';
 
 //const TabPane = Tabs.TabPane;
 
-export interface ICreateOrUpdateUserProps extends FormComponentProps {
+export interface IUserFilterProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
     modalType: string;
@@ -18,26 +17,10 @@ export interface ICreateOrUpdateUserProps extends FormComponentProps {
     roles: GetRoles[];
 }
 
-class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
+class UserFilter extends React.Component<IUserFilterProps> {
+
     state = {
         confirmDirty: false,
-    };
-
-    compareToFirstPassword = (rule: any, value: any, callback: any) => {
-        const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
-        } else {
-            callback();
-        }
-    };
-
-    validateToNextPassword = (rule: any, value: any, callback: any) => {
-        const form = this.props.form;
-        if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
-        }
-        callback();
     };
 
     render() {
@@ -137,4 +120,4 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
     }
 }
 
-export default Form.create<ICreateOrUpdateUserProps>()(UserFilter);
+export default Form.create<IUserFilterProps>()(UserFilter);

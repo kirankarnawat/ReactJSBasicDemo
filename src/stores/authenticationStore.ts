@@ -1,5 +1,7 @@
 import { action, observable } from 'mobx';
+
 import LoginModel from '../models/Login/loginModel';
+
 import tokenAuthService from '../services/tokenAuth/tokenAuthService';
 
 import { GetCurrentLoginInformations } from '../services/session/dto/getCurrentLoginInformations';
@@ -42,7 +44,7 @@ class AuthenticationStore {
         result.expireInSeconds = 3600;
 
         var tokenExpireDate = model.rememberMe ? new Date(new Date().getTime() + 1000 * result.expireInSeconds) : undefined;
-
+        debugger;
         storageService.setToken(result.token, tokenExpireDate);
     }
 
