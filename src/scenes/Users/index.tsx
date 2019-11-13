@@ -257,10 +257,10 @@ class User extends React.Component<IUserProps, IUserState> {
                                         </div>
                                         </li>
                                         <li className="width227">
-                                            <Input placeholder="Frist Name/ Last Name" />
+                                            <Input placeholder="First Name/ Last Name" />
                                         </li>
                                         <li className="width227">
-                                            <Input placeholder="Frist Name/ Last Name" />
+                                            <Input placeholder="Group 1/ Group 2/ Group 3" />
                                         </li>
                                         <li>
                                             <div className="searchiconbg">
