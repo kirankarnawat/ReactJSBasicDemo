@@ -19,7 +19,8 @@ var lms = lms || {};
     lms.APIType = {
         USERLOGIN: 'USERLOGIN',
         USERSALT: 'USERSALT',
-        USERLIST: 'USERLIST'
+        USERLIST: 'USERLIST',
+        USERENTITYLIST: 'USERENTITYLIST',
     };
    
     //Get API Path of the variable
@@ -34,6 +35,9 @@ var lms = lms || {};
                 break;
             case lms.APIType.USERLIST:
                 path = '/user/userlist';
+                break;
+            case lms.APIType.USERENTITYLIST:
+                path = '/entity/entitylist';
                 break;
         }
         return path;

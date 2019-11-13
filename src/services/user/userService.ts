@@ -5,6 +5,9 @@ import { EntityDto } from '../../services/dto/entityDto';
 import { PagedResultDto } from '../../services/dto/pagedResultDto';
 import { GetAllUserRequest } from "./dto/Request/getAllUserRequest";
 import { GetAllUserResponse } from "./dto/Response/getAllUserResponse";
+import { GetUserEntityListRequest } from "./dto/Request/getUserEntityListRequest";
+import { GetUserEntityListResponse } from "./dto/Response/getUserEntityListResponse";
+
 
 import { GetRoles } from './dto/getRolesOuput';
 
@@ -13,6 +16,30 @@ import http from '../httpService';
 declare var lms: any;
 
 class UserService {
+
+    public async getAll(getAllUserRequest: GetAllUserRequest): Promise<PagedResultDto<GetAllUserResponse>> {
+        let result = await http.post(lms.toAPIPath(lms.APIType.USERLIST), getAllUserRequest);
+
+        var data = <PagedResultDto<GetAllUserResponse>>{};
+        data.items = result.data;
+        data.totalCount = (data.items.length > 0) ? data.items[0].totalCount : 0;
+
+        return data;
+    }
+
+    public async getEntityList(getUserEntityListRequest: GetUserEntityListRequest): Promise<PagedResultDto<GetUserEntityListResponse>> {
+        let result = await http.post(lms.toAPIPath(lms.APIType.USERENTITYLIST), getUserEntityListRequest);
+
+        var data = <PagedResultDto<GetUserEntityListResponse>>{};
+        data.items = result.data;
+        data.totalCount = data.items.length;
+
+        return data;
+    }
+
+
+
+
     public async create(createUserInput: CreateOrUpdateUserInput) {
         let result = await http.post('api/services/app/User/Create', createUserInput);
         return result.data.result;
@@ -52,16 +79,7 @@ class UserService {
         return result;
     }
 
-    public async getAll(getAllUserRequest: GetAllUserRequest): Promise<PagedResultDto<GetAllUserResponse>> {
-        debugger;
-        let result = await http.post(lms.toAPIPath(lms.APIType.USERLIST), getAllUserRequest);
 
-        var data = <PagedResultDto<GetAllUserResponse>>{};
-        data.items = result.data;
-        data.totalCount = (data.items.length > 0) ? data.items[0].totalCount : 0;
-
-        return data;
-    }
 }
 
 export default new UserService();

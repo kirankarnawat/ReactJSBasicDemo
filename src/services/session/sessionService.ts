@@ -9,7 +9,7 @@ class SessionService {
         return result;
     }
 
-    public async getLoginUserId(): Promise<string>
+    public getLoginUserId(): string
     {
         const result = storageService.getUserCookie();
         return result.user.userId;

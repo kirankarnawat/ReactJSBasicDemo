@@ -78,7 +78,7 @@ class UserStore {
     /* FILTERS ***/
     @action
     async initFilter() {
-        var userid = await sessionService.getLoginUserId();
+        var userid = sessionService.getLoginUserId();
         this.filters = {
             emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true
         };
