@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { Breadcrumb, Card, Col, Checkbox, Modal, Row, Table, Icon } from 'antd';
+import { Card, Col, Modal, Row, Table, Icon, Switch, Input } from 'antd';
+
 import { inject, observer } from 'mobx-react';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
 import BulkImport from './components/bulkImport';
@@ -21,7 +22,7 @@ export interface IUserState {
     skipCount: number;
     maxResultCount: number;
 
-    userId: number;
+    userId: string;
     firstname: string;
     groupid: string;
     searchongroupId: string;
@@ -46,7 +47,7 @@ class User extends React.Component<IUserProps, IUserState> {
         bulkmodalVisible: false,
         skipCount: 0,
         maxResultCount: 0,
-        userId: 0,
+        userId: '',
         firstname: '',
         groupid: '',
         searchongroupId: '',
@@ -149,7 +150,7 @@ class User extends React.Component<IUserProps, IUserState> {
             if (err) {
                 return;
             } else {
-                if (this.state.userId === 0) {
+                if (this.state.userId === '') {
                     await this.props.userStore.create(values);
                 } else {
                     await this.props.userStore.update({ id: this.state.userId, ...values });
@@ -175,21 +176,22 @@ class User extends React.Component<IUserProps, IUserState> {
         const { users } = this.props.userStore;
 
         const columns = [
-            { title: 'checkBox', dataIndex: 'checkBox', key: 'checkBox', width: 150, render: (text: string) => <div>{<Checkbox></Checkbox>}</div> },
-            { title: 'FirstName', dataIndex: 'firstName', key: 'firstName', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'FirstName', dataIndex: 'firstName', key: 'firstName', width: 150, render: (text: string) => <div><span className="disabledrow"></span> <span className="adminIcon"></span> {text}</div> },
             { title: 'LastName', dataIndex: 'lastName', key: 'lastName', width: 150, render: (text: string) => <div>{text}</div> },
             { title: 'EmailAddress', dataIndex: 'emailAddress', key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'Department', dataIndex: 'departmentCode', key: 'departmentCode', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'JobCode', dataIndex: 'jobCode', key: 'jobCode', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'Job Code', dataIndex: 'jobCode', key: 'jobCode', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'Group Name', dataIndex: 'group1Name', key: 'group1Name', width: 150, render: (text: string) => <div>{text}</div> },
             {
                 title: 'Options',
-                width: 150,
-                render: (text: string, item: any) => (
+                width: 150, dataIndex: 'userId', key: 'userId',
+                render: (text: string) => (
                     <div>
                         <div className="tablehoverbuttons"> <Icon type="ellipsis" />
                             <div className="buttonshover">
-                                <div className="editbtn" onClick={() => this.createOrUpdateModalOpen({ id: item.userId })}><Icon type="bar-chart" /> </div>
-                                <div className="deletebtn" onClick={() => this.delete({ id: item.userId })}><Icon type="edit" /></div>
+                                <div className="resetpassword" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Reset password"></div>
+                                <div className="editbtn" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Progress"><Icon type="bar-chart" /> </div>
+                                <div className="deletebtn" onClick={() => this.delete({ id: text })} title="Transparent"><Icon type="swap" /> </div>
+                                <div className="deletebtn" onClick={() => this.delete({ id: text })} title="Edit User"><Icon type="edit" /></div>
                             </div>
                         </div>
                     </div>
@@ -205,39 +207,28 @@ class User extends React.Component<IUserProps, IUserState> {
                             <div className="antd-row">
                                 <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
                                     <Col className="floatleft"
-                                        xs={{ span: 12 }}
-                                        sm={{ span: 12 }}
-                                        md={{ span: 12 }}
-                                        lg={{ span: 12 }}
-                                        xl={{ span: 12 }}
-                                        xxl={{ span: 12 }}>
-                                        {/* <h2>{'Users'}</h2> */}
-                                        <div className="co-Breadcrumb">
-                                            <Breadcrumb className="breadcrumb">
-                                                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                                                <Breadcrumb.Item>
-                                                    <a href="" className="active">Users Type</a>
-                                                </Breadcrumb.Item>
-                                            </Breadcrumb>
+                                        xs={{ span: 24 }}
+                                        sm={{ span: 24 }}
+                                        md={{ span: 24 }}
+                                        lg={{ span: 12 }}>
+
+                                        <div className="heading">
+                                            <h2>Manage Users</h2>
                                         </div>
+
                                     </Col>
                                     <Col className="push"
-                                        xs={{ span: 12 }}
-                                        sm={{ span: 12 }}
-                                        md={{ span: 12 }}
-                                        lg={{ span: 12 }}
-                                        xl={{ span: 12 }}
-                                        xxl={{ span: 12 }}
-                                    >
+                                        xs={{ span: 24 }}
+                                        sm={{ span: 24 }}
+                                        md={{ span: 24 }}
+                                        lg={{ span: 12 }}>
                                         <div className="floatright">
-                                            <ul className="headerListing">
-                                                <li><a href="#" onClick={() => this.createOrUpdateModalOpen({ id: 0 })}><span className="text">Add User</span> <span className="icon iconUser">&nbsp;</span></a></li>
-                                                <li className="active" onClick={() => this.bulkImportmedelOpen({ id: 2 })}><a href="#"><span className="text">Bulk Import</span> <span className="icon iconbulkImp">&nbsp;</span></a></li>
+                                            <ul className="headerListing floatleft">
+
+                                                <li><a href="#" onClick={() => this.createOrUpdateModalOpen({ id: '' })}><span className="text">Add User</span> <span className="icon iconUser">&nbsp;</span></a></li>
+                                                <li className="active" onClick={() => this.bulkImportmedelOpen({ id: '' })}><a href="#"><span className="text">Bulk Import</span> <span className="icon iconbulkImp">&nbsp;</span></a></li>
                                                 <li><a href="#"><span className="text">Export to Excel</span> <span className="icon iconExTOEx">&nbsp;</span></a></li>
                                             </ul>
-                                            {/* <Button type="primary" className=""  />
-                        <Button type="primary" className=""  />
-                        <Button type="primary" className=""  onClick={() => this.createOrUpdateModalOpen({ id: 0 })} /> */}
                                         </div>
                                     </Col>
                                 </div>
@@ -250,20 +241,43 @@ class User extends React.Component<IUserProps, IUserState> {
                         <Search placeholder={'Filter'} onSearch={this.handleSearch} />
                     </Col>
                 </Row> */}
-                <div className="conHeader">
-                    <div className="antd-row">
-                        <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
-                            <div className="tblFilter">
-                                <div className="floatleft">
-                                    <h6><strong>Showing 10 of 500 entries</strong></h6>
+                <div className="filtercontainer">
+                    <div className="conHeader">
+                        <div className="tblFilter">
+                            <div className="antd-row">
+                                <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-8">
+                                    <div>
+                                        <h6><strong>Showing 10 of 500 entries</strong></h6>
+                                    </div>
                                 </div>
-                                <div className="filterWrapp floatright" onClick={() => this.filterModalOpen({ id: 1 })}>
-                                    <span className="filterText">Filter</span>
-                                    <a href="#">
-                                        <span id="sidebarCollapse" className="filterIcon">&nbsp;</span>
-                                    </a>
+                                <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-16">
+                                    <ul className="filterlist">
+                                        <li><div className="switchbutton mt5">
+                                            <label className="mr8">{'Active'}</label> <Switch /> <label className="ml8">{'All'}</label>
+                                        </div>
+                                        </li>
+                                        <li className="width227">
+                                            <Input placeholder="Frist Name/ Last Name" />
+                                        </li>
+                                        <li className="width227">
+                                            <Input placeholder="Frist Name/ Last Name" />
+                                        </li>
+                                        <li>
+                                            <div className="searchiconbg">
+                                                <Icon type="search" />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="filterWrapp floatright" onClick={() => this.filterModalOpen({ id: 1 })}>
+                                                <a href="#">
+                                                    <span id="sidebarCollapse" className="filterIcon">&nbsp;</span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -278,7 +292,7 @@ class User extends React.Component<IUserProps, IUserState> {
                     >
                         <div className="tableContainer table-responsive">
                             <Table
-                                rowKey={record => record.userId.toString()}
+                                rowKey={record => record.userId}
                                 size={'default'}
                                 bordered={true}
                                 columns={columns}
@@ -299,7 +313,7 @@ class User extends React.Component<IUserProps, IUserState> {
                             modalVisible: false,
                         })
                     }
-                    modalType={this.state.userId === 0 ? 'edit' : 'create'}
+                    modalType={this.state.userId === '' ? 'edit' : 'create'}
                     onCreate={this.handleCreate}
                     roles={this.props.userStore.roles}
                 />
@@ -311,7 +325,7 @@ class User extends React.Component<IUserProps, IUserState> {
                             filtermodalVisible: false,
                         })
                     }
-                    modalType={this.state.userId === 0 ? 'edit' : 'create'}
+                    modalType={this.state.userId === '' ? 'edit' : 'create'}
                     onCreate={this.handleCreate}
                     roles={this.props.userStore.roles}
                 />
@@ -323,7 +337,7 @@ class User extends React.Component<IUserProps, IUserState> {
                             bulkmodalVisible: false,
                         })
                     }
-                    modalType={this.state.userId === 0 ? 'edit' : 'create'}
+                    modalType={this.state.userId === '' ? 'edit' : 'create'}
                     onCreate={this.handleCreate}
                     roles={this.props.userStore.roles}
                 />

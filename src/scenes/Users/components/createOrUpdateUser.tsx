@@ -1,14 +1,13 @@
 import * as React from 'react';
-
-import { Form, Input, Tabs, Drawer, Button,Col,Icon, message,Row } from 'antd';
-
+import { Form, Input, Tabs, Drawer, Button,Col,Row,Icon,Switch} from 'antd';
 //import CheckboxGroup from 'antd/lib/checkbox/Group';
 import { FormComponentProps } from 'antd/lib/form';
 import FormItem from 'antd/lib/form/FormItem';
 import { GetRoles } from '../../../services/user/dto/getRolesOuput';
 import rules from './createOrUpdateUser.validation';
+import UserEntityTree from './userEntityTree';
+
 const TabPane = Tabs.TabPane;
-const key = 'updatable';
 export interface ICreateOrUpdateUserProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
@@ -30,7 +29,6 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
             callback();
         }
     };
-
     validateToNextPassword = (rule: any, value: any, callback: any) => {
         const form = this.props.form;
         if (value && this.state.confirmDirty) {
@@ -38,146 +36,70 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
         }
         callback();
     };
-
+    
     render() {
-       // const { roles } = this.props;
         const { getFieldDecorator } = this.props.form;
         const { visible, onCancel, onCreate } = this.props;
-         
-        // const options = roles.map((x: GetRoles) => {
-        //     var test = { label: x.name, value: x.id };
-        //     return test;
-        // });
-        const openMessage = () => {
-            message.loading({ content: 'Loading...', key });
-            setTimeout(() => {
-              message.success({ content: 'Loaded!', key, duration: 2 });
-            });
-          };
         return (
             <Drawer title={'Add/Edit User'} width={560} onClose={onCancel} visible={visible}>
                 <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
                     <TabPane tab={'User Information'} key={'UserInformation'}>
                     <div className="sysId">system ID: 00006</div>
                     <div className="pos">
-                    <div className="successData">
-                    {openMessage}
                     <div className="antd-row">
-                    <Col xs={{ span:24}} sm={{ span:24}} md={{ span:24}} lg={{ span:24}}>
-                    <div className="successBox">
-                        <div className="iconLeft floatleft">
-                        <Icon type="check-circle" />
-                        </div>
-                        <div className="successBoxText floatleft">
-                            <h4>Success</h4>
-                            <p>You have successfully saved the information</p>
-                        </div>
-                     </div>
-                    </Col>
-                    </div>    
-                    </div>
-                    <div className="antd-row">
-                        <Col xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                        <FormItem>
-                        <label>{'FirstName'} <span className="start">*</span> </label>
-                            {getFieldDecorator('firstName', { rules: rules.firstName })(<Input />)}
-                        </FormItem>
-                        </Col>
-                        <Col xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                        <FormItem>
-                           <label>{'LastName'} <span className="start">*</span> </label>
-                            {getFieldDecorator('lastName', { rules: rules.lastName })(<Input />)}
-                        </FormItem>
-                        </Col>
-                        <Col xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                        <FormItem>
-                        <label>{'Email'} <span className="start">*</span> </label>
-                            {getFieldDecorator('emailAddress', { rules: rules.emailAddress })(<Input />)}
-                        </FormItem>
-                        </Col>
+                          <Col  xs={{ span:24}} sm={{ span:24 }} md={{ span:24 }} lg={{ span:24 }}>
+                    <FormItem>
+                      <label>{'Search User Group'} <span className="start">*</span> </label>
+                      <div className="rel">
+                          {getFieldDecorator('departmentcode', { rules: rules.departmentCode })(<Input />)}
+                          <div className="searchbtn"><Icon type="search" /> </div>
+                          </div>
+                          </FormItem>
+                          </Col>
                        </div>
-                       <div className="antd-row">
-                       <Col xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                        <FormItem>
-                         <label>{'Contact Number'} <span className="start">*</span> </label>
-                            {(<Input />)}
-                        </FormItem>
-                        </Col>
-                        <Col xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                        <FormItem>
-                         <label>{'Status'} <span className="start">*</span> </label>
-                            {(<Input />)}
-                        </FormItem>
-                        </Col>
-                        </div>
-                        <div className="antd-row">
-                            <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
-                            <div className="oigStatus">
-                                <div className="floatleft">
-                                    <h5><span className="text">OIG Status</span> <span className="faExIcon"> <Icon type="exclamation-circle" /> </span></h5>
-                                    <p className="noRecord">There was no record found</p>
-                                </div>
-                                <div className="floatright">
-                                    <button type="submit" className="ant-btn ant-btn-default">OIG CHECK</button>
-                                </div>
-                            </div>
-                            <div className="hrLine mb10">&nbsp;</div>
-                        </div> 
-                        </div>
-                        <div className="antd-row">
-                           <Col xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                            <FormItem>
-                              <label>{'User Type'} <span className="start">*</span> </label>
-                                {getFieldDecorator('usertype', { rules: rules.userType })(<Input />)}
-                            </FormItem>
-                            </Col>
-                            <Col xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                            <FormItem>
-                              <label>{'Login ID / Email'} <span className="start">*</span> </label>
-                                {getFieldDecorator('loginidemail', { rules: rules.loginidEmail })(<Input />)}
-                            </FormItem>
-                            </Col>
-                            <Col xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                            {this.props.modalType === 'edit' ? (
-                            <FormItem>
-                             <label>{'Password'} <span className="start">*</span></label><span className="SystemGenTExt">(System Genrated)</span>
-                                {getFieldDecorator('password', {
-                                    rules: [
-                                        {
-                                            required: true,
-                                            message: 'Please input your password!',
-                                        },
-                                        {
-                                            validator: this.validateToNextPassword,
-                                        },
-                                    ],
-                                })(<Input type="password" />)}
-                            </FormItem>
-                        ) : null}
-                            </Col>
-                      </div>
-                      <div className="hrLine mb10"></div>
-                      <div className="antd-row">
-                          <Col  xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                          <FormItem>
-                      <label>{'Hiring Date'} <span className="start">*</span> </label>
+                       <div><UserEntityTree /></div>
+                    <div className="hrLine mb15"></div>
+                    <Row className="antd-row">
+                      <Col lg={{span:12}} sm={{span:12}} md={{span:12}} xs={{span:12}}>
+                      <FormItem>
+                      <label>{'Frist Name'} <span className="start">*</span> </label>
                           {getFieldDecorator('hiringdate', { rules: rules.hiringDate })(<Input />)}
                           </FormItem>
-                          </Col>
-                          <Col  xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                          <FormItem>
-                      <label>{'Department Code'} <span className="start">*</span> </label>
-                          {getFieldDecorator('departmentcode', { rules: rules.departmentCode })(<Input />)}
+                      </Col>
+                      <Col lg={{span:12}} sm={{span:12}} md={{span:12}} xs={{span:12}}>
+                      <FormItem>
+                      <label>{'Last Name'} <span className="start">*</span> </label>
+                          {getFieldDecorator('hiringdate', { rules: rules.hiringDate })(<Input />)}
                           </FormItem>
-                          </Col>
-                          <Col  xs={{ span:24}} sm={{ span:8 }} md={{ span:8 }} lg={{ span:8 }}>
-                          <FormItem>
-                      <label>{'job Code'} <span className="start">*</span> </label>
-                          {getFieldDecorator('jobcode', { rules: rules.jobCode })(<Input />)}
+                      </Col>
+                      </Row>
+                      <Row className="antd-row">
+                      <Col lg={{span:12}} sm={{span:12}} md={{span:12}} xs={{span:12}}>
+                      <FormItem>
+                      <label>{'Email Or Username'} <span className="start">*</span> </label>
+                          {getFieldDecorator('hiringdate', { rules: rules.hiringDate })(<Input />)}
                           </FormItem>
-                          </Col>
+                      </Col>
+                      <Col lg={{span:12}} sm={{span:12}} md={{span:12}} xs={{span:12}}>
+                      <FormItem>
+                      <label>{'Contact Number'} <span className="start">*</span> </label>
+                          {getFieldDecorator('hiringdate', { rules: rules.hiringDate })(<Input />)}
+                          </FormItem>
+                      </Col>
+                      </Row>
+                      <Row className="antd-row">
+                      <Col lg={{span:12}} sm={{span:12}} md={{span:12}} xs={{span:12}}>
+                      <FormItem>
+                        <div className="switchbutton">
+                      <div><label>{'Status'} <span className="start">*</span> </label></div>
+                      <label className="mr8">{'Active'}</label> <Switch/> <label className="ml8">{'Inactive'}</label>
+                        </div>
+                          </FormItem>
+                      </Col>
+                      </Row>
+                      <div className="hrLine mb15"></div>
                        </div>
-                       </div>
+                       
                        <div className="buttonfooter">
                        <div className="antd-row">
                         <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
@@ -185,9 +107,6 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
                                 <ul className="bulkImpListing">
                                     <li>
                                     <Button onClick={onCreate} className="ant-btn-primary" type="primary">Submit</Button>
-                                    </li>
-                                    <li>
-                                        <Button onClick={onCancel}  className="ant-btn-default">Cancel</Button>
                                     </li>
                                 </ul>
                             </div>
