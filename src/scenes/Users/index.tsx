@@ -104,7 +104,7 @@ class User extends React.Component<IUserProps, IUserState> {
     //-----------------------------
 
     async createOrUpdateModalOpen(entityDto: EntityDto) {
-        if (entityDto.id === 0) {
+        if (entityDto.id === '') {
             await this.props.userStore.createUser();
             await this.props.userStore.getRoles();
         } else {
