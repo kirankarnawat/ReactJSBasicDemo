@@ -10,7 +10,6 @@ import { EntityDto } from '../../services/dto/entityDto';
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
 
-
 export interface IUserProps {
     userStore: UserStore;
 }
@@ -56,6 +55,7 @@ class User extends React.Component<IUserProps, IUserState> {
         sortexp: ''
     };
 
+    //run on start
     async componentDidMount() {
         await this.props.userStore.initFilter();
         await this.getAll();
@@ -120,14 +120,12 @@ class User extends React.Component<IUserProps, IUserState> {
     async filterModalOpen(entityDto: EntityDto) {
         this.setState({ userId: entityDto.id });
         this.FilterModal();
-
         // this.formRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
 
     async bulkImportmedelOpen(entityDto: EntityDto) {
         this.setState({ userId: entityDto.id });
         this.bulkmodal();
-
         // this.formRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
 
@@ -169,8 +167,6 @@ class User extends React.Component<IUserProps, IUserState> {
     };
 
     handleSearch = (value: any) => {
-        
-
         //this.setState({ this.props.userStore.filters: value }, async () => await this.getAll());
     };
 
@@ -185,8 +181,6 @@ class User extends React.Component<IUserProps, IUserState> {
             { title: 'EmailAddress', dataIndex: 'emailAddress', key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
             { title: 'Department', dataIndex: 'departmentCode', key: 'departmentCode', width: 150, render: (text: string) => <div>{text}</div> },
             { title: 'JobCode', dataIndex: 'jobCode', key: 'jobCode', width: 150, render: (text: string) => <div>{text}</div> },
-
-
             {
                 title: 'Options',
                 width: 150,

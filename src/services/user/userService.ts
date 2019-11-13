@@ -58,7 +58,7 @@ class UserService {
 
         var data = <PagedResultDto<GetAllUserResponse>>{};
         data.items = result.data;
-        data.totalCount = data.items.length;
+        data.totalCount = (data.items.length > 0) ? data.items[0].totalCount : 0;
 
         return data;
     }

@@ -20,4 +20,5 @@ export interface GetAllUserResponse {
     departmentId: string,
     jobCodeId: string,
     isSuccess: boolean,
+    totalCount: number
 }
