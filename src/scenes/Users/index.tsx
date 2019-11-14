@@ -38,6 +38,9 @@ class User extends React.Component<IUserProps> {
         bulkmodalVisible: false,
         userId: '',
         result: [],
+        firstName: '',
+        groupId: '',
+        searchOnGroupId:''
     };
 
     //run on start
@@ -53,10 +56,9 @@ class User extends React.Component<IUserProps> {
         this.props.userStore.filters.pageIndex = pagination.current;
         this.setState({ userId: '' }, async () => await this.getAll());
     };
-    //#endregion
-
+    //#endregion   
     //#region get data from stores
-    async getAll() {
+    async getAll() {      
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
     }
     //#endregion
@@ -67,6 +69,24 @@ class User extends React.Component<IUserProps> {
             modalVisible: !this.state.modalVisible,
         });
     };
+
+    firstNameChange = (event)=> {       
+        this.props.userStore.filters.firstName = event.target.value;
+    }  
+   
+    groupSelect = (value,option)=> { 
+        this.props.userStore.filters.groupId = option?option.key.split("~")[0]:"";
+        this.props.userStore.filters.searchOnGroupId = option?option.key.split("~")[1]:"";
+    } 
+    groupChange = (value,option)=> { 
+        this.props.userStore.filters.groupId = "";
+        this.props.userStore.filters.searchOnGroupId = "";
+    } 
+
+    handleSearch = async()=>{
+       await this.getAll();
+    }
+
 
     FilterModal = () => {
         this.setState({
@@ -150,12 +170,9 @@ class User extends React.Component<IUserProps> {
         this.formRef = formRef;
     };
 
-    handleSearch = (value: any) => {
-        //this.setState({ this.props.userStore.filters: value }, async () => await this.getAll());
-    };
 
-    handleAutoSearch = (value: string) => {
-        debugger;
+
+    handleAutoSearch = (value: string) => {     
         let result;
         if (!value || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
             result = [];
@@ -170,8 +187,7 @@ class User extends React.Component<IUserProps> {
     public render() {
 
         const { users } = this.props.userStore;
-        const { result } = this.state;
-        debugger;
+        const { result } = this.state;      
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         const columns = [
@@ -254,16 +270,16 @@ class User extends React.Component<IUserProps> {
                                         </div>
                                         </li>
                                         <li className="width227">
-                                            <Input placeholder="First Name/ Last Name" />
+                                            <Input placeholder="First Name/ Last Name" onChange={this.firstNameChange} />
                                         </li>
                                         <li className="width227">
-                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSearch={this.handleAutoSearch}>
+                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange}  onSearch={this.handleAutoSearch}>
                                                 {children}
                                             </AutoComplete>
                                         </li>
                                         <li>
                                             <div className="searchiconbg">
-                                                <Icon type="search" />
+                                                <Icon type="search" onClick={this.handleSearch} />
                                             </div>
                                         </li>
                                         <li>
