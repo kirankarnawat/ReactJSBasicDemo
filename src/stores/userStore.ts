@@ -97,12 +97,6 @@ class UserStore {
             emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true
         };
     }
-
-    @action
-    public setFilter(getAllUserRequest: GetAllUserRequest) {
-        this.filters = getAllUserRequest;
-    }
-    /*********************************/
 }
 
 export default UserStore;

@@ -7,7 +7,9 @@ import { inject, observer } from 'mobx-react';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
 import BulkImport from './components/bulkImport';
 import UserFilter from './components/userFilter';
+
 import { EntityDto } from '../../services/dto/entityDto';
+import { GetUserEntityListResponse } from '../../services/user/dto/Response/getUserEntityListResponse';
 
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
@@ -19,29 +21,43 @@ export interface IUserProps {
     userStore: UserStore;
 }
 
-const confirm = Modal.confirm;
+export interface IUserState {
+    modalVisible: boolean;
+    filtermodalVisible: boolean;
+    bulkmodalVisible: boolean;
+    userId: string;
+    result: GetUserEntityListResponse[];
+    firstName: string
+    groupId: string;
+    searchOnGroupId:string;
+}
 
+const confirm = Modal.confirm;
 const { Option } = AutoComplete;
+
 // #endregion
 
 
 @inject(Stores.UserStore)
 @observer
-class User extends React.Component<IUserProps> {
-
+class User extends React.Component<IUserProps, IUserState> {
     //#region Init
-    formRef: any;
+    constructor(props: IUserProps) {
+        super(props);
 
-    state = {
-        modalVisible: false,
-        filtermodalVisible: false,
-        bulkmodalVisible: false,
-        userId: '',
-        result: [],
-        firstName: '',
-        groupId: '',
-        searchOnGroupId:''
-    };
+        this.state = {
+            modalVisible: false,
+            filtermodalVisible: false,
+            bulkmodalVisible: false,
+            userId: '',
+            result: [],
+            firstName: '',
+            groupId: '',
+            searchOnGroupId:''
+        };
+    }
+
+    formRef: any; 
 
     //run on start
     async componentDidMount() {
@@ -56,9 +72,10 @@ class User extends React.Component<IUserProps> {
         this.props.userStore.filters.pageIndex = pagination.current;
         this.setState({ userId: '' }, async () => await this.getAll());
     };
-    //#endregion   
+    //#endregion
+
     //#region get data from stores
-    async getAll() {      
+    async getAll() {
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
     }
     //#endregion
@@ -70,20 +87,21 @@ class User extends React.Component<IUserProps> {
         });
     };
 
-    firstNameChange = (event)=> {       
+
+    firstNameChange = (event:any)=> {       
         this.props.userStore.filters.firstName = event.target.value;
     }  
    
-    groupSelect = (value,option)=> { 
+    groupSelect = (value:any,option:any)=> { 
         this.props.userStore.filters.groupId = option?option.key.split("~")[0]:"";
         this.props.userStore.filters.searchOnGroupId = option?option.key.split("~")[1]:"";
     } 
-    groupChange = (value,option)=> { 
+    groupChange = (value:any,option:any)=> { 
         this.props.userStore.filters.groupId = "";
         this.props.userStore.filters.searchOnGroupId = "";
     } 
 
-    handleSearch = async()=>{
+    handleSearch = async()=>{       
        await this.getAll();
     }
 
@@ -169,11 +187,10 @@ class User extends React.Component<IUserProps> {
     saveFormRef = (formRef: any) => {
         this.formRef = formRef;
     };
+    handleAutoSearch = (value: string) => {
+        
+        let result: GetUserEntityListResponse[];
 
-
-
-    handleAutoSearch = (value: string) => {     
-        let result;
         if (!value || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
             result = [];
         } else {
@@ -187,7 +204,8 @@ class User extends React.Component<IUserProps> {
     public render() {
 
         const { users } = this.props.userStore;
-        const { result } = this.state;      
+        const { result } = this.state;
+        debugger;
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         const columns = [
@@ -278,8 +296,9 @@ class User extends React.Component<IUserProps> {
                                             </AutoComplete>
                                         </li>
                                         <li>
-                                            <div className="searchiconbg">
-                                                <Icon type="search" onClick={this.handleSearch} />
+                                            <div className="searchiconbg" >
+                                            <Icon type="search" onClick={this.handleSearch} />
+                                                {/* <Icon type="search" /> */}
                                             </div>
                                         </li>
                                         <li>
@@ -342,7 +361,6 @@ class User extends React.Component<IUserProps> {
                     }
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
                     onCreate={this.handleCreate}
-                    roles={this.props.userStore.roles}
                 />
                 <BulkImport
                     wrappedComponentRef={this.saveFormRef}
