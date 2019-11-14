@@ -96,7 +96,6 @@ class UserStore {
         this.filters = {
             emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true
         };
-        this.UserGroup={requesterUserId:"",searchPhrase:""}
     }
 
     @action
