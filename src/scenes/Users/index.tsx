@@ -11,7 +11,6 @@ import { EntityDto } from '../../services/dto/entityDto';
 
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
-
 // #endregion
 
 // #region Local State and Property
