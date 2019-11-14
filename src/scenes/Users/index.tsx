@@ -30,6 +30,7 @@ export interface IUserState {
     firstName: string
     groupId: string;
     searchOnGroupId:string;
+    status:boolean | null;
 }
 
 const confirm = Modal.confirm;
@@ -53,7 +54,8 @@ class User extends React.Component<IUserProps, IUserState> {
             result: [],
             firstName: '',
             groupId: '',
-            searchOnGroupId:''
+            searchOnGroupId:'',
+            status: null
         };
     }
 
@@ -76,6 +78,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
     //#region get data from stores
     async getAll() {
+        debugger;
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
     }
     //#endregion
@@ -87,8 +90,11 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     };
 
-
-    firstNameChange = (event:any)=> {       
+    switchChange = (checked: boolean, event: Event)=> { 
+        debugger;   
+        this.props.userStore.filters.status = checked?null:true;
+    } 
+    firstNameChange = (event:any)=> {
         this.props.userStore.filters.firstName = event.target.value;
     }  
    
@@ -284,7 +290,7 @@ class User extends React.Component<IUserProps, IUserState> {
                                 <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-16">
                                     <ul className="filterlist">
                                         <li><div className="switchbutton mt5">
-                                            <label className="mr8">{'Active'}</label> <Switch /> <label className="ml8">{'All'}</label>
+                                            <label className="mr8">{'Active'}</label> <Switch onChange={this.switchChange} /> <label className="ml8">{'All'}</label>
                                         </div>
                                         </li>
                                         <li className="width227">

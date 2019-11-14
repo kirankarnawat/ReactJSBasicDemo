@@ -9,5 +9,5 @@ export interface GetAllUserRequest extends PagedFilterAndSortedRequest {
     requesterUserId: string,
     departmentId: string,
     jobCodeId: string,
-    status?: boolean,
+    status: boolean | null
 }
