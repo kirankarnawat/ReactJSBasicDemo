@@ -1,7 +1,7 @@
 // #region
 import * as React from 'react';
 
-import { Card, Col, Modal, Row, Table, Icon, Switch, Input } from 'antd';
+import { Card, Col, Modal, Row, Table, Icon, Switch, Input ,AutoComplete, List } from 'antd';
 
 import { inject, observer } from 'mobx-react';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
@@ -11,6 +11,7 @@ import { EntityDto } from '../../services/dto/entityDto';
 
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
+
 // #endregion
 
 // #region Local State and Property
@@ -22,7 +23,8 @@ export interface IUserState {
     modalVisible: boolean;
     filtermodalVisible: boolean;
     bulkmodalVisible: boolean;
-    userId: string;
+    userId: string,   
+    groupItems: string[],
 }
 
 const confirm = Modal.confirm;
@@ -34,19 +36,23 @@ const confirm = Modal.confirm;
 class User extends React.Component<IUserProps, IUserState> {
 
     //#region Initialization
-    formRef: any;
-
+    formRef: any;    
     state = {
         modalVisible: false,
         filtermodalVisible: false,
         bulkmodalVisible: false,
-        userId: ''
+        userId: '',
+        groupItems :[]//['12345', '23456', '34567']
     };
     
     //run on start
     async componentDidMount() {
         await this.props.userStore.initFilter();
         await this.getAll();
+        debugger;
+        this.props.userStore.UserGroup.requesterUserId = "Shraddha";
+        this.props.userStore.UserGroup.searchPhrase = "shra"; 
+        this.setState({ }, async () => await this.props.userStore.getEntityList({ ...this.props.userStore.UserGroup }));     
     }
     // #endregion
 
@@ -54,16 +60,16 @@ class User extends React.Component<IUserProps, IUserState> {
     handleTableChange = (pagination: any, filters: any, sorter: any) => {
         if (sorter.order) { this.props.userStore.filters.sortExp = sorter.field + " " + (sorter.order == "ascend" ? "asc" : "desc"); }
         this.props.userStore.filters.pageIndex = pagination.current;
-        this.setState({ userId: '' }, async () => await this.getAll());
+        this.setState({ userId: ''}, async () => await this.getAll());
     };
     //#endregion
-
+    
     //#region get data from stores
     async getAll() {
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
     }
     //#endregion
-
+    
     //#region Drawer visibility
     Modal = () => {
         this.setState({
@@ -163,6 +169,7 @@ class User extends React.Component<IUserProps, IUserState> {
         const { users } = this.props.userStore;
 
         const columns = [
+            { title: 'UserId', dataIndex: 'userId', sorter: true, key: 'userId', width: 150, render: (text: string) => <div>{text}</div> },
             {
                 title: 'FirstName', dataIndex: 'firstName', sorter: true, key: 'firstName', width: 150,
                 render: (text: string, item: any) => <div> {(item.status === false)? <span className="disabledrow"></span> : <span></span>} <span className="adminIcon"></span> {text}</div>
@@ -245,7 +252,8 @@ class User extends React.Component<IUserProps, IUserState> {
                                             <Input placeholder="First Name/ Last Name" />
                                         </li>
                                         <li className="width227">
-                                            <Input placeholder="Group 1/ Group 2/ Group 3" />
+                                            {/* <Input placeholder="Group 1/ Group 2/ Group 3" /> */}
+                                            <AutoComplete  placeholder="Group 1/ Group 2/ Group 3" dataSource={this.state.groupItems}/>;
                                         </li>
                                         <li>
                                             <div className="searchiconbg">
