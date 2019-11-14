@@ -7,7 +7,9 @@ import { inject, observer } from 'mobx-react';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
 import BulkImport from './components/bulkImport';
 import UserFilter from './components/userFilter';
+
 import { EntityDto } from '../../services/dto/entityDto';
+import { GetUserEntityListResponse } from '../../services/user/dto/Response/getUserEntityListResponse';
 
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
@@ -19,26 +21,37 @@ export interface IUserProps {
     userStore: UserStore;
 }
 
-const confirm = Modal.confirm;
+export interface IUserState {
+    modalVisible: boolean;
+    filtermodalVisible: boolean;
+    bulkmodalVisible: boolean;
+    userId: string;
+    result: GetUserEntityListResponse[];
+}
 
+const confirm = Modal.confirm;
 const { Option } = AutoComplete;
+
 // #endregion
 
 
 @inject(Stores.UserStore)
 @observer
-class User extends React.Component<IUserProps> {
-
+class User extends React.Component<IUserProps, IUserState> {
     //#region Init
-    formRef: any;
+    constructor(props: IUserProps) {
+        super(props);
 
-    state = {
-        modalVisible: false,
-        filtermodalVisible: false,
-        bulkmodalVisible: false,
-        userId: '',
-        result: [],
-    };
+        this.state = {
+            modalVisible: false,
+            filtermodalVisible: false,
+            bulkmodalVisible: false,
+            userId: '',
+            result: []
+        };
+    }
+
+    formRef: any; 
 
     //run on start
     async componentDidMount() {
@@ -155,8 +168,9 @@ class User extends React.Component<IUserProps> {
     };
 
     handleAutoSearch = (value: string) => {
-        debugger;
-        let result;
+        
+        let result: GetUserEntityListResponse[];
+
         if (!value || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
             result = [];
         } else {
@@ -326,7 +340,6 @@ class User extends React.Component<IUserProps> {
                     }
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
                     onCreate={this.handleCreate}
-                    roles={this.props.userStore.roles}
                 />
                 <BulkImport
                     wrappedComponentRef={this.saveFormRef}
