@@ -1,7 +1,7 @@
 // #region
 import * as React from 'react';
 
-import { Card, Col, Modal, Row, Table, Icon, Switch, Input } from 'antd';
+import { Card, Col, Modal, Row, Table, Icon, Switch, Input, AutoComplete } from 'antd';
 
 import { inject, observer } from 'mobx-react';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
@@ -11,6 +11,7 @@ import { EntityDto } from '../../services/dto/entityDto';
 
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
+
 // #endregion
 
 // #region Local State and Property
@@ -18,31 +19,27 @@ export interface IUserProps {
     userStore: UserStore;
 }
 
-export interface IUserState {
-    modalVisible: boolean;
-    filtermodalVisible: boolean;
-    bulkmodalVisible: boolean;
-    userId: string;
-}
-
 const confirm = Modal.confirm;
+
+const { Option } = AutoComplete;
 // #endregion
 
 
 @inject(Stores.UserStore)
 @observer
-class User extends React.Component<IUserProps, IUserState> {
+class User extends React.Component<IUserProps> {
 
-    //#region Initialization
+    //#region Init
     formRef: any;
 
     state = {
         modalVisible: false,
         filtermodalVisible: false,
         bulkmodalVisible: false,
-        userId: ''
+        userId: '',
+        result: [],
     };
-    
+
     //run on start
     async componentDidMount() {
         await this.props.userStore.initFilter();
@@ -156,16 +153,31 @@ class User extends React.Component<IUserProps, IUserState> {
     handleSearch = (value: any) => {
         //this.setState({ this.props.userStore.filters: value }, async () => await this.getAll());
     };
+
+    handleAutoSearch = (value: string) => {
+        debugger;
+        let result;
+        if (!value || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
+            result = [];
+        } else {
+            result = this.props.userStore.userentity.items;
+        }
+        this.setState({ result });
+    };
+
     //#endregion
 
     public render() {
 
         const { users } = this.props.userStore;
+        const { result } = this.state;
+        debugger;
+        const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         const columns = [
             {
                 title: 'FirstName', dataIndex: 'firstName', sorter: true, key: 'firstName', width: 150,
-                render: (text: string, item: any) => <div> {(item.status === false)? <span className="disabledrow"></span> : <span></span>} <span className="adminIcon"></span> {text}</div>
+                render: (text: string, item: any) => <div> {(item.status === false) ? <span className="disabledrow"></span> : <span></span>} <span className="adminIcon"></span> {text}</div>
             },
             { title: 'LastName', dataIndex: 'lastName', sorter: true, key: 'lastName', width: 150, render: (text: string) => <div>{text}</div> },
             { title: 'EmailAddress', dataIndex: 'emailAddress', sorter: true, key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
@@ -245,7 +257,9 @@ class User extends React.Component<IUserProps, IUserState> {
                                             <Input placeholder="First Name/ Last Name" />
                                         </li>
                                         <li className="width227">
-                                            <Input placeholder="Group 1/ Group 2/ Group 3" />
+                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSearch={this.handleAutoSearch}>
+                                                {children}
+                                            </AutoComplete>
                                         </li>
                                         <li>
                                             <div className="searchiconbg">

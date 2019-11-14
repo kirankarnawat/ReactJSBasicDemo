@@ -1,5 +1,5 @@
 
 export interface GetUserEntityListRequest {
-    requesterUserId: string,
-    searchPhrase: string,
+    RequesterUserId : string,
+    SearchPhrase: string
 }

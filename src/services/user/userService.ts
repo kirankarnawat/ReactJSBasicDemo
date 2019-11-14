@@ -28,17 +28,14 @@ class UserService {
     }
 
     public async getEntityList(getUserEntityListRequest: GetUserEntityListRequest): Promise<PagedResultDto<GetUserEntityListResponse>> {
-        let result = await http.post(lms.toAPIPath(lms.APIType.USERENTITYLIST), getUserEntityListRequest);
-
+        let result = await http.get(lms.toAPIPath(lms.APIType.USERENTITYLIST), { params: getUserEntityListRequest });
+        debugger;
         var data = <PagedResultDto<GetUserEntityListResponse>>{};
         data.items = result.data;
         data.totalCount = data.items.length;
 
         return data;
     }
-
-
-
 
     public async create(createUserInput: CreateOrUpdateUserInput) {
         let result = await http.post('api/services/app/User/Create', createUserInput);

@@ -88,6 +88,8 @@ class UserStore {
     @action
     async initFilter() {
         var userid = sessionService.getLoginUserId();
+        
+        await this.getEntityList({ RequesterUserId: userid, SearchPhrase: 'Location' });
 
         this.filters = {
             emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true
