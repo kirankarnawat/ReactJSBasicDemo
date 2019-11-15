@@ -9,5 +9,9 @@ export interface GetAllUserRequest extends PagedFilterAndSortedRequest {
     requesterUserId: string,
     departmentId: string,
     jobCodeId: string,
-    status: boolean | null
+    status: boolean | null,
+    hiringDateFrom: Date | null,
+    hiringDateTo: Date | null,
+    roleChangeDateFrom: Date | null,
+    roleChangeDateTo: Date | null,
 }

@@ -4,35 +4,15 @@ import { Form, Input, Drawer, Button, Switch, DatePicker } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import FormItem from 'antd/lib/form/FormItem';
 
-//const TabPane = Tabs.TabPane;
-
-export interface ICreateOrUpdateUserProps extends FormComponentProps {
+export interface IUserFilterProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
-    modalType: string;
     onCreate: () => void;
 }
 
-class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
+class UserFilter extends React.Component<IUserFilterProps> {
     state = {
         confirmDirty: false,
-    };
-
-    compareToFirstPassword = (rule: any, value: any, callback: any) => {
-        const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
-        } else {
-            callback();
-        }
-    };
-
-    validateToNextPassword = (rule: any, value: any, callback: any) => {
-        const form = this.props.form;
-        if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
-        }
-        callback();
     };
 
     render() {
@@ -80,7 +60,7 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
                             <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                 <FormItem>
                                     <label className="floatleft">{'Group'}</label>
-                                    <Input placeholder='Group 1/ Group 2/ Group 3' />
+                                    {getFieldDecorator('groupId')(<Input placeholder='Group 1/ Group 2/ Group 3' />)}
                                 </FormItem>
                             </div>
                         </div>
@@ -88,7 +68,7 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
                             <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                 <FormItem>
                                     <label className="floatleft">{'Job Code'}</label>
-                                    <Input placeholder='Job Code' />
+                                    {getFieldDecorator('jobCodeId')(<Input placeholder='Job Code' />)}
                                 </FormItem>
                             </div>
                         </div>
@@ -98,9 +78,9 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
                                     <label className="floatleft">{'Hiring Date'}</label>
                                     <div>
                                         <ul className="filterdatelist">
-                                            <li> <DatePicker placeholder='Hiring Date' /></li>
+                                            <li> {getFieldDecorator('hiringDateFrom')(<DatePicker placeholder='Hiring Date' />)}</li>
                                             <li className="width10per">To</li>
-                                            <li> <DatePicker placeholder='Hiring Date' /></li>
+                                            <li> {getFieldDecorator('hiringDateTo')(<DatePicker placeholder='Hiring Date' />)}</li>
                                         </ul>
                                     </div>
                                 </FormItem>
@@ -112,9 +92,9 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
                                     <label className="floatleft">{'Role Change Date'}</label>
                                     <div>
                                         <ul className="filterdatelist">
-                                            <li> <DatePicker placeholder='Role Change Date' /></li>
+                                            <li> {getFieldDecorator('roleChangeDateFrom')(<DatePicker placeholder='Role Change Date' />)}</li>
                                             <li className="width10per">To</li>
-                                            <li> <DatePicker placeholder='Role Change Date' /></li>
+                                            <li> {getFieldDecorator('roleChangeDateTo')(<DatePicker placeholder='Role Change Date' />)}</li>
                                         </ul>
                                     </div>
                                 </FormItem>
@@ -148,4 +128,4 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
     }
 }
 
-export default Form.create<ICreateOrUpdateUserProps>()(UserFilter);
+export default Form.create<IUserFilterProps>()(UserFilter);
