@@ -8,8 +8,8 @@ import { PagedResultDto } from '../services/dto/pagedResultDto';
 
 import { GetAllUserRequest } from "../services/user/dto/Request/getAllUserRequest";
 import { GetAllUserResponse } from "../services/user/dto/Response/getAllUserResponse";
-import { GetUserEntityListRequest } from "../services/user/dto/Request/GetUserEntityListRequest";
-import { GetUserEntityListResponse } from "../services/user/dto/Response/GetUserEntityListResponse";
+import { GetUserEntityListRequest } from "../services/user/dto/Request/getUserEntityListRequest";
+import { GetUserEntityListResponse } from "../services/user/dto/Response/getUserEntityListResponse";
 
 import userService from '../services/user/userService';
 import sessionService from '../services/session/sessionService';
@@ -94,7 +94,8 @@ class UserStore {
         await this.getEntityList({ RequesterUserId: userid, SearchPhrase: 'Location' });
 
         this.filters = {
-            emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true
+            emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true,
+            hiringDateFrom: null, hiringDateTo: null, roleChangeDateFrom: null, roleChangeDateTo: null
         };
     }
 }

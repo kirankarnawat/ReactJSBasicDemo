@@ -23,14 +23,14 @@ export interface IUserProps {
 
 export interface IUserState {
     modalVisible: boolean;
-    filtermodalVisible: boolean;
-    bulkmodalVisible: boolean;
+    filterModalVisible: boolean;
+    bulkModalVisible: boolean;
     userId: string;
     result: GetUserEntityListResponse[];
     firstName: string
     groupId: string;
-    searchOnGroupId:string;
-    status:boolean | null;
+    searchOnGroupId: string;
+    status: boolean | null;
 }
 
 const confirm = Modal.confirm;
@@ -48,18 +48,18 @@ class User extends React.Component<IUserProps, IUserState> {
 
         this.state = {
             modalVisible: false,
-            filtermodalVisible: false,
-            bulkmodalVisible: false,
+            filterModalVisible: false,
+            bulkModalVisible: false,
             userId: '',
             result: [],
             firstName: '',
             groupId: '',
-            searchOnGroupId:'',
+            searchOnGroupId: '',
             status: null
         };
     }
 
-    formRef: any; 
+    formRef: any;
 
     //run on start
     async componentDidMount() {
@@ -90,42 +90,43 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     };
 
-    switchChange = (checked: boolean, event: Event)=> { 
-        debugger;   
-        this.props.userStore.filters.status = checked?null:true;
-    } 
-    firstNameChange = (event:any)=> {
+    switchChange = (checked: boolean, event: Event) => {
+        debugger;
+        this.props.userStore.filters.status = checked ? null : true;
+    }
+    firstNameChange = (event: any) => {
         this.props.userStore.filters.firstName = event.target.value;
-    }  
-   
-    groupSelect = (value:any,option:any)=> { 
-        this.props.userStore.filters.groupId = option?option.key.split("~")[0]:"";
-        this.props.userStore.filters.searchOnGroupId = option?option.key.split("~")[1]:"";
-    } 
-    groupChange = (value:any,option:any)=> { 
+    }
+
+    groupSelect = (value: any, option: any) => {
+        this.props.userStore.filters.groupId = option ? option.key.split("~")[0] : "";
+        this.props.userStore.filters.searchOnGroupId = option ? option.key.split("~")[1] : "";
+    }
+
+    groupChange = (value: any, option: any) => {
         this.props.userStore.filters.groupId = "";
         this.props.userStore.filters.searchOnGroupId = "";
-    } 
+    }
 
-    handleSearch = async()=>{       
-       await this.getAll();
+    handleSearch = async () => {
+        await this.getAll();
     }
 
 
     FilterModal = () => {
         this.setState({
-            filtermodalVisible: !this.state.filtermodalVisible,
+            filterModalVisible: !this.state.filterModalVisible,
         });
     };
 
     bulkmodal = () => {
         this.setState({
-            bulkmodalVisible: !this.state.bulkmodalVisible,
+            bulkModalVisible: !this.state.bulkModalVisible,
         });
     };
     // #endregion -----------------------------
 
-    //#region Add/Edit
+    //#region drawer data
     async createOrUpdateModalOpen(entityDto: EntityDto) {
         if (entityDto.id === '') {
             await this.props.userStore.createUser();
@@ -141,14 +142,13 @@ class User extends React.Component<IUserProps, IUserState> {
         this.formRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
 
-    async filterModalOpen(entityDto: EntityDto) {
-        this.setState({ userId: entityDto.id });
+    async filterModalOpen() {
+        
         this.FilterModal();
-        // this.formRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
-    }
-    //#endregion
 
-    //#region Bulk Import
+        this.formRef.props.form.setFieldsValue({ ...this.props.userStore.filters });
+    }
+    
     async bulkImportmedelOpen(entityDto: EntityDto) {
         this.setState({ userId: entityDto.id });
         this.bulkmodal();
@@ -193,8 +193,9 @@ class User extends React.Component<IUserProps, IUserState> {
     saveFormRef = (formRef: any) => {
         this.formRef = formRef;
     };
+
     handleAutoSearch = (value: string) => {
-        
+
         let result: GetUserEntityListResponse[];
 
         if (!value || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
@@ -204,6 +205,22 @@ class User extends React.Component<IUserProps, IUserState> {
         }
         this.setState({ result });
     };
+
+    handleAdvFilter = () => {
+        const form = this.formRef.props.form;
+
+        form.validateFields(async (err: any, values: any) => {
+            if (err) {
+                return;
+            } else {
+                this.props.userStore.filters = values;
+            }
+
+            await this.getAll();
+            this.setState({ modalVisible: false });
+            form.resetFields();
+        });
+    }
 
     //#endregion
 
@@ -297,18 +314,18 @@ class User extends React.Component<IUserProps, IUserState> {
                                             <Input placeholder="First Name/ Last Name" onChange={this.firstNameChange} />
                                         </li>
                                         <li className="width227">
-                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange}  onSearch={this.handleAutoSearch}>
+                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch}>
                                                 {children}
                                             </AutoComplete>
                                         </li>
                                         <li>
                                             <div className="searchiconbg" >
-                                            <Icon type="search" onClick={this.handleSearch} />
+                                                <Icon type="search" onClick={this.handleSearch} />
                                                 {/* <Icon type="search" /> */}
                                             </div>
                                         </li>
                                         <li>
-                                            <div className="filterWrapp floatright" onClick={() => this.filterModalOpen({ id: '' })}>
+                                            <div className="filterWrapp floatright" onClick={() => this.filterModalOpen()}>
                                                 <a href="#">
                                                     <span id="sidebarCollapse" className="filterIcon">&nbsp;</span>
                                                 </a>
@@ -345,6 +362,20 @@ class User extends React.Component<IUserProps, IUserState> {
                         </div>
                     </Col>
                 </Row>
+
+                <UserFilter
+                    wrappedComponentRef={this.saveFormRef}
+                    visible={this.state.filterModalVisible}
+                    onCancel={() =>
+                        this.setState({
+                            filterModalVisible: false,
+                        })
+                    }
+                    onCreate={this.handleAdvFilter}
+                />
+
+
+
                 <CreateOrUpdateUser
                     wrappedComponentRef={this.saveFormRef}
                     visible={this.state.modalVisible}
@@ -357,23 +388,13 @@ class User extends React.Component<IUserProps, IUserState> {
                     onCreate={this.handleCreate}
                     roles={this.props.userStore.roles}
                 />
-                <UserFilter
-                    wrappedComponentRef={this.saveFormRef}
-                    visible={this.state.filtermodalVisible}
-                    onCancel={() =>
-                        this.setState({
-                            filtermodalVisible: false,
-                        })
-                    }
-                    modalType={this.state.userId === '' ? 'edit' : 'create'}
-                    onCreate={this.handleCreate}
-                />
+               
                 <BulkImport
                     wrappedComponentRef={this.saveFormRef}
-                    visible={this.state.bulkmodalVisible}
+                    visible={this.state.bulkModalVisible}
                     onCancel={() =>
                         this.setState({
-                            bulkmodalVisible: false,
+                            bulkModalVisible: false,
                         })
                     }
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
