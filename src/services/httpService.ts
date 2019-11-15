@@ -35,7 +35,7 @@ http.interceptors.response.use(
         return response;
     },
     error => {
-        debugger;
+     
         if (error.response.status == 400) {
             if (!!error.response && !!error.response.data.errors && !!error.response.data.errors[0].message && error.response.data.errors[0].fieldName) {
 
