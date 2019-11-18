@@ -28,14 +28,22 @@ class UserService {
     }
 
     public async getEntityList(getUserEntityListRequest: GetUserEntityListRequest): Promise<PagedResultDto<GetUserEntityListResponse>> {
-        let result = await http.get(lms.toAPIPath(lms.APIType.USERENTITYLIST), { params: getUserEntityListRequest });
         debugger;
         var data = <PagedResultDto<GetUserEntityListResponse>>{};
+        try{
+        let result = await http.post(lms.toAPIPath(lms.APIType.USERENTITYLIST), getUserEntityListRequest);
         data.items = result.data;
         data.totalCount = data.items.length;
-
+        return data;
+        }
+        catch(e){
+            console.log(e);
+        }
         return data;
     }
+
+
+
 
     public async create(createUserInput: CreateOrUpdateUserInput) {
         let result = await http.post('api/services/app/User/Create', createUserInput);
@@ -68,7 +76,7 @@ class UserService {
         //return result.data.result;
 
         var data = <CreateOrUpdateUserInput>{};
-        if (entityDto.id == 1)
+        if (entityDto.id == '1')
             data = { "id": 1, "firstName": "Amit", "lastName": "Dhivar", "userType": "Head", "department": "IT", "emailAddress": "amit.dhivar@deplhianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["HOD"] };
         else
             data = { "id": 2, "firstName": "Rajesh", "lastName": "Deshpande", "userType": "Lead", "department": "IT", "emailAddress": "rajesh.deshpande@delphianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["LEAD"] };

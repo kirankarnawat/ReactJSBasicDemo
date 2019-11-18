@@ -5,7 +5,7 @@ import { FormComponentProps } from 'antd/lib/form';
 import FormItem from 'antd/lib/form/FormItem';
 import Stores from '../../../stores/storeIdentifier';
 import UserStore from '../../../stores/userStore';
-import { GetUserEntityListResponse } from '../../services/user/dto/Response/getUserEntityListResponse';
+import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
 
 //const TabPane = Tabs.TabPane;
 
@@ -31,10 +31,10 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
         searchOnGroupId:'',
         status: null,
         jobCodeId:'',
-        fromHringDate:'',
-        toHiringDate:'',
-        fromRoleChangeDate:'',
-        toRoleChangeDate:''
+        hiringDateFrom:null,
+        hiringDateTo:null,
+        roleChangeDateFrom:null,
+        roleChangeDateTo:null
 
     };
    //run on start
@@ -79,10 +79,11 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
         this.props.userStore.filters.lastName =  form.getFieldsValue().lastName;       
         this.props.userStore.filters.emailAddress =  form.getFieldsValue().emailAddress; 
         this.props.userStore.filters.jobCodeId =  form.getFieldsValue().jobCodeId;       
-        this.props.userStore.filters.fromHringDate =  form.getFieldsValue().fromHiringDate?form.getFieldsValue().fromHiringDate.format("DD/MM/YYYY"):"";
-        this.props.userStore.filters.toHiringDate =  form.getFieldsValue().toHiringDate?form.getFieldsValue().toHiringDate.format("DD/MM/YYYY"):"";       
-        this.props.userStore.filters.fromRoleChangeDate =  form.getFieldsValue().fromRoleChangeDate?form.getFieldsValue().fromRoleChangeDate.format("DD/MM/YYYY"):"";       
-        this.props.userStore.filters.toRoleChangeDate =  form.getFieldsValue().toRoleChangeDate?form.getFieldsValue().toRoleChangeDate.format("DD/MM/YYYY"):"";       
+        //this.props.userStore.filters.hiringDateFrom =  form.getFieldsValue().hiringDateFrom?form.getFieldsValue().hiringDateFrom.format("DD/MM/YYYY"):"";
+        this.props.userStore.filters.hiringDateFrom =  form.getFieldsValue().hiringDateFrom?form.getFieldsValue().hiringDateFrom.format():"";
+        this.props.userStore.filters.hiringDateTo =  form.getFieldsValue().hiringDateTo?form.getFieldsValue().hiringDateTo.format():"";       
+        this.props.userStore.filters.roleChangeDateFrom =  form.getFieldsValue().roleChangeDateFrom?form.getFieldsValue().roleChangeDateFrom.format():"";       
+        this.props.userStore.filters.roleChangeDateTo =  form.getFieldsValue().roleChangeDateTo?form.getFieldsValue().roleChangeDateTo.format():"";       
         this.props.userStore.filters.status =  form.getFieldsValue().status;
         await this.getAll();
     };
@@ -168,11 +169,11 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
                                     <div>
                                         <ul className="filterdatelist">
                                             <li> 
-                                            {getFieldDecorator('fromHiringDate')(<DatePicker placeholder='Hiring Date' />)}
+                                            {getFieldDecorator('hiringDateFrom')(<DatePicker placeholder='Hiring Date' />)}
                                                 {/* <DatePicker placeholder='Hiring Date' /> */}
                                                 </li>
                                             <li className="width10per">To</li>
-                                            <li> {getFieldDecorator('toHiringDate')(<DatePicker placeholder='Hiring Date' />)}</li>
+                                            <li> {getFieldDecorator('hiringDateTo')(<DatePicker placeholder='Hiring Date' />)}</li>
                                             {/* <li> <DatePicker placeholder='Hiring Date' /></li> */}
                                         </ul>
                                     </div>
@@ -186,12 +187,12 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
                                     <div>
                                         <ul className="filterdatelist">
                                             <li> 
-                                            {getFieldDecorator('fromRoleChangeDate')(<DatePicker placeholder='Role Change Date' />)}
+                                            {getFieldDecorator('roleChangeDateFrom')(<DatePicker placeholder='Role Change Date' />)}
                                                 {/* <DatePicker placeholder='Role Change Date' /> */}
                                                 </li>
                                             <li className="width10per">To</li>
                                             <li> 
-                                            {getFieldDecorator('toRoleChangeDate')(<DatePicker placeholder='Role Change Date' />)}
+                                            {getFieldDecorator('roleChangeDateTo')(<DatePicker placeholder='Role Change Date' />)}
                                                 {/* <DatePicker placeholder='Role Change Date' /> */}
                                             </li>
                                         </ul>
@@ -204,8 +205,8 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
                                 <FormItem>
                                     <div><label>{'Status'}</label></div>
                                     <div className="switchbutton">
-                                        <label className="mr8">{'Active'}</label>                                      
-                                         <Switch />
+                                        <label className="mr8">{'Active'}</label>  
+                                        {getFieldDecorator('status')(<Switch />)} 
                                           <label className="ml8">{'Inactive'}
                                          </label>
                                     </div>
