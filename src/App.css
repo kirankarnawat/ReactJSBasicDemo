@@ -1,4 +1,4 @@
-﻿body{font-size:12px !important; color:#424242; background:#eceff1; font-family: 'Conv_Roboto-Light' !important;}
+﻿body{font-size:12px !important; color:#424242; background:#eceff1; font-family: 'Conv_Roboto-Regular' !important;}
 @font-face {
     font-family: 'Conv_Roboto-Bold';
     src: url('fonts/Roboto-Bold.eot');
@@ -43,7 +43,12 @@ html {--antd-wave-shadow-color: #d63031 !important;}
 .defaulttheme .ant-input{height:25px;}
 .defaulttheme .ant-input,.defaulttheme .ant-form-explain{font-size:12px}
 .defaulttheme .ant-form-explain, .defaulttheme .ant-form-extra{min-height:inherit}
+.defaulttheme .ant-calendar-picker,.defaulttheme .ant-select{width:100%;font-size:12px;}
+.defaulttheme .ant-select-dropdown{font-size:12px;}
+.defaulttheme .ant-select-selection--single{height:26px;}
+.defaulttheme .ant-select-selection__rendered{ line-height:25px;}
 .defaulttheme .mb10{margin-bottom:10px;}
+.defaulttheme .mt10{margin-top:10px;}
 .defaulttheme .ant-tabs{font-size:12px}
 .defaulttheme .floatleft{float: left}
 .defaulttheme .floatright{float: right}
@@ -52,7 +57,7 @@ html {--antd-wave-shadow-color: #d63031 !important;}
 .defaulttheme .ant-btn-default:hover{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
 .defaulttheme .ant-btn-danger{background:#d63031; color:#ffffff; border-color:#d63031; border-bottom:2px solid #a61726}
 .defaulttheme .ant-btn-primary:hover{background:#c22b2c; color:#ffffff; border-color:#c22b2c; border-bottom:2px solid #a61726}
-.defaulttheme .ant-input:focus,.defaulttheme .ant-input:hover{border-color:#80bdff;box-shadow:0 0 0 0.2rem rgba(0,123,255,.25);}
+.defaulttheme .ant-input:focus,.defaulttheme .ant-input:hover,.defaulttheme .ant-select-selection:focus,.defaulttheme .ant-select-selection:hover{border-color:#80bdff;box-shadow:0 0 0 0.2rem rgba(0,123,255,.25);}
 .defaulttheme .ant-btn:active, .defaulttheme .ant-btn.active,.defaulttheme .ant-btn:focus{color: #5b5b5b;background-color: #fff;border-color: #2d3436;}
 .defaulttheme .ant-btn-primary:hover, .defaulttheme .ant-btn-primary:focus{background:#c22b2c; color:#ffffff; border-color:#c22b2c; border-bottom:2px solid #a61726}
 body .ant-col-lg-1, body .ant-col-lg-2, body .ant-col-lg-3, body .ant-col-lg-4, body .ant-col-lg-5, body .ant-col-lg-6, body .ant-col-lg-7, body .ant-col-lg-8, body .ant-col-lg-9, body .ant-col-lg-10, body .ant-col-lg-11, body .ant-col-lg-12, body .ant-col-lg-13, body .ant-col-lg-14, body .ant-col-lg-15, body .ant-col-lg-16, body .ant-col-lg-17, body .ant-col-lg-18, body .ant-col-lg-19, body .ant-col-lg-20,body .ant-col-lg-21, body .ant-col-lg-22, body .ant-col-lg-23, body .ant-col-lg-24{padding-left:8px;padding-right:8px;}
@@ -61,6 +66,7 @@ body .ant-col-md-1, body .ant-col-md-2, body .ant-col-md-3, body .ant-col-md-4, 
 body .ant-col-xs-1, body .ant-col-xs-2, body .ant-col-xs-3, body .ant-col-xs-4, body .ant-col-xs-5, body .ant-col-xs-6, body .ant-col-xs-7, body .ant-col-xs-8, body .ant-col-xs-9, body .ant-col-xs-10, body .ant-col-xs-11, body .ant-col-xs-12, body .ant-col-xs-13, body .ant-col-xs-14, body .ant-col-xs-15, body .ant-col-xs-16, body .ant-col-xs-17, body .ant-col-xs-18, body .ant-col-xs-19, body .ant-col-xs-20,body .ant-col-xs-21, body .ant-col-xs-22, body .ant-col-xs-23, body .ant-col-xs-24{padding-left:8px;padding-right:8px;}
 body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right:-8px;margin-left:-8px; position: relative}
 .rel{position:relative;}
+
 /*Globally  CSS END*/
 
 .logoDiv img {max-width: 127px;}
@@ -190,10 +196,10 @@ ul.headerListing li.active a{color:#d63032; float:left}
 .ant-drawer .ant-drawer-header{padding:16px 24px;border-bottom:1px solid #E41F35}
 .ant-drawer .ant-drawer-body{padding:16px 24px}
 .ant-drawer .ant-form-item-control-wrapper{margin-bottom:10px;font-size:12px}
-.ant-drawer .ant-form-item{margin-bottom:0px}
+.ant-drawer .ant-form-item{margin-bottom:4px}
 .ant-drawer .ant-form-item-label{line-height:inherit;margin-bottom:5px}
 .ant-drawer .ant-form-item-control{line-height:inherit;margin-bottom:5px}
-.ant-drawer .ant-form-item label{margin-bottom:5px;display: inline-block;font-size: 12px;font-family: 'Conv_Roboto-Regular'; color:#333333}
+.ant-drawer .ant-form-item label{margin-bottom:5px;display: inline-block;font-size: 12px;font-family: 'Conv_Roboto-Regular'; color:#000}
 .start{color:#f00}
 
 .filterBody{float:left; width:100%; padding:0}
@@ -326,7 +332,7 @@ footer{padding: 0;font-size: 11px}
 .treedigram .tree{padding:0}
 .treedigram .tree ul {margin-left: 20px;padding: 0;}
 .treedigram .tree li {list-style-type: none;margin:16px;position: relative;}
-.treedigram .tree li a{color:#8D8D8D}
+.treedigram .tree li a{color:#8D8D8D;font-family: 'Conv_Roboto-Light';}
 .treedigram .tree li::before {content: "";position: absolute;top:-16px;left:-26px;border-left: 2px dotted #ccc;border-bottom: 2px dotted #ccc;border-radius: 0 0 0 0px;width: 30px;height:30px;}
 .treedigram .tree li::after {position:absolute;content:"";top:8px;left:-20px;border-left:2px dotted #ccc;border-top:2px dotted #ccc;border-radius:0px 0 0 0;width:20px;height:100%;}
 .treedigram .tree li:last-child::after{display:none;}
@@ -334,18 +340,29 @@ footer{padding: 0;font-size: 11px}
 .treedigram .tree li a {border-radius: 5px;padding:0px 5px 0px 10px;}
 .treedigram .tree li .fristlink{padding:0px 5px 0px 1px;}
 .treedigram .tree .treeIcon{color:#000;font-size:20px;padding-right:5px;}
-.treedigram .tree .groupicon{font-size:16px;padding-left:5px}
+.treedigram .tree .groupicon{font-size:16px;margin-left:5px}
 .treedigram .tree .values{padding-left:5px;}
 .treedigram .tree li a .adduserIcon{ width:20px; height:20px; margin-left:7px; background:#c22b2c; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; display:inline-block;position:relative;top: 6px;}
 .treedigram .tree li a .adduserIcon{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat; background-position:3px 3px;}
+.treeIcon{background-image: url("images/entityicon.png"); background-repeat: no-repeat; background-position:0px 0px;width:25px; height:23px; display: inline-block; vertical-align: middle; margin-right:5px;}
+.groupicon{background-image: url("images/users.png"); background-repeat: no-repeat; background-position:0px 0px;width:20px; height:15px; display: inline-block; vertical-align: middle;}
+
 .treedigram .tree li.highlighted a{color:#000;}
 .treedigram .tree li a:hover .adduserIcon{ background-color:#333333;}
 .treedigram .tree li.mt0{margin-top:0px}
 
 /**INLINE TREE STRUCTURE ***/
 .treeinlinestructure .treeentityinline{list-style:none; padding:0; margin:0;}
-.treeinlinestructure .treeentityinline li{}
-.treeentityinline ul li{}
+.treeinlinestructure .treeentityinline li{float: left; margin: 5px 0px;}
+.treeinlinestructure .treeentityinline li .arrowicon{ margin:0px 10px;;}
+.treeinlinestructure .treeentityinline li:last-child a{color:#000;font-size:13px;font-family: 'Conv_Roboto-Bold';}
+.treeinlinestructure .treeentityinline li a{color:#8D8D8D; font-size:12px;}
+
+
+
+
+
+
 .switchbutton .labeltext{ padding:0px 5px;font-size:12px;}
 .switchbutton .ant-switch-checked{background-color: #fff;border: 1px solid #333333;}
 .switchbutton .ant-switch{height:20px;border: 1px solid #333333;background: #fff;}
@@ -356,3 +373,21 @@ footer{padding: 0;font-size: 11px}
 .filterdatelist .calIcon{position:absolute;right: 6px;top: 2px;font-size: 12px;cursor: pointer;}
 .filterdatelist li{width:40%; float: left;}
 .filterdatelist li.width10per{width:20%; text-align: center; font-weight: bold; padding-top:4px;}
+
+
+
+
+/****WARNING MSG ****/
+.warningMsg{background:#FFF6F6;border:1px solid #E2B6B5; width:100%; padding:10px;}
+.warningMsg .warningText{width: 80%; float: left;}
+.warningMsg .warningbtn{width:17%;float: left;margin-left:3%;}
+.warningMsg .heading h3{color:#973937; font-size: 15px;font-family: 'Conv_Roboto-Bold'; margin:0; padding-bottom:2px;} 
+.warningMsg .discText{color:#973937; font-size:12px; line-height:16px; }
+
+
+/****Success MSG ****/
+.successMsg{background:#FCFFF5;border:1px solid #A8C599; width:100%; padding:10px;}
+.successMsg .heading h3{color:#1E561F; font-size: 15px;font-family: 'Conv_Roboto-Bold'; margin:0; padding-bottom:2px;} 
+.successMsg .discText{color:#1E561FCC; font-size:12px; line-height:16px; }
+/* .warningMsg .warningText{width: 80%; float: left;}
+.warningMsg .warningbtn{width:17%;float: left;margin-left:3%;} */

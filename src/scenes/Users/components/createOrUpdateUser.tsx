@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { Form, Input, Tabs, Drawer, Button,Col,Row,Icon,Switch} from 'antd';
+import { Form, Tabs, Drawer, Button,Col,Row} from 'antd';
 //import CheckboxGroup from 'antd/lib/checkbox/Group';
 import { FormComponentProps } from 'antd/lib/form';
-import FormItem from 'antd/lib/form/FormItem';
 import { GetRoles } from '../../../services/user/dto/getRolesOuput';
-import rules from './createOrUpdateUser.validation';
 import UserEntityTree from './userEntityTree';
-
+import UserEntitydata  from './userEntityData';
 const TabPane = Tabs.TabPane;
 export interface ICreateOrUpdateUserProps extends FormComponentProps {
     visible: boolean;
@@ -38,7 +36,7 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
     };
     
     render() {
-        const { getFieldDecorator } = this.props.form;
+        
         const { visible, onCancel, onCreate } = this.props;
         return (
             <Drawer title={'Add/Edit User'} width={560} onClose={onCancel} visible={visible}>
@@ -46,59 +44,9 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
                     <TabPane tab={'User Information'} key={'UserInformation'}>
                     <div className="sysId">system ID: 00006</div>
                     <div className="pos">
-                    <div className="antd-row">
-                          <Col  xs={{ span:24}} sm={{ span:24 }} md={{ span:24 }} lg={{ span:24 }}>
-                    <FormItem>
-                      <label>{'Search User Group'} <span className="start">*</span> </label>
-                      <div className="rel">
-                          {getFieldDecorator('departmentcode', { rules: rules.departmentCode })(<Input />)}
-                          <div className="searchbtn"><Icon type="search" /> </div>
-                          </div>
-                          </FormItem>
-                          </Col>
-                       </div>
-                       <div><UserEntityTree /></div>
-                    <div className="hrLine mb15"></div>
-                    <Row className="antd-row">
-                      <Col lg={{span:12}} sm={{span:12}} md={{span:12}} xs={{span:12}}>
-                      <FormItem>
-                      <label>{'Frist Name'} <span className="start">*</span> </label>
-                          {getFieldDecorator('hiringdate', { rules: rules.hiringDate })(<Input />)}
-                          </FormItem>
-                      </Col>
-                      <Col lg={{span:12}} sm={{span:12}} md={{span:12}} xs={{span:12}}>
-                      <FormItem>
-                      <label>{'Last Name'} <span className="start">*</span> </label>
-                          {getFieldDecorator('hiringdate', { rules: rules.hiringDate })(<Input />)}
-                          </FormItem>
-                      </Col>
-                      </Row>
-                      <Row className="antd-row">
-                      <Col lg={{span:12}} sm={{span:12}} md={{span:12}} xs={{span:12}}>
-                      <FormItem>
-                      <label>{'Email Or Username'} <span className="start">*</span> </label>
-                          {getFieldDecorator('hiringdate', { rules: rules.hiringDate })(<Input />)}
-                          </FormItem>
-                      </Col>
-                      <Col lg={{span:12}} sm={{span:12}} md={{span:12}} xs={{span:12}}>
-                      <FormItem>
-                      <label>{'Contact Number'} <span className="start">*</span> </label>
-                          {getFieldDecorator('hiringdate', { rules: rules.hiringDate })(<Input />)}
-                          </FormItem>
-                      </Col>
-                      </Row>
-                      <Row className="antd-row">
-                      <Col lg={{span:12}} sm={{span:12}} md={{span:12}} xs={{span:12}}>
-                      <FormItem>
-                        <div className="switchbutton">
-                      <div><label>{'Status'} <span className="start">*</span> </label></div>
-                      <label className="mr8">{'Active'}</label> <Switch/> <label className="ml8">{'Inactive'}</label>
-                        </div>
-                          </FormItem>
-                      </Col>
-                      </Row>
-                      <div className="hrLine mb15"></div>
-                       </div>
+                    {<div><UserEntityTree /></div>}
+                    <div><UserEntitydata /> </div>
+                    </div>
                        
                        <div className="buttonfooter">
                        <div className="antd-row">
