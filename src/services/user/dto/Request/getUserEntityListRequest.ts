@@ -1,5 +1,6 @@
 
 export interface GetUserEntityListRequest {
     RequesterUserId : string,
-    SearchPhrase: string
+    SearchPhrase: string,
+    GroupId: string
 }

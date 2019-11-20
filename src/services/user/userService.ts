@@ -30,8 +30,8 @@ class UserService {
     public async getEntityList(getUserEntityListRequest: GetUserEntityListRequest): Promise<PagedResultDto<GetUserEntityListResponse>> {
         debugger;
         var data = <PagedResultDto<GetUserEntityListResponse>>{};
-        try{
-        let result = await http.post(lms.toAPIPath(lms.APIType.USERENTITYLIST), getUserEntityListRequest);
+        try {
+            let result = await http.get(lms.toAPIPath(lms.APIType.USERENTITYLIST), { params: getUserEntityListRequest });
         data.items = result.data;
         data.totalCount = data.items.length;
         return data;
