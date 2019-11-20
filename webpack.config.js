@@ -10,8 +10,8 @@ const webpackConfig = createWebpackDevConfig(cracoConfig);
 module.exports = {
 
     // webpack will take the files from ./src/index
-    //entry: './src/index',
-    entry: ["@babel/polyfill", "./src/index"],
+    entry: './src/index',
+    //entry: ["@babel/polyfill", "./src/index"],
 
     // and output it into /dist as bundle.js
     output: {
@@ -33,6 +33,7 @@ module.exports = {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
                 use: [
+                    { loader:  'babel-loader' },
                     {
                         loader: 'babel-loader', options: {
                             babelrc: true, plugins: [
@@ -102,6 +103,7 @@ module.exports = {
         new webpack.DefinePlugin({
             "process.env.REACT_APP_APP_BASE_URL": "'http://localhost:8080/'",
             "process.env.REACT_APP_REMOTE_SERVICE_BASE_URL": "'http://schem-db16/Delphianlmsapi/api/'",
+            "process.env.PUBLIC_URL": "/"
         })
     ]
 };
