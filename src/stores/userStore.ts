@@ -14,6 +14,7 @@ import { GetUserEntityListResponse } from "../services/user/dto/Response/getUser
 import userService from '../services/user/userService';
 import sessionService from '../services/session/sessionService';
 
+
 class UserStore {
 
     @observable users!: PagedResultDto<GetAllUserResponse>;
@@ -23,20 +24,25 @@ class UserStore {
 
     @observable editUser!: CreateOrUpdateUserInput;
     @observable roles: GetRoles[] = [];
+    @observable groups :any;
 
     @action
     async getAll(getAllUserRequest: GetAllUserRequest) {
+        debugger;
         let result = await userService.getAll(getAllUserRequest);
         this.users = result;
     }
 
     @action
     async getEntityList(getUserEntityListRequest: GetUserEntityListRequest) {
+        debugger;
+        var userid = sessionService.getLoginUserId();
+        getUserEntityListRequest.RequesterUserId = userid;
         let result = await userService.getEntityList(getUserEntityListRequest);
-        this.userentity = result;
+        this.userentity = result;      
         return result;
     }
-
+   
     @action
     async create(createUserInput: CreateOrUpdateUserInput) {
         let result = await userService.create(createUserInput);
@@ -85,14 +91,14 @@ class UserStore {
         };
         this.roles = [];
     }
-
+  
     /* FILTERS ***/
     @action
     async initFilter() {
+     
         var userid = sessionService.getLoginUserId();
-        
-        await this.getEntityList({ RequesterUserId: userid, SearchPhrase: 'Location' });
-
+        await this.getEntityList({ RequesterUserId: userid, SearchPhrase: '' ,GroupId:''});
+        this.UserGroup = {RequesterUserId:'',GroupId:'',SearchPhrase:''};
         this.filters = {
             emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true,
             hiringDateFrom: null, hiringDateTo: null, roleChangeDateFrom: null, roleChangeDateTo: null

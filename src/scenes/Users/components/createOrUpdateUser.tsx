@@ -5,20 +5,38 @@ import { FormComponentProps } from 'antd/lib/form';
 import { GetRoles } from '../../../services/user/dto/getRolesOuput';
 import UserEntityTree from './userEntityTree';
 import UserEntitydata  from './userEntityData';
+
+
+
+
+
+
 const TabPane = Tabs.TabPane;
+//#region Local State and Property
+
+
+
 export interface ICreateOrUpdateUserProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
     modalType: string;
     onCreate: () => void;
-    roles: GetRoles[];
+    roles: GetRoles[];  
+    
 }
 
 class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
-    state = {
-        confirmDirty: false,
-    };
-
+    constructor(props:any) {        
+        super(props);
+        debugger;
+        this.handleClick = this.handleClick.bind(this);
+      }
+      handleClick() {         
+        console.log('Click happened main');
+      }
+    async componentDidMount() {
+     
+    }
     compareToFirstPassword = (rule: any, value: any, callback: any) => {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('password')) {
@@ -28,15 +46,14 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
         }
     };
     validateToNextPassword = (rule: any, value: any, callback: any) => {
-        const form = this.props.form;
-        if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
-        }
+        //const form = this.props.form;
+        // if (value && this.state.confirmDirty) {
+        //     form.validateFields(['confirm'], { force: true });
+        // }
         callback();
     };
     
     render() {
-        
         const { visible, onCancel, onCreate } = this.props;
         return (
             <Drawer title={'Add/Edit User'} width={560} onClose={onCancel} visible={visible}>
@@ -44,7 +61,7 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
                     <TabPane tab={'User Information'} key={'UserInformation'}>
                     <div className="sysId">system ID: 00006</div>
                     <div className="pos">
-                    {<div><UserEntityTree /></div>}
+                    {<div><UserEntityTree /></div>}                   
                     <div><UserEntitydata /> </div>
                     </div>
                        
@@ -205,3 +222,4 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
 }
 
 export default Form.create<ICreateOrUpdateUserProps>()(CreateOrUpdateUser);
+

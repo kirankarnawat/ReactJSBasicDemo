@@ -85,7 +85,7 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
         this.props.userStore.filters.roleChangeDateFrom =  form.getFieldsValue().roleChangeDateFrom?form.getFieldsValue().roleChangeDateFrom.format():"";       
         this.props.userStore.filters.roleChangeDateTo =  form.getFieldsValue().roleChangeDateTo?form.getFieldsValue().roleChangeDateTo.format():"";       
         this.props.userStore.filters.status =  form.getFieldsValue().status;
-        await this.getAll();
+        await this.getAll();        
     };
     handleReset = () => {
         this.props.form.resetFields();
@@ -102,7 +102,7 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
         const { getFieldDecorator } = this.props.form;
         const { visible, onCancel,  } = this.props;
         const { result } = this.state;
-        const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
+        const children = result.map(item => <Option ></Option>);
 
         return (
             <Drawer title={'Advanced Filter'} width={320} onClose={onCancel} visible={visible} className="filterpopup">
@@ -145,7 +145,7 @@ class UserFilter extends React.Component<ICreateOrUpdateUserProps> {
                             <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                 <FormItem>
                                     <label className="floatleft">{'Group'}</label>
-                                    <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange}  onSearch={this.handleAutoSearch}>
+                                    <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect}   onSearch={this.handleAutoSearch}>
                                                 {children}
                                             </AutoComplete>
                                    

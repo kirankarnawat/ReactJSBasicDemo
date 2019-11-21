@@ -1,8 +1,16 @@
 
 import * as React from 'react';
 import FormItem from 'antd/lib/form/FormItem';
-import { Icon,Col,Input} from 'antd';
+import { Icon,Col,AutoComplete} from 'antd';
+
+
+
 class userEntityTree extends React.Component {
+    constructor(props:any) {
+        super(props);       
+       
+      }
+     
     render() {
         return (
             <div>
@@ -11,7 +19,10 @@ class userEntityTree extends React.Component {
                         <FormItem>
                             <label>{'Search User Group'} <span className="start">*</span> </label>
                             <div className="rel">
-                            <Input />
+                            <AutoComplete placeholder="Group 1/ Group 2/ Group 4"  >
+                                                
+                                            </AutoComplete>
+                            {/* <Input /> */}
                                 <div className="searchbtn"><Icon type="search" /> </div>
                             </div>
                         </FormItem>
