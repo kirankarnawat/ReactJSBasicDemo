@@ -2,15 +2,15 @@
   "compilerOptions": {
     "module": "esnext",
     "target": "es5",
-    "lib": ["es6", "dom"],
+    "lib": [ "es6", "dom" ],
     "sourceMap": true,
     "jsx": "preserve",
     "moduleResolution": "node",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
+    "noImplicitReturns": false,
+    "noImplicitThis": false,
+    "noImplicitAny": false,
     "importHelpers": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
@@ -22,10 +22,9 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "resolveJsonModule": true,
-    "noEmit": true,
     "allowJs": true,
     "isolatedModules": true
   },
-  "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "src/setupTests.ts"],
+  "exclude": [ "node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "src/setupTests.ts", "dev_server.js" ],
   "include": ["src"]
 }

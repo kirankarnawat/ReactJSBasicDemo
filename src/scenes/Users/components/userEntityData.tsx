@@ -17,7 +17,7 @@ class userEntitydata extends React.Component {
                             <div className="discText">Click on the Verify OIG button to identify the user profile. You may choose to create the user post verification.</div>
                           </div>
                           <div className="warningbtn mt10">
-                              <Button type="submit" className="ant-btn ant-btn-default">Verifi Oig</Button>
+                              <Button className="ant-btn ant-btn-default">Verifi Oig</Button>
                           </div>
                           <div className="ant-clearfix"></div>
                         </div>

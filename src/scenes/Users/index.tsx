@@ -57,20 +57,21 @@ class User extends React.Component<IUserProps, IUserState> {
             searchOnGroupId: '',
             status: null
         };
-        this.handleAutoSearch = this.handleAutoSearch.bind(this);
     }
 
-    formRef: any;
+    filterFormRef: any;
+    addeditUserFormRef: any;
+    bulkimportFormRef: any;
 
     //run on start
     async componentDidMount() {
         await this.props.userStore.initFilter();
-       // await this.getAll();
+        await this.getAll();
     }
     // #endregion
 
     //#region Pagination with sorting
-    handleTableChange = (pagination: any, filters: any, sorter: any) => {
+    handleTableChange = (pagination: any, sorter: any) => {
         if (sorter.order) { this.props.userStore.filters.sortExp = sorter.field + " " + (sorter.order == "ascend" ? "asc" : "desc"); }
         this.props.userStore.filters.pageIndex = pagination.current;
         this.setState({ userId: '' }, async () => await this.getAll());
@@ -78,7 +79,8 @@ class User extends React.Component<IUserProps, IUserState> {
     //#endregion
 
     //#region get data from stores
-    async getAll() {       
+    async getAll() {
+        debugger;
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
     }
     //#endregion
@@ -90,19 +92,19 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     };
 
-    switchChange = (checked: boolean, event: Event) => {      
+    switchChange = (checked: boolean) => {
         this.props.userStore.filters.status = checked ? null : true;
     }
     firstNameChange = (event: any) => {
         this.props.userStore.filters.firstName = event.target.value;
     }
 
-    groupSelect = (value: any, option: any) => {    
-        this.props.userStore.filters.groupId = option ? option.key.split("~")[0] : "";
-        this.props.userStore.filters.searchOnGroupId = option ? option.key.split("~")[1] : "";
+    groupSelect = (option: any) => {
+        this.props.userStore.filters.groupId = option ? option.split("~")[0] : "";
+        this.props.userStore.filters.searchOnGroupId = option ? option.split("~")[1] : "";
     }
 
-    groupChange = (value: any, option: any) => {
+    groupChange = () => {
         this.props.userStore.filters.groupId = "";
         this.props.userStore.filters.searchOnGroupId = "";
     }
@@ -138,20 +140,20 @@ class User extends React.Component<IUserProps, IUserState> {
         this.setState({ userId: entityDto.id });
         this.Modal();
 
-        this.formRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
+        this.addeditUserFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
 
     async filterModalOpen() {
-        
+
         this.FilterModal();
 
-        this.formRef.props.form.setFieldsValue({ ...this.props.userStore.filters });
+        this.filterFormRef.props.form.setFieldsValue({ ...this.props.userStore.filters });
     }
-    
+
     async bulkImportmedelOpen(entityDto: EntityDto) {
         this.setState({ userId: entityDto.id });
         this.bulkmodal();
-        // this.formRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
+        // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
     //#endregion
 
@@ -170,7 +172,7 @@ class User extends React.Component<IUserProps, IUserState> {
     }
 
     handleCreate = () => {
-        const form = this.formRef.props.form;
+        const form = this.addeditUserFormRef.props.form;
 
         form.validateFields(async (err: any, values: any) => {
             if (err) {
@@ -189,41 +191,43 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     };
 
-    saveFormRef = (formRef: any) => {
-        this.formRef = formRef;
+    savefilterFormRef = (formRef: any) => {
+        this.filterFormRef = formRef;
+    };
+    saveaddeditFormRef = (formRef: any) => {
+        this.addeditUserFormRef = formRef;
+    };
+    savebulkimportFormRef = (formRef: any) => {
+        this.bulkimportFormRef = formRef;
     };
 
-    handleAutoSearch = async (value: string) => {
-        let result: GetUserEntityListResponse[];   
-       
-          if(value && this.props.userStore && this.props.userStore.userentity && this.props.userStore.userentity.items){
-            this.props.userStore.UserGroup.SearchPhrase = value;
-            await this.props.userStore.getEntityList(this.props.userStore.UserGroup);
-            result = this.props.userStore.userentity.items;
-          }
-          else{
+    handleAutoSearch = (value: string) => {
+
+        let result: GetUserEntityListResponse[];
+
+        if (!value || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
             result = [];
-          }
-        // if (!value || !this.props.userStore.userentity.items || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
-        //     result = [];
-        // } else {
-        //     result = this.props.userStore.userentity.items;
-        // }
+        } else {
+            result = this.props.userStore.userentity.items;
+        }
         this.setState({ result });
     };
 
     handleAdvFilter = () => {
-        const form = this.formRef.props.form;
+        debugger;
+        const form = this.filterFormRef.props.form;
 
         form.validateFields(async (err: any, values: any) => {
             if (err) {
                 return;
             } else {
+                var reqUID = this.props.userStore.filters.requesterUserId;
                 this.props.userStore.filters = values;
+                this.props.userStore.filters.requesterUserId = reqUID;
             }
 
             await this.getAll();
-            this.setState({ modalVisible: false });
+            this.setState({ filterModalVisible: false });
             form.resetFields();
         });
     }
@@ -231,9 +235,10 @@ class User extends React.Component<IUserProps, IUserState> {
     //#endregion
 
     public render() {
+
         const { users } = this.props.userStore;
         const { result } = this.state;
-      
+        debugger;
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         const columns = [
@@ -319,7 +324,7 @@ class User extends React.Component<IUserProps, IUserState> {
                                             <Input placeholder="First Name/ Last Name" onChange={this.firstNameChange} />
                                         </li>
                                         <li className="width227">
-                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange}  onSearch={this.handleAutoSearch}>
+                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch}>
                                                 {children}
                                             </AutoComplete>
                                         </li>
@@ -369,7 +374,7 @@ class User extends React.Component<IUserProps, IUserState> {
                 </Row>
 
                 <UserFilter
-                    wrappedComponentRef={this.saveFormRef}
+                    wrappedComponentRef={this.savefilterFormRef}
                     visible={this.state.filterModalVisible}
                     onCancel={() =>
                         this.setState({
@@ -377,12 +382,16 @@ class User extends React.Component<IUserProps, IUserState> {
                         })
                     }
                     onCreate={this.handleAdvFilter}
+                    onGroupSelect={this.groupSelect}
+                    onGroupChange={this.groupChange}
+                    onHandleAutoSearch={this.handleAutoSearch}
+                    autoDataRef={this.state.result}
                 />
 
 
 
                 <CreateOrUpdateUser
-                    wrappedComponentRef={this.saveFormRef}
+                    wrappedComponentRef={this.saveaddeditFormRef}
                     visible={this.state.modalVisible}
                     onCancel={() =>
                         this.setState({
@@ -393,9 +402,9 @@ class User extends React.Component<IUserProps, IUserState> {
                     onCreate={this.handleCreate}
                     roles={this.props.userStore.roles}
                 />
-               
+
                 <BulkImport
-                    wrappedComponentRef={this.saveFormRef}
+                    wrappedComponentRef={this.savebulkimportFormRef}
                     visible={this.state.bulkModalVisible}
                     onCancel={() =>
                         this.setState({

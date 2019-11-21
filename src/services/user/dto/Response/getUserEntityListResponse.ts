@@ -3,7 +3,7 @@ export interface GetUserEntityListResponse {
     groupName: string,
     groupType: string,
     searchOnGroupId: string,
-    groupLevel: 0,
+    groupLevel: number,
     group1Name: string,
     group2Name: string,
     group3Name: string,
