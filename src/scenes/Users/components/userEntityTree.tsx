@@ -2,16 +2,18 @@
 import * as React from 'react';
 import FormItem from 'antd/lib/form/FormItem';
 import { Icon,Col,AutoComplete} from 'antd';
-
-
-
-class userEntityTree extends React.Component {
-    constructor(props:any) {
-        super(props);       
-       
-      }
-     
-    render() {
+import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
+export interface ICreateOrUpdateUserProps  {
+    autoDataRef: GetUserEntityListResponse[];
+    onGroupSelect: (option: any) => void;
+    onGroupChange: () => void;
+    onHandleAutoSearch: (value: string) => void;
+}
+const { Option } = AutoComplete;
+class userEntityTree extends React.Component<ICreateOrUpdateUserProps> {
+    render() { 
+        const {  onGroupSelect, onGroupChange, onHandleAutoSearch, autoDataRef } = this.props;
+        const children = autoDataRef.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
         return (
             <div>
                 <div className="antd-row">
@@ -19,9 +21,9 @@ class userEntityTree extends React.Component {
                         <FormItem>
                             <label>{'Search User Group'} <span className="start">*</span> </label>
                             <div className="rel">
-                            <AutoComplete placeholder="Group 1/ Group 2/ Group 4"  >
-                                                
-                                            </AutoComplete>
+                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={onGroupSelect} onChange={onGroupChange} onSearch={onHandleAutoSearch}>
+                                        {children}
+                                    </AutoComplete>       
                             {/* <Input /> */}
                                 <div className="searchbtn"><Icon type="search" /> </div>
                             </div>

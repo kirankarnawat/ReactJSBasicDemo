@@ -201,15 +201,22 @@ class User extends React.Component<IUserProps, IUserState> {
         this.bulkimportFormRef = formRef;
     };
 
-    handleAutoSearch = (value: string) => {
-
-        let result: GetUserEntityListResponse[];
-
-        if (!value || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
-            result = [];
-        } else {
+   handleAutoSearch = async (value: string) => {
+        let result: GetUserEntityListResponse[];  
+       
+          if(value && this.props.userStore && this.props.userStore.userentity && this.props.userStore.userentity.items){
+            this.props.userStore.UserGroup.SearchPhrase = value;
+            await this.props.userStore.getEntityList(this.props.userStore.UserGroup);
             result = this.props.userStore.userentity.items;
-        }
+          }
+          else{
+            result = [];
+          }
+        // if (!value || !this.props.userStore.userentity.items || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
+        //     result = [];
+        // } else {
+        //     result = this.props.userStore.userentity.items;
+        // }
         this.setState({ result });
     };
 
@@ -386,7 +393,7 @@ class User extends React.Component<IUserProps, IUserState> {
                     onGroupChange={this.groupChange}
                     onHandleAutoSearch={this.handleAutoSearch}
                     autoDataRef={this.state.result}
-                />
+                />         
 
 
 
@@ -401,6 +408,10 @@ class User extends React.Component<IUserProps, IUserState> {
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
                     onCreate={this.handleCreate}
                     roles={this.props.userStore.roles}
+                    autoDataRef={this.state.result}
+                    onGroupSelect={this.groupSelect}
+                    onGroupChange={this.groupChange}
+                    onHandleAutoSearch={this.handleAutoSearch}
                 />
 
                 <BulkImport
