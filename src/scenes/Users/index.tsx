@@ -57,6 +57,7 @@ class User extends React.Component<IUserProps, IUserState> {
             searchOnGroupId: '',
             status: null
         };
+        this.handleAutoSearch = this.handleAutoSearch.bind(this);
     }
 
     formRef: any;
@@ -64,7 +65,7 @@ class User extends React.Component<IUserProps, IUserState> {
     //run on start
     async componentDidMount() {
         await this.props.userStore.initFilter();
-        await this.getAll();
+       // await this.getAll();
     }
     // #endregion
 
@@ -77,8 +78,7 @@ class User extends React.Component<IUserProps, IUserState> {
     //#endregion
 
     //#region get data from stores
-    async getAll() {
-        debugger;
+    async getAll() {       
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
     }
     //#endregion
@@ -90,15 +90,14 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     };
 
-    switchChange = (checked: boolean, event: Event) => {
-        debugger;
+    switchChange = (checked: boolean, event: Event) => {      
         this.props.userStore.filters.status = checked ? null : true;
     }
     firstNameChange = (event: any) => {
         this.props.userStore.filters.firstName = event.target.value;
     }
 
-    groupSelect = (value: any, option: any) => {
+    groupSelect = (value: any, option: any) => {    
         this.props.userStore.filters.groupId = option ? option.key.split("~")[0] : "";
         this.props.userStore.filters.searchOnGroupId = option ? option.key.split("~")[1] : "";
     }
@@ -194,15 +193,22 @@ class User extends React.Component<IUserProps, IUserState> {
         this.formRef = formRef;
     };
 
-    handleAutoSearch = (value: string) => {
-
-        let result: GetUserEntityListResponse[];
-
-        if (!value || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
-            result = [];
-        } else {
+    handleAutoSearch = async (value: string) => {
+        let result: GetUserEntityListResponse[];   
+       
+          if(value && this.props.userStore && this.props.userStore.userentity && this.props.userStore.userentity.items){
+            this.props.userStore.UserGroup.SearchPhrase = value;
+            await this.props.userStore.getEntityList(this.props.userStore.UserGroup);
             result = this.props.userStore.userentity.items;
-        }
+          }
+          else{
+            result = [];
+          }
+        // if (!value || !this.props.userStore.userentity.items || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
+        //     result = [];
+        // } else {
+        //     result = this.props.userStore.userentity.items;
+        // }
         this.setState({ result });
     };
 
@@ -225,10 +231,9 @@ class User extends React.Component<IUserProps, IUserState> {
     //#endregion
 
     public render() {
-
         const { users } = this.props.userStore;
         const { result } = this.state;
-        debugger;
+      
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         const columns = [
@@ -314,7 +319,7 @@ class User extends React.Component<IUserProps, IUserState> {
                                             <Input placeholder="First Name/ Last Name" onChange={this.firstNameChange} />
                                         </li>
                                         <li className="width227">
-                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch}>
+                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange}  onSearch={this.handleAutoSearch}>
                                                 {children}
                                             </AutoComplete>
                                         </li>
