@@ -7,7 +7,7 @@ import { GetAllUserRequest } from "./dto/Request/getAllUserRequest";
 import { GetAllUserResponse } from "./dto/Response/getAllUserResponse";
 import { GetUserEntityListRequest } from "./dto/Request/getUserEntityListRequest";
 import { GetUserEntityListResponse } from "./dto/Response/getUserEntityListResponse";
-
+import { GetJobRolesResponse } from './dto/Response/getJobRolesResponse';
 
 import { GetRoles } from './dto/getRolesOuput';
 
@@ -82,6 +82,21 @@ class UserService {
             data = { "id": 2, "firstName": "Rajesh", "lastName": "Deshpande", "userType": "Lead", "department": "IT", "emailAddress": "rajesh.deshpande@delphianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["LEAD"] };
         var result = data;
         return result;
+    }
+
+    public async getJobRoles(): Promise<PagedResultDto<GetJobRolesResponse>>{
+        var data = <PagedResultDto<GetJobRolesResponse>>{};
+        try {
+            let result = await http.get(lms.toAPIPath(lms.APIType.USERJOBCODES));
+            data.items = result.data;
+            data.totalCount = data.items.length;
+            return data;
+        }
+        catch (e) {
+            console.log(e);
+        }
+        return data;
+
     }
 
 

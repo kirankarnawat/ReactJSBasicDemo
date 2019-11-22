@@ -21,6 +21,7 @@ var lms = lms || {};
         USERSALT: 'USERSALT',
         USERLIST: 'USERLIST',
         USERENTITYLIST: 'USERENTITYLIST',
+        USERJOBCODES: 'USERJOBCODES',
     };
    
     //Get API Path of the variable
@@ -38,6 +39,9 @@ var lms = lms || {};
                 break;
             case lms.APIType.USERENTITYLIST:
                 path = '/entity/entitylist';
+                break;
+            case lms.APIType.USERJOBCODES:
+                path = '/user/getlookups';
                 break;
         }
         return path;

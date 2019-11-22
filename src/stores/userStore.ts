@@ -13,6 +13,7 @@ import { GetUserEntityListResponse } from "../services/user/dto/Response/getUser
 
 import userService from '../services/user/userService';
 import sessionService from '../services/session/sessionService';
+import { GetJobRolesResponse } from '../services/user/dto/Response/getJobRolesResponse';
 
 
 class UserStore {
@@ -21,6 +22,8 @@ class UserStore {
     @observable filters!: GetAllUserRequest;
     @observable UserGroup!: GetUserEntityListRequest;
     @observable userentity!: PagedResultDto<GetUserEntityListResponse>;
+    @observable userjobroles!: PagedResultDto<GetJobRolesResponse>;
+
 
     @observable editUser!: CreateOrUpdateUserInput;
     @observable roles: GetRoles[] = [];
@@ -102,6 +105,13 @@ class UserStore {
             emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true,
             hiringDateFrom: null, hiringDateTo: null, roleChangeDateFrom: null, roleChangeDateTo: null
         };
+    }
+
+    /*** LOOKUP *****/
+    @action
+    async GetUserJobRoles() {
+        let result = await userService.getJobRoles();
+        this.userjobroles = result;
     }
    
 }
