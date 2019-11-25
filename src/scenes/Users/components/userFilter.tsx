@@ -24,7 +24,7 @@ class UserFilter extends React.Component<IFilterProps> {
     };
 
     handleReset = () => {
-       this.props.form.resetFields();
+       this.props.form.resetFields(); 
     };
     render() {
         const { getFieldDecorator } = this.props.form;
