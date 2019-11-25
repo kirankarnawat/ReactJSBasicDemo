@@ -34,7 +34,7 @@ class BulkImport extends React.Component<ICreateOrUpdateUserProps> {
                         <Row className="antd-row">
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
                         <Dragger {...uploadprops}>
-                            <p className="hintText"><Icon type="paper-clip" /> <span class="coloraddfile">Add file </span> or drop file here</p>
+                            <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
                         </Dragger>
                         </Col>
                         </Row>

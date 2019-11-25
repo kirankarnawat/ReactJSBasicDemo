@@ -13,9 +13,9 @@ class ErrorLog extends React.Component
     render() {
         const columns = [
             { title: 'Row No', dataIndex: 'RowNo', sorter: false, key: 'RowNo', width: 150, render: (text: string) => <div>{10}</div> },
-            { title: 'First Name', dataIndex: 'FirstName', sorter: false, key: 'FirstName', width: 150, render: (text: string) => <div>{'Jen'}</div> },
-            { title: 'Last Name', dataIndex: 'LastName', sorter: false, key: 'LastName', width: 150, render: (text: string) => <div>{'Youfelct'}</div> },
-            { title: 'Error', dataIndex: 'Error', sorter: false, key: 'Error', width: 150, render: (text: string) => <div>{'Hiring Date Missing'}</div> },
+            { title: 'First Name', dataIndex: 'FirstName', sorter: false, key: 'FirstName', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'Last Name', dataIndex: 'LastName', sorter: false, key: 'LastName', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'Error', dataIndex: 'Error', sorter: false, key: 'Error', width: 150, render: (text: string) => <div>{text}</div> },
         ];
         return (
             <div className="errorLog">
@@ -33,7 +33,7 @@ class ErrorLog extends React.Component
                     <div className="table-responsive">
                     <div className="tableContainer table-responsive">
                             <Table
-                                rowKey={record => record.userId}
+                                //rowKey={record => record.userId}
                                 size={'default'}
                                 bordered={true}
                                 columns={columns}
@@ -46,7 +46,7 @@ class ErrorLog extends React.Component
                 <div className="table-responsive">
                     <div className="tableContainer table-responsive">
                             <Table
-                                rowKey={record => record.userId}
+                                //rowKey={record => record.userId}
                                 size={'default'}
                                 bordered={true}
                                 columns={columns}
