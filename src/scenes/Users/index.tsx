@@ -11,10 +11,8 @@ import UserFilter from './components/userFilter';
 import { EntityDto } from '../../services/dto/entityDto';
 import { GetUserEntityListResponse } from '../../services/user/dto/Response/getUserEntityListResponse';
 
-
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
-
 
 // #endregion
 
@@ -29,12 +27,10 @@ export interface IUserState {
     bulkModalVisible: boolean;
     userId: string;
     result: GetUserEntityListResponse[];
-   
     firstName: string
     groupId: string;
     searchOnGroupId: string;
     status: boolean | null;
-    data:[];   
 }
 
 const confirm = Modal.confirm;
@@ -49,18 +45,17 @@ class User extends React.Component<IUserProps, IUserState> {
     //#region Init
     constructor(props: IUserProps) {
         super(props);
+
         this.state = {
             modalVisible: false,
             filterModalVisible: false,
             bulkModalVisible: false,
             userId: '',
             result: [],
-                
             firstName: '',
             groupId: '',
             searchOnGroupId: '',
-            status: null,
-            data:[]          
+            status: null
         };
     }
 
@@ -72,8 +67,6 @@ class User extends React.Component<IUserProps, IUserState> {
     async componentDidMount() {
         await this.props.userStore.initFilter();
         await this.getAll();
-      
-      
     }
     // #endregion
 
@@ -87,7 +80,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
     //#region get data from stores
     async getAll() {
-     
+        debugger;
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
     }
     //#endregion
@@ -179,24 +172,23 @@ class User extends React.Component<IUserProps, IUserState> {
     }
 
     handleCreate = () => {
-      debugger;
-        const form = this.addeditUserFormRef.props.form;        
-        this.props.userStore.addEditUser(this.props.userStore.editUser = form.getFieldsValue());
-        // form.validateFields(async (err: any, values: any) => {
-        //     if (err) {
-        //         return;
-        //     } else {
-        //         if (this.state.userId === '') {
-        //             await this.props.userStore.create(values);
-        //         } else {
-        //             await this.props.userStore.update({ id: this.state.userId, ...values });
-        //         }
-        //     }
+        const form = this.addeditUserFormRef.props.form;
 
-            // await this.getAll();
-            // this.setState({ modalVisible: false });
-            // form.resetFields();
-        //});
+        form.validateFields(async (err: any, values: any) => {
+            if (err) {
+                return;
+            } else {
+                if (this.state.userId === '') {
+                    await this.props.userStore.create(values);
+                } else {
+                    await this.props.userStore.update({ id: this.state.userId, ...values });
+                }
+            }
+
+            await this.getAll();
+            this.setState({ modalVisible: false });
+            form.resetFields();
+        });
     };
 
     savefilterFormRef = (formRef: any) => {
@@ -228,7 +220,8 @@ class User extends React.Component<IUserProps, IUserState> {
         this.setState({ result });
     };
 
-    handleAdvFilter = () => {      
+    handleAdvFilter = () => {
+        debugger;
         const form = this.filterFormRef.props.form;
 
         form.validateFields(async (err: any, values: any) => {
@@ -248,9 +241,11 @@ class User extends React.Component<IUserProps, IUserState> {
 
     //#endregion
 
-    public render() {   
+    public render() {
+
         const { users } = this.props.userStore;
-        const { result } = this.state;       
+        const { result } = this.state;
+        debugger;
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         const columns = [
@@ -267,12 +262,12 @@ class User extends React.Component<IUserProps, IUserState> {
                 width: 150, dataIndex: 'userId', key: 'userId',
                 render: (text: string) => (
                     <div>
-                        <div className="tablehoverbuttons"> <Icon type="ellipsis" />
+                        <div className="tablehoverbuttons"> <Icon type="ellipsis" className="ellipsisIcon"/>
                             <div className="buttonshover">
                                 <div className="resetpassword" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Reset password"></div>
-                                <div className="editbtn" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Progress"><Icon type="bar-chart" /> </div>
-                                <div className="deletebtn" onClick={() => this.delete({ id: text })} title="Transparent"><Icon type="swap" /> </div>
-                                <div className="deletebtn" onClick={() => this.delete({ id: text })} title="Edit User"><Icon type="edit" /></div>
+                                <div className="bargraph" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Progress"></div>
+                                <div className="transfer" onClick={() => this.delete({ id: text })} title="Transparent"></div>
+                                <div className="editbtn" onClick={() => this.delete({ id: text })} title="Edit User"></div>
                             </div>
                         </div>
                     </div>
@@ -341,11 +336,12 @@ class User extends React.Component<IUserProps, IUserState> {
                                             </AutoComplete>
                                         </li>
                                         <li>
-                                            <div className="searchiconbg" >
-                                                <Icon type="search" onClick={this.handleSearch} />
+                                            <div className="searchbg" onClick={this.handleSearch} >
+                                                <span className="tabsearchbtn"></span>
                                                 {/* <Icon type="search" /> */}
                                             </div>
                                         </li>
+                                        <li><div className="refreshbg"><span className="refreshbtn"></span></div></li>
                                         <li>
                                             <div className="filterWrapp floatright" onClick={() => this.filterModalOpen()}>
                                                 <a href="#">
@@ -403,7 +399,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
 
                 <CreateOrUpdateUser
-                  
+                    wrappedComponentRef={this.saveaddeditFormRef}
                     visible={this.state.modalVisible}
                     onCancel={() =>
                         this.setState({
@@ -414,7 +410,6 @@ class User extends React.Component<IUserProps, IUserState> {
                     onCreate={this.handleCreate}
                     roles={this.props.userStore.roles}
                     autoDataRef={this.state.result}
-                    
                     onGroupSelect={this.groupSelect}
                     onGroupChange={this.groupChange}
                     onHandleAutoSearch={this.handleAutoSearch}
