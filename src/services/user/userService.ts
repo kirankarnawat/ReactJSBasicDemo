@@ -88,7 +88,7 @@ class UserService {
         var data = <PagedResultDto<GetJobRolesResponse>>{};
         try {
             let result = await http.get(lms.toAPIPath(lms.APIType.USERJOBCODES));
-            data.items = result.data;
+            data.items = result.data.items["listJobRoles"];
             data.totalCount = data.items.length;
             return data;
         }
