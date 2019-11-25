@@ -5,7 +5,7 @@ import './index.less';
 const Footer = () => {
   return (
       <div className="mainFooter">
-          <p>Powered by Learning Bridge</p>
+          <p>Powered by Natural Bridge</p>
       </div>
   );
 };

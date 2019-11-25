@@ -24,9 +24,8 @@ class UserFilter extends React.Component<IFilterProps> {
     };
 
     handleReset = () => {
-        this.props.form.resetFields();
+       this.props.form.resetFields();
     };
-
     render() {
         const { getFieldDecorator } = this.props.form;
         const { visible, onCancel, onCreate, onGroupSelect, onGroupChange, onHandleAutoSearch, autoDataRef } = this.props;
@@ -35,18 +34,18 @@ class UserFilter extends React.Component<IFilterProps> {
         const children = autoDataRef.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         return (
+            
             <Drawer title={'Advanced Filter'} width={320} onClose={onCancel} visible={visible} className="filterpopup">
                 <div className="filterBody">
                     <div className="filterForm">
                         <div className="antd-row">
                             <div className="ant-col-24">
-                                <div className="clearFilter">
+                                <div className="clearFilter" onClick={this.handleReset}>
                                     <span className="cleText">Clear all Filters</span>
-                                    <span className="cleIcon" onClick={this.handleReset}></span>
+                                    <span className="cleIcon"></span>
                                 </div>
                             </div>
                         </div>
-
                         <div className="antd-row">
                             <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                 <FormItem>
@@ -75,7 +74,7 @@ class UserFilter extends React.Component<IFilterProps> {
                             <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                 <FormItem>
                                     <label className="floatleft">{'Group'}</label>
-                                    <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={onGroupSelect} onChange={onGroupChange} onSearch={onHandleAutoSearch}>
+                                    <AutoComplete  placeholder="Group 1/ Group 2/ Group 3" onSelect={onGroupSelect} onChange={onGroupChange} onSearch={onHandleAutoSearch}>
                                         {children}
                                     </AutoComplete>
                                 </FormItem>
