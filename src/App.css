@@ -217,7 +217,7 @@ ul.headerListing li.active a{color:#d63032; float:left}
 /* .filterpopup .ant-drawer-close{background:url("images/back-icon.png") 0 0 no-repeat;top:30%;width:32px;} */
 .ant-drawer .anticon-close{display:none}
 .ant-drawer .ant-drawer-header{padding:16px 24px;border-bottom:2px solid #E41F35}
-.ant-drawer .ant-drawer-body{padding:5px 24px}
+.ant-drawer .ant-drawer-body{padding:5px 8px}
 .ant-drawer .ant-form-item-control-wrapper{margin-bottom:10px;font-size:12px}
 .ant-drawer .ant-form-item{margin-bottom:4px}
 .ant-drawer .ant-form-item-label{line-height:inherit;margin-bottom:5px}
@@ -225,7 +225,8 @@ ul.headerListing li.active a{color:#d63032; float:left}
 .ant-drawer .ant-form-item label{margin-bottom:5px;display: inline-block;font-size: 12px;font-family: 'Conv_Roboto-Regular'; color:#000}
 .start{color:#f00}
 
-.filterBody{float:left; width:100%; padding:0}
+.filterpopup .overfowYauto{overflow-y: auto; max-height:450px;}
+.filterBody{float:left; width:100%; padding:0px 11px;}
 .filterBody .clearFilter {float:right; padding:7px 0px 0px 0px;cursor:pointer;}
 .filterBody .clearFilter .span{float:left}
 .filterBody .clearFilter .cleText{color:#3a4042; float:left; padding-right:10px}
@@ -430,3 +431,7 @@ footer{padding: 0;font-size: 11px}
 .ant-drawer .ant-drawer-mask{background-color:transparent;}
 /* .warningMsg .warningText{width: 80%; float: left;}
 .warningMsg .warningbtn{width:17%;float: left;margin-left:3%;} */
+
+@media screen and (max-width:1366px) {
+    .filterBody{overflow-y: auto; max-height:400px;}
+}

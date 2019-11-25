@@ -34,9 +34,10 @@ class UserFilter extends React.Component<IFilterProps> {
         const children = autoDataRef.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         return (
-            
-            <Drawer title={'Advanced Filter'} width={320} onClose={onCancel} visible={visible} className="filterpopup">
+            <div className="overfowYauto">
+            <Drawer title={'Advanced Filter'} width={350} onClose={onCancel} visible={visible} className="filterpopup">
                 <div className="filterBody">
+                    
                     <div className="filterForm">
                         <div className="antd-row">
                             <div className="ant-col-24">
@@ -111,11 +112,11 @@ class UserFilter extends React.Component<IFilterProps> {
                                     <div>
                                         <ul className="filterdatelist">
                                             <li>
-                                                {getFieldDecorator('roleChangeDateFrom')(<DatePicker placeholder='Role Change Date' />)}
+                                                {getFieldDecorator('roleChangeDateFrom')(<DatePicker placeholder='Change Date' />)}
                                             </li>
                                             <li className="width10per">To</li>
                                             <li>
-                                                {getFieldDecorator('roleChangeDateTo')(<DatePicker placeholder='Role Change Date' />)}
+                                                {getFieldDecorator('roleChangeDateTo')(<DatePicker placeholder='Change Date' />)}
                                             </li>
                                         </ul>
                                     </div>
@@ -136,6 +137,7 @@ class UserFilter extends React.Component<IFilterProps> {
                             </div>
                         </div>
                     </div>
+                   
                     <div className="buttonfooter">
                         <div className="bulkImpFooter">
                             <div className="antd-row">
@@ -149,6 +151,7 @@ class UserFilter extends React.Component<IFilterProps> {
                     </div>
                 </div>
             </Drawer>
+            </div>
         );
     }
 }
