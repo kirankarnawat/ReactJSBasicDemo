@@ -1,7 +1,5 @@
 import { CreateOrUpdateUserInput } from './dto/createOrUpdateUserInput';
 import { EntityDto } from '../../services/dto/entityDto';
-
-
 import { PagedResultDto } from '../../services/dto/pagedResultDto';
 import { GetAllUserRequest } from "./dto/Request/getAllUserRequest";
 import { GetAllUserResponse } from "./dto/Response/getAllUserResponse";
@@ -32,11 +30,11 @@ class UserService {
         var data = <PagedResultDto<GetUserEntityListResponse>>{};
         try {
             let result = await http.get(lms.toAPIPath(lms.APIType.USERENTITYLIST), { params: getUserEntityListRequest });
-        data.items = result.data;
-        data.totalCount = data.items.length;
-        return data;
+            data.items = result.data;
+            data.totalCount = data.items.length;
+            return data;
         }
-        catch(e){
+        catch (e) {
             console.log(e);
         }
         return data;
@@ -76,19 +74,18 @@ class UserService {
         //return result.data.result;
 
         var data = <CreateOrUpdateUserInput>{};
-        if (entityDto.id == '1')
-            data = { "id": 1, "firstName": "Amit", "lastName": "Dhivar", "userType": "Head", "department": "IT", "emailAddress": "amit.dhivar@deplhianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["HOD"] };
-        else
-            data = { "id": 2, "firstName": "Rajesh", "lastName": "Deshpande", "userType": "Lead", "department": "IT", "emailAddress": "rajesh.deshpande@delphianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["LEAD"] };
+        // if (entityDto.id == '1')
+        //     data = { "id": 1, "firstName": "Amit", "lastName": "Dhivar", "userType": "Head", "department": "IT", "emailAddress": "amit.dhivar@deplhianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["HOD"] };
+        // else
+        //     data = { "id": 2, "firstName": "Rajesh", "lastName": "Deshpande", "userType": "Lead", "department": "IT", "emailAddress": "rajesh.deshpande@delphianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["LEAD"] };
         var result = data;
         return result;
     }
-
     public async getJobRoles(): Promise<PagedResultDto<GetJobRolesResponse>>{
         var data = <PagedResultDto<GetJobRolesResponse>>{};
         try {
             let result = await http.get(lms.toAPIPath(lms.APIType.USERJOBCODES));
-            data.items = result.data.items["listJobRoles"];
+            data.listJobRoles = result.data["listJobRoles"];
             data.totalCount = data.items.length;
             return data;
         }
@@ -96,10 +93,19 @@ class UserService {
             console.log(e);
         }
         return data;
-
     }
-
-
+    public async addEditUser(CreateOrUpdateUserInput: CreateOrUpdateUserInput) {
+        var data = <CreateOrUpdateUserInput>{};
+        try {
+            let result = await http.post(lms.toAPIPath(lms.APIType.AddEditUser),CreateOrUpdateUserInput);           
+            data = result.data;
+            return data;
+        }
+        catch (e) {
+            console.log(e);
+        }
+        return data;
+    }
 }
 
 export default new UserService();

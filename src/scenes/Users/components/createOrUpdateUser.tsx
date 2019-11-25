@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { Form, Tabs, Drawer, Button, Col, Row } from 'antd';
+import { Form,Input, Tabs,DatePicker, Drawer, Button, Col, Row,Select,Switch ,Icon} from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { GetRoles } from '../../../services/user/dto/getRolesOuput';
-import UserEntitydata from './userEntityData';
+import FormItem from 'antd/lib/form/FormItem';
 import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
 import UserEntityTree from './userEntityTree';
+
+
+
 const TabPane = Tabs.TabPane;
 //#region Local State and Property
 export interface ICreateOrUpdateUserProps extends FormComponentProps {
@@ -14,12 +17,17 @@ export interface ICreateOrUpdateUserProps extends FormComponentProps {
     onCreate: () => void;
     roles: GetRoles[];
     autoDataRef: GetUserEntityListResponse[];
+   
     onGroupSelect: (option: any) => void;
     onGroupChange: () => void;
     onHandleAutoSearch: (value: string) => void;
+   
 }
+const { Option } = Select;
 class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
-    render() {
+    render() {      
+       // const children = this.props.Lookups?this.props.Lookups.listJobRoles.map(a=><Option title="Select" value={a.jobCodeId}>{a.jobCode}</Option>):[];
+        const { getFieldDecorator } = this.props.form;
         const { visible, onCancel, onCreate, onGroupSelect, onGroupChange, onHandleAutoSearch, autoDataRef } = this.props;
         return (
             <Drawer title={'Add/Edit User'} width={560} onClose={onCancel} visible={visible}>
@@ -34,7 +42,125 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
                                 onGroupChange={onGroupChange}
                                 onHandleAutoSearch={onHandleAutoSearch}
                             /></div>}
-                            <div><UserEntitydata /> </div>
+
+
+
+
+                            <div>
+                                <Row className="antd-row mb10">
+                                    <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                                        <div className="warningMsg">
+                                            <div className="warningText">
+                                                <div className="heading">
+                                                    <h3>OIG Exclusion is found</h3>
+                                                </div>
+                                                <div className="discText">Click on the Verify OIG button to identify the user profile. You may choose to create the user post verification.</div>
+                                            </div>
+                                            <div className="warningbtn mt10">
+                                                <Button className="ant-btn ant-btn-default">Verifi Oig</Button>
+                                            </div>
+                                            <div className="ant-clearfix"></div>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row className="antd-row mb10">
+                                    <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                                        <div className="successMsg">
+                                            <div className="successText">
+                                                <div className="heading">
+                                                    <h3>OIG Exclusion is found</h3>
+                                                </div>
+                                                <div className="discText">Click on the Verify OIG button to identify the user profile. You may choose to create the user post verification.</div>
+                                            </div>
+                                            <div className="ant-clearfix"></div>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row className="antd-row">
+                                    <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                                        <div className="treeinlinestructure">
+                                            <ul className="treeentityinline">
+                                                <li><a href="#" className="links"><span className="treeIcon"></span><span className="text">Cardinal Health</span><span className="arrowicon"><Icon type="right" /></span></a></li>
+                                                <li><a href="#" className="links"><span className="text">Ball and Food Stores</span><span className="arrowicon"><Icon type="right" /></span></a></li>
+                                                <li><a href="#" className="links"><span className="text">Pharmacy 5</span><span className="arrowicon"><Icon type="right" /></span></a></li>
+                                                <li><a href="#" className="links"><span className="text">NCPDP 13</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <div className="hrLine mb15"></div>
+                                <Row className="antd-row">
+                                    <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
+                                        <FormItem>
+                                            <label>{'Frist Name'} <span className="start">*</span> </label>
+                                            {getFieldDecorator('firstName')(<Input placeholder='First Name' name="firstName" />)}
+                                        </FormItem>
+                                    </Col>
+                                    <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
+                                        <FormItem>
+                                            <label>{'Last Name'} <span className="start">*</span> </label>
+                                            {getFieldDecorator('lastName')(<Input placeholder='Last Name' name="lastName" />)}
+                                        </FormItem>
+                                    </Col>
+                                </Row>
+                                <Row className="antd-row">
+                                    <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
+                                        <FormItem>
+                                            <label>{'Email Or Username'} <span className="start">*</span> </label>
+                                            {getFieldDecorator('emailAddress')(<Input pattern="/^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/" placeholder='Email Or Username' name="emailAddress" />)}
+                                        </FormItem>
+                                    </Col>
+                                    <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
+                                        <FormItem>
+                                            <label>{'Hiring Date'} <span className="start">*</span> </label>
+                                            <div>{getFieldDecorator('hiringDate')(<DatePicker placeholder='Hiring Date' name="hiringDate" />)}</div>                                            
+                                        </FormItem>
+                                    </Col>
+                                </Row>
+                                <Row className="antd-row">
+                                    <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
+                                        <FormItem>
+                                            <label>{'Job Code'} <span className="start">*</span> </label>
+                                            <div>                                                
+                                                {/* {getFieldDecorator('jobCodeId')(<Select>{children}</Select>)} */}
+                                                <Select>
+                                    <Option value="">Pharmacist</Option>
+                                    <Option value="">Pharmacy</Option>
+                                    <Option value="">Technician Other</Option>
+                                </Select>
+                                            </div>
+                                        </FormItem>
+                                    </Col>
+                                    <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
+                                        <FormItem>
+                                            <label>{'Role Change Date'} </label>
+                                            <div>{getFieldDecorator('roleChangeDate')(<DatePicker placeholder='Role Change Date' name="roleChangeDate" />)}</div>
+                                            
+                                        </FormItem>
+                                    </Col>
+                                </Row>
+                                <Row className="antd-row">
+                                    <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
+                                        <FormItem>
+                                            <div className="switchbutton">
+                                                <div><label>{'Status'} <span className="start">*</span> </label></div>
+                                                <label className="mr8">{'Active'}</label>
+                                                {getFieldDecorator('status')(<Switch />)}
+                                                
+                                                <label className="ml8">{'Inactive'}</label>
+                                            </div>
+                                        </FormItem>
+                                    </Col>
+                                </Row>
+                                <div className="hrLine mb15"></div>
+                            </div>
+
+
+
+
+
+
+                            {/* <div><UserEntitydata /> </div> */}
                         </div>
 
                         <div className="buttonfooter">

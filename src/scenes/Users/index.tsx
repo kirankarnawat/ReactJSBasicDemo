@@ -11,8 +11,10 @@ import UserFilter from './components/userFilter';
 import { EntityDto } from '../../services/dto/entityDto';
 import { GetUserEntityListResponse } from '../../services/user/dto/Response/getUserEntityListResponse';
 
+
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
+
 
 // #endregion
 
@@ -27,10 +29,12 @@ export interface IUserState {
     bulkModalVisible: boolean;
     userId: string;
     result: GetUserEntityListResponse[];
+   
     firstName: string
     groupId: string;
     searchOnGroupId: string;
     status: boolean | null;
+    data:[];   
 }
 
 const confirm = Modal.confirm;
@@ -45,17 +49,18 @@ class User extends React.Component<IUserProps, IUserState> {
     //#region Init
     constructor(props: IUserProps) {
         super(props);
-
         this.state = {
             modalVisible: false,
             filterModalVisible: false,
             bulkModalVisible: false,
             userId: '',
             result: [],
+                
             firstName: '',
             groupId: '',
             searchOnGroupId: '',
-            status: null
+            status: null,
+            data:[]          
         };
     }
 
@@ -67,6 +72,8 @@ class User extends React.Component<IUserProps, IUserState> {
     async componentDidMount() {
         await this.props.userStore.initFilter();
         await this.getAll();
+      
+      
     }
     // #endregion
 
@@ -80,7 +87,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
     //#region get data from stores
     async getAll() {
-        debugger;
+     
         await this.props.userStore.getAll({ ...this.props.userStore.filters });
     }
     //#endregion
@@ -172,23 +179,24 @@ class User extends React.Component<IUserProps, IUserState> {
     }
 
     handleCreate = () => {
-        const form = this.addeditUserFormRef.props.form;
+      debugger;
+        const form = this.addeditUserFormRef.props.form;        
+        this.props.userStore.addEditUser(this.props.userStore.editUser = form.getFieldsValue());
+        // form.validateFields(async (err: any, values: any) => {
+        //     if (err) {
+        //         return;
+        //     } else {
+        //         if (this.state.userId === '') {
+        //             await this.props.userStore.create(values);
+        //         } else {
+        //             await this.props.userStore.update({ id: this.state.userId, ...values });
+        //         }
+        //     }
 
-        form.validateFields(async (err: any, values: any) => {
-            if (err) {
-                return;
-            } else {
-                if (this.state.userId === '') {
-                    await this.props.userStore.create(values);
-                } else {
-                    await this.props.userStore.update({ id: this.state.userId, ...values });
-                }
-            }
-
-            await this.getAll();
-            this.setState({ modalVisible: false });
-            form.resetFields();
-        });
+            // await this.getAll();
+            // this.setState({ modalVisible: false });
+            // form.resetFields();
+        //});
     };
 
     savefilterFormRef = (formRef: any) => {
@@ -220,8 +228,7 @@ class User extends React.Component<IUserProps, IUserState> {
         this.setState({ result });
     };
 
-    handleAdvFilter = () => {
-        debugger;
+    handleAdvFilter = () => {      
         const form = this.filterFormRef.props.form;
 
         form.validateFields(async (err: any, values: any) => {
@@ -241,11 +248,9 @@ class User extends React.Component<IUserProps, IUserState> {
 
     //#endregion
 
-    public render() {
-
+    public render() {   
         const { users } = this.props.userStore;
-        const { result } = this.state;
-        debugger;
+        const { result } = this.state;       
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         const columns = [
@@ -398,7 +403,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
 
                 <CreateOrUpdateUser
-                    wrappedComponentRef={this.saveaddeditFormRef}
+                  
                     visible={this.state.modalVisible}
                     onCancel={() =>
                         this.setState({
@@ -409,6 +414,7 @@ class User extends React.Component<IUserProps, IUserState> {
                     onCreate={this.handleCreate}
                     roles={this.props.userStore.roles}
                     autoDataRef={this.state.result}
+                    
                     onGroupSelect={this.groupSelect}
                     onGroupChange={this.groupChange}
                     onHandleAutoSearch={this.handleAutoSearch}
