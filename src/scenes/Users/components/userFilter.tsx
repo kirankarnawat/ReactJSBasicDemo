@@ -26,6 +26,7 @@ class UserFilter extends React.Component<IFilterProps> {
     handleReset = () => {
        this.props.form.resetFields(); 
     };
+
     render() {
         const { getFieldDecorator } = this.props.form;
         const { visible, onCancel, onCreate, onGroupSelect, onGroupChange, onHandleAutoSearch, autoDataRef } = this.props;
@@ -75,12 +76,9 @@ class UserFilter extends React.Component<IFilterProps> {
                             <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                 <FormItem>
                                     <label className="floatleft">{'Group'}</label>
-                                    {getFieldDecorator('groupId')(
-                                         <AutoComplete  placeholder="Group 1/ Group 2/ Group 3" onSelect={onGroupSelect} onChange={onGroupChange} onSearch={onHandleAutoSearch}>
-                                         {children}
-                                     </AutoComplete>
-                                    )}
-                                   
+                                    <AutoComplete  placeholder="Group 1/ Group 2/ Group 3" onSelect={onGroupSelect} onChange={onGroupChange} onSearch={onHandleAutoSearch}>
+                                        {children}
+                                    </AutoComplete>
                                 </FormItem>
                             </div>
                         </div>

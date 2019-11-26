@@ -1,19 +1,46 @@
-
 import * as React from 'react';
+
 import FormItem from 'antd/lib/form/FormItem';
-import { Icon,Col,AutoComplete} from 'antd';
+import { Col, Input } from 'antd';
 import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
-export interface ICreateOrUpdateUserProps  {
-    autoDataRef: GetUserEntityListResponse[];
-    onGroupSelect: (option: any) => void;
-    onGroupChange: () => void;
+
+const { Search } = Input;
+
+export interface IEntityTreeProp {
     onHandleAutoSearch: (value: string) => void;
+    searchData: GetUserEntityListResponse[],
+    onHandleAddGroupUser: (value: string) => void;
 }
-const { Option } = AutoComplete;
-class userEntityTree extends React.Component<ICreateOrUpdateUserProps> {
-    render() { 
-        const {  onGroupSelect, onGroupChange, onHandleAutoSearch, autoDataRef } = this.props;
-        const children = autoDataRef.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
+
+
+class userEntityTree extends React.Component<IEntityTreeProp> {   
+
+    render() {
+
+        const { onHandleAutoSearch, searchData, onHandleAddGroupUser } = this.props;
+
+        const child =
+            searchData.map((item) => (
+                <ul className="tree">
+                    <li className="mt0">
+                        <a className="fristlink"><span className="treeIcon"></span> <span className="">{item.group1Name} </span> <span className="groupicon"></span><span className="values"></span></a>
+                            <ul>
+                            <li>
+                                <a><span className="">{item.group2Name} </span> <span className="groupicon"></span><span className="values"></span></a>
+                                    <ul>
+                                    <li><a> <span className="">{item.group3Name} </span> <span className="groupicon"></span><span className="values"></span></a>
+                                        <ul>
+                                            <li className="highlighted"><a><span className="">{item.group4Name} </span> <span className="groupicon"></span><span className="values"></span><span className="adduserIcon" onClick={() => onHandleAddGroupUser(item.groupId)}></span></a> 
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            ))
+
         return (
             <div>
                 <div className="antd-row">
@@ -21,11 +48,7 @@ class userEntityTree extends React.Component<ICreateOrUpdateUserProps> {
                         <FormItem>
                             <label>{'Search User Group'} <span className="start">*</span> </label>
                             <div className="rel">
-                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={onGroupSelect} onChange={onGroupChange} onSearch={onHandleAutoSearch}>
-                                        {children}
-                                    </AutoComplete>       
-                            {/* <Input /> */}
-                                <div className="searchbtn"><Icon type="search" /> </div>
+                                <Search placeholder="Group 1/ Group 2/ Group 3" onSearch={onHandleAutoSearch} />
                             </div>
                         </FormItem>
                     </Col>
@@ -33,30 +56,11 @@ class userEntityTree extends React.Component<ICreateOrUpdateUserProps> {
                 <div className="antd-row">
                     <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                         <div className="treedigram">
-                            <ul className="tree">
-                                <li className="mt0">
-                                    <a className="fristlink"><span className="treeIcon"></span> <span className="">Cardinal Health </span> <span className="groupicon"></span><span className="values">4,923</span></a>
-                                    <ul>
-                                        <li>
-                                            <a><span className="">Ball And Foodstores </span> <span className="groupicon"></span><span className="values">2,573</span></a>
-                                            <ul>
-                                                <li><a> <span className="">Pharmacy 5</span> <span className="groupicon"></span><span className="values">534</span></a>
-                                                    <ul>
-                                                        <li className="highlighted"><a><span className="">NCPDP 13</span> <span className="groupicon"></span><span className="values">15</span> <span className="adduserIcon"></span></a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            {child}
                         </div>
                     </div>
                 </div>
-                
             </div>
-
         );
     };
 }

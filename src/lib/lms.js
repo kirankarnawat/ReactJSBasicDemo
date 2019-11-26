@@ -22,7 +22,7 @@ var lms = lms || {};
         USERLIST: 'USERLIST',
         USERENTITYLIST: 'USERENTITYLIST',
         USERJOBCODES: 'USERJOBCODES',
-        AddEditUser: 'AddEditUser',
+        ADDEDITUSER: 'ADDEDITUSER',
     };
    
     //Get API Path of the variable
@@ -44,7 +44,7 @@ var lms = lms || {};
                 case lms.APIType.USERJOBCODES:
                 path = '/user/getlookups';
                 break;
-                case lms.APIType.AddEditUser:
+                case lms.APIType.ADDEDITUSER:
                     path = '/user/addedituser';
                     break;
         }

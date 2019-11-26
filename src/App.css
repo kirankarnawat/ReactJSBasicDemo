@@ -101,8 +101,8 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .logoutIcon{position:absolute; margin-left:42%; top:38%; width:58px; height:58px; border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; background:#e41e35; border:7px solid #ffffff; padding-left:11px; padding-top:9px}
 .loginBox .float-left{float:left}
 .loginBox .ant-btn{height:auto;padding:0}
-.loginBox .loginBoxCon .colLogRight .loginForm .btn-primary{padding:4px 0}
-.loginBox .float-right{float:right}
+.loginBox .loginBoxCon .colLogRight .loginForm .btn-primary{padding:4px 0}.loginBox .float-right{float:right}
+
 /*Login page End*/
 
 .ellipsisIcon{font-size:26px;color:#000;line-height:15px;font-weight:bold;}
@@ -216,8 +216,8 @@ ul.headerListing li.active a{color:#d63032; float:left}
 .ant-drawer .ant-drawer-close{background:url("images/close.png") 0 0 no-repeat;top:30%;width:32px;}
 /* .filterpopup .ant-drawer-close{background:url("images/back-icon.png") 0 0 no-repeat;top:30%;width:32px;} */
 .ant-drawer .anticon-close{display:none}
-.ant-drawer .ant-drawer-header{padding:16px 20px;border-bottom:2px solid #E41F35}
-.ant-drawer .ant-drawer-body{padding:5px 20px;float: left; width:100%}
+.ant-drawer .ant-drawer-header{padding:16px 18px;border-bottom:2px solid #E41F35}
+.ant-drawer .ant-drawer-body{padding:5px 8px}
 .ant-drawer .ant-form-item-control-wrapper{margin-bottom:10px;font-size:12px}
 .ant-drawer .ant-form-item{margin-bottom:4px}
 .ant-drawer .ant-form-item-label{line-height:inherit;margin-bottom:5px}
@@ -226,7 +226,7 @@ ul.headerListing li.active a{color:#d63032; float:left}
 .start{color:#f00}
 
 .filterpopup .overfowYauto{overflow-y: auto; max-height:450px;}
-.filterBody{float:left; width:100%;}
+.filterBody{float:left; width:100%; padding:0px 11px;}
 .filterBody .clearFilter {float:right; padding:7px 0px 0px 0px;cursor:pointer;}
 .filterBody .clearFilter .span{float:left}
 .filterBody .clearFilter .cleText{color:#3a4042; float:left; padding-right:10px}
@@ -257,8 +257,7 @@ ul.bulkImpListing li .ant-btn{width:100%; min-width:200px}
 .pos{position:relative}
 
 .ant-drawer .ant-drawer-title{font-family: 'Conv_Roboto-Bold'; font-size:20px}
-.ant-drawer .ant-tabs-nav {float:left; width:100%; border-bottom:1px solid #C1C1C1}
-.ant-drawer .ant-tabs-bar{border-color:#C1C1C1;}
+.ant-drawer .ant-tabs-nav {float:left; width:100%; border-bottom:1px solid #e0e0e0}
 .ant-drawer .ant-tabs-nav .ant-tabs-tab{padding:10px 5px; font-size:12px; color:#848484; margin:0px 15px;margin:0px 20px 0px 0px}
 .ant-drawer .ant-tabs .ant-tabs-small-bar .ant-tabs-tab{padding:8px 12px}
 .ant-drawer .ant-tabs-nav .ant-tabs-tab:hover{border:none;color:#e41f35}
@@ -316,6 +315,7 @@ ul.ant-pagination .ant-pagination-item a:focus{box-shadow:none}
 .errorLog .logHeaddata{color:#8D8D8D;font-size:12px; border-bottom:1px solid #C1C1C1; clear: both; padding:8px 0px;}
 .errorLog .fileName{float:left;}
 .errorLog .datetext{float:right}
+.hidden {display:none;}
 /* .bulkUpload .hintText{margin-bottom:15px; font-size:12px;}
 .bulkUpload .decorated{overflow: hidden;text-align: center; width: 180px; margin: 0 auto; margin-bottom:15px; color:#9a9a9a}
 .bulkUpload .decorated > span{position: relative; display: inline-block;}
@@ -326,9 +326,11 @@ ul.ant-pagination .ant-pagination-item a:focus{box-shadow:none}
 .bulkUpload ul.bulkImpListing li{width:200px; float: left; margin-left: 30px;}
 .bulkUpload ul.bulkImpListing li:first-child{margin:0px}
 .bulkUpload ul.bulkImpListing li .btn{width:100%; min-width:200px}*/
-
-
-ul.assListing{padding:0px 0px 10px 0px; float:left; width:100%}
+ul.assListing {
+    padding: 0px 0px 10px 0px;
+    float: left;
+    width: 100%
+}
 ul.assListing li{float:left; padding-right:20px}
 ul.assListing li .text{padding-left:5px}
 ul.assListing li .iconCourse{background-image: url("images/course.png"); background-repeat: no-repeat, repeat; background-position:0px 0px; float:left; width:14px; height:18px;}
@@ -386,9 +388,7 @@ footer{padding: 0;font-size: 11px}
 .treedigram .tree li a .adduserIcon{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat; background-position:3px 3px;}
 .treeIcon{background-image: url("images/entityicon.png"); background-repeat: no-repeat; background-position:0px 0px;width:25px; height:23px; display: inline-block; vertical-align: middle; margin-right:5px;}
 .groupicon{background-image: url("images/users.png"); background-repeat: no-repeat; background-position:0px 0px;width:20px; height:15px; display: inline-block; vertical-align: middle;}
-.exportExcelIcoBg{width:27px; height:27px; line-height:27px; cursor:pointer; background:#000000;position:absolute;top:5px;right:0; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px;text-align:center;}
-.exportExcelIco{background:url("images/ExporttoXls.png") 0 0 no-repeat;width:17px; height:17px;display: inline-block; vertical-align: middle;}
-.exportExcelIcoBg:hover{background:#d63032}
+
 .treedigram .tree li.highlighted a{color:#000;}
 .treedigram .tree li a:hover .adduserIcon{ background-color:#333333;}
 .treedigram .tree li.mt0{margin-top:0px}
@@ -421,9 +421,8 @@ footer{padding: 0;font-size: 11px}
 
 /****WARNING MSG ****/
 .warningMsg{background:#FFF6F6;border:1px solid #E2B6B5; width:100%; padding:10px;}
-.warningMsg .warningText{width:70%; float: left;}
-.warningMsg .warningbtn{width:28%;float:right;}
-.warningMsg .warningbtn button{float:right;}
+.warningMsg .warningText{width: 80%; float: left;}
+.warningMsg .warningbtn{width:17%;float: left;margin-left:3%;}
 .warningMsg .heading h3{color:#973937; font-size: 15px;font-family: 'Conv_Roboto-Bold'; margin:0; padding-bottom:2px;} 
 .warningMsg .discText{color:#973937; font-size:12px; line-height:16px; }
 
@@ -437,5 +436,5 @@ footer{padding: 0;font-size: 11px}
 .warningMsg .warningbtn{width:17%;float: left;margin-left:3%;} */
 
 @media screen and (max-width:1366px) {
-    .filterpopup .ant-drawer-body{overflow-y: auto; max-height:450px;}
+    .filterBody{overflow-y: auto; max-height:400px;}
 }

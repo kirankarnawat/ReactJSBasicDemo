@@ -1,8 +1,7 @@
 import { action, observable } from 'mobx';
 
-import { CreateOrUpdateUserInput } from '../services/user/dto/createOrUpdateUserInput';
+import { UserRequest } from '../services/user/dto/Request/userRequest';
 import { EntityDto } from '../services/dto/entityDto';
-import { GetRoles } from '../services/user/dto/getRolesOuput';
 
 import { PagedResultDto } from '../services/dto/pagedResultDto';
 
@@ -20,39 +19,45 @@ class UserStore {
 
     @observable users!: PagedResultDto<GetAllUserResponse>;
     @observable filters!: GetAllUserRequest;
-    @observable UserGroup!: GetUserEntityListRequest;
     @observable userentity!: PagedResultDto<GetUserEntityListResponse>;
-
-    @observable editUser!: CreateOrUpdateUserInput;
-    @observable roles: GetRoles[] = [];
     @observable userjobroles!: PagedResultDto<GetJobRolesResponse>;
-    @observable groups :any;
-
-  
+    @observable user!: UserRequest;
 
     @action
-    async getAll(getAllUserRequest: GetAllUserRequest) {      
+    async getAll(getAllUserRequest: GetAllUserRequest) {
         let result = await userService.getAll(getAllUserRequest);
         this.users = result;
     }
 
     @action
-    async getEntityList(getUserEntityListRequest: GetUserEntityListRequest) {       
+    async getEntityList(getUserEntityListRequest: GetUserEntityListRequest) {
+
         var userid = sessionService.getLoginUserId();
         getUserEntityListRequest.RequesterUserId = userid;
         let result = await userService.getEntityList(getUserEntityListRequest);
-        this.userentity = result;      
+
+        this.userentity = result;
+
         return result;
-    }
-   
-    @action
-    async create(createUserInput: CreateOrUpdateUserInput) {
-        let result = await userService.create(createUserInput);
-        this.users.items.push(result);
     }
 
     @action
-    async update(getAllUserRequest: GetAllUserRequest) {
+    async createUser() {
+        this.user = {
+            userId: '', firstName: '', lastName: '', emailAddress: '', loginId: '', contactNumber: '', cityId: '', countryId: '', departmentId: '', groupId: '', hiringDate: null, jobCodeId: '', profilePic: '', requesterUserId: this.filters.requesterUserId, roleChangeDate: null, stateId: '', status: true, timeZoneId: '', zipCode: ''
+        };
+    }
+
+    @action
+    async create(addUserRequest: UserRequest) {
+        debugger;
+        let result = await userService.create(addUserRequest);
+        addUserRequest.userId = result;
+        //this.users.items.push();
+    }
+
+    @action
+    async update(updateUserRequest: UserRequest) {
         //let result = await userService.update(updateUserInput);
         //this.users.items = this.users.items.map((x: GetUserOutput) => {
         //    if (x.id === updateUserInput.id) x = result;
@@ -67,58 +72,31 @@ class UserStore {
     }
 
     @action
-    async getRoles() {
-        let result = await userService.getRoles();
-        this.roles = result;
-    }
-
-    @action
     async get(entityDto: EntityDto) {
-        let result = await userService.get(entityDto);
-        this.editUser = result;
+        //let result = await userService.get(entityDto);
+        //this.user = result;
     }
 
-    @action
-    async createUser() {
-        this.editUser = {
-            id: 0,
-            firstName: '',
-            lastName: '',
-            userType: '',
-            department: '',
-            emailAddress: '',
-            isActive: true,
-            password: '',
-            roleNames: []           
-           
-        };
-        this.roles = [];
-    }
-  
     /* FILTERS ***/
     @action
     async initFilter() {
-        this.UserGroup = {RequesterUserId:'',GroupId:'',SearchPhrase:''};
+       
         var userid = sessionService.getLoginUserId();
-        await this.getEntityList({ RequesterUserId: userid, SearchPhrase: '' ,GroupId:''});
-        await  this.GetUserJobRoles();        
+
+        await this.getEntityList({ RequesterUserId: userid, SearchPhrase: '', GroupId: '' });
+
         this.filters = {
             emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true,
             hiringDateFrom: null, hiringDateTo: null, roleChangeDateFrom: null, roleChangeDateTo: null
         };
     }
-   /*** LOOKUP *****/
-   @action
-   async GetUserJobRoles() {    
-       let result = await userService.getJobRoles();   
-       this.userjobroles = result;
-   }
-   @action
-   async addEditUser(CreateOrUpdateUserInput:CreateOrUpdateUserInput) {    
-      
-       let result = await userService.addEditUser(CreateOrUpdateUserInput);   
-       this.editUser = result;
-   }
+    /*** LOOKUP *****/
+
+    @action
+    async GetUserJobRoles() {
+        let result = await userService.getJobRoles();
+        this.userjobroles = result;
+    }
 }
 
 export default UserStore;

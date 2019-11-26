@@ -1,4 +1,3 @@
-import { CreateOrUpdateUserInput } from './dto/createOrUpdateUserInput';
 import { EntityDto } from '../../services/dto/entityDto';
 import { PagedResultDto } from '../../services/dto/pagedResultDto';
 import { GetAllUserRequest } from "./dto/Request/getAllUserRequest";
@@ -7,9 +6,8 @@ import { GetUserEntityListRequest } from "./dto/Request/getUserEntityListRequest
 import { GetUserEntityListResponse } from "./dto/Response/getUserEntityListResponse";
 import { GetJobRolesResponse } from './dto/Response/getJobRolesResponse';
 
-import { GetRoles } from './dto/getRolesOuput';
-
 import http from '../httpService';
+import { UserRequest } from './dto/Request/userRequest';
 
 declare var lms: any;
 
@@ -40,12 +38,24 @@ class UserService {
         return data;
     }
 
+    public async getJobRoles(): Promise<PagedResultDto<GetJobRolesResponse>> {
+        var data = <PagedResultDto<GetJobRolesResponse>>{};
+        try {
+            let result = await http.get(lms.toAPIPath(lms.APIType.USERJOBCODES));
+            data.items = result.data["listJobRoles"];
+            data.totalCount = data.items.length;
+            return data;
+        }
+        catch (e) {
+            console.log(e);
+        }
+        return data;
+    }
 
-
-
-    public async create(createUserInput: CreateOrUpdateUserInput) {
-        let result = await http.post('api/services/app/User/Create', createUserInput);
-        return result.data.result;
+    public async create(createUserInput: UserRequest) {
+        debugger;
+        let result = await http.post(lms.toAPIPath(lms.APIType.ADDEDITUSER), createUserInput);
+        return result.data;
     }
 
     public async update(getAllUserRequest: GetAllUserRequest) {
@@ -56,55 +66,6 @@ class UserService {
     public async delete(entityDto: EntityDto) {
         let result = await http.delete('api/services/app/User/Delete', { params: entityDto });
         return result.data;
-    }
-
-    public async getRoles() {
-        //let result = await http.get('api/services/app/User/GetRoles');
-        //return result.data.result.items;
-
-        var result: GetRoles[] = [
-            { "id": 1, "name": "HOD", "description": "handles department" },
-            { "id": 2, "name": "Lead", "description": "handles team" },
-        ];
-        return result;
-    }
-
-    public async get(entityDto: EntityDto): Promise<CreateOrUpdateUserInput> {
-        //let result = await http.get('api/services/app/User/Get', { params: entityDto });
-        //return result.data.result;
-
-        var data = <CreateOrUpdateUserInput>{};
-        // if (entityDto.id == '1')
-        //     data = { "id": 1, "firstName": "Amit", "lastName": "Dhivar", "userType": "Head", "department": "IT", "emailAddress": "amit.dhivar@deplhianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["HOD"] };
-        // else
-        //     data = { "id": 2, "firstName": "Rajesh", "lastName": "Deshpande", "userType": "Lead", "department": "IT", "emailAddress": "rajesh.deshpande@delphianlogic.com", "isActive": true, "password": "P@ssw0rd", "roleNames": ["LEAD"] };
-        var result = data;
-        return result;
-    }
-    public async getJobRoles(): Promise<PagedResultDto<GetJobRolesResponse>>{
-        var data = <PagedResultDto<GetJobRolesResponse>>{};
-        try {
-            let result = await http.get(lms.toAPIPath(lms.APIType.USERJOBCODES));
-            data.listJobRoles = result.data["listJobRoles"];
-            data.totalCount = data.items.length;
-            return data;
-        }
-        catch (e) {
-            console.log(e);
-        }
-        return data;
-    }
-    public async addEditUser(CreateOrUpdateUserInput: CreateOrUpdateUserInput) {
-        var data = <CreateOrUpdateUserInput>{};
-        try {
-            let result = await http.post(lms.toAPIPath(lms.APIType.AddEditUser),CreateOrUpdateUserInput);           
-            data = result.data;
-            return data;
-        }
-        catch (e) {
-            console.log(e);
-        }
-        return data;
     }
 }
 

@@ -25,11 +25,17 @@ export interface IUserState {
     modalVisible: boolean;
     filterModalVisible: boolean;
     bulkModalVisible: boolean;
+
     userId: string;
+
     result: GetUserEntityListResponse[];
+    entityresult: GetUserEntityListResponse[];
+
     firstName: string
+
     groupId: string;
     searchOnGroupId: string;
+
     status: boolean | null;
 }
 
@@ -52,6 +58,7 @@ class User extends React.Component<IUserProps, IUserState> {
             bulkModalVisible: false,
             userId: '',
             result: [],
+            entityresult: [],
             firstName: '',
             groupId: '',
             searchOnGroupId: '',
@@ -68,6 +75,12 @@ class User extends React.Component<IUserProps, IUserState> {
         await this.props.userStore.initFilter();
         await this.getAll();
     }
+
+    //get user data
+    async getAll() {
+        debugger;
+        await this.props.userStore.getAll({ ...this.props.userStore.filters });
+    }
     // #endregion
 
     //#region Pagination with sorting
@@ -78,12 +91,6 @@ class User extends React.Component<IUserProps, IUserState> {
     };
     //#endregion
 
-    //#region get data from stores
-    async getAll() {
-        debugger;
-        await this.props.userStore.getAll({ ...this.props.userStore.filters });
-    }
-    //#endregion
 
     //#region Drawer visibility
     Modal = () => {
@@ -125,52 +132,41 @@ class User extends React.Component<IUserProps, IUserState> {
             bulkModalVisible: !this.state.bulkModalVisible,
         });
     };
+
+    //REFERENCES
+    savefilterFormRef = (formRef: any) => {
+        this.filterFormRef = formRef;
+    };
+
+    saveaddeditFormRef = (formRef: any) => {
+        this.addeditUserFormRef = formRef;
+    };
+
+    savebulkimportFormRef = (formRef: any) => {
+        this.bulkimportFormRef = formRef;
+    };
     // #endregion -----------------------------
 
     //#region drawer data
+
+    //ADD EDIT DRAWER
     async createOrUpdateModalOpen(entityDto: EntityDto) {
         if (entityDto.id === '') {
             await this.props.userStore.createUser();
-            await this.props.userStore.getRoles();
+            await this.props.userStore.GetUserJobRoles();
         } else {
             await this.props.userStore.get(entityDto);
-            await this.props.userStore.getRoles();
+            await this.props.userStore.GetUserJobRoles();
         }
 
         this.setState({ userId: entityDto.id });
         this.Modal();
 
-        this.addeditUserFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
+        this.addeditUserFormRef.props.form.setFieldsValue({ ...this.props.userStore.user});
     }
+    
 
-    async filterModalOpen() {
-
-        this.FilterModal();
-
-        this.filterFormRef.props.form.setFieldsValue({ ...this.props.userStore.filters });
-    }
-
-    async bulkImportmedelOpen(entityDto: EntityDto) {
-        this.setState({ userId: entityDto.id });
-        this.bulkmodal();
-        // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
-    }
-    //#endregion
-
-    //#region Events
-    delete(input: EntityDto) {
-        const self = this;
-        confirm({
-            title: 'Do you Want to delete these items?',
-            onOk() {
-                self.props.userStore.delete(input);
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
-        });
-    }
-
+    //ADD EDIT USER DATA
     handleCreate = () => {
         const form = this.addeditUserFormRef.props.form;
 
@@ -181,7 +177,7 @@ class User extends React.Component<IUserProps, IUserState> {
                 if (this.state.userId === '') {
                     await this.props.userStore.create(values);
                 } else {
-                    await this.props.userStore.update({ id: this.state.userId, ...values });
+                    await this.props.userStore.update({ userId: this.state.userId, ...values });
                 }
             }
 
@@ -191,35 +187,15 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     };
 
-    savefilterFormRef = (formRef: any) => {
-        this.filterFormRef = formRef;
-    };
-    saveaddeditFormRef = (formRef: any) => {
-        this.addeditUserFormRef = formRef;
-    };
-    savebulkimportFormRef = (formRef: any) => {
-        this.bulkimportFormRef = formRef;
-    };
+    //FILER DRAWER
+    async filterModalOpen() {
 
-   handleAutoSearch = async (value: string) => {
-        let result: GetUserEntityListResponse[];  
-       
-          if(value && this.props.userStore && this.props.userStore.userentity && this.props.userStore.userentity.items){
-            this.props.userStore.UserGroup.SearchPhrase = value;
-            await this.props.userStore.getEntityList(this.props.userStore.UserGroup);
-            result = this.props.userStore.userentity.items;
-          }
-          else{
-            result = [];
-          }
-        // if (!value || !this.props.userStore.userentity.items || this.props.userStore.userentity.items.find(p => p.groupName.toLowerCase().indexOf(value.toLowerCase()) === -1)) {
-        //     result = [];
-        // } else {
-        //     result = this.props.userStore.userentity.items;
-        // }
-        this.setState({ result });
-    };
+        this.FilterModal();
 
+        this.filterFormRef.props.form.setFieldsValue({ ...this.props.userStore.filters });
+    }
+
+    //FILTER USER DATA
     handleAdvFilter = () => {
         debugger;
         const form = this.filterFormRef.props.form;
@@ -239,13 +215,52 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     }
 
+    //BULK IMPORT DRAWER
+    async bulkImportmedelOpen(entityDto: EntityDto) {
+        this.setState({ userId: entityDto.id });
+        this.bulkmodal();
+        // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
+    }
+
+
+    //HANDLE AUTO SEARCH
+    handleAutoSearch = async (value: string) => {
+        let result: GetUserEntityListResponse[];
+
+        if (value && this.props.userStore && this.props.userStore.userentity && this.props.userStore.userentity.items) {
+
+            await this.props.userStore.getEntityList({ SearchPhrase: value, RequesterUserId: this.props.userStore.filters.requesterUserId, GroupId: '' });
+
+            result = this.props.userStore.userentity.items;
+        }
+        else {
+            result = [];
+        }
+
+        this.setState({ result });
+    };
     //#endregion
+
+
+    delete(input: EntityDto) {
+        const self = this;
+        confirm({
+            title: 'Do you Want to delete these items?',
+            onOk() {
+                self.props.userStore.delete(input);
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    }
+
 
     public render() {
 
         const { users } = this.props.userStore;
         const { result } = this.state;
-        debugger;
+        
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         const columns = [
@@ -262,12 +277,14 @@ class User extends React.Component<IUserProps, IUserState> {
                 width: 150, dataIndex: 'userId', key: 'userId',
                 render: (text: string) => (
                     <div>
-                        <div className="tablehoverbuttons"> <Icon type="ellipsis" className="ellipsisIcon"/>
+                        <div className="tablehoverbuttons"> <Icon type="ellipsis" className="ellipsisIcon" />
                             <div className="buttonshover">
                                 <div className="resetpassword" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Reset password"></div>
                                 <div className="bargraph" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Progress"></div>
                                 <div className="transfer" onClick={() => this.delete({ id: text })} title="Transparent"></div>
-                                <div className="editbtn" onClick={() => this.delete({ id: text })} title="Edit User"></div>
+
+                                <div className="editbtn" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Edit User"></div>
+
                             </div>
                         </div>
                     </div>
@@ -394,7 +411,7 @@ class User extends React.Component<IUserProps, IUserState> {
                     onGroupChange={this.groupChange}
                     onHandleAutoSearch={this.handleAutoSearch}
                     autoDataRef={this.state.result}
-                />         
+                />
 
 
 
@@ -406,14 +423,14 @@ class User extends React.Component<IUserProps, IUserState> {
                             modalVisible: false,
                         })
                     }
-                    modalType={this.state.userId === '' ? 'edit' : 'create'}
+                    modalType={this.state.userId === '' ? 'create' : 'edit'}
                     onCreate={this.handleCreate}
-                    roles={this.props.userStore.roles}
-                    autoDataRef={this.state.result}
-                    onGroupSelect={this.groupSelect}
-                    onGroupChange={this.groupChange}
+                    jobRole={this.props.userStore.userjobroles !== undefined ? this.props.userStore.userjobroles.items : []}
                     onHandleAutoSearch={this.handleAutoSearch}
+                    autoDataRef={this.state.result}
                 />
+
+
 
                 <BulkImport
                     wrappedComponentRef={this.savebulkimportFormRef}
@@ -425,7 +442,6 @@ class User extends React.Component<IUserProps, IUserState> {
                     }
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
                     onCreate={this.handleCreate}
-                    roles={this.props.userStore.roles}
                 />
 
             </Card>

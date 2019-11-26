@@ -23,7 +23,7 @@ class AuthenticationStore {
 
     @action
     public async login(model: LoginModel) {
-
+        debugger;
         let result = await tokenAuthService.authenticate({
             emailAddress: model.emailAddress,
             password: model.password,
