@@ -95,7 +95,7 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                         <FormItem>
                             <label>{'Email Or Username'} <span className="start">*</span> </label>
-                            {getFieldDecorator('emailAddress', { rules: { rules.emailAddress } })(<Input placeholder='Email Or Username' name="emailAddress" />)}
+                            {getFieldDecorator('emailAddress', { rules: rules.emailAddress })(<Input placeholder='Email Or Username' name="emailAddress" />)}
                         </FormItem>
                     </Col>
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
