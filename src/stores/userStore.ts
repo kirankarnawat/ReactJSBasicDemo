@@ -13,6 +13,10 @@ import { GetUserEntityListResponse } from "../services/user/dto/Response/getUser
 
 import userService from '../services/user/userService';
 import sessionService from '../services/session/sessionService';
+import { UserOIGRequest } from '../services/user/dto/Request/userOIGRequest';
+import { UserOIGResponse } from '../services/user/dto/Response/userOIGResponse';
+import { UserByIDRequest } from '../services/user/dto/Request/userByIDRequest';
+import { UserByIDResponse } from '../services/user/dto/Response/userByIDResponse';
 
 
 class UserStore {
@@ -22,11 +26,19 @@ class UserStore {
     @observable userentity!: PagedResultDto<GetUserEntityListResponse>;
     @observable userjobroles!: PagedResultDto<GetJobRolesResponse>;
     @observable user!: UserRequest;
+    @observable userOIG!: UserOIGResponse;
+    @observable userById! : UserByIDResponse;
 
     @action
     async getAll(getAllUserRequest: GetAllUserRequest) {
         let result = await userService.getAll(getAllUserRequest);
         this.users = result;
+    }
+
+    @action
+    async getUserById(getUserByIdRequest: UserByIDRequest) {
+        let result = await userService.getUserById(getUserByIdRequest);
+        this.userById = result;
     }
 
     @action
@@ -46,6 +58,12 @@ class UserStore {
         this.user = {
             userId: '', firstName: '', lastName: '', emailAddress: '', loginId: '', contactNumber: '', cityId: '', countryId: '', departmentId: '', groupId: '', hiringDate: null, jobCodeId: '', profilePic: '', requesterUserId: this.filters.requesterUserId, roleChangeDate: null, stateId: '', status: true, timeZoneId: '', zipCode: ''
         };
+    }
+
+    @action
+    async checkOIG(userOIGRequest: UserOIGRequest) {
+        let result = await userService.checkOIG(userOIGRequest);
+        this.userOIG = result;
     }
 
     @action
@@ -69,12 +87,6 @@ class UserStore {
     async delete(entityDto: EntityDto) {
         //await userService.delete(entityDto);
         //this.users.items = this.users.items.filter((x: GetUserOutput) => x.id !== entityDto.id);
-    }
-
-    @action
-    async get(entityDto: EntityDto) {
-        //let result = await userService.get(entityDto);
-        //this.user = result;
     }
 
     /* FILTERS ***/

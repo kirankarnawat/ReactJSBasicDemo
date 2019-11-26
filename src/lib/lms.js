@@ -23,8 +23,10 @@ var lms = lms || {};
         USERENTITYLIST: 'USERENTITYLIST',
         USERJOBCODES: 'USERJOBCODES',
         ADDEDITUSER: 'ADDEDITUSER',
+        CHECKOIG: 'CHECKOIG',
+        USERDATABYID: 'USERDATABYID'
     };
-   
+
     //Get API Path of the variable
     lms.toAPIPath = function (type) {
         var path = '';
@@ -41,19 +43,25 @@ var lms = lms || {};
             case lms.APIType.USERENTITYLIST:
                 path = '/entity/entitylist';
                 break;
-                case lms.APIType.USERJOBCODES:
+            case lms.APIType.USERJOBCODES:
                 path = '/user/getlookups';
                 break;
-                case lms.APIType.ADDEDITUSER:
-                    path = '/user/addedituser';
-                    break;
+            case lms.APIType.ADDEDITUSER:
+                path = '/user/addedituser';
+                break;
+            case lms.APIType.CHECKOIG:
+                path = '/user/checkoig';
+                break;
+            case lms.APIType.USERDATABYID:
+                path = '/user/getuserdata';
+                break;
         }
         return path;
     };
 
-    
 
-/* UTILS ***************************************************/
+
+    /* UTILS ***************************************************/
 
     lms.utils = lms.utils || {};
 
@@ -210,7 +218,7 @@ var lms = lms || {};
 
         return qs;
     }
-   
+
     /**
      * Gets the domain of given url
      * @param {string} url 
@@ -223,7 +231,7 @@ var lms = lms || {};
     }
 
 
- /* SECURITY ***************************************/
+    /* SECURITY ***************************************/
     lms.security = lms.security || {};
     lms.security.antiForgery = lms.security.antiForgery || {};
 

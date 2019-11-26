@@ -155,7 +155,7 @@ class User extends React.Component<IUserProps, IUserState> {
             await this.props.userStore.createUser();
             await this.props.userStore.GetUserJobRoles();
         } else {
-            await this.props.userStore.get(entityDto);
+            await this.props.userStore.getUserById({ userId: entityDto.id, requesterUserId: this.props.userStore.filters.requesterUserId });
             await this.props.userStore.GetUserJobRoles();
         }
 

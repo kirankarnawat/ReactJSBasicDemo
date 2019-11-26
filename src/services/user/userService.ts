@@ -8,6 +8,10 @@ import { GetJobRolesResponse } from './dto/Response/getJobRolesResponse';
 
 import http from '../httpService';
 import { UserRequest } from './dto/Request/userRequest';
+import { UserOIGRequest } from './dto/Request/userOIGRequest';
+import { UserOIGResponse } from './dto/Response/userOIGResponse';
+import { UserByIDRequest } from './dto/Request/userByIDRequest';
+import { UserByIDResponse } from './dto/Response/userByIDResponse';
 
 declare var lms: any;
 
@@ -21,6 +25,11 @@ class UserService {
         data.totalCount = (data.items.length > 0) ? data.items[0].totalCount : 0;
 
         return data;
+    }
+
+    public async getUserById(getUserByIdRequest: UserByIDRequest): Promise<UserByIDResponse> {
+        let result = await http.post(lms.toAPIPath(lms.APIType.USERDATABYID), getUserByIdRequest);
+        return result.data;
     }
 
     public async getEntityList(getUserEntityListRequest: GetUserEntityListRequest): Promise<PagedResultDto<GetUserEntityListResponse>> {
@@ -52,16 +61,24 @@ class UserService {
         return data;
     }
 
-    public async create(createUserInput: UserRequest) {
+    public async create(createUserRequest: UserRequest) {
         debugger;
-        let result = await http.post(lms.toAPIPath(lms.APIType.ADDEDITUSER), createUserInput);
+        let result = await http.post(lms.toAPIPath(lms.APIType.ADDEDITUSER), createUserRequest);
         return result.data;
     }
 
-    public async update(getAllUserRequest: GetAllUserRequest) {
-        //let result = await http.put('api/services/app/User/Update', updateUserInput);
-        //return result.data;
+    public async update(editUserRequest: UserRequest) {
+        debugger;
+        let result = await http.post(lms.toAPIPath(lms.APIType.ADDEDITUSER), editUserRequest);
+        return result.data;
     }
+
+    public async checkOIG(userOIGRequest: UserOIGRequest) : Promise<UserOIGResponse>  {
+        debugger;
+        let result = await http.post(lms.toAPIPath(lms.APIType.CHECKOIG), userOIGRequest);
+        return result.data;
+    }
+
 
     public async delete(entityDto: EntityDto) {
         let result = await http.delete('api/services/app/User/Delete', { params: entityDto });
