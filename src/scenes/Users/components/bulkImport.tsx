@@ -29,7 +29,7 @@ class BulkImport extends React.Component<ICreateOrUpdateUserProps> {
         return (
             <Drawer title={'Bulk Import'} width={560} onClose={onCancel} visible={visible}>
                 <div className="bulkUpload">
-                    <div className="pos" style={{display: "none"}}>
+                    <div className="pos">
                         <div className="mb20">
                         <Row className="antd-row">
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
@@ -61,17 +61,14 @@ class BulkImport extends React.Component<ICreateOrUpdateUserProps> {
                                 <div className="dateName"><Icon type="calendar" /> 11/15/2019</div>
                                 <div className="filedataname">Bulk_Import_11_15_2019.xls</div>
                                 <div className="errortextComp">Completed with error</div>
+                                <div className="recordtotalText">Total: 916 Records</div>
                                 <div className="recordtotalText">Successfully Uplaoded: 900 Records</div>
                                 <div className="linkurl"><a href="#"><span className=""></span> Validation Errors: 10</a></div>
                                 <div className="linkurl"><a href="#"><span className=""></span> OIG Exclusion Found: 6</a></div>
                             </Col>
                         </Row>
-                    </div>
-                    <Row className="antd-row">
-                    <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
-                    <div> <ErrorLog/></div>
-                    </Col>
-                    </Row>
+                    
+                    
                     <Row className="antd-row">
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
                             <div className="buttonfooter">
@@ -85,8 +82,13 @@ class BulkImport extends React.Component<ICreateOrUpdateUserProps> {
                             </div>
                         </Col>
                     </Row>
+                    </div>
                 </div>
-                
+                <Row className="antd-row">
+                    <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
+                    <div> <ErrorLog/></div>
+                    </Col>
+                    </Row>
             </Drawer>
         );
     }
