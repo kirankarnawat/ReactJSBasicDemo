@@ -75,9 +75,12 @@ class UserFilter extends React.Component<IFilterProps> {
                             <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                 <FormItem>
                                     <label className="floatleft">{'Group'}</label>
-                                    <AutoComplete  placeholder="Group 1/ Group 2/ Group 3" onSelect={onGroupSelect} onChange={onGroupChange} onSearch={onHandleAutoSearch}>
-                                        {children}
-                                    </AutoComplete>
+                                    {getFieldDecorator('groupId')(
+                                         <AutoComplete  placeholder="Group 1/ Group 2/ Group 3" onSelect={onGroupSelect} onChange={onGroupChange} onSearch={onHandleAutoSearch}>
+                                         {children}
+                                     </AutoComplete>
+                                    )}
+                                   
                                 </FormItem>
                             </div>
                         </div>
