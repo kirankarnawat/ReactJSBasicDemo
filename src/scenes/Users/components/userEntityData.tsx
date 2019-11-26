@@ -4,6 +4,7 @@ import FormItem from 'antd/lib/form/FormItem';
 import { FormComponentProps } from 'antd/lib/form';
 import { GetJobRolesResponse } from '../../../services/user/dto/Response/getJobRolesResponse';
 import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
+import rules from './userEntityData.validation';
 
 export interface IUserEntityProps extends FormComponentProps {
     onCreate: () => void;
@@ -25,7 +26,7 @@ class userEntitydata extends React.Component<IUserEntityProps> {
         return (
             <div>
 
-                <Row className="antd-row mb10">
+                <Row className="antd-row mb10 hidden">
                     <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
                         <div className="warningMsg">
                             <div className="warningText">
@@ -42,7 +43,7 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                     </Col>
                 </Row>
 
-                <Row className="antd-row mb10">
+                <Row className="antd-row mb10 hidden">
                     <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
                         <div className="successMsg">
                             <div className="successText">
@@ -79,13 +80,13 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                         <FormItem>
                             <label>{'First Name'} <span className="start">*</span> </label>
-                            {getFieldDecorator('firstName')(<Input placeholder='First Name' name="firstName" />)}
+                            {getFieldDecorator('firstName', { rules: rules.firstname })(<Input placeholder='First Name' name="firstName" />)}
                         </FormItem>
                     </Col>
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                         <FormItem>
                             <label>{'Last Name'} <span className="start">*</span> </label>
-                            {getFieldDecorator('lastName')(<Input placeholder='Last Name' name="lastName" />)}
+                            {getFieldDecorator('lastName', { rules: rules.lastname })(<Input placeholder='Last Name' name="lastName" />)}
                         </FormItem>
                     </Col>
                 </Row>
@@ -94,14 +95,14 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                         <FormItem>
                             <label>{'Email Or Username'} <span className="start">*</span> </label>
-                            {getFieldDecorator('emailAddress')(<Input placeholder='Email Or Username' name="emailAddress" />)}
+                            {getFieldDecorator('emailAddress', { rules: { rules.emailAddress } })(<Input placeholder='Email Or Username' name="emailAddress" />)}
                         </FormItem>
                     </Col>
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                         <FormItem>
                             <label>{'Hiring Date'} <span className="start">*</span> </label>
                             <div>
-                                {getFieldDecorator('hiringDate')(<DatePicker placeholder='Email Or Username' name="hiringDate" />)}
+                                {getFieldDecorator('hiringDate', { rules: rules.hiringDate })(<DatePicker placeholder='Email Or Username' name="hiringDate" />)}
                             </div>
                         </FormItem>
                     </Col>
@@ -112,7 +113,7 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                         <FormItem>
                             <label>{'Job Code'} <span className="start">*</span> </label>
                             <div>
-                                {getFieldDecorator('jobCodeId')(
+                                {getFieldDecorator('jobCodeId', { rules: rules.jobCodeId })(
                                     <Select>
                                         {children}
                                     </Select>
@@ -125,7 +126,7 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                         <FormItem>
                             <label>{'Role Change Date'} </label>
                             <div>
-                                {getFieldDecorator('roleChangeDate')(<DatePicker placeholder='Role Change Date' name="roleChangeDate" />)}
+                                {getFieldDecorator('roleChangeDate', { rules: rules.roleChangeDate })(<DatePicker placeholder='Role Change Date' name="roleChangeDate" />)}
                             </div>
                         </FormItem>
                     </Col>
