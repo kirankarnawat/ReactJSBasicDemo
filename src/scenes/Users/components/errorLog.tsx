@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Tabs,Table,Row,Col,Icon } from 'antd';
+import { Tabs,Row,Col,Icon,Button } from 'antd';
 const TabPane = Tabs.TabPane;
 import { FormComponentProps } from 'antd/lib/form';
+import BulkImportvalidation from './bulkImportValidation'
+import BulkImportOIGVarify from './bulkImportValidation'
 export interface ErrorLogsProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
@@ -11,12 +13,6 @@ export interface ErrorLogsProps extends FormComponentProps {
 class ErrorLog extends React.Component
 {
     render() {
-        const columns = [
-            { title: 'Row No', dataIndex: 'RowNo', sorter: false, key: 'RowNo', width: 150, render: (text: string) => <div>{10}</div> },
-            { title: 'First Name', dataIndex: 'FirstName', sorter: false, key: 'FirstName', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'Last Name', dataIndex: 'LastName', sorter: false, key: 'LastName', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'Error', dataIndex: 'Error', sorter: false, key: 'Error', width: 150, render: (text: string) => <div>{text}</div> },
-        ];
         return (
             <div className="errorLog">
              <Row className="antd-row">
@@ -30,30 +26,44 @@ class ErrorLog extends React.Component
              </Row>
             <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
                 <TabPane tab={'Validation Errors'} key={'ValidationErrors'}>
-                    <div className="table-responsive">
-                    <div className="tableContainer table-responsive">
-                            <Table
-                                //rowKey={record => record.userId}
-                                size={'default'}
-                                bordered={true}
-                                columns={columns}
-                                className="table"
-                            />
-                        </div>
-                    </div>
+                    <div><BulkImportvalidation /></div>
                 </TabPane>
                 <TabPane tab={'OIG-GSA Exclusion'} key={'OIG-GSAExclusion'}>
-                <div className="table-responsive">
-                    <div className="tableContainer table-responsive">
-                            <Table
-                                //rowKey={record => record.userId}
-                                size={'default'}
-                                bordered={true}
-                                columns={columns}
-                                className="table"
-                            />
+                    <div className="exportExcelIcoBg"><span className="exportExcelIco"></span></div>
+                <div>
+                <div>
+                <Row className="antd-row mb10">
+                    <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                        <div className="warningMsg">
+                            <div className="warningText">
+                                <div className="heading">
+                                    <h3>OIG-GSA Exclusion is found</h3>
+                                </div>
+                                <div className="discText">Click on the Verify OIG button to identify the user profile. <br/>You may choose to create the user post verification.</div>
+                            </div>
+                            <div className="warningbtn mt10">
+                                <Button className="ant-btn ant-btn-primary">VERIFY OIG_GSA</Button>
+                            </div>
+                            <div className="ant-clearfix"></div>
                         </div>
-                    </div>
+                    </Col>
+                </Row>
+                </div>
+                    <BulkImportOIGVarify />
+                </div>
+                <Row className="antd-row">
+                        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
+                            <div className="buttonfooter">
+                                <div className="bulkImpFooter">
+                                    <ul className="bulkImpListing">
+                                        <li>
+                                            <button type="submit" className="ant-btn ant-btn-default">CREATE USERS </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </Col>
+                    </Row>
                 </TabPane>
             </Tabs>
             </div>
