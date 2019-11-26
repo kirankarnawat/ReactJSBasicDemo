@@ -28,7 +28,7 @@ class BulkImport extends React.Component<ICreateOrUpdateUserProps> {
         const { visible, onCancel } = this.props;
         return (
             <Drawer title={'Bulk Import'} width={560} onClose={onCancel} visible={visible}>
-                <div className="bulkUpload" style={{display:"none"}}>
+                <div className="bulkUpload">
                     <div className="pos">
                         <div className="mb20">
                         <Row className="antd-row">
