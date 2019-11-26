@@ -102,7 +102,7 @@ class Login extends React.Component<ILoginProps> {
                           
                         </div>
                     </div>
-                    <div className="logoutIcon">
+                    <div className="logoutIcon" style={{display:"none"}}>
                         <img src={require('../../images/login-icon.png')} alt=""/>
                     </div>
                    

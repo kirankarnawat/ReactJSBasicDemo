@@ -125,12 +125,12 @@ export const appRouters: any = [
         featureId: 'BulkImportHistory',
         title: 'Bulk Import History',
         name: 'BulkImportHistory',
-        path: '#',
+        path: '/bulkImportHistory',
         parentFeatureId: 'UserManagement',
         className: 'contrepomenuicon',
         showInMenu: true,
         displayOrder: 1,
-        component: LoadableComponent(() => import('../../scenes/Users')),
+        component: LoadableComponent(() => import('../../scenes/Users/components/bulkImportHistory')),
     },
     
     {
