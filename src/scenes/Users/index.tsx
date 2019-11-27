@@ -27,17 +27,12 @@ export interface IUserState {
     filterModalVisible: boolean;
     bulkModalVisible: boolean;
     resetpassModalVisible: boolean;
-
     userId: string;
-
     result: GetUserEntityListResponse[];
     entityresult: GetUserEntityListResponse[];
-
     firstName: string
-
     groupId: string;
     searchOnGroupId: string;
-
     status: boolean | null;
 }
 

@@ -34,10 +34,6 @@ class UserStore {
     @observable userById!: UserByIDResponse;
     @observable userExists!: UserExistsCheckResponse;
     
-    constructor() {
-        this.userid = sessionService.getLoginUserId();
-    }
-
     @action
     async getAll(getAllUserRequest: GetAllUserRequest) {
         debugger;
@@ -114,6 +110,7 @@ class UserStore {
     /* FILTERS ***/
     @action
     async initFilter() {        
+        this.userid = sessionService.getLoginUserId();
 
         await this.getEntityList({ RequesterUserId: this.userid, SearchPhrase: '', GroupId: '' });
 
