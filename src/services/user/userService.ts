@@ -21,6 +21,7 @@ declare var lms: any;
 class UserService {
 
     public async getAll(getAllUserRequest: GetAllUserRequest): Promise<PagedResultDto<GetAllUserResponse>> {
+        debugger;
         let result = await http.post(lms.toAPIPath(lms.APIType.USERLIST), getAllUserRequest);
 
         var data = <PagedResultDto<GetAllUserResponse>>{};

@@ -51,7 +51,7 @@ class User extends React.Component<IUserProps, IUserState> {
     //#region Init
     constructor(props: IUserProps) {
         super(props);
-
+        debugger;
         this.state = {
             modalVisible: false,
             filterModalVisible: false,
@@ -72,6 +72,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
     //run on start
     async componentDidMount() {
+        debugger;
         await this.props.userStore.initFilter();
         await this.getAll();
     }

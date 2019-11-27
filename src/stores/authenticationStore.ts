@@ -29,7 +29,7 @@ class AuthenticationStore {
             password: model.password,
             salt: ''
         });
-        
+        debugger;
         var info = new GetCurrentLoginInformations();
         var user = new UserLoginInfoDto();
         user.userId = result.userId;

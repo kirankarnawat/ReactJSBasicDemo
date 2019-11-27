@@ -35,6 +35,7 @@ class UserStore {
 
     @action
     async getAll(getAllUserRequest: GetAllUserRequest) {
+        debugger;
         let result = await userService.getAll(getAllUserRequest);
         this.users = result;
     }
