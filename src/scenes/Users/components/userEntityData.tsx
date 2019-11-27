@@ -15,6 +15,17 @@ export interface IUserEntityProps extends FormComponentProps {
 const { Option } = Select;
 
 class userEntitydata extends React.Component<IUserEntityProps> {
+    
+    IsEmail = (value, callback) =>
+    {
+        var regex = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        if (!regex.test(value)) {
+            
+        } else {
+            
+        }
+    };
+
     render() {
 
         const { getFieldDecorator } = this.props.form;
@@ -48,9 +59,8 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                         <div className="successMsg">
                             <div className="successText">
                                 <div className="heading">
-                                    <h3>OIG Exclusion is found</h3>
+                                    <h3>User created successfully</h3>
                                 </div>
-                                <div className="discText">Click on the Verify OIG button to identify the user profile. You may choose to create the user post verification.</div>
                             </div>
                             <div className="ant-clearfix"></div>
                         </div>

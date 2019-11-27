@@ -12,6 +12,9 @@ import { UserOIGRequest } from './dto/Request/userOIGRequest';
 import { UserOIGResponse } from './dto/Response/userOIGResponse';
 import { UserByIDRequest } from './dto/Request/userByIDRequest';
 import { UserByIDResponse } from './dto/Response/userByIDResponse';
+import { UserEmailExistsCheckRequest } from './dto/Request/userEmailExistsCheckRequest';
+import { UserLoginExistsCheckRequest } from './dto/Request/userLoginExistsCheckRequest';
+import { UserExistsCheckResponse } from './dto/Response/userExistsCheckResponse';
 
 declare var lms: any;
 
@@ -76,6 +79,18 @@ class UserService {
     public async checkOIG(userOIGRequest: UserOIGRequest) : Promise<UserOIGResponse>  {
         debugger;
         let result = await http.post(lms.toAPIPath(lms.APIType.CHECKOIG), userOIGRequest);
+        return result.data;
+    }
+
+    public async checkIsEmailInUse(userEmailCheckRequest: UserEmailExistsCheckRequest): Promise<UserExistsCheckResponse> {
+        debugger;
+        let result = await http.get(lms.toAPIPath(lms.APIType.CHECKOIG), { params: userEmailCheckRequest });
+        return result.data;
+    }
+
+    public async checkIsLoginIdInUse(userLoginCheckRequest: UserLoginExistsCheckRequest): Promise<UserExistsCheckResponse> {
+        debugger;
+        let result = await http.get(lms.toAPIPath(lms.APIType.CHECKOIG), { params: userLoginCheckRequest });
         return result.data;
     }
 

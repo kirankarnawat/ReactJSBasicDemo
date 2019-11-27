@@ -17,6 +17,9 @@ import { UserOIGRequest } from '../services/user/dto/Request/userOIGRequest';
 import { UserOIGResponse } from '../services/user/dto/Response/userOIGResponse';
 import { UserByIDRequest } from '../services/user/dto/Request/userByIDRequest';
 import { UserByIDResponse } from '../services/user/dto/Response/userByIDResponse';
+import { UserEmailExistsCheckRequest } from '../services/user/dto/Request/userEmailExistsCheckRequest';
+import { UserLoginExistsCheckRequest } from '../services/user/dto/Request/userLoginExistsCheckRequest';
+import { UserExistsCheckResponse } from '../services/user/dto/Response/userExistsCheckResponse';
 
 
 class UserStore {
@@ -27,7 +30,8 @@ class UserStore {
     @observable userjobroles!: PagedResultDto<GetJobRolesResponse>;
     @observable user!: UserRequest;
     @observable userOIG!: UserOIGResponse;
-    @observable userById! : UserByIDResponse;
+    @observable userById!: UserByIDResponse;
+    @observable userExists!: UserExistsCheckResponse;
 
     @action
     async getAll(getAllUserRequest: GetAllUserRequest) {
@@ -64,6 +68,18 @@ class UserStore {
     async checkOIG(userOIGRequest: UserOIGRequest) {
         let result = await userService.checkOIG(userOIGRequest);
         this.userOIG = result;
+    }
+
+    @action
+    async checkIsEmailInUse(userEmailCheckRequest: UserEmailExistsCheckRequest) {
+        let result = await userService.checkIsEmailInUse(userEmailCheckRequest);
+        this.userExists = result;
+    }
+
+    @action
+    async checkIsLoginIdInUse(userLoginCheckRequest: UserLoginExistsCheckRequest) {
+        let result = await userService.checkIsLoginIdInUse(userLoginCheckRequest);
+        this.userExists = result;
     }
 
     @action

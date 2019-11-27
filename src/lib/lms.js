@@ -24,7 +24,9 @@ var lms = lms || {};
         USERJOBCODES: 'USERJOBCODES',
         ADDEDITUSER: 'ADDEDITUSER',
         CHECKOIG: 'CHECKOIG',
-        USERDATABYID: 'USERDATABYID'
+        USERDATABYID: 'USERDATABYID',
+        USEREMAILCHECK: 'USEREMAILCHECK',
+        USERLOGINIDCHECK: 'USERLOGINIDCHECK'
     };
 
     //Get API Path of the variable
@@ -54,6 +56,12 @@ var lms = lms || {};
                 break;
             case lms.APIType.USERDATABYID:
                 path = '/user/getuserdata';
+                break;
+            case lms.APIType.USEREMAILCHECK:
+                path = '/user/isemailinuse';
+                break;
+            case lms.APIType.USERLOGINIDCHECK:
+                path = '/user/isloginidinuse';
                 break;
         }
         return path;
