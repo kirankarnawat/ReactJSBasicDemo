@@ -24,6 +24,7 @@ import { UserExistsCheckResponse } from '../services/user/dto/Response/userExist
 
 class UserStore {
 
+    @observable userid!: string;
     @observable users!: PagedResultDto<GetAllUserResponse>;
     @observable filters!: GetAllUserRequest;
     @observable userentity!: PagedResultDto<GetUserEntityListResponse>;
@@ -32,6 +33,10 @@ class UserStore {
     @observable userOIG!: UserOIGResponse;
     @observable userById!: UserByIDResponse;
     @observable userExists!: UserExistsCheckResponse;
+    
+    constructor() {
+        this.userid = sessionService.getLoginUserId();
+    }
 
     @action
     async getAll(getAllUserRequest: GetAllUserRequest) {
@@ -108,14 +113,12 @@ class UserStore {
 
     /* FILTERS ***/
     @action
-    async initFilter() {
-       
-        var userid = sessionService.getLoginUserId();
+    async initFilter() {        
 
-        await this.getEntityList({ RequesterUserId: userid, SearchPhrase: '', GroupId: '' });
+        await this.getEntityList({ RequesterUserId: this.userid, SearchPhrase: '', GroupId: '' });
 
         this.filters = {
-            emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: userid, sortExp: '', status: true,
+            emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: this.userid, sortExp: '', status: true,
             hiringDateFrom: null, hiringDateTo: null, roleChangeDateFrom: null, roleChangeDateTo: null
         };
     }

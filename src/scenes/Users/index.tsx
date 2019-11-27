@@ -170,7 +170,7 @@ class User extends React.Component<IUserProps, IUserState> {
             await this.props.userStore.createUser();
             await this.props.userStore.GetUserJobRoles();
         } else {
-            await this.props.userStore.getUserById({ userId: entityDto.id, requesterUserId: this.props.userStore.filters.requesterUserId });
+            await this.props.userStore.getUserById({ userId: entityDto.id, requesterUserId: this.props.userStore.userid });
             await this.props.userStore.GetUserJobRoles();
         }
 
@@ -219,9 +219,8 @@ class User extends React.Component<IUserProps, IUserState> {
             if (err) {
                 return;
             } else {
-                var reqUID = this.props.userStore.filters.requesterUserId;
                 this.props.userStore.filters = values;
-                this.props.userStore.filters.requesterUserId = reqUID;
+                this.props.userStore.filters.requesterUserId = this.props.userStore.userid;
             }
 
             await this.getAll();
@@ -248,7 +247,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
         if (value && this.props.userStore && this.props.userStore.userentity && this.props.userStore.userentity.items) {
 
-            await this.props.userStore.getEntityList({ SearchPhrase: value, RequesterUserId: this.props.userStore.filters.requesterUserId, GroupId: '' });
+            await this.props.userStore.getEntityList({ SearchPhrase: value, RequesterUserId: this.props.userStore.userid, GroupId: '' });
 
             result = this.props.userStore.userentity.items;
         }

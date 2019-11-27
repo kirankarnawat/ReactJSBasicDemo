@@ -16,7 +16,7 @@ const { Option } = Select;
 
 class userEntitydata extends React.Component<IUserEntityProps> {
     
-    IsEmail = (value, callback) =>
+    IsEmail = (value) =>
     {
         var regex = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
         if (!regex.test(value)) {
@@ -90,7 +90,7 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                         <FormItem>
                             <label>{'First Name'} <span className="start">*</span> </label>
-                            {getFieldDecorator('firstName', { rules: rules.firstname })(<Input placeholder='First Name' name="firstName" />)}
+                            {getFieldDecorator('firstName', { rules: rules.firstname })(<Input placeholder='First Name' name="firstName"  />)}
                         </FormItem>
                     </Col>
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
@@ -105,7 +105,7 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                         <FormItem>
                             <label>{'Email Or Username'} <span className="start">*</span> </label>
-                            {getFieldDecorator('emailAddress', { rules: rules.emailAddress })(<Input placeholder='Email Or Username' name="emailAddress" />)}
+                            {getFieldDecorator('emailAddress', { rules: rules.emailAddress })(<Input placeholder='Email Or Username' name="emailAddress" onChange={this.IsEmail} />)}
                         </FormItem>
                     </Col>
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
