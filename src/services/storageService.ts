@@ -27,6 +27,41 @@ class StorageService {
 
     //Loged User Action
     public async setUserCookie(value: any) {
+        value.features = [
+            {
+                "featureId": "Dashboard",
+                "featureName": "Dashboard",
+                "parentFeatureId": null,
+                "displayOrder": 0,
+                "isNoAction": false,
+                "isShowInMenu": true
+            },
+            {
+                "featureId": "UserManagement",
+                "featureName": "Manage Users",
+                "parentFeatureId": "UserManagement",
+                "displayOrder": 1,
+                "isNoAction": false,
+                "isShowInMenu": true
+            },
+            {
+                "featureId": "ManageUsers",
+                "featureName": "Manage Users",
+                "parentFeatureId": "UserManagement",
+                "displayOrder": 1,
+                "isNoAction": false,
+                "isShowInMenu": true
+            },
+            {
+                "featureId": "BulkImportHistory",
+                "featureName": "Manage Users",
+                "parentFeatureId": "UserManagement",
+                "displayOrder": 1,
+                "isNoAction": false,
+                "isShowInMenu": true
+            }
+        ];
+
         var enckey = CryptoJS.AES.encrypt(JSON.stringify(value), AppConsts.encdecSecretKey);
         Cookies.set(AppConsts.userCookieName, enckey, { expires: new Date(new Date().getTime() + AppConsts.usercookieExpDays * 86400000) });
     }

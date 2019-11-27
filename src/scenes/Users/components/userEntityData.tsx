@@ -16,16 +16,6 @@ const { Option } = Select;
 
 class userEntitydata extends React.Component<IUserEntityProps> {
     
-    IsEmail = (value, callback) =>
-    {
-        var regex = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
-        if (!regex.test(value)) {
-            
-        } else {
-            
-        }
-    };
-
     render() {
 
         const { getFieldDecorator } = this.props.form;
