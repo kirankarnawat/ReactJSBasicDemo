@@ -81,6 +81,7 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .mb20{margin-bottom:20px;}
 .mt7{margin-top:7px}
 .mt5{margin-top:5px}
+.mt20{margin-top:20px}
 .ml8{margin-left:8px}
 .mr8{margin-right:8px}
 .ant-clearfix{clear:both}
@@ -155,16 +156,18 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .sideBarmenu .ant-menu-dark, .sideBarmenu .ant-menu-dark .ant-menu-sub{background:#fff}
 .sideBarmenu .ant-menu-dark, .sideBarmenu .ant-menu-dark .ant-menu-sub{color: #878787;}
 .sideBarmenu .ant-menu-item:hover, .sideBarmenu .ant-menu-item-active, .sideBarmenu .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .sideBarmenu .ant-menu-submenu-active, .sideBarmenu .ant-menu-submenu-title:hover{color:#d63031;background:none}
-.sideBarmenu .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{background:none;color:#d63031;}
-.sideBarmenu .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{border-bottom: 4px solid #d63031;border-right:none}
-.sideBarmenu .ant-menu-submenu-selected{color:#d63031;}
+.sideBarmenu .ant-menu-vertical .ant-menu-submenu-selected{color:#d63031;border-bottom: 2px solid #d63031;}
+.sideBarmenu .ant-menu-vertical .ant-menu-submenu-selected  .ant-menu-submenu-arrow::before,.sideBarmenu .ant-menu-vertical .ant-menu-submenu-selected .ant-menu-submenu-arrow::after{background:#d63031;}
 .sideBarmenu .ant-menu-vertical .ant-menu-item::after, .sideBarmenu .ant-menu-vertical-left .ant-menu-item::after, .sideBarmenu .ant-menu-vertical-right .ant-menu-item::after, .sideBarmenu .ant-menu-inline .ant-menu-item::after{border-right:0}
 .sideBarmenu .dashboardmenuicon{background:url("images/Dashboard.png"); background-repeat: no-repeat, repeat; width:26px; height:25px; display: inline-block;vertical-align: middle;margin-right: 5px;}
 .sideBarmenu .groupmenuicon{background:url("images/Menu-User.png"); background-repeat: no-repeat, repeat; width:26px; height:25px; display: inline-block;vertical-align: middle;margin-right: 5px;}
 .sideBarmenu .usermenuicon{background:url("images/Menu-User.png"); background-repeat: no-repeat, repeat; width:26px; height:28px; display: inline-block;vertical-align: middle;margin-right: 5px;position:relative;left: 3px;}
 .sideBarmenu .contrepomenuicon{background:url("images/ContentRepository.png"); background-repeat: no-repeat, repeat; width:28px; height:25px; display: inline-block;vertical-align: middle;margin-right: 5px;}
-.sideBarmenu .ant-menu li{border-bottom:1px solid #E2E2E2;line-height: 28px;}
+.sideBarmenu .ant-menu li{border-bottom:2px solid #E2E2E2;line-height: 28px;}
 .ant-menu-submenu li{border-bottom:1px solid #E2E2E2;height:25px !important;line-height:25px!important;}
+.ant-menu-submenu li:hover{color:#d63031;} 
+.sideBarmenu .ant-menu li:hover{border-bottom:2px solid #d63031;}
+.sideBarmenu .ant-menu li:hover .ant-menu-submenu-arrow::before,.sideBarmenu .ant-menu li:hover .ant-menu-submenu-arrow::after{background:#d63031;}
 .ant-menu-submenu li:last-child{border-bottom:none!important}
 
 /******************** Left Menu CSS END********************/
@@ -271,7 +274,7 @@ ul.headerListing li.active a{color:#d63032; float:left}
 .hrLine{border-bottom: 1px solid #dcdcdc;}
 .bulkImpFooter{border-top:1px solid #d4d4d4; float:left; width:100%; padding:30px 0px; width:520px;}
 .filterpopup .bulkImpFooter{width:304px;}
-ul.bulkImpListing{margin: 0px auto; display: table;}
+ul.bulkImpListing{display: table; margin:0 auto;}
 ul.bulkImpListing li{width:200px; float: left; margin-left: 30px;}
 ul.bulkImpListing li:first-child{margin:0px}
 ul.bulkImpListing li .ant-btn{width:100%; min-width:200px}
@@ -458,6 +461,7 @@ footer{padding: 0;font-size: 11px}
 /* .warningMsg .warningText{width: 80%; float: left;}
 .warningMsg .warningbtn{width:17%;float: left;margin-left:3%;} */
 .hidden {display:none;}
+.btnfooterContainer{position:absolute;right: 0;bottom:0;width:100%;border-top:1px solid #e9e9e9;padding:10px 16px;background:#fff;}
 @media screen and (max-width:1366px) {
     .filterpopup .ant-drawer-body{overflow-y: auto; max-height:450px;}
 }

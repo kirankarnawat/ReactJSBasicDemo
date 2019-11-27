@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
 import BulkImport from './components/bulkImport';
 import UserFilter from './components/userFilter';
+import ResetPassword from './components/resetPassword';
 
 import { EntityDto } from '../../services/dto/entityDto';
 import { GetUserEntityListResponse } from '../../services/user/dto/Response/getUserEntityListResponse';
@@ -25,6 +26,7 @@ export interface IUserState {
     modalVisible: boolean;
     filterModalVisible: boolean;
     bulkModalVisible: boolean;
+    resetpassModalVisible: boolean;
 
     userId: string;
 
@@ -56,6 +58,7 @@ class User extends React.Component<IUserProps, IUserState> {
             modalVisible: false,
             filterModalVisible: false,
             bulkModalVisible: false,
+            resetpassModalVisible: false,
             userId: '',
             result: [],
             entityresult: [],
@@ -69,6 +72,7 @@ class User extends React.Component<IUserProps, IUserState> {
     filterFormRef: any;
     addeditUserFormRef: any;
     bulkimportFormRef: any;
+    resetPasswordFormRef: any;
 
     //run on start
     async componentDidMount() {
@@ -133,6 +137,11 @@ class User extends React.Component<IUserProps, IUserState> {
             bulkModalVisible: !this.state.bulkModalVisible,
         });
     };
+    resetPassword = () => {
+        this.setState({
+            resetpassModalVisible: !this.state.resetpassModalVisible,
+        });
+    };
 
     //REFERENCES
     savefilterFormRef = (formRef: any) => {
@@ -146,6 +155,11 @@ class User extends React.Component<IUserProps, IUserState> {
     savebulkimportFormRef = (formRef: any) => {
         this.bulkimportFormRef = formRef;
     };
+
+    saveresetPasswordFormRef = (formRef: any) => {
+        this.resetPasswordFormRef = formRef;
+    };
+
     // #endregion -----------------------------
 
     //#region drawer data
@@ -163,9 +177,9 @@ class User extends React.Component<IUserProps, IUserState> {
         this.setState({ userId: entityDto.id });
         this.Modal();
 
-        this.addeditUserFormRef.props.form.setFieldsValue({ ...this.props.userStore.user});
+        this.addeditUserFormRef.props.form.setFieldsValue({ ...this.props.userStore.user });
     }
-    
+
 
     //ADD EDIT USER DATA
     handleCreate = () => {
@@ -222,7 +236,11 @@ class User extends React.Component<IUserProps, IUserState> {
         this.bulkmodal();
         // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
-
+    async resetpasswordmedelOpen(entityDto: EntityDto) {
+        this.setState({ userId: entityDto.id });
+        this.resetPassword();
+        // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
+    }
 
     //HANDLE AUTO SEARCH
     handleAutoSearch = async (value: string) => {
@@ -261,7 +279,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
         const { users } = this.props.userStore;
         const { result } = this.state;
-        
+
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         const columns = [
@@ -280,7 +298,7 @@ class User extends React.Component<IUserProps, IUserState> {
                     <div>
                         <div className="tablehoverbuttons"> <Icon type="ellipsis" className="ellipsisIcon" />
                             <div className="buttonshover">
-                                <div className="resetpassword" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Reset password"></div>
+                                <div className="resetpassword" onClick={() => this.resetpasswordmedelOpen({ id: text })} title="Reset password"></div>
                                 <div className="bargraph" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Progress"></div>
                                 <div className="transfer" onClick={() => this.delete({ id: text })} title="Transparent"></div>
 
@@ -444,7 +462,17 @@ class User extends React.Component<IUserProps, IUserState> {
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
                     onCreate={this.handleCreate}
                 />
-
+                <ResetPassword
+                    wrappedComponentRef={this.saveresetPasswordFormRef}
+                    visible={this.state.resetpassModalVisible}
+                    onCancel={() =>
+                        this.setState({
+                            resetpassModalVisible: false,
+                        })
+                    }
+                    modalType={this.state.userId === '' ? 'edit' : 'create'}
+                    onCreate={this.handleCreate}
+                />
             </Card>
         );
     }
