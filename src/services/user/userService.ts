@@ -14,7 +14,6 @@ import { UserByIDRequest } from './dto/Request/userByIDRequest';
 import { UserByIDResponse } from './dto/Response/userByIDResponse';
 import { UserEmailExistsCheckRequest } from './dto/Request/userEmailExistsCheckRequest';
 import { UserLoginExistsCheckRequest } from './dto/Request/userLoginExistsCheckRequest';
-import { UserExistsCheckResponse } from './dto/Response/userExistsCheckResponse';
 
 declare var lms: any;
 
@@ -32,7 +31,9 @@ class UserService {
     }
 
     public async getUserById(getUserByIdRequest: UserByIDRequest): Promise<UserByIDResponse> {
+        debugger;
         let result = await http.post(lms.toAPIPath(lms.APIType.USERDATABYID), getUserByIdRequest);
+        debugger;
         return result.data;
     }
 
@@ -78,20 +79,20 @@ class UserService {
     }
 
     public async checkOIG(userOIGRequest: UserOIGRequest) : Promise<UserOIGResponse>  {
-        debugger;
         let result = await http.post(lms.toAPIPath(lms.APIType.CHECKOIG), userOIGRequest);
+        debugger;
         return result.data;
     }
 
-    public async checkIsEmailInUse(userEmailCheckRequest: UserEmailExistsCheckRequest): Promise<UserExistsCheckResponse> {
+    public async checkIsEmailInUse(userEmailCheckRequest: UserEmailExistsCheckRequest): Promise<string> {
         debugger;
-        let result = await http.get(lms.toAPIPath(lms.APIType.CHECKOIG), { params: userEmailCheckRequest });
+        let result = await http.get(lms.toAPIPath(lms.APIType.USEREMAILCHECK), { params: userEmailCheckRequest });
         return result.data;
     }
 
-    public async checkIsLoginIdInUse(userLoginCheckRequest: UserLoginExistsCheckRequest): Promise<UserExistsCheckResponse> {
+    public async checkIsLoginIdInUse(userLoginCheckRequest: UserLoginExistsCheckRequest): Promise<string> {
         debugger;
-        let result = await http.get(lms.toAPIPath(lms.APIType.CHECKOIG), { params: userLoginCheckRequest });
+        let result = await http.get(lms.toAPIPath(lms.APIType.USERLOGINIDCHECK), { params: userLoginCheckRequest });
         return result.data;
     }
 

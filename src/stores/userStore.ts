@@ -19,7 +19,7 @@ import { UserByIDRequest } from '../services/user/dto/Request/userByIDRequest';
 import { UserByIDResponse } from '../services/user/dto/Response/userByIDResponse';
 import { UserEmailExistsCheckRequest } from '../services/user/dto/Request/userEmailExistsCheckRequest';
 import { UserLoginExistsCheckRequest } from '../services/user/dto/Request/userLoginExistsCheckRequest';
-import { UserExistsCheckResponse } from '../services/user/dto/Response/userExistsCheckResponse';
+
 
 
 class UserStore {
@@ -32,8 +32,8 @@ class UserStore {
     @observable user!: UserRequest;
     @observable userOIG!: UserOIGResponse;
     @observable userById!: UserByIDResponse;
-    @observable userExists!: UserExistsCheckResponse;
-    
+    @observable userExists!: string;
+
     @action
     async getAll(getAllUserRequest: GetAllUserRequest) {
         debugger;
@@ -43,6 +43,7 @@ class UserStore {
 
     @action
     async getUserById(getUserByIdRequest: UserByIDRequest) {
+        debugger;
         let result = await userService.getUserById(getUserByIdRequest);
         this.userById = result;
     }
@@ -68,37 +69,46 @@ class UserStore {
 
     @action
     async checkOIG(userOIGRequest: UserOIGRequest) {
+        debugger;
         let result = await userService.checkOIG(userOIGRequest);
+        debugger;
         this.userOIG = result;
     }
 
     @action
     async checkIsEmailInUse(userEmailCheckRequest: UserEmailExistsCheckRequest) {
+        debugger;
         let result = await userService.checkIsEmailInUse(userEmailCheckRequest);
-        this.userExists = result;
+        this.userExists = result.toString().toLowerCase();
     }
 
     @action
     async checkIsLoginIdInUse(userLoginCheckRequest: UserLoginExistsCheckRequest) {
         let result = await userService.checkIsLoginIdInUse(userLoginCheckRequest);
-        this.userExists = result;
+        this.userExists = result.toString().toLowerCase();
     }
+
 
     @action
     async create(addUserRequest: UserRequest) {
         debugger;
         let result = await userService.create(addUserRequest);
-        addUserRequest.userId = result;
-        //this.users.items.push();
+        this.user = { userId: result, ...addUserRequest };
+
+        let item: GetAllUserResponse;
+        item = { userId: result, firstName: '', lastName: '', emailAddress: '', departmentCode: '', departmentName: '', jobCode: '', jobRole: '', group1Name: '', group2Name: '', group3Name: '', group4Name: '', group5Name: '', status: true, loginId: '', contactNumber: '', zipCode: '', displayStatus: '', departmentId: '', jobCodeId: '', isSuccess: true, totalCount: 0 };
+        Object.assign(item, addUserRequest);
+
+        this.users.items.push(item);
     }
 
     @action
     async update(updateUserRequest: UserRequest) {
-        //let result = await userService.update(updateUserInput);
-        //this.users.items = this.users.items.map((x: GetUserOutput) => {
-        //    if (x.id === updateUserInput.id) x = result;
-        //    return x;
-        //});
+        debugger;
+        let result = await userService.update(updateUserRequest);
+
+        let index = this.users.items.findIndex(p => p.userId === result);
+        Object.assign(this.users.items[index], updateUserRequest);
     }
 
     @action
@@ -109,7 +119,7 @@ class UserStore {
 
     /* FILTERS ***/
     @action
-    async initFilter() {        
+    async initFilter() {
         this.userid = sessionService.getLoginUserId();
 
         await this.getEntityList({ RequesterUserId: this.userid, SearchPhrase: '', GroupId: '' });

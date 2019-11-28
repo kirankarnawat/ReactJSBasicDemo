@@ -31,7 +31,6 @@ class UserFilter extends React.Component<IFilterProps> {
         const { getFieldDecorator } = this.props.form;
         const { visible, onCancel, onCreate, onGroupSelect, onGroupChange, onHandleAutoSearch, autoDataRef } = this.props;
 
-        debugger;
         const children = autoDataRef.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         return (

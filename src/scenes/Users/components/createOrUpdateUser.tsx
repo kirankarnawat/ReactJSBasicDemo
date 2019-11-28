@@ -6,7 +6,6 @@ import { FormComponentProps } from 'antd/lib/form';
 import UserEntitydata from './userEntityData';
 import UserEntityTree from './userEntityTree';
 import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
-import { GetJobRolesResponse } from '../../../services/user/dto/Response/getJobRolesResponse';
 
 const TabPane = Tabs.TabPane;
 
@@ -15,18 +14,19 @@ export interface ICreateOrUpdateUserProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
     modalType: string;
-    onCreate: () => void;
     onHandleAutoSearch: (value: string) => void;
     autoDataRef: GetUserEntityListResponse[];
-    jobRole: GetJobRolesResponse[];
+    id: string;
 }
+
 
 class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
 
     state = {
-        showsearch: (this.props.modalType === 'create' ? true : false),
+        showsearch: true,
         showgroupdata: (this.props.autoDataRef) ? this.props.autoDataRef.filter(p => p.groupId === this.props.form.getFieldValue("groupId")) : []
     };
+
 
     handleAddGroupUser = (groupid: string) => {
         this.setState({ showsearch: false, });
@@ -34,14 +34,22 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
         this.state.showgroupdata = res;
     }
 
+    onHanleResetForm = () => {
+        console.log('hi');
+        this.setState({ showsearch: true, showgroupdata: [] });
+        this.props.form.resetFields();
+        this.props.onCancel();
+    }
+
     render() {
 
-        const { visible, onCancel, onCreate, onHandleAutoSearch, autoDataRef, jobRole } = this.props;
+        const { visible, onHandleAutoSearch, autoDataRef, id } = this.props;
         debugger;
-        
+
+        if (this.props.id !== '') this.state.showsearch = false;
 
         return (
-            <Drawer title={'Add/Edit User'} width={560} onClose={onCancel} visible={visible}>
+            <Drawer title={'Add/Edit User'} width={560} onClose={this.onHanleResetForm} visible={visible}>
                 <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
                     <TabPane tab={'User Information'} key={'UserInformation'}>
                         <div className="sysId">system ID: 00006</div>
@@ -50,7 +58,7 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
                                 <UserEntityTree searchData={autoDataRef} onHandleAutoSearch={onHandleAutoSearch} onHandleAddGroupUser={this.handleAddGroupUser} />
                             </div>
                             <div className={(this.state.showsearch) ? 'hidden' : ''}>
-                                <UserEntitydata onCreate={onCreate} userJobRole={jobRole} userGroupInfo={this.state.showgroupdata} />
+                                <UserEntitydata userGroupInfo={this.state.showgroupdata} id={id} />
                             </div>
                         </div>
                     </TabPane>

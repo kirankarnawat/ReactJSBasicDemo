@@ -252,6 +252,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
         this.setState({ result });
     };
+
     //#endregion
 
 
@@ -437,10 +438,9 @@ class User extends React.Component<IUserProps, IUserState> {
                         })
                     }
                     modalType={this.state.userId === '' ? 'create' : 'edit'}
-                    onCreate={this.handleCreate}
-                    jobRole={this.props.userStore.userjobroles !== undefined ? this.props.userStore.userjobroles.items : []}
                     onHandleAutoSearch={this.handleAutoSearch}
                     autoDataRef={this.state.result}
+                    id={this.state.userId}
                 />
 
 
@@ -456,6 +456,7 @@ class User extends React.Component<IUserProps, IUserState> {
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
                     onCreate={this.handleCreate}
                 />
+
                 <ResetPassword
                     wrappedComponentRef={this.saveresetPasswordFormRef}
                     visible={this.state.resetpassModalVisible}

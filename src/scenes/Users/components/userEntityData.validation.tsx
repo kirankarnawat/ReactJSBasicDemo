@@ -4,7 +4,6 @@ const rules = {
     emailAddress: [{ required: true, message: 'Username/Email is required!' }],
     hiringDate: [{ required: true, message: 'Hiring date is required!' }],
     jobCodeId: [{ required: true, message: 'Job code is required!' }],
-    roleChangeDate: [{ required: true, message: 'Role change date is required!' }],
 };
 
 export default rules;
