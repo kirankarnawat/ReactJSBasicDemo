@@ -7,7 +7,6 @@ export interface ICreateOrUpdateUserProps extends FormComponentProps {
     onCancel: () => void;
     modalType: string;
     onCreate: () => void;
-
 }
 class ResetPassword extends React.Component<ICreateOrUpdateUserProps> {
     render() {
@@ -15,7 +14,7 @@ class ResetPassword extends React.Component<ICreateOrUpdateUserProps> {
         const { onCreate } = this.props;
         return (
             <Drawer title={'Reset Password'} width={300} onClose={onCancel} visible={visible}>
-                <div className="successMsg"><div className="successText"><div className="heading"><h3>User created successfully</h3></div></div><div className="ant-clearfix"></div></div>
+                <div className="successMsg"><div className="successText"><div className="heading"><h3>Successfully Reset Password</h3></div></div><div className="ant-clearfix"></div></div>
                 <div className="mt20">
                 <Row className="antd-row">
                     <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>

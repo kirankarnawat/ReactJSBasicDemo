@@ -50,6 +50,7 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                             <div className="successText">
                                 <div className="heading">
                                     <h3>User created successfully</h3>
+                                    <div className="discText"> You have successfully added the user.</div>
                                 </div>
                             </div>
                             <div className="ant-clearfix"></div>
@@ -67,6 +68,7 @@ class userEntitydata extends React.Component<IUserEntityProps> {
                                         <li><a href="#" className="links"><span className="text">{userGroupInfo[0].group2Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
                                         <li><a href="#" className="links"><span className="text">{userGroupInfo[0].group3Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
                                         <li><a href="#" className="links"><span className="text">{userGroupInfo[0].group4Name}</span></a></li>
+                                        <li className="floatRight"><a className="editEntityIcon"></a></li>
                                     </ul>
                                     : ""
                             }                            
