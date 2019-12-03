@@ -1,23 +1,33 @@
 import * as React from 'react';
 
+import { inject, observer } from 'mobx-react';
 import FormItem from 'antd/lib/form/FormItem';
-import { Col, Input } from 'antd';
-import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
+import { FormComponentProps } from 'antd/lib/form';
+import { Col, Input, Form } from 'antd';
+
+import Stores from '../../../stores/storeIdentifier';
+import UserStore from '../../../stores/userStore';
 
 const { Search } = Input;
 
-export interface IEntityTreeProp {
+export interface IUserProps {
+    userStore: UserStore;
+}
+
+export interface IEntityTreeProp extends FormComponentProps{
     onHandleAutoSearch: (value: string) => void;
-    searchData: GetUserEntityListResponse[],
     onHandleAddGroupUser: (value: string) => void;
 }
 
 
-class userEntityTree extends React.Component<IEntityTreeProp> {   
+@inject(Stores.UserStore)
+@observer
+class userEntityTree extends React.Component<IUserProps & IEntityTreeProp> {   
 
     render() {
 
-        const { onHandleAutoSearch, searchData, onHandleAddGroupUser } = this.props;
+        const { onHandleAutoSearch, onHandleAddGroupUser } = this.props;
+        const searchData = (this.props.userStore.userentity !== undefined) ? this.props.userStore.userentity.items : [];
 
         const child =
             searchData.map((item) => (
@@ -65,5 +75,5 @@ class userEntityTree extends React.Component<IEntityTreeProp> {
     };
 }
 
-export default userEntityTree;
+export default Form.create<IEntityTreeProp>()(userEntityTree);
 

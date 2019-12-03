@@ -8,8 +8,6 @@ export interface ICreateOrUpdateUserProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
     modalType: string;
-    onCreate: () => void;
-   
 }
 
 const uploadprops = {

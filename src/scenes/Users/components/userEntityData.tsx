@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Form, Input, Button, Switch, Select, Row, Col, DatePicker, Icon } from 'antd';
+import { Form, Input, Button, Switch, Select, Row, Col, Icon } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import { FormComponentProps } from 'antd/lib/form';
-import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
 import rules from './userEntityData.validation';
 
 import { inject, observer } from 'mobx-react';
@@ -10,44 +9,50 @@ import Stores from '../../../stores/storeIdentifier';
 import UserStore from '../../../stores/userStore';
 
 import moment from 'moment';
+import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
+
 
 export interface IUserProps {
-    userStore: UserStore;
+    userStore: UserStore;    
 }
 
 export interface IUserEntityProps extends FormComponentProps {
-    userGroupInfo: GetUserEntityListResponse[];
+    selgroupid:string;
     id: string;
 }
 
+export interface IUserEntityState {
+    isOIGCheckDone: boolean;
+    isOIGMsgShow: boolean;
+    isSuccessMsgShow: boolean;
+    isAllDisable: boolean;
+    successMsg: string;
+    userid: string;
+    userGroupInfo: GetUserEntityListResponse[];
+}
+
 const { Option } = Select;
-const dateFormat = 'YYYY/MM/DD';
+//const dateFormat = 'MM/dd/yyyy';
 
 @inject(Stores.UserStore)
 @observer
-class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
-
+class userEntitydata extends React.Component<IUserProps & IUserEntityProps, IUserEntityState> {
+    
     state = {
         isOIGCheckDone: false,
         isOIGMsgShow: false,
         isSuccessMsgShow: false,
         isAllDisable: false,
         successMsg: '',
-        userid: this.props.id
+        userid: this.props.id,
+        userGroupInfo: (this.props.id === '') ? this.props.userStore.userentity.items.filter(p => p.groupId = this.props.selgroupid).slice()
+            : this.props.userStore.userentity.items.filter(p => p.groupId = this.props.form.getFieldValue("groupId")).slice()
     }
 
-    async componentDidMount() {
-        debugger;
-        if (this.props.id === '') {
-            await this.props.userStore.createUser();
-            await this.props.userStore.GetUserJobRoles();
-        } else {
-            debugger;
-            await this.props.userStore.getUserById({ userId: this.props.id, requesterUserId: this.props.userStore.userid });
-            await this.props.userStore.GetUserJobRoles();
+    async componentDidUpdate(prevProps, prevState) {
+        if (this.props.id !== prevProps.id) {
+            this.props.form.setFieldsValue({ ...this.props.userStore.userById });
         }
-        debugger;
-        this.props.form.setFieldsValue({ ...this.props.userStore.userById });
     }
 
     //ADD EDIT USER DATA
@@ -67,17 +72,17 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                             this.setState({ isOIGMsgShow: true, isOIGCheckDone: true });
                         }
                         else {
-                            await this.props.userStore.create({ requesterUserId: this.props.userStore.userid, groupId: this.props.userGroupInfo[0].groupId, emailAddress: values["loginId"], ...values });
+                            await this.props.userStore.create({ requesterUserId: this.props.userStore.userid, groupId: this.state.userGroupInfo[0].groupId, emailAddress: values["loginId"], ...values });
                             this.setState({ isAllDisable: true, isSuccessMsgShow: true, successMsg: 'User created successfully', userid: this.props.userStore.user.userId });
                         }
                     }
                     else {
-                        await this.props.userStore.create({ requesterUserId: this.props.userStore.userid, groupId: this.props.userGroupInfo[0].groupId, emailAddress: values["loginId"], ...values });
-                        this.setState({ isAllDisable:true, successMsg: 'User created successfully', userid : this.props.userStore.user.userId });
+                        await this.props.userStore.create({ requesterUserId: this.props.userStore.userid, groupId: this.state.userGroupInfo[0].groupId, emailAddress: values["loginId"], ...values });
+                        this.setState({ isAllDisable: true, successMsg: 'User created successfully', userid: this.props.userStore.user.userId });
                     }
                 } else {
-                    await this.props.userStore.update({ userId: this.props.id, requesterUserId: this.props.userStore.userid, groupId: this.props.userGroupInfo[0].groupId, emailAddress: values["loginId"], ...values });
-                    this.setState({ successMsg: 'User updated successfully'});
+                    await this.props.userStore.update({ userId: this.props.id, requesterUserId: this.props.userStore.userid, groupId: this.state.userGroupInfo[0].groupId, emailAddress: values["loginId"], ...values });
+                    this.setState({ successMsg: 'User updated successfully' });
                 }
             }
         });
@@ -96,18 +101,16 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
 
         if (!regex.test(value)) {
             await this.props.userStore.checkIsEmailInUse({ EmailAddress: value, UserID: this.state.userid });
-            (this.props.userStore.userExists === 'true') ? callback() : callback('Email is already exist'); 
+            (this.props.userStore.userExists === 'true') ? callback() : callback('Email is already exist');
         } else {
             await this.props.userStore.checkIsLoginIdInUse({ LoginID: value, UserID: this.state.userid });
             (this.props.userStore.userExists === 'true') ? callback() : callback('Username is already exist');
         }
     }
-
+       
     render() {
-
+        debugger;
         const { getFieldDecorator } = this.props.form;
-
-        const { userGroupInfo } = this.props;
 
         const children = this.props.userStore.userjobroles.items.map(item => <Option key={item.jobCodeId}>{item.jobCode}</Option>);
 
@@ -148,12 +151,12 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                     <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
                         <div className="treeinlinestructure">
                             {
-                                (userGroupInfo !== undefined && userGroupInfo.length > 0) ?
+                                (this.state.userGroupInfo !== undefined && this.state.userGroupInfo.length > 0) ?
                                     <ul className="treeentityinline">
-                                        <li><a href="#" className="links"><span className="treeIcon"></span><span className="text">{userGroupInfo[0].group1Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
-                                        <li><a href="#" className="links"><span className="text">{userGroupInfo[0].group2Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
-                                        <li><a href="#" className="links"><span className="text">{userGroupInfo[0].group3Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
-                                        <li><a href="#" className="links"><span className="text">{userGroupInfo[0].group4Name}</span></a></li>
+                                        <li><a href="#" className="links"><span className="treeIcon"></span><span className="text">{this.state.userGroupInfo[0].group1Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
+                                        <li><a href="#" className="links"><span className="text">{this.state.userGroupInfo[0].group2Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
+                                        <li><a href="#" className="links"><span className="text">{this.state.userGroupInfo[0].group3Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
+                                        <li><a href="#" className="links"><span className="text">{this.state.userGroupInfo[0].group4Name}</span></a></li>
                                         <li className={this.state.isAllDisable === true ? 'floatRight' : 'floatRight hidden'}><a className="editEntityIcon" onClick={this.handleAllEnable}></a></li>
                                     </ul>
                                     : ""
@@ -195,14 +198,14 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                             </div>
                         </FormItem>
                     </Col>*/}
-                </Row> 
+                </Row>
 
                 <Row className="antd-row">
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                         <FormItem>
                             <label>{'Job Code'} <span className="start">*</span> </label>
                             <div>
-                                {getFieldDecorator('jobCodeId', { initialValue:'',  rules: rules.jobCodeId })(
+                                {getFieldDecorator('jobCodeId', { initialValue: '', rules: rules.jobCodeId })(
                                     <Select placeholder="Please select job code" className={this.state.isAllDisable ? 'disabled' : ''} >
                                         {children}
                                     </Select>
@@ -210,8 +213,8 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
 
                             </div>
                         </FormItem>
-                        </Col>
-                        {/*
+                    </Col>
+                    {/*
                     <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                         <FormItem>
                             <label>{'Role Change Date'} </label>
@@ -229,7 +232,9 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                             <div className="switchbutton">
                                 <div><label>{'Status'} <span className="start">*</span> </label></div>
                                 <label className="mr8">{'Active'}</label>
-                                {getFieldDecorator('status')(<Switch className={this.state.isAllDisable ? 'disabled' : ''} />)}
+
+                                {getFieldDecorator('status', { initialValue: true, valuePropName: 'checked' })(<Switch className={this.state.isAllDisable ? 'disabled' : ''} />)}
+                  
                                 <label className="ml8">{'Inactive'}</label>
                             </div>
                         </FormItem>

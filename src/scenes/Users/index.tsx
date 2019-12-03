@@ -54,12 +54,12 @@ class User extends React.Component<IUserProps, IUserState> {
             filterModalVisible: false,
             bulkModalVisible: false,
             resetpassModalVisible: false,
-            userId: '',
+            userId: "",
             result: [],
             entityresult: [],
             firstName: '',
-            groupId: '',
-            searchOnGroupId: '',
+            groupId: "",
+            searchOnGroupId: "",
             status: null
         };
     }
@@ -159,42 +159,34 @@ class User extends React.Component<IUserProps, IUserState> {
 
     //#region drawer data
 
-    //ADD EDIT DRAWER
+    //ADD EDIT DRAWER OPEN
     async createOrUpdateModalOpen(entityDto: EntityDto) {
+
         if (entityDto.id === '') {
             await this.props.userStore.createUser();
-            await this.props.userStore.GetUserJobRoles();
         } else {
             await this.props.userStore.getUserById({ userId: entityDto.id, requesterUserId: this.props.userStore.userid });
-            await this.props.userStore.GetUserJobRoles();
         }
+
+        await this.props.userStore.GetUserJobRoles();
 
         this.setState({ userId: entityDto.id });
         this.Modal();
 
-        this.addeditUserFormRef.props.form.setFieldsValue({ ...this.props.userStore.user });
+        //this.addeditUserFormRef.props.form.setFieldsValue({ ...this.props.userStore.userById });
     }
 
 
     //ADD EDIT USER DATA
-    handleCreate = () => {
+    onHandlecreateOrUpdateModalClose = async () => {
+
+        this.setState({ modalVisible: false, userId: "" }, () =>
+            console.log(this.state.userId));
+
         const form = this.addeditUserFormRef.props.form;
+        form.resetFields();
 
-        form.validateFields(async (err: any, values: any) => {
-            if (err) {
-                return;
-            } else {
-                if (this.state.userId === '') {
-                    await this.props.userStore.create(values);
-                } else {
-                    await this.props.userStore.update({ userId: this.state.userId, ...values });
-                }
-            }
-
-            await this.getAll();
-            this.setState({ modalVisible: false });
-            form.resetFields();
-        });
+        await this.getAll();
     };
 
     //FILER DRAWER
@@ -404,7 +396,7 @@ class User extends React.Component<IUserProps, IUserState> {
                                 columns={columns}
                                 pagination={{ size: 'small', pageSize: 10, total: users === undefined ? 0 : users.totalCount, defaultCurrent: 1 }}
                                 loading={users === undefined ? true : false}
-                                dataSource={users === undefined ? [] : users.items}
+                                dataSource={users === undefined ? [] : users.items.slice()}
                                 onChange={this.handleTableChange}
                                 className="table"
                             />
@@ -432,14 +424,9 @@ class User extends React.Component<IUserProps, IUserState> {
                 <CreateOrUpdateUser
                     wrappedComponentRef={this.saveaddeditFormRef}
                     visible={this.state.modalVisible}
-                    onCancel={() =>
-                        this.setState({
-                            modalVisible: false,
-                        })
-                    }
+                    onCancel={this.onHandlecreateOrUpdateModalClose}
                     modalType={this.state.userId === '' ? 'create' : 'edit'}
                     onHandleAutoSearch={this.handleAutoSearch}
-                    autoDataRef={this.state.result}
                     id={this.state.userId}
                 />
 
@@ -454,7 +441,6 @@ class User extends React.Component<IUserProps, IUserState> {
                         })
                     }
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
-                    onCreate={this.handleCreate}
                 />
 
                 <ResetPassword
@@ -466,7 +452,6 @@ class User extends React.Component<IUserProps, IUserState> {
                         })
                     }
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
-                    onCreate={this.handleCreate}
                 />
             </Card>
         );
