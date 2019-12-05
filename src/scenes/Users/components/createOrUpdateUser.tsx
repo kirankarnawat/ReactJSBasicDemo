@@ -6,6 +6,10 @@ import { FormComponentProps } from 'antd/lib/form';
 import UserEntitydata from './userEntityData';
 import UserEntityTree from './userEntityTree';
 
+import { inject, observer } from 'mobx-react';
+import Stores from '../../../stores/storeIdentifier';
+import UserStore from '../../../stores/userStore';
+
 const TabPane = Tabs.TabPane;
 
 //#region Local State and Property
@@ -17,7 +21,13 @@ export interface ICreateOrUpdateUserProps extends FormComponentProps {
     id: string;
 }
 
-class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
+export interface IUserProps {
+    userStore: UserStore;
+}
+
+@inject(Stores.UserStore)
+@observer
+class CreateOrUpdateUser extends React.Component<IUserProps & ICreateOrUpdateUserProps> {
 
     state = {
         showsearch: (this.props.id === "") ? true : false,
@@ -25,6 +35,7 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
     };
 
     async componentDidUpdate(prevProps, prevState) {
+        debugger;
         if (this.props.id !== prevProps.id) {
             if (this.props.id !== "") {
                 this.setState({
@@ -34,22 +45,30 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
         }
     }
 
-    handleAddGroupUser = (groupid: string) => {
-        this.setState({ showsearch: false, groupid: groupid  });
+    handleAddGroupUser = async (groupid: string) => {
+        debugger;
+
+        await this.props.userStore.getEntityList({ SearchPhrase: '', RequesterUserId: this.props.userStore.userid, GroupId: groupid });
+
+        this.props.userStore.userById.groupId = groupid;
+
+        this.setState({ showsearch: false, groupid: groupid });       
     }
 
 
-    onHanleResetForm = () => {
-        this.setState({ showsearch: true, groupid: '' });
-        this.props.onCancel();
-    }
+    //onHanleResetForm = () => {
+    //    debugger;
+    //    this.props.onCancel();    
+    //    this.setState({ showsearch: true, groupid: '' });
+    //    this.props.form.resetFields();
+    //}
 
     render() {
 
-        const { visible, onHandleAutoSearch, id } = this.props;
+        const { visible, onHandleAutoSearch, id, onCancel } = this.props;
 
         return (
-            <Drawer title={'Add/Edit User'} width={560} onClose={this.onHanleResetForm} visible={visible}>
+            <Drawer title={'Add/Edit User'} width={560} onClose={onCancel} visible={visible}>
                 <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
                     <TabPane tab={'User Information'} key={'UserInformation'}>
                         <div className="sysId">system ID: 00006</div>
@@ -58,7 +77,7 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
                                 <UserEntityTree onHandleAutoSearch={onHandleAutoSearch} onHandleAddGroupUser={this.handleAddGroupUser} />
                             </div>
                             <div className={(this.state.showsearch) ? 'hidden' : ''}>
-                                <UserEntitydata id={id} selgroupid={this.state.groupid} />
+                                <UserEntitydata id={id} selgroupid={this.state.groupid}/>
                             </div>
                         </div>
                     </TabPane>

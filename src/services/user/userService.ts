@@ -20,7 +20,6 @@ declare var lms: any;
 class UserService {
 
     public async getAll(getAllUserRequest: GetAllUserRequest): Promise<PagedResultDto<GetAllUserResponse>> {
-        debugger;
         let result = await http.post(lms.toAPIPath(lms.APIType.USERLIST), getAllUserRequest);
 
         var data = <PagedResultDto<GetAllUserResponse>>{};
@@ -31,14 +30,13 @@ class UserService {
     }
 
     public async getUserById(getUserByIdRequest: UserByIDRequest): Promise<UserByIDResponse> {
-        debugger;
         let result = await http.post(lms.toAPIPath(lms.APIType.USERDATABYID), getUserByIdRequest);
         debugger;
         return result.data;
     }
 
     public async getEntityList(getUserEntityListRequest: GetUserEntityListRequest): Promise<PagedResultDto<GetUserEntityListResponse>> {
-        debugger;
+        
         var data = <PagedResultDto<GetUserEntityListResponse>>{};
         try {
             let result = await http.get(lms.toAPIPath(lms.APIType.USERENTITYLIST), { params: getUserEntityListRequest });
@@ -67,31 +65,26 @@ class UserService {
     }
 
     public async create(createUserRequest: UserRequest) {
-        debugger;
         let result = await http.post(lms.toAPIPath(lms.APIType.ADDEDITUSER), createUserRequest);
         return result.data;
     }
 
     public async update(editUserRequest: UserRequest) {
-        debugger;
         let result = await http.post(lms.toAPIPath(lms.APIType.ADDEDITUSER), editUserRequest);
         return result.data;
     }
 
     public async checkOIG(userOIGRequest: UserOIGRequest) : Promise<UserOIGResponse>  {
         let result = await http.post(lms.toAPIPath(lms.APIType.CHECKOIG), userOIGRequest);
-        debugger;
         return result.data;
     }
 
     public async checkIsEmailInUse(userEmailCheckRequest: UserEmailExistsCheckRequest): Promise<string> {
-        debugger;
         let result = await http.get(lms.toAPIPath(lms.APIType.USEREMAILCHECK), { params: userEmailCheckRequest });
         return result.data;
     }
 
     public async checkIsLoginIdInUse(userLoginCheckRequest: UserLoginExistsCheckRequest): Promise<string> {
-        debugger;
         let result = await http.get(lms.toAPIPath(lms.APIType.USERLOGINIDCHECK), { params: userLoginCheckRequest });
         return result.data;
     }

@@ -30,8 +30,8 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp> {
         const searchData = (this.props.userStore.userentity !== undefined) ? this.props.userStore.userentity.items : [];
 
         const child =
-            searchData.map((item) => (
-                <ul className="tree">
+            searchData.map((item, index) => (
+                <ul className="tree" key={index.toString()}>
                     <li className="mt0">
                         <a className="fristlink"><span className="treeIcon"></span> <span className="">{item.group1Name} </span> <span className="groupicon"></span><span className="values"></span></a>
                             <ul>
@@ -40,7 +40,7 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp> {
                                     <ul>
                                     <li><a> <span className="">{item.group3Name} </span> <span className="groupicon"></span><span className="values"></span></a>
                                         <ul>
-                                            <li className="highlighted"><a><span className="">{item.group4Name} </span> <span className="groupicon"></span><span className="values"></span><span className="adduserIcon" onClick={() => onHandleAddGroupUser(item.groupId)}></span></a> 
+                                            <li className="highlighted"><a><span className="">{item.group4Name} </span> <span className="groupicon"></span><span className="values"></span><span className="adduserIcon" id={item.groupId} onClick={() => onHandleAddGroupUser(item.groupId)}></span></a> 
                                             </li>
                                         </ul>
                                     </li>

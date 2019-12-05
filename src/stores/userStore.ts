@@ -65,6 +65,10 @@ class UserStore {
         this.user = {
             userId: '', firstName: '', lastName: '', emailAddress: '', loginId: '', contactNumber: '', cityId: '', countryId: '', departmentId: '', groupId: '', hiringDate: null, jobCodeId: '', profilePic: '', requesterUserId: this.filters.requesterUserId, roleChangeDate: null, stateId: '', status: true, timeZoneId: '', zipCode: ''
         };
+        this.userById = {
+            userId: '', firstName: '', lastName: '', emailAddress: '', loginId: '', contactNumber: '', hiringDate: null, zipCode: '', status: true, departmentId: '', jobCodeId: '', roleChangeDate: null, timeZoneId: '', profilePic: '', groupId: '', countryId: '', stateId: '', cityId: '', group1Name: '', group2Name: '', group3Name: '', group4Name: '', group5Name: '', isSuccess: true, totalCount: 0, createdDateDisplay: '', lastModifiedDateDisplay: ''
+        };
+        this.userentity = { items: [], totalCount: 0 };
     }
 
     @action
@@ -122,7 +126,9 @@ class UserStore {
     async initFilter() {
         this.userid = sessionService.getLoginUserId();
 
-        await this.getEntityList({ RequesterUserId: this.userid, SearchPhrase: '', GroupId: '' });
+        //await this.getEntityList({ RequesterUserId: this.userid, SearchPhrase: '', GroupId: '' });
+
+        this.userentity = { items: [], totalCount: 0 };
 
         this.filters = {
             emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: this.userid, sortExp: '', status: true,

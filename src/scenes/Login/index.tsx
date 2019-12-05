@@ -28,12 +28,19 @@ class Login extends React.Component<ILoginProps> {
     handleSubmit = async (e: any) => {
         e.preventDefault();
         const { loginModel } = this.props.authenticationStore!;
+
         await this.props.form.validateFields(async (err: any, values: any) => {
+
             if (!err) {
+
                 await this.props.authenticationStore!.login(values);
+
                 sessionStorage.setItem('rememberMe', loginModel.rememberMe ? '1' : '0');
-                const { state } = this.props.location;
+
+                const { state } = this.props.location;                
+
                 window.location = state ? state.from.pathname : '/';
+
             }
         });
     };

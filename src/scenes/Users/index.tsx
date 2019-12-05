@@ -1,12 +1,13 @@
 // #region
 import * as React from 'react';
 
-import { Card, Col, Modal, Row, Table, Icon, Switch, Input, AutoComplete } from 'antd';
+import { Card, Col, Modal, Row, Table, Icon, Input, AutoComplete, Checkbox } from 'antd';
 
 import { inject, observer } from 'mobx-react';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
-import BulkImport from './components/bulkImport';
 import UserFilter from './components/userFilter';
+
+import BulkImport from './components/bulkImport';
 import ResetPassword from './components/resetPassword';
 
 import { EntityDto } from '../../services/dto/entityDto';
@@ -45,9 +46,12 @@ const { Option } = AutoComplete;
 @inject(Stores.UserStore)
 @observer
 class User extends React.Component<IUserProps, IUserState> {
+
     //#region Init
     constructor(props: IUserProps) {
+
         super(props);
+
         debugger;
         this.state = {
             modalVisible: false,
@@ -85,9 +89,13 @@ class User extends React.Component<IUserProps, IUserState> {
 
     //#region Pagination with sorting
     handleTableChange = (pagination: any, sorter: any) => {
+
         if (sorter.order) { this.props.userStore.filters.sortExp = sorter.field + " " + (sorter.order == "ascend" ? "asc" : "desc"); }
+
         this.props.userStore.filters.pageIndex = pagination.current;
+
         this.setState({ userId: '' }, async () => await this.getAll());
+
     };
     //#endregion
 
@@ -99,8 +107,8 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     };
 
-    switchChange = (checked: boolean) => {
-        this.props.userStore.filters.status = checked ? null : true;
+    switchChange = e => {
+        this.props.userStore.filters.status = e.target.checked ? true : false;
     }
     firstNameChange = (event: any) => {
         this.props.userStore.filters.firstName = event.target.value;
@@ -117,6 +125,15 @@ class User extends React.Component<IUserProps, IUserState> {
     }
 
     handleSearch = async () => {
+        await this.getAll();
+    }
+
+    handleRefreshSearch = async () => {
+        this.props.userStore.filters.groupId = "";
+        this.props.userStore.filters.searchOnGroupId = "";
+        this.props.userStore.filters.firstName = "";
+        this.props.userStore.filters.status = true;
+
         await this.getAll();
     }
 
@@ -165,15 +182,15 @@ class User extends React.Component<IUserProps, IUserState> {
         if (entityDto.id === '') {
             await this.props.userStore.createUser();
         } else {
+            debugger;
             await this.props.userStore.getUserById({ userId: entityDto.id, requesterUserId: this.props.userStore.userid });
+            await this.props.userStore.getEntityList({ SearchPhrase: '', RequesterUserId: this.props.userStore.userid, GroupId: this.props.userStore.userById.groupId });
         }
 
         await this.props.userStore.GetUserJobRoles();
 
         this.setState({ userId: entityDto.id });
         this.Modal();
-
-        //this.addeditUserFormRef.props.form.setFieldsValue({ ...this.props.userStore.userById });
     }
 
 
@@ -185,7 +202,6 @@ class User extends React.Component<IUserProps, IUserState> {
 
         const form = this.addeditUserFormRef.props.form;
         form.resetFields();
-
         await this.getAll();
     };
 
@@ -347,24 +363,23 @@ class User extends React.Component<IUserProps, IUserState> {
                                 <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-16">
                                     <ul className="filterlist">
                                         <li><div className="switchbutton mt5">
-                                            <label className="mr8">{'Active'}</label> <Switch onChange={this.switchChange} /> <label className="ml8">{'All'}</label>
+                                            <label className="mr8">{'Active'}</label> <Checkbox onChange={this.switchChange} defaultChecked />
                                         </div>
                                         </li>
                                         <li className="width227">
-                                            <Input placeholder="First Name/ Last Name" onChange={this.firstNameChange} />
+                                            <Input placeholder="First Name/ Last Name" allowClear={true} onChange={this.firstNameChange} />
                                         </li>
                                         <li className="width227">
-                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch}>
+                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" allowClear={true} onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch}>
                                                 {children}
                                             </AutoComplete>
                                         </li>
                                         <li>
                                             <div className="searchbg" onClick={this.handleSearch} >
                                                 <span className="tabsearchbtn"></span>
-                                                {/* <Icon type="search" /> */}
                                             </div>
                                         </li>
-                                        <li><div className="refreshbg"><span className="refreshbtn"></span></div></li>
+                                        <li><div className="refreshbg" onClick={this.handleRefreshSearch} ><span className="refreshbtn"></span></div></li>
                                         <li>
                                             <div className="filterWrapp floatright" onClick={() => this.filterModalOpen()}>
                                                 <a href="#">
