@@ -1,20 +1,25 @@
+
 // #region
 import * as React from 'react';
 
-import { Card, Col, Modal, Row, Table, Icon, Input, AutoComplete, Checkbox } from 'antd';
+import { Card, Col, Modal, Row, Table, Icon } from 'antd';
 
 import { inject, observer } from 'mobx-react';
+
+import UserQuickFilter from './components/userQuickFilter';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
 import UserFilter from './components/userFilter';
-
-import BulkImport from './components/bulkImport';
-import ResetPassword from './components/resetPassword';
+//import BulkImport from './components/bulkImport';
+//import ResetPassword from './components/resetPassword';
 
 import { EntityDto } from '../../services/dto/entityDto';
 import { GetUserEntityListResponse } from '../../services/user/dto/Response/getUserEntityListResponse';
+import { PagedResultDto } from '../../services/dto/pagedResultDto';
 
 import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
+import { GetAllUserResponse } from '../../services/user/dto/Response/getAllUserResponse';
+
 
 // #endregion
 
@@ -29,16 +34,15 @@ export interface IUserState {
     bulkModalVisible: boolean;
     resetpassModalVisible: boolean;
     userId: string;
-    result: GetUserEntityListResponse[];
-    entityresult: GetUserEntityListResponse[];
     firstName: string
     groupId: string;
     searchOnGroupId: string;
     status: boolean | null;
+    users: PagedResultDto<GetAllUserResponse>;
+    addeditentitydata: GetUserEntityListResponse[];
 }
 
 const confirm = Modal.confirm;
-const { Option } = AutoComplete;
 
 // #endregion
 
@@ -47,96 +51,97 @@ const { Option } = AutoComplete;
 @observer
 class User extends React.Component<IUserProps, IUserState> {
 
-    //#region Init
     constructor(props: IUserProps) {
-
         super(props);
-
-        debugger;
         this.state = {
             modalVisible: false,
             filterModalVisible: false,
             bulkModalVisible: false,
             resetpassModalVisible: false,
             userId: "",
-            result: [],
-            entityresult: [],
+            addeditentitydata: [],
             firstName: '',
             groupId: "",
             searchOnGroupId: "",
-            status: null
+            status: null,
+            users: { items: [], totalCount: 0 }
         };
     }
 
+    // #region GLOBALS
+    quickfilterFormRef: any;
     filterFormRef: any;
     addeditUserFormRef: any;
     bulkimportFormRef: any;
     resetPasswordFormRef: any;
 
-    //run on start
+    savequickfilterFormRef = (formRef: any) => {
+        this.quickfilterFormRef = formRef;
+    };
+
+    savefilterFormRef = (formRef: any) => {
+        this.filterFormRef = formRef;
+    };
+
+    saveaddeditFormRef = (formRef: any) => {
+        this.addeditUserFormRef = formRef;
+    };
+
+    savebulkimportFormRef = (formRef: any) => {
+        this.bulkimportFormRef = formRef;
+    };
+
+    saveresetPasswordFormRef = (formRef: any) => {
+        this.resetPasswordFormRef = formRef;
+    };
+
+    // #endregion
+
+
+    // #region USER MANAGEMENT
+
+    // start up event
     async componentDidMount() {
-        debugger;
+
         await this.props.userStore.initFilter();
+
         await this.getAll();
     }
 
     //get user data
     async getAll() {
-        debugger;
-        await this.props.userStore.getAll({ ...this.props.userStore.filters });
-    }
-    // #endregion
 
-    //#region Pagination with sorting
-    handleTableChange = (pagination: any, sorter: any) => {
+        let res = await this.props.userStore.getAll({ ...this.props.userStore.filters });
+
+        this.setState({ ...this.state, users: res });
+    }
+
+    //table management
+    handleTableChange = async (pagination: any, sorter: any) => {
 
         if (sorter.order) { this.props.userStore.filters.sortExp = sorter.field + " " + (sorter.order == "ascend" ? "asc" : "desc"); }
 
         this.props.userStore.filters.pageIndex = pagination.current;
 
-        this.setState({ userId: '' }, async () => await this.getAll());
-
+        await this.getAll();
     };
-    //#endregion
+
+    // search
+    handleSearch = async () => {
+        await this.getAll();
+    }
+
+    // #endregion
 
 
-    //#region Drawer visibility
+    // #region MODAL POP
+
+    // show modal
     Modal = () => {
         this.setState({
             modalVisible: !this.state.modalVisible,
         });
     };
-
-    switchChange = e => {
-        this.props.userStore.filters.status = e.target.checked ? true : false;
-    }
-    firstNameChange = (event: any) => {
-        this.props.userStore.filters.firstName = event.target.value;
-    }
-
-    groupSelect = (option: any) => {
-        this.props.userStore.filters.groupId = option ? option.split("~")[0] : "";
-        this.props.userStore.filters.searchOnGroupId = option ? option.split("~")[1] : "";
-    }
-
-    groupChange = () => {
-        this.props.userStore.filters.groupId = "";
-        this.props.userStore.filters.searchOnGroupId = "";
-    }
-
-    handleSearch = async () => {
-        await this.getAll();
-    }
-
-    handleRefreshSearch = async () => {
-        this.props.userStore.filters.groupId = "";
-        this.props.userStore.filters.searchOnGroupId = "";
-        this.props.userStore.filters.firstName = "";
-        this.props.userStore.filters.status = true;
-
-        await this.getAll();
-    }
-
 
     FilterModal = () => {
         this.setState({
@@ -155,41 +160,28 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     };
 
-    //REFERENCES
-    savefilterFormRef = (formRef: any) => {
-        this.filterFormRef = formRef;
-    };
+    // #endregion
 
-    saveaddeditFormRef = (formRef: any) => {
-        this.addeditUserFormRef = formRef;
-    };
-
-    savebulkimportFormRef = (formRef: any) => {
-        this.bulkimportFormRef = formRef;
-    };
-
-    saveresetPasswordFormRef = (formRef: any) => {
-        this.resetPasswordFormRef = formRef;
-    };
-
-    // #endregion -----------------------------
-
-    //#region drawer data
+    // #region HANDLE CREATE-EDIT
 
     //ADD EDIT DRAWER OPEN
     async createOrUpdateModalOpen(entityDto: EntityDto) {
 
+        let data;
+
         if (entityDto.id === '') {
             await this.props.userStore.createUser();
+            data = [];
         } else {
             debugger;
             await this.props.userStore.getUserById({ userId: entityDto.id, requesterUserId: this.props.userStore.userid });
-            await this.props.userStore.getEntityList({ SearchPhrase: '', RequesterUserId: this.props.userStore.userid, GroupId: this.props.userStore.userById.groupId });
+            let res = await this.props.userStore.getEntityList({ SearchPhrase: '', RequesterUserId: this.props.userStore.userid, GroupId: this.props.userStore.userById.groupId });
+            data = (res !== undefined) ? res.items : [];
         }
 
         await this.props.userStore.GetUserJobRoles();
 
-        this.setState({ userId: entityDto.id });
+        this.setState({ userId: entityDto.id, addeditentitydata: data });
         this.Modal();
     }
 
@@ -197,13 +189,19 @@ class User extends React.Component<IUserProps, IUserState> {
     //ADD EDIT USER DATA
     onHandlecreateOrUpdateModalClose = async () => {
 
-        this.setState({ modalVisible: false, userId: "" }, () =>
-            console.log(this.state.userId));
+        this.setState({ modalVisible: false, userId: "" });
 
         const form = this.addeditUserFormRef.props.form;
         form.resetFields();
+
         await this.getAll();
     };
+
+
+    // #endregion
+
+
+    // #region HANDLE FILTER
 
     //FILER DRAWER
     async filterModalOpen() {
@@ -212,6 +210,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
         this.filterFormRef.props.form.setFieldsValue({ ...this.props.userStore.filters });
     }
+
 
     //FILTER USER DATA
     handleAdvFilter = () => {
@@ -232,36 +231,22 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     }
 
+
+    // #endregion
+
+
     //BULK IMPORT DRAWER
     async bulkImportmedelOpen(entityDto: EntityDto) {
         this.setState({ userId: entityDto.id });
         this.bulkmodal();
         // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
+
     async resetpasswordmedelOpen(entityDto: EntityDto) {
         this.setState({ userId: entityDto.id });
         this.resetPassword();
         // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
-
-    //HANDLE AUTO SEARCH
-    handleAutoSearch = async (value: string) => {
-        let result: GetUserEntityListResponse[];
-
-        if (value && this.props.userStore && this.props.userStore.userentity && this.props.userStore.userentity.items) {
-
-            await this.props.userStore.getEntityList({ SearchPhrase: value, RequesterUserId: this.props.userStore.userid, GroupId: '' });
-
-            result = this.props.userStore.userentity.items;
-        }
-        else {
-            result = [];
-        }
-
-        this.setState({ result });
-    };
-
-    //#endregion
 
 
     delete(input: EntityDto) {
@@ -280,10 +265,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
     public render() {
 
-        const { users } = this.props.userStore;
-        const { result } = this.state;
-
-        const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
+        const { users } = this.state;
 
         const columns = [
             {
@@ -357,38 +339,20 @@ class User extends React.Component<IUserProps, IUserState> {
                             <div className="antd-row">
                                 <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-8">
                                     <div>
-                                        <h6><strong>Showing 10 of 500 entries</strong></h6>
+                                        <h6><strong>Showing {users.totalCount} of {(users.totalCount > 0) ? users.items[0].totalCount : 0} entries</strong></h6>
                                     </div>
                                 </div>
-                                <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-16">
-                                    <ul className="filterlist">
-                                        <li><div className="switchbutton mt5">
-                                            <label className="mr8">{'Active'}</label> <Checkbox onChange={this.switchChange} defaultChecked />
-                                        </div>
-                                        </li>
-                                        <li className="width227">
-                                            <Input placeholder="First Name/ Last Name" allowClear={true} onChange={this.firstNameChange} />
-                                        </li>
-                                        <li className="width227">
-                                            <AutoComplete placeholder="Group 1/ Group 2/ Group 3" allowClear={true} onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch}>
-                                                {children}
-                                            </AutoComplete>
-                                        </li>
-                                        <li>
-                                            <div className="searchbg" onClick={this.handleSearch} >
-                                                <span className="tabsearchbtn"></span>
-                                            </div>
-                                        </li>
-                                        <li><div className="refreshbg" onClick={this.handleRefreshSearch} ><span className="refreshbtn"></span></div></li>
-                                        <li>
-                                            <div className="filterWrapp floatright" onClick={() => this.filterModalOpen()}>
-                                                <a href="#">
-                                                    <span id="sidebarCollapse" className="filterIcon">&nbsp;</span>
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
+
+
+                                <UserQuickFilter wrappedComponentRef={this.savequickfilterFormRef} handleSearch={this.handleSearch} />
+
+
+                                <div className="filterWrapp floatright" onClick={() => this.filterModalOpen()}>
+                                    <a href="#">
+                                        <span id="sidebarCollapse" className="filterIcon">&nbsp;</span>
+                                    </a>
                                 </div>
+
                             </div>
 
                         </div>
@@ -428,12 +392,7 @@ class User extends React.Component<IUserProps, IUserState> {
                         })
                     }
                     onCreate={this.handleAdvFilter}
-                    onGroupSelect={this.groupSelect}
-                    onGroupChange={this.groupChange}
-                    onHandleAutoSearch={this.handleAutoSearch}
-                    autoDataRef={this.state.result}
                 />
-
 
 
                 <CreateOrUpdateUser
@@ -441,13 +400,13 @@ class User extends React.Component<IUserProps, IUserState> {
                     visible={this.state.modalVisible}
                     onCancel={this.onHandlecreateOrUpdateModalClose}
                     modalType={this.state.userId === '' ? 'create' : 'edit'}
-                    onHandleAutoSearch={this.handleAutoSearch}
+                    entitydata={this.state.addeditentitydata}
                     id={this.state.userId}
                 />
 
 
-
-                <BulkImport
+                { /* 
+                  <BulkImport
                     wrappedComponentRef={this.savebulkimportFormRef}
                     visible={this.state.bulkModalVisible}
                     onCancel={() =>
@@ -467,7 +426,9 @@ class User extends React.Component<IUserProps, IUserState> {
                         })
                     }
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
-                />
+                /> 
+                */ }
+
             </Card>
         );
     }

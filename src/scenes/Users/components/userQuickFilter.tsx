@@ -1,0 +1,121 @@
+import * as React from 'react';
+
+import { inject, observer } from 'mobx-react';
+
+import { Form, Input, AutoComplete, Checkbox } from 'antd';
+import { FormComponentProps } from 'antd/lib/form';
+
+import Stores from '../../../stores/storeIdentifier';
+import UserStore from '../../../stores/userStore';
+
+import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
+
+
+export interface IUserProps {
+    userStore: UserStore;
+}
+
+export interface IUserQuickFilterProp extends FormComponentProps {
+    handleSearch: () => void;
+}
+
+export interface IUserQuickFilterState {
+    result: GetUserEntityListResponse[];
+}
+
+const { Option } = AutoComplete;
+
+
+@inject(Stores.UserStore)
+@observer
+class UserQuickFilter extends React.Component<IUserProps & IUserQuickFilterProp, IUserQuickFilterState> {
+
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+            result: []
+        };
+    }
+
+    switchChange = e => {
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, status: e.target.checked ? true : false });
+    }
+
+    firstNameChange = (event: any) => {
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, firstName: event.target.value });
+    }
+
+    groupSelect = (option: any) => {
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: option ? option.split("~")[0] : "", searchOnGroupId: option ? option.split("~")[1] : "" });
+    }
+
+    groupChange = () => {
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "" });
+    }
+
+    handleRefreshSearch = async () => {
+
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "", firstName: "", status: true });
+
+        //parent load
+        this.props.handleSearch();
+    }
+
+    handleAutoSearch = async (value: string) => {
+
+        let searchresult: GetUserEntityListResponse[];
+
+        if (value && this.props.userStore) {
+
+            let data = await this.props.userStore.getEntityList({ SearchPhrase: value, RequesterUserId: this.props.userStore.userid, GroupId: '' });
+
+            searchresult = data.items;
+        }
+        else {
+            searchresult = [];
+        }
+
+        this.setState({ ...this.state, result: searchresult });
+    };
+
+    render() {
+
+        if (this.props.userStore.filters === undefined) return (<div></div>);
+
+        const { result } = this.state;
+        const { handleSearch } = this.props;
+
+        const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
+
+        return (
+
+            <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-16">
+                <ul className="filterlist">
+                    <li><div className="switchbutton mt5">
+                        <label className="mr8">{'Active'}</label> <Checkbox onChange={this.switchChange} defaultChecked />
+                    </div>
+                    </li>
+                    <li className="width227">
+                        <Input placeholder="First Name/ Last Name" allowClear={true} onChange={this.firstNameChange} />
+                    </li>
+                    <li className="width227">
+                        <AutoComplete placeholder="Group 1/ Group 2/ Group 3" allowClear={true} onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch}>
+                            {children}
+                        </AutoComplete>
+                    </li>
+                    <li>
+                        <div className="searchbg" onClick={handleSearch} >
+                            <span className="tabsearchbtn"></span>
+                        </div>
+                    </li>
+                    <li><div className="refreshbg" onClick={this.handleRefreshSearch} ><span className="refreshbtn"></span></div></li>
+
+                </ul>
+            </div>
+        );
+    }
+}
+
+export default Form.create<IUserQuickFilterProp>()(UserQuickFilter);

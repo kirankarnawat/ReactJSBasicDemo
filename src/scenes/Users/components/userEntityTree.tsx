@@ -7,6 +7,7 @@ import { Col, Input, Form } from 'antd';
 
 import Stores from '../../../stores/storeIdentifier';
 import UserStore from '../../../stores/userStore';
+import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
 
 const { Search } = Input;
 
@@ -14,33 +15,61 @@ export interface IUserProps {
     userStore: UserStore;
 }
 
-export interface IEntityTreeProp extends FormComponentProps{
-    onHandleAutoSearch: (value: string) => void;
+export interface IEntityTreeProp extends FormComponentProps {
     onHandleAddGroupUser: (value: string) => void;
+}
+
+export interface IEntityTreeState {
+    result: GetUserEntityListResponse[];
 }
 
 
 @inject(Stores.UserStore)
 @observer
-class userEntityTree extends React.Component<IUserProps & IEntityTreeProp> {   
+class userEntityTree extends React.Component<IUserProps & IEntityTreeProp, IEntityTreeState> {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            result: []
+        }
+    }
+
+    handleAutoSearch = async (value: string) => {
+
+        let searchresult: GetUserEntityListResponse[];
+
+        if (value && this.props.userStore) {
+
+            let data = await this.props.userStore.getEntityList({ SearchPhrase: value, RequesterUserId: this.props.userStore.userid, GroupId: '' });
+
+            searchresult = data.items;
+        }
+        else {
+            searchresult = [];
+        }
+
+        this.setState({ ...this.state, result: searchresult });
+    };
 
     render() {
 
-        const { onHandleAutoSearch, onHandleAddGroupUser } = this.props;
-        const searchData = (this.props.userStore.userentity !== undefined) ? this.props.userStore.userentity.items : [];
+        const { onHandleAddGroupUser } = this.props;
+
+        const { result } = this.state;
 
         const child =
-            searchData.map((item, index) => (
+            result.map((item, index) => (
                 <ul className="tree" key={index.toString()}>
                     <li className="mt0">
                         <a className="fristlink"><span className="treeIcon"></span> <span className="">{item.group1Name} </span> <span className="groupicon"></span><span className="values"></span></a>
-                            <ul>
+                        <ul>
                             <li>
                                 <a><span className="">{item.group2Name} </span> <span className="groupicon"></span><span className="values"></span></a>
-                                    <ul>
+                                <ul>
                                     <li><a> <span className="">{item.group3Name} </span> <span className="groupicon"></span><span className="values"></span></a>
                                         <ul>
-                                            <li className="highlighted"><a><span className="">{item.group4Name} </span> <span className="groupicon"></span><span className="values"></span><span className="adduserIcon" id={item.groupId} onClick={() => onHandleAddGroupUser(item.groupId)}></span></a> 
+                                            <li className="highlighted"><a><span className="">{item.group4Name} </span> <span className="groupicon"></span><span className="values"></span><span className="adduserIcon" id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ result: [] }); }}></span></a>
                                             </li>
                                         </ul>
                                     </li>
@@ -58,7 +87,7 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp> {
                         <FormItem>
                             <label>{'Search User Group'} <span className="start">*</span> </label>
                             <div className="rel">
-                                <Search placeholder="Group 1/ Group 2/ Group 3" onSearch={onHandleAutoSearch} />
+                                <Search placeholder="Group 1/ Group 2/ Group 3" onSearch={this.handleAutoSearch} />
                             </div>
                         </FormItem>
                     </Col>

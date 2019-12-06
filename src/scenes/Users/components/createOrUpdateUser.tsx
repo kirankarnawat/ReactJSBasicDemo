@@ -9,21 +9,25 @@ import UserEntityTree from './userEntityTree';
 import { inject, observer } from 'mobx-react';
 import Stores from '../../../stores/storeIdentifier';
 import UserStore from '../../../stores/userStore';
+import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
+
 
 const TabPane = Tabs.TabPane;
+
 
 //#region Local State and Property
 export interface ICreateOrUpdateUserProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
     modalType: string;
-    onHandleAutoSearch: (value: string) => void;
     id: string;
+    entitydata: GetUserEntityListResponse[];
 }
 
 export interface IUserProps {
     userStore: UserStore;
 }
+
 
 @inject(Stores.UserStore)
 @observer
@@ -31,7 +35,8 @@ class CreateOrUpdateUser extends React.Component<IUserProps & ICreateOrUpdateUse
 
     state = {
         showsearch: (this.props.id === "") ? true : false,
-        groupid: ''
+        groupid: '',
+        entitydata: this.props.entitydata[0]
     };
 
     async componentDidUpdate(prevProps, prevState) {
@@ -39,7 +44,7 @@ class CreateOrUpdateUser extends React.Component<IUserProps & ICreateOrUpdateUse
         if (this.props.id !== prevProps.id) {
             if (this.props.id !== "") {
                 this.setState({
-                    showsearch: (this.props.id === "") ? true : false,
+                    ...this.state, showsearch: (this.props.id === "") ? true : false, entitydata: this.props.entitydata[0]
                 });
             }
         }
@@ -48,36 +53,35 @@ class CreateOrUpdateUser extends React.Component<IUserProps & ICreateOrUpdateUse
     handleAddGroupUser = async (groupid: string) => {
         debugger;
 
-        await this.props.userStore.getEntityList({ SearchPhrase: '', RequesterUserId: this.props.userStore.userid, GroupId: groupid });
+        let res = await this.props.userStore.getEntityList({ SearchPhrase: '', RequesterUserId: this.props.userStore.userid, GroupId: groupid });
 
         this.props.userStore.userById.groupId = groupid;
 
-        this.setState({ showsearch: false, groupid: groupid });       
+        this.setState({ ...this.state, showsearch: false, groupid: groupid, entitydata: res.items[0] });
     }
 
 
-    //onHanleResetForm = () => {
-    //    debugger;
-    //    this.props.onCancel();    
-    //    this.setState({ showsearch: true, groupid: '' });
-    //    this.props.form.resetFields();
-    //}
+    onHanleResetForm = () => {
+        this.props.onCancel();    
+        this.setState({ ...this.state, showsearch: true, groupid: '' });
+        this.props.form.resetFields();        
+    }
 
+    
     render() {
 
-        const { visible, onHandleAutoSearch, id, onCancel } = this.props;
+        const { visible, id } = this.props;
 
         return (
-            <Drawer title={'Add/Edit User'} width={560} onClose={onCancel} visible={visible}>
+            <Drawer title={'Add/Edit User'} width={560} onClose={this.onHanleResetForm} visible={visible}>
                 <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
                     <TabPane tab={'User Information'} key={'UserInformation'}>
-                        <div className="sysId">system ID: 00006</div>
                         <div className="pos">
                             <div className={(this.state.showsearch) ? '' : 'hidden'}>
-                                <UserEntityTree onHandleAutoSearch={onHandleAutoSearch} onHandleAddGroupUser={this.handleAddGroupUser} />
+                                <UserEntityTree onHandleAddGroupUser={this.handleAddGroupUser} />
                             </div>
                             <div className={(this.state.showsearch) ? 'hidden' : ''}>
-                                <UserEntitydata id={id} selgroupid={this.state.groupid}/>
+                                <UserEntitydata id={id} selgroupid={this.state.groupid} treeentitydata={this.state.entitydata} />
                             </div>
                         </div>
                     </TabPane>

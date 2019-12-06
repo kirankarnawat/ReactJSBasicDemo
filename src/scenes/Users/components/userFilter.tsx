@@ -18,15 +18,17 @@ import { GetUserEntityListResponse } from '../../../services/user/dto/Response/g
 export interface IFilterProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
-    onCreate: () => void;
-    onGroupSelect: (option: any) => void;
-    onGroupChange: () => void;
-    onHandleAutoSearch: (value: string) => void;
-    autoDataRef: GetUserEntityListResponse[];
+    onCreate: () => void;    
 }
 
 export interface IUserProps {
     userStore: UserStore;
+}
+
+export interface IFilterState {
+    confirmDirty: boolean;
+    filtermodalVisible: boolean;
+    result: GetUserEntityListResponse[];
 }
 
 const { Option } = AutoComplete;
@@ -35,24 +37,60 @@ const dateFormat = AppConsts.dateFormat;
 
 @inject(Stores.UserStore)
 @observer
-class UserFilter extends React.Component<IUserProps & IFilterProps> {
-    state = {
-        confirmDirty: false,
-        filtermodalVisible: false,
-    };
+class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState> {
 
-    handleReset = () => {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            confirmDirty: false,
+            filtermodalVisible: false,
+            result: []
+        };
+    }
+
+    groupSelect = (option: any) => {
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: option ? option.split("~")[0] : "", searchOnGroupId: option ? option.split("~")[1] : "" });
+    }
+
+    groupChange = () => {
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "" });
+    }
+
+    handleRefreshSearch = async () => {
+
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "", firstName: "", status: true });
+
         this.props.form.resetFields();
+    }
+
+    handleAutoSearch = async (value: string) => {
+
+        let searchresult: GetUserEntityListResponse[];
+
+        if (value && this.props.userStore) {
+
+            let data = await this.props.userStore.getEntityList({ SearchPhrase: value, RequesterUserId: this.props.userStore.userid, GroupId: '' });
+
+            searchresult = data.items;
+        }
+        else {
+            searchresult = [];
+        }
+
+        this.setState({ ...this.state, result: searchresult });
     };
+    
 
     render() {
 
         if (this.props.userStore.filters === undefined) return (<div></div>);
 
         const { getFieldDecorator } = this.props.form;
-        const { visible, onCancel, onCreate, onGroupSelect, onGroupChange, onHandleAutoSearch, autoDataRef } = this.props;
+        const { visible, onCancel, onCreate } = this.props;
+        const { result } = this.state;
 
-        const children = autoDataRef.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
+        const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         return (
             <div className="overfowYauto">
@@ -62,7 +100,7 @@ class UserFilter extends React.Component<IUserProps & IFilterProps> {
                         <div className="filterForm">
                             <div className="antd-row">
                                 <div className="ant-col-24">
-                                    <div className="clearFilter" onClick={this.handleReset}>
+                                    <div className="clearFilter" onClick={this.handleRefreshSearch}>
                                         <span className="cleText">Clear all Filters</span>
                                         <span className="cleIcon"></span>
                                     </div>
@@ -96,7 +134,7 @@ class UserFilter extends React.Component<IUserProps & IFilterProps> {
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                     <FormItem>
                                         <label className="floatleft">{'Group'}</label>
-                                        <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={onGroupSelect} onChange={onGroupChange} onSearch={onHandleAutoSearch}>
+                                        <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch}>
                                             {children}
                                         </AutoComplete>
                                     </FormItem>
