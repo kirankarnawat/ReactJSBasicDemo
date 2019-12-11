@@ -9,7 +9,7 @@ import { inject, observer } from 'mobx-react';
 import UserQuickFilter from './components/userQuickFilter';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
 import UserFilter from './components/userFilter';
-//import BulkImport from './components/bulkImport';
+import BulkImport from './components/bulkImport';
 //import ResetPassword from './components/resetPassword';
 
 import { EntityDto } from '../../services/dto/entityDto';
@@ -207,8 +207,6 @@ class User extends React.Component<IUserProps, IUserState> {
     async filterModalOpen() {
 
         this.FilterModal();
-
-        this.filterFormRef.props.form.setFieldsValue({ ...this.props.userStore.filters });
     }
 
 
@@ -221,8 +219,11 @@ class User extends React.Component<IUserProps, IUserState> {
             if (err) {
                 return;
             } else {
-                this.props.userStore.filters = values;
-                this.props.userStore.filters.requesterUserId = this.props.userStore.userid;
+                this.props.userStore.setFilter({
+                    ...this.props.userStore.filters, firstName: values["firstName"], lastName: values["lastName"], emailAddress: values["emailAddress"],
+                    jobCodeId: values["jobCodeId"], hiringDateFrom: values["hiringDateFrom"], hiringDateTo: values["hiringDateFrom"], roleChangeDateFrom: values["roleChangeDateFrom"],
+                    roleChangeDateTo: values["roleChangeDateTo"], status: values["status"]
+                });
             }
 
             await this.getAll();
@@ -231,26 +232,39 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     }
 
-
     // #endregion
 
-
+    // #region HANDLE BULK IMPORT
     //BULK IMPORT DRAWER
-    async bulkImportmedelOpen(entityDto: EntityDto) {
+    async bulkimportModalOpen(entityDto: EntityDto) {
+
         this.setState({ userId: entityDto.id });
+
         this.bulkmodal();
+
         // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
 
-    async resetpasswordmedelOpen(entityDto: EntityDto) {
+    // #endregion
+
+
+    // #region HANDLE RESET PASSWORD
+    //BULK IMPORT DRAWER
+    async resetpasswordModalOpen(entityDto: EntityDto) {
+
         this.setState({ userId: entityDto.id });
+
         this.resetPassword();
+
         // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
+
+    // #endregion
 
 
     delete(input: EntityDto) {
         const self = this;
+        
         confirm({
             title: 'Do you Want to delete these items?',
             onOk() {
@@ -283,7 +297,7 @@ class User extends React.Component<IUserProps, IUserState> {
                     <div>
                         <div className="tablehoverbuttons"> <Icon type="ellipsis" className="ellipsisIcon" />
                             <div className="buttonshover">
-                                <div className="resetpassword" onClick={() => this.resetpasswordmedelOpen({ id: text })} title="Reset password"></div>
+                                <div className="resetpassword" onClick={() => this.resetpasswordModalOpen({ id: text })} title="Reset password"></div>
                                 <div className="bargraph" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Progress"></div>
                                 <div className="transfer" onClick={() => this.delete({ id: text })} title="Transparent"></div>
 
@@ -322,8 +336,8 @@ class User extends React.Component<IUserProps, IUserState> {
                                         <div className="floatright">
                                             <ul className="headerListing floatleft">
 
-                                                <li><a href="#" onClick={() => this.createOrUpdateModalOpen({ id: '' })}><span className="text">Add User</span> <span className="icon iconUser">&nbsp;</span></a></li>
-                                                <li className="active" onClick={() => this.bulkImportmedelOpen({ id: '' })}><a href="#"><span className="text">Bulk Import</span> <span className="icon iconbulkImp">&nbsp;</span></a></li>
+                                                <li className="active"><a href="#" onClick={() => this.createOrUpdateModalOpen({ id: '' })}><span className="text">Add User</span> <span className="icon iconUser">&nbsp;</span></a></li>
+                                                <li onClick={() => this.bulkimportModalOpen({ id: '' })}><a href="#"><span className="text">Bulk Import</span> <span className="icon iconbulkImp">&nbsp;</span></a></li>
                                                 <li><a href="#"><span className="text">Export to Excel</span> <span className="icon iconExTOEx">&nbsp;</span></a></li>
                                             </ul>
                                         </div>
@@ -405,8 +419,8 @@ class User extends React.Component<IUserProps, IUserState> {
                 />
 
 
-                { /* 
-                  <BulkImport
+
+                <BulkImport
                     wrappedComponentRef={this.savebulkimportFormRef}
                     visible={this.state.bulkModalVisible}
                     onCancel={() =>
@@ -417,6 +431,8 @@ class User extends React.Component<IUserProps, IUserState> {
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
                 />
 
+
+                { /* 
                 <ResetPassword
                     wrappedComponentRef={this.saveresetPasswordFormRef}
                     visible={this.state.resetpassModalVisible}
@@ -426,7 +442,7 @@ class User extends React.Component<IUserProps, IUserState> {
                         })
                     }
                     modalType={this.state.userId === '' ? 'edit' : 'create'}
-                /> 
+                />
                 */ }
 
             </Card>

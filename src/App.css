@@ -1,45 +1,21 @@
-﻿body{font-size:12px !important; color:#424242; background:#eceff1; font-family: 'Conv_Roboto-Regular' !important;}
-@font-face {
-    font-family: 'Conv_Roboto-Bold';
-    src: url('fonts/Roboto-Bold.eot');
-    src: url('fonts/Roboto-Bold.woff') format('woff'), url('fonts/Roboto-Bold.ttf') format('truetype'), url('fonts/Roboto-Bold.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 
-@font-face {
-    font-family: 'Conv_Roboto-Light';
-    src: url('fonts/Roboto-Light.eot');
-    src: url('fonts/Roboto-Light.woff') format('woff'), url('fonts/Roboto-Light.ttf') format('truetype'), url('fonts/Roboto-Light.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Conv_Roboto-Medium';
-    src: url('fonts/Roboto-Medium.eot');
-    src: url('fonts/Roboto-Medium.woff') format('woff'), url('fonts/Roboto-Medium.ttf') format('truetype'), url('fonts/Roboto-Medium.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Conv_Roboto-Regular';
-    src: url('fonts/Roboto-Regular.eot');
-    src: url('fonts/Roboto-Regular.woff') format('woff'), url('fonts/Roboto-Regular.ttf') format('truetype'), url('fonts/Roboto-Regular.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
+@font-face { font-family: 'Myriad Pro bold'; src: url('fonts/MyriadPro-Bold.eot'); src: url('fonts/MyriadPro-Bold.eot?#iefix') format('embedded-opentype'), url('fonts/MyriadPro-Bold.woff2') format('woff2'), url('fonts/MyriadPro-Bold.woff') format('woff'), url('fonts/MyriadPro-Bold.ttf') format('truetype'), url('fonts/MyriadPro-Bold.svg#MyriadPro-Bold') format('svg'); font-weight: bold; font-style: normal; } 
+@font-face { font-family: 'Myriad Pro light'; src: url('fonts/MyriadPro-Light.eot'); src: url('fonts/MyriadPro-Light.eot?#iefix') format('embedded-opentype'), url('fonts/MyriadPro-Light.woff2') format('woff2'), url('fonts/MyriadPro-Light.woff') format('woff'), url('fonts/MyriadPro-Light.ttf') format('truetype'), url('fonts/MyriadPro-Light.svg#MyriadPro-Light') format('svg'); font-weight: 300; font-style: normal; } 
+@font-face { font-family: 'Myriad Pro Regular'; src: url('fonts/MyriadPro-Regular.eot'); src: url('fonts/MyriadPro-Regular.eot?#iefix') format('embedded-opentype'), url('fonts/MyriadPro-Regular.woff2') format('woff2'), url('fonts/MyriadPro-Regular.woff') format('woff'), url('fonts/MyriadPro-Regular.ttf') format('truetype'), url('fonts/MyriadPro-Regular.svg#MyriadPro-Regular') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Myriad Pro Semibold'; src: url('fonts/MyriadPro-Semibold.eot'); src: url('fonts/MyriadPro-Semibold.eot?#iefix') format('embedded-opentype'), url('fonts/MyriadPro-Semibold.woff2') format('woff2'), url('fonts/MyriadPro-Semibold.woff') format('woff'), url('fonts/MyriadPro-Semibold.ttf') format('truetype'), url('fonts/MyriadPro-Semibold.svg#MyriadPro-Semibold') format('svg'); font-weight: 600; font-style: normal; } 
+@font-face { font-family: 'Myriad Pro Cond'; src: url('fonts/MyriadPro-Cond.eot'); src: url('fonts/MyriadPro-Cond.eot?#iefix') format('embedded-opentype'), url('fonts/MyriadPro-Cond.woff2') format('woff2'), url('fonts/MyriadPro-Cond.woff') format('woff'), url('fonts/MyriadPro-Cond.ttf') format('truetype'), url('fonts/MyriadPro-Cond.svg#MyriadPro-Cond') format('svg'); font-weight: normal; font-style: normal; } 
 /*Globally  CSS */
+body{font-size:12px!important; color:#000000; background:#eceff1; font-family:'Myriad Pro Regular' !important;}
 html {--antd-wave-shadow-color: #d63031 !important;}
 ::selection {color: #fff;background:#d63031 !important;}
 .defaulttheme a{color:#d63032}
 .defaulttheme a:hover{color:#5b5b5b}
-.defaulttheme .ant-card{font-size:12px;color:#333333}
+.defaulttheme .ant-card{font-size:12px;color:#000000}
 .defaulttheme .ant-card-body{padding:15px}
 .defaulttheme .ant-checkbox-checked .ant-checkbox-inner{background:#d63032;border-color:#d63032;}
 .defaulttheme .ant-checkbox-wrapper:hover .ant-checkbox-inner, .defaulttheme .ant-checkbox:hover .ant-checkbox-inner, .defaulttheme .ant-checkbox-input:focus + .ant-checkbox-inner{border-color:#d63032;}
 .defaulttheme .ant-form{font-size:12px}
+.defaulttheme .ant-form label{font-size:12px;font-family: 'Myriad Pro Semibold';}
 .defaulttheme .ant-input{height:25px;}
 .defaulttheme .ant-select-auto-complete.ant-select .ant-input{height:25px;}
 .defaulttheme .ant-input,.defaulttheme .ant-form-explain{font-size:12px}
@@ -82,35 +58,50 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .mt7{margin-top:7px}
 .mt5{margin-top:5px}
 .mt20{margin-top:20px}
+.ml5{margin-left:5px}
 .ml8{margin-left:8px}
 .mr8{margin-right:8px}
 .ant-clearfix{clear:both}
-.loginConatiner{padding-top:14%;}
-.loginBox{max-width:533px; position:relative; display:table; margin:0px auto; -webkit-box-shadow: 1px 1px 5px 0px rgba(191,191,191,1); -moz-box-shadow: 1px 1px 5px 0px rgba(191,191,191,1); box-shadow: 1px 1px 5px 0px rgba(191,191,191,1);}
-.loginBox .loginBoxCon .colLogLeft{width:250px; float:left; min-height:310px; background:#e41e35; color:#ffffff; padding:35px; padding-top:100px}
-.loginBox .loginBoxCon .colLogLeft h4{font-size:12px; font-family: 'Conv_Roboto-Bold'; margin-bottom:0px;color:#fff;font-weight:bold}
-.loginBox .loginBoxCon .colLogRight{width:283px; padding:20px 40px 0px 40px; float:left; min-height:310px; background:#ffffff}
-.loginBox .loginBoxCon .colLogRight .loginLogo{margin-bottom:20px; text-align:center}
-.loginBox .loginBoxCon .colLogRight .loginLogo img{max-width:118px;}
-.loginBox .loginBoxCon .colLogRight .loginForm .form-group{margin-bottom:10px}
-.loginBox .loginBoxCon .colLogRight .loginForm .form-group label{margin-bottom:2px;font-size:12px}
-.loginBox .loginBoxCon .colLogRight .loginForm .loginFooter{margin-bottom:5px; float:left; width:100%}
-.loginBox .loginBoxCon .colLogRight .loginForm .btn-primary{width:100%; float:left; border-bottom:0px}
-.loginBox .loginBoxCon .colLogRight .loginForm .passIcon{position:absolute; top:8px; right: 0; background: none; border: none;}
-.loginBox .loginBoxCon .colLogRight .loginForm .passIcon:focus{outline:none}
-.loginBox .loginBoxCon .colLogRight .loginForm .passIcon i{font-size:14px; color:#dbdbdb}
+.loginConatiner{padding-top:0;}
+.loginBox{position:relative;color:#000000DE }
+.loginBox .loginBoxCon .colLogLeft{width:50%;height:100%;padding:7% 12% 0px 12%;float:left;background:#ffffff;}
+.loginBox .loginBoxCon .colLogLeft .colLogLeftInner{padding: 5% 17% 0px 17%;}
+.loginBox .loginBoxCon .colLogLeft h4{font-size:12px; font-family: 'Myriad Pro bold'; margin-bottom:0px;color:#fff;font-family: 'Myriad Pro bold';}
+.loginBox .loginBoxCon h2 {color: #000000;font-size: 30px;font-weight: bold;text-align: center;}
+.loginBox .loginBoxCon .colLogLeft .loginLogo img {max-width: 250px;}
+.loginBox .loginBoxCon .colLogLeft .ant-input{height:36px;}
+.loginBox .loginBoxCon .colLogLeft .ant-form-item-control{line-height:36px;}
+.loginBox .loginBoxCon .colLogRight{width:50%;float:left; position: relative;}
+.loginBox .loginBoxCon .colLogRight .loginBg{width:100%;height:100%;}
+.loginBox .loginBoxCon .colLogRight .loginBg img{background-size: cover; background-size:100% 100%; width:100%; height:100%;}
+.loginBox .loginBoxCon .colLogLeft .loginLogo {margin-bottom: 20px;text-align: center;}
+.loginBox .loginBoxCon .colLogRight .contentRt{padding: 10px 10px 10px 10px; background:#ebeff2 ;}
+.loginBox .loginBoxCon .colLogRight p {color:#000000;font-size: 13px;}
+.loginBox .loginBoxCon .loginLogo img{max-width:118px;}
+.loginBox .loginBoxCon .loginForm .form-group{margin-bottom:10px}
+.loginBox .loginBoxCon .loginForm .form-group label{margin-bottom:2px;font-size:12px}
+.loginBox .loginBoxCon .loginForm .loginFooter{margin-bottom:40px; float:left; width:100%;}
+.loginBox .loginBoxCon .loginForm .loginFooter label{color:#000000DE;cursor: pointer;}
+.loginBox .loginBoxCon .loginForm .loginFooter a{color:#2185D0}
+.loginBox .loginBoxCon .loginForm .loginFooter a:hover{color:#c22b2c}
+
+.loginBox .loginBoxCon .loginForm .ant-form-item{margin-bottom:40px;}
+.loginBox .loginBoxCon .loginForm .btn-primary{width:100%; float:left; border-bottom:0px}
+.loginBox .loginBoxCon .loginForm .passIcon{position:absolute; top:8px; right: 0; background: none; border: none;}
+.loginBox .loginBoxCon .loginForm .passIcon:focus{outline:none}
+.loginBox .loginBoxCon .loginForm .passIcon i{font-size:14px; color:#dbdbdb}
 .form-check-label{margin-top:3px; color:#a9a9a9}
 .loginBox .loginBoxCon .colLogRight .loginForm .ant-input-lg{height:31px;padding:5px;}
 .loginBox .loginBoxCon .colLogRight .ant-form-item{margin-bottom:0}
 .loginBox .loginBoxCon .colLogRight .loginForm .fotPass a{color:#4f94b3;font-size:12px}
 /* .logoutIcon{position:absolute; margin-left:42%; top:38%; width:58px; height:58px; border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; background:#e41e35; border:7px solid #ffffff; padding-left:11px; padding-top:9px} */
 .loginBox .float-left{float:left}
-.loginBox .ant-btn{height:auto;padding:0}
+.loginBox .ant-btn{float:left;width:100%;padding:7px;}
 .loginBox .loginBoxCon .colLogRight .loginForm .btn-primary{padding:4px 0}
 .loginBox .float-right{float:right}
 /*Login page End*/
 
-.ellipsisIcon{font-size:26px;color:#000;line-height:15px;font-weight:bold;}
+.ellipsisIcon{font-size:26px;color:#000;line-height:15px;font-family: 'Myriad Pro bold';}
 
 /******************** Header CSS ********************/ 
 .header-container .ant-layout-header{height:52px;line-height: 42px;}
@@ -136,17 +127,17 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .header-container .bellIcon{background:url("images/Bell.png"); background-repeat: no-repeat, repeat; width:19px; height:22px; display: inline-block;vertical-align: middle;margin-right:5px;}
 .header-container .circle{width:31px;height:31px;color:#fff;background:#E41F35;border:1px solid #E41F35;font-size:12px; line-height:33px;vertical-align: middle; text-align:center;border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; display: inline-block;}
 .header-container .circle:hover{border:1px solid #E41F35;color:#E41F35;background:#fff;}
-.defaulttheme .topMenu{background:#333333; position:relative; top:-52px;border-radius:0;}
+.defaulttheme .topMenu{background:#000000; position:relative; top:-52px;border-radius:0;}
 .topMenu .circle{width:24px;height:24px;color:#fff;background:#E41F35;border:1px solid #E41F35;font-size:11px; margin-right:5px; line-height:24px;vertical-align: middle; text-align:center;border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; display: inline-block;}
 .topMenu span{display:inline-block;}
-.topMenu li a{color:#fff;font-size:11px;font-family: 'Conv_Roboto-Light';padding:5px 19px;}
+.topMenu li a{color:#fff;font-size:11px;padding:5px 19px;}
 .topMenu li:hover{background:#E41F35;}
 .topMenu li:hover a{color:#fff}
 .changepassIcon{background:url("images/key.png"); background-repeat: no-repeat, repeat; width:22px; height:22px; display: inline-block;vertical-align: middle;margin-right:5px;}
 .logoutIcon{background:url("images/logout.png"); background-repeat: no-repeat, repeat; width:20px; height:15px; display: inline-block;vertical-align: middle;margin-right:5px;}
 .settingmenu ul{margin:0;padding:0}
 .settingmenu ul li{list-style: none;}
-.settingmenu ul li a{font-size:12px;padding:10px 20px;color:#333333;display: block;}
+.settingmenu ul li a{font-size:12px;padding:10px 20px;color:#000000;display: block;}
 .settingmenu ul li a:hover{color:#fff;background:#E41F35;}
 /******************** Header CSS END ********************/
 
@@ -165,23 +156,24 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .sideBarmenu .usermenuicon{background:url("images/Menu-User.png"); background-repeat: no-repeat, repeat; width:26px; height:28px; display: inline-block;vertical-align: middle;margin-right: 5px;position:relative;left: 3px;}
 .sideBarmenu .contrepomenuicon{background:url("images/ContentRepository.png"); background-repeat: no-repeat, repeat; width:28px; height:25px; display: inline-block;vertical-align: middle;margin-right: 5px;}
 .sideBarmenu .ant-menu li{border-bottom:2px solid #E2E2E2;line-height: 28px;}
-.ant-menu-submenu li{border-bottom:1px solid #E2E2E2;height:25px !important;line-height:25px!important;}
+.ant-menu-submenu > .ant-menu{border-radius:0 !important;}
+.ant-menu-submenu li{border-bottom:1px solid #E2E2E2;}
 .ant-menu-submenu li:hover{color:#d63031;} 
 .sideBarmenu .ant-menu li:hover{border-bottom:2px solid #d63031;}
 .sideBarmenu .ant-menu li:hover .ant-menu-submenu-arrow::before,.sideBarmenu .ant-menu li:hover .ant-menu-submenu-arrow::after{background:#d63031;}
 .ant-menu-submenu li:last-child{border-bottom:none!important}
-
+.ant-menu-vertical .ant-menu-item:not(:last-child), .ant-menu-vertical-left .ant-menu-item:not(:last-child), .ant-menu-vertical-right .ant-menu-item:not(:last-child), .ant-menu-inline .ant-menu-item:not(:last-child){ margin-bottom:0px !important;}
 /******************** Left Menu CSS END********************/
 
 /****HEADING CSS ****/
-.heading h2{font-size:20px;font-family:'Conv_Roboto-Bold';}
+.heading h2{font-size:20px;font-family:'Myriad Pro bold';}
 .subHeading{border-bottom:1px solid #E2E2E2; margin-bottom:15px;}
-.subHeading h3{color:#000000CC;font-size:14px;font-family:'Conv_Roboto-Bold';}
+.subHeading h3{color:#000000CC;font-size:14px;font-family:'Myriad Pro bold';}
 
 /********************COMMON TABLE  CSS ********************/
 #root .conHeader {border-bottom:1px solid #E41F35}
 .tblFilter{float: left; width: 100%; padding:10px 0; padding-bottom:4px;margin-bottom:15px;}
-.tblFilter h6{font-size:12px}
+.tblFilter h6{font-size:12px;margin-top:5px}
 .filterWrapp .filterIcon{float:left; background-image: url("images/filter.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px;margin-top:5px;}
 .filterWrapp .filterIcon:hover{background-image: url("images/filter-hover.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px;}
 .filtercontainer .filterlist{padding:0;margin: 0; float:right}
@@ -196,8 +188,8 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .tableContainer table{border:none !important}
 .tableContainer .ant-table-bordered .ant-table-thead > tr > th,.tableContainer .ant-table-bordered .ant-table-tbody > tr > td{border-right:none}
 .tableContainer .ant-table-thead > tr > th{background:none}
-.tableContainer .table thead tr th{font-weight:bold; color:#333333; font-weight:bold; border-bottom:2px solid #e1e1e1; padding:10px 0px 10px 0px;font-size:12px}
-.tableContainer .table tbody tr td{padding:10px 5px; color:#717171;font-size:12px}
+.tableContainer .table thead tr th{color:#000000;font-family: 'Myriad Pro bold'; border-bottom:2px solid #e1e1e1; padding:10px 0px 10px 0px;font-size:12px}
+.tableContainer .table tbody tr td{padding:10px 5px; color:#000000;font-size:12px}
 .tableContainer .table thead tr th:first-child,.tableContainer .table tbody tr td:first-child{width:40px}
 .tableContainer .tablehoverbuttons{position:relative; cursor:pointer}
 .tableContainer .buttonshover{position:absolute;top:-8px;left:-52px;z-index:100;display:none;background: #d63032;border-radius: 60px;-wbkit-border-radius: 60px;-moz-border-radius: 60px;padding: 8px 13px;}
@@ -222,14 +214,14 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 
 /* .co-Breadcrumb .breadcrumb{background:none; padding:0px; margin-bottom:10px}
 .co-Breadcrumb .breadcrumb .ant-breadcrumb-link{color:#969696; font-size:18px}
-.co-Breadcrumb .breadcrumb .ant-breadcrumb-link .active{font-family:'Conv_Roboto-Bold'; color:#333333}
-.co-Breadcrumb .breadcrumb .ant-breadcrumb-link a{color:#333333} */
+.co-Breadcrumb .breadcrumb .ant-breadcrumb-link .active{font-family:'Myriad Pro bold'; color:#000000}
+.co-Breadcrumb .breadcrumb .ant-breadcrumb-link a{color:#000000} */
 
 ul li{list-style: none;}
 ul.headerListing li{float:left; padding-left:10px; font-size:12px;}
 ul.headerListing li a{color:#5b5b5b; float:left}
 ul.headerListing li a span.text{float:left; padding-top:6px}
-ul.headerListing li a span.icon{float:left; width:28px; height:28px; margin-left:10px; background:#333333; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px;}
+ul.headerListing li a span.icon{float:left; width:28px; height:28px; margin-left:10px; background:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px;}
 ul.headerListing li a .icon.iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat; background-position: 7px 7px;}
 ul.headerListing li a .icon.iconbulkImp{background-image: url("images/bulk-import.png"); background-repeat: no-repeat, repeat; background-position:4px 4px;}
 ul.headerListing li a .icon.iconExTOEx{background-image: url("images/export-xls.png"); background-repeat: no-repeat, repeat; background-position:6px 5px;}
@@ -238,7 +230,7 @@ ul.headerListing li a:hover span.icon{background-color:#d63032}
 ul.headerListing li.active a span.icon{background-color:#d63032 !important;}
 ul.headerListing li.active a{color:#d63032; float:left}
 
-.sysId{float: right;font-family: 'Conv_Roboto-Bold';position: absolute;right:0px;top: 5px;font-size: 16px;}
+.sysId{float: right;font-family: 'Myriad Pro bold';position: absolute;right:0px;top: 5px;font-size: 16px;}
 .ant-drawer .ant-drawer-body{font-size:12px;}
 .ant-drawer .ant-drawer-close{background:url("images/close.png") 0 0 no-repeat;top:30%;width:32px;}
 /* .filterpopup .ant-drawer-close{background:url("images/back-icon.png") 0 0 no-repeat;top:30%;width:32px;} */
@@ -249,7 +241,7 @@ ul.headerListing li.active a{color:#d63032; float:left}
 .ant-drawer .ant-form-item{margin-bottom:4px}
 .ant-drawer .ant-form-item-label{line-height:inherit;margin-bottom:5px}
 .ant-drawer .ant-form-item-control{line-height:inherit;margin-bottom:5px}
-.ant-drawer .ant-form-item label{margin-bottom:5px;display: inline-block;font-size: 12px;font-family: 'Conv_Roboto-Regular'; color:#000}
+.ant-drawer .ant-form-item label{margin-bottom:5px;display: inline-block;font-size: 12px;font-family: 'Myriad Pro Semibold'; color:#000}
 .start{color:#f00}
 
 .filterpopup .overfowYauto{overflow-y: auto; max-height:450px;}
@@ -259,8 +251,8 @@ ul.headerListing li.active a{color:#d63032; float:left}
 .filterBody .clearFilter .cleText{color:#3a4042; float:left; padding-right:10px}
 .filterBody .clearFilter .cleIcon{background-image: url("images/clear-all.png"); background-repeat: no-repeat, repeat; background-position:0px 0px;float:left; width:18px; height:19px;}
 .filterForm {float:left; width:100%}
-.filterForm .lblText{float:left;color:#333333;font-size:12px;font-family: 'Conv_Roboto-Regular';}
-.filterForm .clearText{text-decoration:underline; float:right; color:#a2a2a2; font-family: 'Conv_Roboto-Light'; padding-top:2px}
+.filterForm .lblText{float:left;color:#000000;font-size:12px;font-family: 'Myriad Pro Semibold';}
+.filterForm .clearText{text-decoration:underline; float:right; color:#a2a2a2;padding-top:2px}
 .filterForm .form-control{height:31px; padding:5px}
 .filterFooter{width:100%; float:left}
 .filterFooter .btn{width:100%; float:left}
@@ -280,17 +272,17 @@ ul.bulkImpListing{display: table; margin:0 auto;}
 ul.bulkImpListing li{width:200px; float: left; margin-left: 30px;}
 ul.bulkImpListing li:first-child{margin:0px}
 ul.bulkImpListing li .ant-btn{width:100%; min-width:200px}
-.coloraddfile{color:#0A70B9; font-weight:bold;}
+.coloraddfile{color:#0A70B9; font-family: 'Myriad Pro bold';}
 .pos{position:relative}
 
-.ant-drawer .ant-drawer-title{font-family: 'Conv_Roboto-Bold'; font-size:20px}
+.ant-drawer .ant-drawer-title{font-family: 'Myriad Pro bold'; font-size:20px}
 .ant-drawer .ant-tabs-nav {float:left; width:100%; border-bottom:1px solid #C1C1C1}
 .ant-drawer .ant-tabs-bar{border-color:#C1C1C1;}
 .ant-drawer .ant-tabs-nav .ant-tabs-tab{padding:10px 5px; font-size:12px; color:#848484; margin:0px 15px;margin:0px 20px 0px 0px}
 .ant-drawer .ant-tabs .ant-tabs-small-bar .ant-tabs-tab{padding:8px 12px}
 .ant-drawer .ant-tabs-nav .ant-tabs-tab:hover{border:none;color:#e41f35}
 .ant-drawer .ant-tabs-nav .ant-tabs-ink-bar{border:none; border-bottom:3px solid #e41f35 !important; }
-.ant-drawer .ant-tabs-nav .ant-tabs-tab-active{ font-size:15px; color:#000}
+.ant-drawer .ant-tabs-nav .ant-tabs-tab-active{ font-size:15px; color:#000;font-family: 'Myriad Pro bold';}
 .ant-drawer .ant-btn{text-transform:uppercase; text-align:center; padding:0px 10px; font-size:12px}
 .ant-drawer .ant-btn-default{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
 .ant-drawer .ant-btn-default:hover{background:#d63031; color:#ffffff; border-color:#d63031; border-bottom:2px solid #a61726}
@@ -315,27 +307,27 @@ ul.ant-pagination .ant-pagination-item a:focus{box-shadow:none}
 .successBox p{color:#3e3f3f; font-size:12px}
 
 .assignHead{float:left; width:100%; border-bottom:2px solid #e0e0e0; padding:0px 0px 10px 0px}
-.assignHead h5{margin-bottom:0px; margin-top:0px; font-size:14px; font-weight:bold}
+.assignHead h5{margin-bottom:0px; margin-top:0px; font-size:14px; font-family: 'Myriad Pro bold';}
 .assignHead h6{margin-bottom:0px; margin-top:0px; font-size:12px; padding-top:3px}
 .assignedBox{border-bottom:1px solid #cdcdcd}
 .assignedBoxLeft{width:75%}
 .assignedBoxRight{width:25%}
-.assignedBox h5{font-weight:bold; font-size:16px; padding:10px 0px 0px 0px}
-.assignedBox h6{font-weight:bold; font-size:12px; margin-bottom:0px}
+.assignedBox h5{font-family: 'Myriad Pro bold'; font-size:16px; padding:10px 0px 0px 0px}
+.assignedBox h6{font-family: 'Myriad Pro bold'; font-size:12px; margin-bottom:0px}
 .assignedBox p{font-size:12px}
 
 .buttonfooter{position: fixed;bottom:0px;background:#fff;z-index:10;}
 .bulkUpload .ant-upload.ant-upload-drag{border:1px dashed #0A70B9;box-shadow: 5px 5px 6px #0000001A; margin-top:10px; padding:30px; text-align:center; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
 .bulkUpload .ant-upload.ant-upload-drag:not(.ant-upload-disabled):hover{border-color:#d63031}
 .bulkUpload .ant-upload.ant-upload-drag .ant-upload{padding:6px 0 6px}
-.bulkUpload .ant-btn-bulk{width:188px;; background:#E2E2E2;color:#333333;border-bottom:2px solid #E2E2E2;border-color:#E2E2E2}
+.bulkUpload .ant-btn-bulk{width:188px;; background:#E2E2E2;color:#000000;border-bottom:2px solid #E2E2E2;border-color:#E2E2E2}
 .bulkUpload .ant-btn-bulk:hover{background:#2d3436;color:#ffffff;border-color:#2d3436;border-bottom:2px solid #1f3344;}
 .bulkUpload .downloadTemp{padding-top:10px;width:188px; margin:auto;}
 .bulkUpload .ant-btn-primary{min-width:190px}
 .bulkUpload .bulkImpFooter{border-top:1px solid #d4d4d4; float:left; width:100%; padding:30px 0px; width:520px;}
 .bulkUpload .dateName .anticon-calendar{font-size:16px; vertical-align:middle; padding-right:5px;}
 .bulkUpload .dateName{color:#00000066;font-size:10px;margin-bottom:8px}
-.bulkUpload .filedataname{color:#000;font-size:12px;font-family:'Conv_Roboto-Bold'; margin-bottom:8px; }
+.bulkUpload .filedataname{color:#000;font-size:12px;font-family:'Myriad Pro bold'; margin-bottom:8px; }
 .bulkUpload .errortextComp{color:#F47E26;font-size:12px;margin-bottom:8px}
 .bulkUpload .recordtotalText{color:#000000;font-size:12px;margin-bottom:8px}
 .bulkUpload .linkurl a{color:#2148E6;margin-bottom:8px;display:block;}
@@ -397,7 +389,7 @@ ul.assListing li .iconprogram{background-image: url("images/program.png"); backg
 .treedigram .tree{padding:0}
 .treedigram .tree ul {margin-left: 20px;padding: 0;}
 .treedigram .tree li {list-style-type: none;margin:16px;position: relative;}
-.treedigram .tree li a{color:#8D8D8D;font-family: 'Conv_Roboto-Light';}
+.treedigram .tree li a{color:#8D8D8D;}
 .treedigram .tree li::before {content: "";position: absolute;top:-16px;left:-26px;border-left: 2px dotted #ccc;border-bottom: 2px dotted #ccc;border-radius: 0 0 0 0px;width: 30px;height:30px;}
 .treedigram .tree li::after {position:absolute;content:"";top:8px;left:-20px;border-left:2px dotted #ccc;border-top:2px dotted #ccc;border-radius:0px 0 0 0;width:20px;height:100%;}
 .treedigram .tree li:last-child::after{display:none;}
@@ -415,24 +407,35 @@ ul.assListing li .iconprogram{background-image: url("images/program.png"); backg
 .exportExcelIco{background:url("images/ExporttoXls.png") 0 0 no-repeat;width:17px; height:17px;display: inline-block; vertical-align: middle;}
 .exportExcelIcoBg:hover{background:#d63032}
 .treedigram .tree li.highlighted a{color:#000;}
-.treedigram .tree li a:hover .adduserIcon{ background-color:#333333;}
+.treedigram .tree li a:hover .adduserIcon{ background-color:#000000;}
 .treedigram .tree li.mt0{margin-top:0px}
 
 /**INLINE TREE STRUCTURE ***/
 .treeinlinestructure .treeentityinline{list-style:none; padding:0; margin:0;}
 .treeinlinestructure .treeentityinline li{float: left; margin: 5px 0px;}
 .treeinlinestructure .treeentityinline li .arrowicon{ margin:0px 10px;;}
-.treeinlinestructure .treeentityinline li:last-child a{color:#000;font-size:13px;font-family: 'Conv_Roboto-Bold';}
+.treeinlinestructure .treeentityinline li:last-child a{color:#000;font-size:13px;font-family: 'Myriad Pro bold';}
 .treeinlinestructure .treeentityinline li a{color:#8D8D8D; font-size:12px;}
 .editEntityIcon{background-image: url("images/add-edit.png"); background-repeat: no-repeat; background-position:0px 0px;width:20px; height:15px; display: inline-block; vertical-align: middle;}
 .treeinlinestructure .treeentityinline li.floatRight{float:right}
+.ant-tabs-content .adminListconatiner{border:none;background:none;font-size:12px;margin-bottom: 10px;border-bottom: 1px solid #d9d9d9; padding-bottom:10px; border-radius:0}
+.ant-tabs-content .adminListconatiner > .ant-collapse-item > .ant-collapse-header{padding:0;font-size:12px; color:#000;font-family: 'Myriad Pro bold';display: inline-block;}
+.ant-tabs-content .adminListconatiner > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{left:54px; font-size:12px;}
+.adminListconatiner .adminList ul{list-style:none; margin:0;padding:0}
+.ant-tabs-content .adminListconatiner > .ant-collapse-item{border:none} 
+.adminListconatiner .ant-collapse-content > .ant-collapse-content-box{padding:0;}
+.adminListconatiner .adminList ul{margin-left:-5px;}
+.adminListconatiner .adminList ul li{display: inline-block;border-right: 1px solid #000000;color: #000000;font-size: 12px;padding: 5px 5px 5px 5px;line-height: 4px;vertical-align: middle;}
+.adminListconatiner .adminList ul li a{color:#000000}
+.adminListconatiner .adminList ul li:last-child{border:none;}
 
 .switchbutton .labeltext{ padding:0px 5px;font-size:12px;}
-.switchbutton .ant-switch-checked{background-color: #fff;border: 1px solid #333333;}
-.switchbutton .ant-switch{height:20px;border: 1px solid #333333;background: #fff;}
+.switchbutton .ant-switch-checked{background-color: #fff;border: 1px solid #000000;}
+.switchbutton .ant-switch{height:20px;border: 1px solid #000000;background: #fff;}
 .switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{width:10px;height: 10px;}
-.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{background-color:#333333;}
+.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{background-color:#000000;}
 .switchbutton .ant-switch{height:15px; min-width:28px;}
+
 .filterdatelist{margin:0;padding:0;float: left; width:100%}
 .filterdatelist .calIcon{position:absolute;right: 6px;top: 2px;font-size: 12px;cursor: pointer;}
 .filterdatelist li{width:40%; float: left;}
@@ -443,12 +446,12 @@ ul.assListing li .iconprogram{background-image: url("images/program.png"); backg
 .warningMsg .warningText{width:70%; float: left;}
 .warningMsg .warningbtn{width:28%;float:right;}
 .warningMsg .warningbtn button{float:right;}
-.warningMsg .heading h3{color:#973937; font-size: 15px;font-family: 'Conv_Roboto-Bold'; margin:0; padding-bottom:2px;} 
+.warningMsg .heading h3{color:#973937; font-size: 15px;font-family: 'Myriad Pro bold'; margin:0; padding-bottom:2px;} 
 .warningMsg .discText{color:#973937; font-size:12px; line-height:16px; }
 
 /****Success MSG ****/
 .successMsg{background:#FCFFF5;border:1px solid #A8C599; width:100%; padding:10px;}
-.successMsg .heading h3{color:#1E561F; font-size: 15px;font-family: 'Conv_Roboto-Bold'; margin:0; padding-bottom:2px;} 
+.successMsg .heading h3{color:#1E561F; font-size: 15px;font-family: 'Myriad Pro bold'; margin:0; padding-bottom:2px;} 
 .successMsg .discText{color:#1E561F; font-size:12px; line-height:16px; }
 .ant-drawer .ant-drawer-mask{background-color:transparent;}
 
@@ -456,11 +459,10 @@ ul.assListing li .iconprogram{background-image: url("images/program.png"); backg
 .warningMsg .warningbtn{width:17%;float: left;margin-left:3%;} */
 
 .hidden {display:none!important;}
-.disabled{opacity:0.5;cursor:not-allowed;}
 .btnfooterContainer{position:absolute;right: 0;bottom:0;width:100%;border-top:1px solid #e9e9e9;padding:10px 16px;background:#fff;}
 
 /*FOOTER CSS */
-.mainFooter{background:#4a5960; color:#ffffff; text-align:center; padding:5px; position:fixed; width:100%; bottom:0px; z-index:1}
+.mainFooter{background:#E5E8E9; color:#96999A;border-top:1px solid #C4C5C5; text-align:right; padding:5px 25px 5px 5px; position:fixed; width:100%; bottom:0px; z-index:1}
 .mainFooter p{margin-bottom:0px}
 footer{padding: 0;font-size: 11px}
 

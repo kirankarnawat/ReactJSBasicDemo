@@ -21,6 +21,9 @@ export interface IUserQuickFilterProp extends FormComponentProps {
 
 export interface IUserQuickFilterState {
     result: GetUserEntityListResponse[];
+    switchvalue: boolean;
+    namevalue: string;
+    groupvalue: string;
 }
 
 const { Option } = AutoComplete;
@@ -35,30 +38,33 @@ class UserQuickFilter extends React.Component<IUserProps & IUserQuickFilterProp,
         super(props);
 
         this.state = {
-            result: []
+            result: [], switchvalue: true, namevalue: '', groupvalue: ''
         };
     }
 
     switchChange = e => {
         this.props.userStore.setFilter({ ...this.props.userStore.filters, status: e.target.checked ? true : false });
+        this.setState({ ...this.state, switchvalue: e.target.checked ? true : false });
     }
 
     firstNameChange = (event: any) => {
         this.props.userStore.setFilter({ ...this.props.userStore.filters, firstName: event.target.value });
+        this.setState({ ...this.state, namevalue: event.target.value });
+    }
+
+    groupChange = (data: any) => {
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "" });
+        this.setState({ ...this.state, groupvalue: data });
     }
 
     groupSelect = (option: any) => {
         this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: option ? option.split("~")[0] : "", searchOnGroupId: option ? option.split("~")[1] : "" });
     }
 
-    groupChange = () => {
-        this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "" });
-    }
-
     handleRefreshSearch = async () => {
 
         this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "", firstName: "", status: true });
-
+        this.setState({ ...this.state, groupvalue: '', namevalue: '', switchvalue: true });
         //parent load
         this.props.handleSearch();
     }
@@ -94,14 +100,14 @@ class UserQuickFilter extends React.Component<IUserProps & IUserQuickFilterProp,
             <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-16">
                 <ul className="filterlist">
                     <li><div className="switchbutton mt5">
-                        <label className="mr8">{'Active'}</label> <Checkbox onChange={this.switchChange} defaultChecked />
+                        <label className="mr8">{'Active'}</label> <Checkbox onChange={this.switchChange} checked={this.state.switchvalue} />
                     </div>
                     </li>
                     <li className="width227">
-                        <Input placeholder="First Name/ Last Name" allowClear={true} onChange={this.firstNameChange} />
+                        <Input placeholder="First Name/ Last Name" allowClear={true} onChange={this.firstNameChange} value={this.state.namevalue} />
                     </li>
                     <li className="width227">
-                        <AutoComplete placeholder="Group 1/ Group 2/ Group 3" allowClear={true} onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch}>
+                        <AutoComplete placeholder="Group 1/ Group 2/ Group 3" allowClear={true} onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch} value={this.state.groupvalue}>
                             {children}
                         </AutoComplete>
                     </li>

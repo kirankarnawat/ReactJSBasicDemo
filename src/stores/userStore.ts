@@ -17,6 +17,7 @@ import { UserByIDRequest } from '../services/user/dto/Request/userByIDRequest';
 import { UserByIDResponse } from '../services/user/dto/Response/userByIDResponse';
 import { UserEmailExistsCheckRequest } from '../services/user/dto/Request/userEmailExistsCheckRequest';
 import { UserLoginExistsCheckRequest } from '../services/user/dto/Request/userLoginExistsCheckRequest';
+import { UserImportRequest } from '../services/user/dto/Request/userImportRequest';
 
 
 
@@ -89,16 +90,28 @@ class UserStore {
 
     @action
     async create(addUserRequest: UserRequest) {
-        debugger;
         let result = await userService.create(addUserRequest);
-        this.userById = { ...this.userById, userId: result};
+        this.userById = { ...this.userById, userId: result };
     }
 
     @action
     async update(updateUserRequest: UserRequest) {
-        debugger;
         let result = await userService.update(updateUserRequest);
         this.userById = { ...this.userById, userId: result };
+    }
+
+    @action
+    async downloadBulkTemplate() {
+        debugger;
+        let result = await userService.donloadUserTemplate();
+        return result;
+    }
+
+    @action
+    async uploadBulkImport(userImportRequest: UserImportRequest) {
+        debugger;
+        let result = await userService.uploadUserImport(userImportRequest);
+        return result;
     }
 
     @action

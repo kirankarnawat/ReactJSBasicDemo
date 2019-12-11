@@ -105,7 +105,7 @@ module.exports = {
         ]),
         new webpack.DefinePlugin({
             "process.env.REACT_APP_APP_BASE_URL": "'http://192.168.0.7:3000/'",
-            "process.env.REACT_APP_REMOTE_SERVICE_BASE_URL": "'http://schem-db16/Delphianlmsapi/api/'",
+            "process.env.REACT_APP_REMOTE_SERVICE_BASE_URL": "'http://192.168.5.190/DLLMSAPI/api/'",
             "process.env.PUBLIC_URL": "'/'"
         })
     ]

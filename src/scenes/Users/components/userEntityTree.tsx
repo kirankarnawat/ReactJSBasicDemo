@@ -21,6 +21,7 @@ export interface IEntityTreeProp extends FormComponentProps {
 
 export interface IEntityTreeState {
     result: GetUserEntityListResponse[];
+    searchvalue: string;
 }
 
 
@@ -30,9 +31,7 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp, IEnti
 
     constructor(props) {
         super(props);
-        this.state = {
-            result: []
-        }
+        this.state = { result: [], searchvalue: '' }
     }
 
     handleAutoSearch = async (value: string) => {
@@ -52,6 +51,12 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp, IEnti
         this.setState({ ...this.state, result: searchresult });
     };
 
+    handleChange = (event) => {
+        
+        this.setState({ ...this.state, searchvalue: event.target.value });
+    };
+
+
     render() {
 
         const { onHandleAddGroupUser } = this.props;
@@ -69,7 +74,7 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp, IEnti
                                 <ul>
                                     <li><a> <span className="">{item.group3Name} </span> <span className="groupicon"></span><span className="values"></span></a>
                                         <ul>
-                                            <li className="highlighted"><a><span className="">{item.group4Name} </span> <span className="groupicon"></span><span className="values"></span><span className="adduserIcon" id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ result: [] }); }}></span></a>
+                                            <li className="highlighted"><a><span className="">{item.group4Name} </span> <span className="groupicon"></span><span className="values"></span><span className="adduserIcon" id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ ...this.state, result: [], searchvalue: '' }); }}></span></a>
                                             </li>
                                         </ul>
                                     </li>
@@ -87,7 +92,7 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp, IEnti
                         <FormItem>
                             <label>{'Search User Group'} <span className="start">*</span> </label>
                             <div className="rel">
-                                <Search placeholder="Group 1/ Group 2/ Group 3" onSearch={this.handleAutoSearch} />
+                                <Search placeholder="Group 1/ Group 2/ Group 3" onSearch={this.handleAutoSearch} value={this.state.searchvalue} onChange={this.handleChange} />
                             </div>
                         </FormItem>
                     </Col>

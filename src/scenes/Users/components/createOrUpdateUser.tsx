@@ -36,11 +36,11 @@ class CreateOrUpdateUser extends React.Component<IUserProps & ICreateOrUpdateUse
     state = {
         showsearch: (this.props.id === "") ? true : false,
         groupid: '',
-        entitydata: this.props.entitydata[0]
+        entitydata: this.props.entitydata[0],
     };
 
     async componentDidUpdate(prevProps, prevState) {
-        debugger;
+       
         if (this.props.id !== prevProps.id) {
             if (this.props.id !== "") {
                 this.setState({
@@ -61,16 +61,19 @@ class CreateOrUpdateUser extends React.Component<IUserProps & ICreateOrUpdateUse
     }
 
 
-    onHanleResetForm = () => {
-        this.props.onCancel();    
+    onHanleResetForm = async () => {
+        
+        await this.props.onCancel();
+
         this.setState({ ...this.state, showsearch: true, groupid: '' });
-        this.props.form.resetFields();        
+
+        this.props.form.resetFields();
     }
 
-    
+
     render() {
 
-        const { visible, id } = this.props;
+        const { id, visible } = this.props;
 
         return (
             <Drawer title={'Add/Edit User'} width={560} onClose={this.onHanleResetForm} visible={visible}>

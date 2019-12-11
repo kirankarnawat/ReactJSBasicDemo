@@ -14,6 +14,8 @@ import { UserByIDRequest } from './dto/Request/userByIDRequest';
 import { UserByIDResponse } from './dto/Response/userByIDResponse';
 import { UserEmailExistsCheckRequest } from './dto/Request/userEmailExistsCheckRequest';
 import { UserLoginExistsCheckRequest } from './dto/Request/userLoginExistsCheckRequest';
+import { UserImportRequest } from './dto/Request/userImportRequest';
+import { UserImportResponse } from './dto/Response/userImportResponse';
 
 declare var lms: any;
 
@@ -36,7 +38,7 @@ class UserService {
     }
 
     public async getEntityList(getUserEntityListRequest: GetUserEntityListRequest): Promise<PagedResultDto<GetUserEntityListResponse>> {
-        
+
         var data = <PagedResultDto<GetUserEntityListResponse>>{};
         try {
             let result = await http.get(lms.toAPIPath(lms.APIType.USERENTITYLIST), { params: getUserEntityListRequest });
@@ -74,7 +76,7 @@ class UserService {
         return result.data;
     }
 
-    public async checkOIG(userOIGRequest: UserOIGRequest) : Promise<UserOIGResponse>  {
+    public async checkOIG(userOIGRequest: UserOIGRequest): Promise<UserOIGResponse> {
         let result = await http.post(lms.toAPIPath(lms.APIType.CHECKOIG), userOIGRequest);
         return result.data;
     }
@@ -89,6 +91,25 @@ class UserService {
         return result.data;
     }
 
+    //bulk upload
+    public async uploadUserImport(userImportRequest: UserImportRequest): Promise<UserImportResponse> {
+        debugger;
+
+        let formData = new FormData();
+        formData.append('uploadedFile', userImportRequest.uploadedFile, userImportRequest.uploadedFile.name);
+        formData.append('requestorUserId', userImportRequest.requesterUserId);
+
+        let result = await http.post(lms.toAPIPath(lms.APIType.USERBULKUPLOAD), formData);
+
+        return result.data;
+    }
+
+    //download template
+    public async donloadUserTemplate(): Promise<File> {
+        debugger;
+        let result = await http.get(lms.toAPIPath(lms.APIType.USEREXCELTEMPLATE), { responseType: 'arraybuffer' });
+        return result.data;
+    }
 
     public async delete(entityDto: EntityDto) {
         let result = await http.delete('api/services/app/User/Delete', { params: entityDto });

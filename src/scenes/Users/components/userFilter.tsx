@@ -18,7 +18,7 @@ import { GetUserEntityListResponse } from '../../../services/user/dto/Response/g
 export interface IFilterProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
-    onCreate: () => void;    
+    onCreate: () => void;
 }
 
 export interface IUserProps {
@@ -26,9 +26,8 @@ export interface IUserProps {
 }
 
 export interface IFilterState {
-    confirmDirty: boolean;
-    filtermodalVisible: boolean;
     result: GetUserEntityListResponse[];
+    groupvalue: string;
 }
 
 const { Option } = AutoComplete;
@@ -43,9 +42,7 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
         super(props);
 
         this.state = {
-            confirmDirty: false,
-            filtermodalVisible: false,
-            result: []
+            result: [], groupvalue: ''
         };
     }
 
@@ -53,8 +50,9 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
         this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: option ? option.split("~")[0] : "", searchOnGroupId: option ? option.split("~")[1] : "" });
     }
 
-    groupChange = () => {
+    groupChange = (data: any) => {
         this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "" });
+        this.setState({ groupvalue: data });
     }
 
     handleRefreshSearch = async () => {
@@ -62,6 +60,8 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
         this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "", firstName: "", status: true });
 
         this.props.form.resetFields();
+
+        this.setState({ groupvalue: '' });
     }
 
     handleAutoSearch = async (value: string) => {
@@ -80,13 +80,16 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
 
         this.setState({ ...this.state, result: searchresult });
     };
-    
+
 
     render() {
 
         if (this.props.userStore.filters === undefined) return (<div></div>);
 
         const { getFieldDecorator } = this.props.form;
+
+        const { filters } = this.props.userStore;
+
         const { visible, onCancel, onCreate } = this.props;
         const { result } = this.state;
 
@@ -110,7 +113,7 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                     <FormItem>
                                         <label>{'FirstName'}  </label>
-                                        {getFieldDecorator('firstName', { initialValue: this.props.userStore.filters.firstName })(<Input placeholder='First Name' name="firstName" />)}
+                                        {getFieldDecorator('firstName', { initialValue: filters.firstName })(<Input placeholder='First Name' name="firstName" />)}
                                     </FormItem>
                                 </div>
                             </div>
@@ -118,7 +121,7 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                     <FormItem>
                                         <label className="floatleft">{'LastName'}  </label>
-                                        {getFieldDecorator('lastName', { initialValue: this.props.userStore.filters.firstName })(<Input placeholder='Last Name' name="lastName" />)}
+                                        {getFieldDecorator('lastName', { initialValue: filters.lastName })(<Input placeholder='Last Name' name="lastName" />)}
                                     </FormItem>
                                 </div>
                             </div>
@@ -126,7 +129,7 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                     <FormItem>
                                         <label className="floatleft">{'Email'}  </label>
-                                        {getFieldDecorator('emailAddress', { initialValue: this.props.userStore.filters.emailAddress })(<Input placeholder='Email Address' />)}
+                                        {getFieldDecorator('emailAddress', { initialValue: filters.emailAddress })(<Input placeholder='Email Address' />)}
                                     </FormItem>
                                 </div>
                             </div>
@@ -134,7 +137,7 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                     <FormItem>
                                         <label className="floatleft">{'Group'}</label>
-                                        <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch}>
+                                        <AutoComplete placeholder="Group 1/ Group 2/ Group 3" onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch} value={this.state.groupvalue}>
                                             {children}
                                         </AutoComplete>
                                     </FormItem>
@@ -144,42 +147,48 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                     <FormItem>
                                         <label className="floatleft">{'Job Code'}</label>
-                                        {getFieldDecorator('jobCodeId', { initialValue: this.props.userStore.filters.jobCodeId })(<Input placeholder='Job Code' />)}
+                                        {getFieldDecorator('jobCodeId', { initialValue: filters.jobCodeId })(<Input placeholder='Job Code' />)}
                                     </FormItem>
                                 </div>
                             </div>
                             <div className="antd-row">
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
-                                    <FormItem>
-                                        <label className="floatleft">{'Hiring Date'}</label>
-                                        <div>
-                                            <ul className="filterdatelist">
+                                    <label className="floatleft">{'Hiring Date'}</label>
+                                    <div>
+                                        <ul className="filterdatelist">
+                                            <FormItem>
                                                 <li>
-                                                    {getFieldDecorator('hiringDateFrom', { initialValue: (this.props.userStore.filters.hiringDateFrom !== null ? moment(this.props.userStore.filters.hiringDateFrom, dateFormat) : undefined) })(<DatePicker placeholder='Hiring Date' />)}
+                                                    {getFieldDecorator('hiringDateFrom', { initialValue: (filters.hiringDateFrom !== null ? moment(filters.hiringDateFrom, dateFormat) : undefined) })(<DatePicker placeholder='Hiring Date' />)}
                                                 </li>
-                                                <li className="width10per">To</li>
-                                                <li> {getFieldDecorator('hiringDateTo', { initialValue: (this.props.userStore.filters.hiringDateTo !== null ? moment(this.props.userStore.filters.hiringDateTo, dateFormat) : undefined) })(<DatePicker placeholder='Hiring Date' />)}</li>
-                                            </ul>
-                                        </div>
-                                    </FormItem>
+                                            </FormItem>
+                                            <li className="width10per">To</li>
+                                            <FormItem>
+                                                <li> {getFieldDecorator('hiringDateTo', { initialValue: (filters.hiringDateTo !== null ? moment(filters.hiringDateTo, dateFormat) : undefined) })(<DatePicker placeholder='Hiring Date' />)}</li>
+                                            </FormItem>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <div className="antd-row">
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
-                                    <FormItem>
-                                        <label className="floatleft">{'Role Change Date'}</label>
-                                        <div>
-                                            <ul className="filterdatelist">
+
+                                    <label className="floatleft">{'Role Change Date'}</label>
+                                    <div>
+                                        <ul className="filterdatelist">
+                                            <FormItem>
                                                 <li>
-                                                    {getFieldDecorator('roleChangeDateFrom', { initialValue: (this.props.userStore.filters.roleChangeDateFrom !== null ? moment(this.props.userStore.filters.roleChangeDateFrom, dateFormat) : undefined) })(<DatePicker placeholder='Change Date' />)}
+                                                    {getFieldDecorator('roleChangeDateFrom', { initialValue: (filters.roleChangeDateFrom !== null ? moment(filters.roleChangeDateFrom, dateFormat) : undefined) })(<DatePicker placeholder='Change Date' />)}
                                                 </li>
-                                                <li className="width10per">To</li>
+                                            </FormItem>
+                                            <li className="width10per">To</li>
+                                            <FormItem>
                                                 <li>
-                                                    {getFieldDecorator('roleChangeDateTo', { initialValue: (this.props.userStore.filters.roleChangeDateTo !== null ? moment(this.props.userStore.filters.roleChangeDateTo, dateFormat) : undefined) })(<DatePicker placeholder='Change Date' />)}
+                                                    {getFieldDecorator('roleChangeDateTo', { initialValue: (filters.roleChangeDateTo !== null ? moment(filters.roleChangeDateTo, dateFormat) : undefined) })(<DatePicker placeholder='Change Date' />)}
                                                 </li>
-                                            </ul>
-                                        </div>
-                                    </FormItem>
+                                            </FormItem>
+                                        </ul>
+                                    </div>
+
                                 </div>
                             </div>
                             <div className="antd-row">
@@ -188,7 +197,7 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
                                         <div><label>{'Status'}</label></div>
                                         <div className="switchbutton">
                                             <label className="mr8">{'Active'}</label>
-                                            {getFieldDecorator('status', { initialValue: this.props.userStore.filters.status, valuePropName: "checked" })(<Checkbox />)}
+                                            {getFieldDecorator('status', { initialValue: filters.status, valuePropName: "checked" })(<Checkbox />)}
                                         </div>
                                     </FormItem>
                                 </div>
@@ -209,7 +218,7 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
                         </div>
                     </div>
                 </Drawer>
-            </div>
+            </div >
         );
     }
 }

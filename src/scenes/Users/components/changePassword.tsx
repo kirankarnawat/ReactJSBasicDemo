@@ -1,26 +1,29 @@
 import * as React from 'react';
-import {Input, Button, Drawer, Row, Col } from 'antd';
+import {Input,Form, Button, Drawer, Row, Col } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import { FormComponentProps } from 'antd/lib/form';
-
-export interface ICreateOrUpdateUserProps extends FormComponentProps {
+export interface ChangePassProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
-    modalType: string;
-    onCreate: () => void;
-
 }
-class ChangePassword extends React.Component {
-    render() {
 
-        this.setState=()=>
-        {
-            //onCreate();
-        }
+class ChangePassword extends React.Component<ChangePassProps> {
+    state = {
+        changepassModalVisible: false
+    };
+    render() {
+        const { visible ,onCancel} = this.props;
         return (
-            <Drawer title={'Reset Password'} width={300}>
-                <div className="successMsg"><div className="successText"><div className="heading"><h3>Successfully Changed Password</h3></div></div><div className="ant-clearfix"></div></div>
-                <div className="mt20">
+            <Drawer title={'Change Password'} width={300}  visible={visible} onClose={onCancel}>
+                <div className="successMsg mt20"><div className="successText"><div className="heading"><h3>Success</h3></div><div className="discText">You have successfully Change Password.</div></div><div className="ant-clearfix"></div></div>                <div className="mt20">
+                <Row className="antd-row">
+                        <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                            <FormItem>
+                                <label>{'Current Password'} <span className="start">*</span> </label>
+                                <Input placeholder='Current Password' />
+                            </FormItem>
+                        </Col>
+                    </Row>
                     <Row className="antd-row">
                         <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
                             <FormItem>
@@ -54,4 +57,4 @@ class ChangePassword extends React.Component {
         )
     }
 }
-export default ChangePassword;
+export default Form.create<ChangePassProps>()(ChangePassword);

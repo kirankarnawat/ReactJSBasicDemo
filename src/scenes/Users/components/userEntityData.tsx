@@ -212,7 +212,7 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                         <FormItem>
                             <label>{'Hiring Date'} <span className="start">*</span> </label>
                             <div>
-                                {getFieldDecorator('hiringDate', { initialValue: (userById.hiringDate !== null ? moment(userById.hiringDate, dateFormat) : undefined) })(<DatePicker format={dateFormat} disabledDate={this.disabledDate} placeholder='Hiring Date' name="hiringDate" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} />)}
+                                {getFieldDecorator('hiringDate', { initialValue: (userById.hiringDate !== null ? moment(userById.hiringDate, dateFormat) : undefined), rules: rules.hiringDate })(<DatePicker format={dateFormat} disabledDate={this.disabledDate} placeholder='Hiring Date' name="hiringDate" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} />)}
                             </div>
                         </FormItem>
                     </Col>

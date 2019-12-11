@@ -26,7 +26,15 @@ var lms = lms || {};
         CHECKOIG: 'CHECKOIG',
         USERDATABYID: 'USERDATABYID',
         USEREMAILCHECK: 'USEREMAILCHECK',
-        USERLOGINIDCHECK: 'USERLOGINIDCHECK'
+        USERLOGINIDCHECK: 'USERLOGINIDCHECK',
+        
+
+        USERCHANGEPWD: 'USERCHANGEPWD',
+                
+        USERBULKIMPORTMASTER: 'USERBULKIMPORTMASTER',
+        USEREXCELTEMPLATE: 'USEREXCELTEMPLATE',
+        USERBULKUPLOAD: 'USERBULKUPLOAD',
+
     };
 
     //Get API Path of the variable
@@ -39,6 +47,7 @@ var lms = lms || {};
             case lms.APIType.USERSALT:
                 path = '/user/getsalt';
                 break;
+
             case lms.APIType.USERLIST:
                 path = '/user/userlist';
                 break;
@@ -48,6 +57,7 @@ var lms = lms || {};
             case lms.APIType.USERJOBCODES:
                 path = '/user/getlookups';
                 break;
+
             case lms.APIType.ADDEDITUSER:
                 path = '/user/addedituser';
                 break;
@@ -62,6 +72,18 @@ var lms = lms || {};
                 break;
             case lms.APIType.USERLOGINIDCHECK:
                 path = '/user/isloginidinuse';
+                break;
+
+            case lms.APIType.USEREXCELTEMPLATE:
+                path = '/user/getusertemplateexcel'
+                break;
+            case lms.APIType.USERBULKUPLOAD:
+                path = '/user/uploaduserimport'
+                break;
+
+
+            case lms.APIType.USERCHANGEPWD:
+                path = '/user/changepassword';
                 break;
         }
         return path;

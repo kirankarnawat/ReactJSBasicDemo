@@ -2,20 +2,23 @@ import * as React from 'react';
 import { Form, Input, Button, Drawer, Row, Col } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import { FormComponentProps } from 'antd/lib/form';
-
 export interface ICreateOrUpdateUserProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
     modalType: string;
+    onCreate: () => void;
 }
-
 class ResetPassword extends React.Component<ICreateOrUpdateUserProps> {
     render() {
         const { visible, onCancel } = this.props;
-
+        const { onCreate } = this.props;
         return (
             <Drawer title={'Reset Password'} width={300} onClose={onCancel} visible={visible}>
-                <div className="successMsg"><div className="successText"><div className="heading"><h3>Successfully Reset Password</h3></div></div><div className="ant-clearfix"></div></div>
+                <div className="successMsg mt20">
+                    <div className="successText">
+                        <div className="heading"><h3>Success</h3></div>
+                        <div className="discText"> You have successfully Reset Password.</div>
+                    </div><div className="ant-clearfix"></div></div>
                 <div className="mt20">
                     <Row className="antd-row">
                         <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
@@ -38,7 +41,7 @@ class ResetPassword extends React.Component<ICreateOrUpdateUserProps> {
                             <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
                                 <ul className="bulkImpListing">
                                     <li>
-                                        <Button className="ant-btn-primary" type="primary">Submit</Button>
+                                        <Button onClick={onCreate} className="ant-btn-primary" type="primary">Submit</Button>
                                     </li>
                                 </ul>
                             </div>
