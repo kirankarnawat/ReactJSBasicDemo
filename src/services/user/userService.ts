@@ -17,6 +17,7 @@ import { UserLoginExistsCheckRequest } from './dto/Request/userLoginExistsCheckR
 import { UserImportRequest } from './dto/Request/userImportRequest';
 import { UserImportResponse } from './dto/Response/userImportResponse';
 import { UserBulkImportLogListResponse } from './dto/Response/userBulkImportLogListResponse';
+import { SaveOIGUserRequest } from './dto/Request/saveOIGUserRequest';
 
 declare var lms: any;
 
@@ -106,7 +107,7 @@ class UserService {
 
     //download template
     public async donloadUserTemplate(): Promise<File> {
-        
+
         let result = await http.get(lms.toAPIPath(lms.APIType.USEREXCELTEMPLATE), { responseType: 'arraybuffer' });
         return result.data;
     }
@@ -124,6 +125,12 @@ class UserService {
             console.log(e);
         }
         return data;
+    }
+
+    public async saveOIGUser(saveOIGUserRequest: SaveOIGUserRequest) {
+
+        let result = await http.post(lms.toAPIPath(lms.APIType.SAVEOIGUSERS), saveOIGUserRequest);
+        return result.data;
     }
 }
 

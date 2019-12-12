@@ -15,6 +15,7 @@ const AppConsts = {
     usercookieExpDays: 1,
     encdecSecretKey: "P%T1<-:1$n!O189r^e",
     pagesize: 10,
-    dateFormat: 'YYYY/MM/DD'
+    dateFormat: 'YYYY/MM/DD',
+    oigCheckURL: 'https://google.com'
 };
 export default AppConsts;

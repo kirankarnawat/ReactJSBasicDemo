@@ -30,7 +30,6 @@ export interface IUserProps {
 }
 
 export interface IBulkImportFileState {
-    confirmDirty: boolean,
     showlog: boolean,
     importDate: string,
     importFileName: string,
@@ -69,7 +68,6 @@ class BulkImportFile extends React.Component<IUserProps & IBulkImportFileProps, 
         super(props);
 
         this.state = {
-            confirmDirty: false,
             showlog: false,
             importDate: "",
             importFileName: "",
@@ -81,6 +79,15 @@ class BulkImportFile extends React.Component<IUserProps & IBulkImportFileProps, 
             oigRecords: 0
         };
     }
+
+    //async componentDidUpdate(prevProps, prevState) {
+
+    //    if (this.state.importId !== prevState.importId) {
+    //        this.setState({
+    //            showlog: false, importDate: "", importFileName: "", importStatus: '', totalRecords: 0, insertedRecords: 0, importId: "", errorRecords: 0, oigRecords: 0
+    //        });
+    //    }
+    //}
 
 
     customUpload = async (options: any) => {
@@ -125,18 +132,9 @@ class BulkImportFile extends React.Component<IUserProps & IBulkImportFileProps, 
         return isXls
     }
 
-    onHandleLogError = (e) => {
-        e.preventDefault();
-        this.props.onHandleFileLog(this.state.importId, this.state.importFileName, this.state.importDate, 1);
-    };
-
-    onHandleOIGLog = (e) => {
-        e.preventDefault();
-        this.props.onHandleFileLog(this.state.importId, this.state.importFileName, this.state.importDate, 2);
-    };
-
-
     render() {
+
+        const { onHandleFileLog } = this.props;
 
         return (
 
@@ -181,11 +179,11 @@ class BulkImportFile extends React.Component<IUserProps & IBulkImportFileProps, 
                             <div className="recordtotalText">Successfully Uplaoded: {this.state.insertedRecords} Records</div>
 
                             <div className="linkurl">
-                                <a href="#" onClick={this.onHandleLogError}><span className=""></span> Validation Errors: {this.state.errorRecords}</a>
+                                <a href="#" onClick={() => { onHandleFileLog(this.state.importId, this.state.importFileName, this.state.importDate, 1) }}><span className=""></span> Validation Errors: {this.state.errorRecords}</a>
                             </div>
 
                             <div className="linkurl">
-                                <a href="#" onClick={this.onHandleOIGLog}><span className=""></span> OIG-GSA Exclusion Found: {this.state.oigRecords}</a>
+                                <a href="#" onClick={() => { onHandleFileLog(this.state.importId, this.state.importFileName, this.state.importDate, 2) }}><span className=""></span> OIG-GSA Exclusion Found: {this.state.oigRecords}</a>
                             </div>
 
                         </Col>

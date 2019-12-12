@@ -18,6 +18,7 @@ import { UserByIDResponse } from '../services/user/dto/Response/userByIDResponse
 import { UserEmailExistsCheckRequest } from '../services/user/dto/Request/userEmailExistsCheckRequest';
 import { UserLoginExistsCheckRequest } from '../services/user/dto/Request/userLoginExistsCheckRequest';
 import { UserImportRequest } from '../services/user/dto/Request/userImportRequest';
+import { SaveOIGUserRequest } from '../services/user/dto/Request/saveOIGUserRequest';
 
 
 
@@ -118,6 +119,13 @@ class UserStore {
     async getUserBulkImportLog(entityDto: EntityDto) {
         debugger;
         let result = await userService.getUserBulkImportLog(entityDto.id);
+        return result;
+    }
+
+    @action
+    async saveOIGUser(saveOIGUserRequest: SaveOIGUserRequest) {
+        debugger;
+        let result = await userService.saveOIGUser(saveOIGUserRequest);
         return result;
     }
     

@@ -236,14 +236,20 @@ class User extends React.Component<IUserProps, IUserState> {
 
     // #region HANDLE BULK IMPORT
     //BULK IMPORT DRAWER
-    async bulkimportModalOpen(entityDto: EntityDto) {
-
-        this.setState({ userId: entityDto.id });
+    async bulkimportModalOpen() {
 
         this.bulkmodal();
-
-        // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
+
+    onHadnleBulkImportModalClose = async () => {
+
+        this.setState({...this.state, bulkModalVisible: false });
+
+        const form = this.addeditUserFormRef.props.form;
+        form.resetFields();
+
+        await this.getAll();
+    };
 
     // #endregion
 
@@ -264,7 +270,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
     delete(input: EntityDto) {
         //const self = this;
-        
+
         confirm({
             title: 'Do you Want to delete these items?',
             onOk() {
@@ -337,7 +343,7 @@ class User extends React.Component<IUserProps, IUserState> {
                                             <ul className="headerListing floatleft">
 
                                                 <li className="active"><a href="#" onClick={() => this.createOrUpdateModalOpen({ id: '' })}><span className="text">Add User</span> <span className="icon iconUser">&nbsp;</span></a></li>
-                                                <li onClick={() => this.bulkimportModalOpen({ id: '' })}><a href="#"><span className="text">Bulk Import</span> <span className="icon iconbulkImp">&nbsp;</span></a></li>
+                                                <li onClick={() => this.bulkimportModalOpen()}><a href="#"><span className="text">Bulk Import</span> <span className="icon iconbulkImp">&nbsp;</span></a></li>
                                                 <li><a href="#"><span className="text">Export to Excel</span> <span className="icon iconExTOEx">&nbsp;</span></a></li>
                                             </ul>
                                         </div>
@@ -423,12 +429,7 @@ class User extends React.Component<IUserProps, IUserState> {
                 <BulkImport
                     wrappedComponentRef={this.savebulkimportFormRef}
                     visible={this.state.bulkModalVisible}
-                    onCancel={() =>
-                        this.setState({
-                            bulkModalVisible: false,
-                        })
-                    }
-                    modalType={this.state.userId === '' ? 'edit' : 'create'}
+                    onCancel={this.onHadnleBulkImportModalClose}
                 />
 
 
