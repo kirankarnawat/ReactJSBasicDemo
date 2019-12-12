@@ -34,7 +34,8 @@ var lms = lms || {};
         USERBULKIMPORTMASTER: 'USERBULKIMPORTMASTER',
         USEREXCELTEMPLATE: 'USEREXCELTEMPLATE',
         USERBULKUPLOAD: 'USERBULKUPLOAD',
-        USERBULKIMPORTLOGRESPONSE: 'USERBULKIMPORTLOGRESPONSE'
+        USERBULKIMPORTLOGRESPONSE: 'USERBULKIMPORTLOGRESPONSE',
+        SAVEOIGUSERS:'SAVEOIGUSERS'
     };
 
     //Get API Path of the variable
@@ -83,7 +84,9 @@ var lms = lms || {};
             case lms.APIType.USERBULKIMPORTLOGRESPONSE:
                 path = '/user/bulkimportlogs'
                 break;
-
+            case lms.APIType.SAVEOIGUSERS:
+                path = '/user/saveoigusers'
+                break;
 
             case lms.APIType.USERCHANGEPWD:
                 path = '/user/changepassword';

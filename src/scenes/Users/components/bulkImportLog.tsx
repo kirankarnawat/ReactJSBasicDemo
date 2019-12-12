@@ -1,13 +1,22 @@
 
 import * as React from 'react';
 
-import { Tabs, Table, Row, Col, Icon, Form } from 'antd';
+import { Tabs, Table, Row, Col, Icon, Form, message, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 
 import { UserBulkImportLogListResponse } from '../../../services/user/dto/Response/userBulkImportLogListResponse';
 
+import { inject, observer } from 'mobx-react';
+
+import Stores from '../../../stores/storeIdentifier';
+import UserStore from '../../../stores/userStore';
+
+import AppConsts from '../../../lib/appconst';
+
 const TabPane = Tabs.TabPane;
 
+const OIGCheckURL = AppConsts.oigCheckURL;
+const pagesize = AppConsts.pagesize;
 
 export interface IBulkImportLogProps extends FormComponentProps {
 
@@ -16,53 +25,86 @@ export interface IBulkImportLogProps extends FormComponentProps {
     bulkimportdate: string;
     tab: number;
     logData: UserBulkImportLogListResponse[];
-}
-
-export interface IBulkImportLogState {
-
-    activeKey: string;
+    onHandleFileLogClose: () => void;
 }
 
 
-class BulkImportLog extends React.Component<IBulkImportLogProps, IBulkImportLogState> {
+export interface IUserProps {
 
-    constructor(props) {
+    userStore: UserStore;
+}
 
-        super(props);
 
-        this.state = {
-            activeKey: this.props.tab === 1 ? "ValidationErrors" : "OIG-GSAExclusion"
-        }
-    }
+@inject(Stores.UserStore)
+@observer
+class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps> {
+
+    state = {
+        activeKey: this.props.tab == 1 ? "1" : "2",
+        showForceSubmit: false,
+    };
 
     async componentDidUpdate(prevProps, prevState) {
 
         if (this.props.bulkimportid !== prevProps.bulkimportid || this.props.tab !== prevProps.tab) {
 
-            this.props.form.resetFields();
-
-            this.setState({ ...this.state, activeKey: this.props.tab === 1 ? "ValidationErrors" : "OIG-GSAExclusion" });
+            this.setState({ activeKey: ((this.props.tab === 1) ? "1" : "2") });
         }
+    }
+
+    onHandleForceSubmit = async (value: string) => {
+
+        var res = await this.props.userStore.saveOIGUser({ BulkIMportLogId: value, requesterUserId: this.props.userStore.userid });
+
+        console.log(res);
+
+        message.success('User saved successfully');
     }
 
     render() {
 
-        const { logData, bulkimportfname, bulkimportdate } = this.props;
+        const { logData, bulkimportfname, bulkimportdate, onHandleFileLogClose } = this.props;
 
         const columns = [
-            { title: 'Row No', dataIndex: 'RowNo', sorter: false, key: 'RowNo', width: 150, render: (text: string) => <div>{10}</div> },
+            { title: 'Row No', dataIndex: 'RowNo', sorter: false, key: 'RowNo', width: 150, render: (text: number) => <div>{text}</div> },
             { title: 'First Name', dataIndex: 'FirstName', sorter: false, key: 'FirstName', width: 150, render: (text: string) => <div>{text}</div> },
             { title: 'Last Name', dataIndex: 'LastName', sorter: false, key: 'LastName', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'Error', dataIndex: 'Error', sorter: false, key: 'Error', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'Error', dataIndex: 'BulkImportError', sorter: false, key: 'BulkImportError', width: 150, render: (text: string) => <div>{text}</div> },
+        ];
+
+        const oigcolumns = [
+            { title: 'Row No', dataIndex: 'RowNo', sorter: false, key: 'RowNo', width: 150, render: (text: number) => <div>{text}</div> },
+            { title: 'First Name', dataIndex: 'FirstName', sorter: false, key: 'FirstName', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'Last Name', dataIndex: 'LastName', sorter: false, key: 'LastName', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'Error', dataIndex: 'BulkImportError', sorter: false, key: 'BulkImportError', width: 150, render: (text: string) => <div>{text}</div> },
+            {
+                title: '',
+                width: 150, dataIndex: 'BulkImportLogId', key: 'BulkImportLogId',
+                render: (text: string) => {
+                    const { showForceSubmit } = this.state;
+                    return (
+                        <div>
+                            <div className="tablehoverbuttons"> <Icon type="ellipsis" className="ellipsisIcon" />
+                                <div className="buttonshover">
+
+                                    <a href={OIGCheckURL} prop-id={text} onClick={() => { this.setState({ ...this.state, showForceSubmit: true }) }} className={showForceSubmit ? "btn btn-primary hidden" : "btn btn-primary"} target="_blank">Verify OIG</a>
+                                    <a href="javascript:void(0);" id={text} className={showForceSubmit ? "btn btn-primary" : "btn btn-primary hidden"} onClick={() => { this.onHandleForceSubmit(text) }} >Submit</a>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+            },
         ];
 
         debugger;
-        const valdata = logData.filter(p => p.IsOIGError === false).slice();
-        const oigdata = logData.filter(p => p.IsOIGError === true && p.IsUserAdded === false);
+        const valdata = (logData !== undefined) ? logData.filter(p => p.IsOIGError === false) : [];
+        const oigdata = (logData !== undefined) ? logData.filter(p => p.IsOIGError === true && p.IsUserAdded === false) : [];
 
         return (
-            <div className="errorLog">
-                <button className="ant-btn ant-btn-default">Back</button>
+            <div className="errorLog" >
+
+                <Button className="ant-btn ant-btn-default" onClick={onHandleFileLogClose} >Back</Button>
 
                 <Row className="antd-row">
                     <Col className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
@@ -74,9 +116,9 @@ class BulkImportLog extends React.Component<IBulkImportLogProps, IBulkImportLogS
                     </Col>
                 </Row>
 
-                <Tabs defaultActiveKey={this.state.activeKey} size={'small'} tabBarGutter={64}>
+                <Tabs activeKey={this.state.activeKey} size={'small'} tabBarGutter={64}>
 
-                    <TabPane tab={'Validation Errors'} key={'ValidationErrors'}  >
+                    <TabPane tab={'Validation Errors'} key={'1'}  >
                         <div className="table-responsive">
                             <div className="tableContainer table-responsive">
                                 <Table
@@ -84,7 +126,7 @@ class BulkImportLog extends React.Component<IBulkImportLogProps, IBulkImportLogS
                                     size={'default'}
                                     bordered={true}
                                     columns={columns}
-                                    pagination={{ size: 'small', pageSize: 10, total: valdata === undefined ? 0 : logData.length, defaultCurrent: 1 }}
+                                    pagination={{ size: 'small', pageSize: pagesize, total: valdata === undefined ? 0 : valdata.length, defaultCurrent: 1 }}
                                     loading={oigdata === undefined ? true : false}
                                     dataSource={valdata === undefined ? [] : valdata.slice()}
                                     className="table"
@@ -93,15 +135,15 @@ class BulkImportLog extends React.Component<IBulkImportLogProps, IBulkImportLogS
                         </div>
                     </TabPane>
 
-                    <TabPane tab={'OIG-GSA Exclusion'} key={'OIG-GSAExclusion'}>
+                    <TabPane tab={'OIG-GSA Exclusion'} key={'2'}>
                         <div className="table-responsive">
                             <div className="tableContainer table-responsive">
                                 <Table
                                     rowKey={record => record.BulkImportLogId}
                                     size={'default'}
                                     bordered={true}
-                                    columns={columns}
-                                    pagination={{ size: 'small', pageSize: 10, total: oigdata === undefined ? 0 : logData.length, defaultCurrent: 1 }}
+                                    columns={oigcolumns}
+                                    pagination={{ size: 'small', pageSize: pagesize, total: oigdata === undefined ? 0 : oigdata.length, defaultCurrent: 1 }}
                                     loading={oigdata === undefined ? true : false}
                                     dataSource={oigdata === undefined ? [] : oigdata.slice()}
                                     className="table"
