@@ -28,11 +28,6 @@ export interface IBulkImportLogProps extends FormComponentProps {
     onHandleFileLogClose: () => void;
 }
 
-export interface IBulkImportLogState {
-
-    activeKey: string;
-    showForceSubmit: boolean;
-}
 
 export interface IUserProps {
 
@@ -42,25 +37,18 @@ export interface IUserProps {
 
 @inject(Stores.UserStore)
 @observer
-class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps, IBulkImportLogState> {
+class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps> {
 
-    constructor(props) {
-
-        super(props);
-
-        this.state = {
-            activeKey: this.props.tab == 1 ? "ValidationErrors" : "OIG-GSAExclusion",
-            showForceSubmit: false,
-        }
-    }
+    state = {
+        activeKey: this.props.tab == 1 ? "1" : "2",
+        showForceSubmit: false,
+    };
 
     async componentDidUpdate(prevProps, prevState) {
 
         if (this.props.bulkimportid !== prevProps.bulkimportid || this.props.tab !== prevProps.tab) {
 
-            this.props.form.resetFields();
-
-            this.setState({ ...this.state, activeKey: this.props.tab === 1 ? "ValidationErrors" : "OIG-GSAExclusion" });
+            this.setState({ activeKey: ((this.props.tab === 1) ? "1" : "2") });
         }
     }
 
@@ -128,9 +116,9 @@ class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps, IB
                     </Col>
                 </Row>
 
-                <Tabs defaultActiveKey={this.state.activeKey} size={'small'} tabBarGutter={64}>
+                <Tabs activeKey={this.state.activeKey} size={'small'} tabBarGutter={64}>
 
-                    <TabPane tab={'Validation Errors'} key={'ValidationErrors'}  >
+                    <TabPane tab={'Validation Errors'} key={'1'}  >
                         <div className="table-responsive">
                             <div className="tableContainer table-responsive">
                                 <Table
@@ -138,7 +126,7 @@ class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps, IB
                                     size={'default'}
                                     bordered={true}
                                     columns={columns}
-                                    pagination={{ size: 'small', pageSize: pagesize, total: valdata === undefined ? 0 : logData.length, defaultCurrent: 1 }}
+                                    pagination={{ size: 'small', pageSize: pagesize, total: valdata === undefined ? 0 : valdata.length, defaultCurrent: 1 }}
                                     loading={oigdata === undefined ? true : false}
                                     dataSource={valdata === undefined ? [] : valdata.slice()}
                                     className="table"
@@ -147,7 +135,7 @@ class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps, IB
                         </div>
                     </TabPane>
 
-                    <TabPane tab={'OIG-GSA Exclusion'} key={'OIG-GSAExclusion'}>
+                    <TabPane tab={'OIG-GSA Exclusion'} key={'2'}>
                         <div className="table-responsive">
                             <div className="tableContainer table-responsive">
                                 <Table
@@ -155,7 +143,7 @@ class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps, IB
                                     size={'default'}
                                     bordered={true}
                                     columns={oigcolumns}
-                                    pagination={{ size: 'small', pageSize: pagesize, total: oigdata === undefined ? 0 : logData.length, defaultCurrent: 1 }}
+                                    pagination={{ size: 'small', pageSize: pagesize, total: oigdata === undefined ? 0 : oigdata.length, defaultCurrent: 1 }}
                                     loading={oigdata === undefined ? true : false}
                                     dataSource={oigdata === undefined ? [] : oigdata.slice()}
                                     className="table"

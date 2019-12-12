@@ -11,6 +11,7 @@ import UserStore from '../../../stores/userStore';
 
 import BulkImportFile from './bulkImportFile';
 import BulkImportLog from './bulkImportLog';
+import { UserBulkImportLogListResponse } from '../../../services/user/dto/Response/userBulkImportLogListResponse';
 
 
 export interface IUserProps {
@@ -22,29 +23,48 @@ export interface IBulkImportProps extends FormComponentProps {
     onCancel: () => void;
 }
 
+export interface IBulkImportState {
+    showlog: boolean;
+    importid: string;
+    importfilename: string;
+    importdate: string;
+    tabNumber: number;
+    logData: UserBulkImportLogListResponse[];
+    drawerTitle: string;
+    showClose: boolean;
+}
+
+
 const bulkTitle = 'Bulk Import';
 const logTitle = 'Error Log';
 
 @inject(Stores.UserStore)
 @observer
-class BulkImport extends React.Component<IUserProps & IBulkImportProps> {
+class BulkImport extends React.Component<IUserProps & IBulkImportProps, IBulkImportState> {
 
-    state = {
-        showlog: false,
-        importid: '',
-        importfilename: '',
-        importdate: '',
-        tabnumber: 0,
-        logData: [],
-        drawerTitle: bulkTitle,
-        showClose: true
-    };
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+            showlog: false,
+            importid: '',
+            importfilename: '',
+            importdate: '',
+            tabNumber: 0,
+            logData: [],
+            drawerTitle: bulkTitle,
+            showClose: true
+        };
+    }
+
+
 
     onHanleResetForm = async () => {
 
         await this.props.onCancel();
 
-        this.setState({showlog: false, importid: '', importfilename: '', importdate:'', tabnumber: 0, logData: [] });
+        this.setState({ showlog: false, importid: '', importfilename: '', importdate: '', tabNumber: 0, logData: [] });
 
         this.props.form.resetFields();
     }
@@ -53,12 +73,12 @@ class BulkImport extends React.Component<IUserProps & IBulkImportProps> {
         debugger;
         let res = await this.props.userStore.getUserBulkImportLog({ id: bulkimportid });
 
-        this.setState({ ...this.state, showlog: true, showClose: false, bulkimportid: bulkimportid, importfilename: filename, importdate: importdate, tabnumber: tab, logData: res.items, drawerTitle: logTitle });
+        this.setState({ ...this.state, showlog: true, showClose: false, importid: bulkimportid, importfilename: filename, importdate: importdate, tabNumber: tab, logData: res.items, drawerTitle: logTitle });
     }
 
     handleFileLogClose = () => {
-        
-        this.setState({ ...this.state, showlog: false, showClose: true, bulkimportid: '', importfilename: '', importdate: '', tabnumber: 0, logData: [], drawerTitle: bulkTitle,  });
+
+        this.setState({ ...this.state, showlog: false, showClose: true, importid: '', importfilename: '', importdate: '', tabNumber: 0, logData: [], drawerTitle: bulkTitle, });
     }
 
 
@@ -74,7 +94,7 @@ class BulkImport extends React.Component<IUserProps & IBulkImportProps> {
                         <BulkImportFile onHandleFileLog={this.handleFileLog} />
                     </div>
                     <div className={(this.state.showlog) ? '' : 'hidden'}>
-                        <BulkImportLog bulkimportid={this.state.importid} bulkimportfname={this.state.importfilename} bulkimportdate={this.state.importdate} tab={this.state.tabnumber} logData={this.state.logData} onHandleFileLogClose = {this.handleFileLogClose} />
+                        <BulkImportLog bulkimportid={this.state.importid} bulkimportfname={this.state.importfilename} bulkimportdate={this.state.importdate} tab={this.state.tabNumber} logData={this.state.logData} onHandleFileLogClose={this.handleFileLogClose} />
                     </div>
                 </div>
             </Drawer>
