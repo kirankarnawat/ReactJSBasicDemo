@@ -3,6 +3,8 @@ import * as React from 'react';
 import { Form, Upload, Row, Col, Icon, message } from 'antd';
 
 import { FormComponentProps } from 'antd/lib/form';
+import 'font-awesome/css/font-awesome.min.css'
+
 
 import DownloadTemplate from './downloadTemplate';
 
@@ -138,10 +140,10 @@ class BulkImportFile extends React.Component<IUserProps & IBulkImportFileProps, 
 
         return (
 
-            <div className="">
+            <div className="bulkUpload">
                 <div className="">
 
-                    <div className="mb20">
+                    <div className="mb10">
                         <Row className="antd-row">
                             <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
                                 <Dragger {...uploadprops} customRequest={this.customUpload} beforeUpload={this.onBeforeUpload} >
@@ -151,7 +153,7 @@ class BulkImportFile extends React.Component<IUserProps & IBulkImportFileProps, 
                         </Row>
                     </div>
 
-                    <Row className="antd-row hidden">
+                    <Row className="antd-row">
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
                             <div className="instructionbox">
                                 You can download the template from here, and save it locally until you are ready to load your learners. When your spreadsheet is ready with user data, you should “Drag and Drop” the spreadsheet in the space provided above. <br /> <br />The summary and status of the uploaded spreasheet will be provided to you in the space below.
@@ -172,18 +174,18 @@ class BulkImportFile extends React.Component<IUserProps & IBulkImportFileProps, 
                             <div className="subHeading">
                                 <h3>Log</h3>
                             </div>
-                            <div className="dateName"><Icon type="calendar" />{this.state.importDate}</div>
+                            <div className="dateName"><span className="fa fa-calendar" />{this.state.importDate}</div>
                             <div className="filedataname">{this.state.importFileName}</div>
                             <div className="errortextComp">{this.state.importStatus}</div>
                             <div className="recordtotalText">Total: {this.state.totalRecords} Records</div>
-                            <div className="recordtotalText">Successfully Uplaoded: {this.state.insertedRecords} Records</div>
+                            <div className="recordtotalText"><span className="successIcon"></span>Successfully Uplaoded: {this.state.insertedRecords} Records</div>
 
                             <div className="linkurl">
-                                <a href="#" onClick={() => { onHandleFileLog(this.state.importId, this.state.importFileName, this.state.importDate, 1) }}><span className=""></span> Validation Errors: {this.state.errorRecords}</a>
+                                <a href="#" onClick={() => { onHandleFileLog(this.state.importId, this.state.importFileName, this.state.importDate, 1) }}><span className="validationIcon"></span> Validation Errors: {this.state.errorRecords}</a>
                             </div>
 
                             <div className="linkurl">
-                                <a href="#" onClick={() => { onHandleFileLog(this.state.importId, this.state.importFileName, this.state.importDate, 2) }}><span className=""></span> OIG-GSA Exclusion Found: {this.state.oigRecords}</a>
+                                <a href="#" onClick={() => { onHandleFileLog(this.state.importId, this.state.importFileName, this.state.importDate, 2) }}><span className="oigGsaIcon"></span> OIG-GSA Exclusion Found: {this.state.oigRecords}</a>
                             </div>
 
                         </Col>

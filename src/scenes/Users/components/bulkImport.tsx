@@ -89,7 +89,7 @@ class BulkImport extends React.Component<IUserProps & IBulkImportProps, IBulkImp
         return (
 
             <Drawer title={this.state.drawerTitle} width={560} destroyOnClose={true} closable={this.state.showClose} onClose={this.onHanleResetForm} visible={visible}>
-                <div className="pos">
+                <div>
                     <div className={(this.state.showlog) ? 'hidden' : ''}>
                         <BulkImportFile onHandleFileLog={this.handleFileLog} />
                     </div>

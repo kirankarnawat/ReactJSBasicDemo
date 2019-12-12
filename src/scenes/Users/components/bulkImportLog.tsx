@@ -104,7 +104,7 @@ class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps> {
         return (
             <div className="errorLog" >
 
-                <Button className="ant-btn ant-btn-default" onClick={onHandleFileLogClose} >Back</Button>
+                <div className="backarrow" onClick={onHandleFileLogClose}></div>
 
                 <Row className="antd-row">
                     <Col className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
