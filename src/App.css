@@ -5,7 +5,7 @@
 @font-face { font-family: 'Myriad Pro Semibold'; src: url('fonts/MyriadPro-Semibold.eot'); src: url('fonts/MyriadPro-Semibold.eot?#iefix') format('embedded-opentype'), url('fonts/MyriadPro-Semibold.woff2') format('woff2'), url('fonts/MyriadPro-Semibold.woff') format('woff'), url('fonts/MyriadPro-Semibold.ttf') format('truetype'), url('fonts/MyriadPro-Semibold.svg#MyriadPro-Semibold') format('svg'); font-weight: 600; font-style: normal; } 
 @font-face { font-family: 'Myriad Pro Cond'; src: url('fonts/MyriadPro-Cond.eot'); src: url('fonts/MyriadPro-Cond.eot?#iefix') format('embedded-opentype'), url('fonts/MyriadPro-Cond.woff2') format('woff2'), url('fonts/MyriadPro-Cond.woff') format('woff'), url('fonts/MyriadPro-Cond.ttf') format('truetype'), url('fonts/MyriadPro-Cond.svg#MyriadPro-Cond') format('svg'); font-weight: normal; font-style: normal; } 
 /*Globally  CSS */
-body{font-size:12px!important; color:#000000; background:#eceff1; font-family:'Myriad Pro Regular' !important;}
+body{font-size:12px!important; color:#000000; background:#eceff1; font-family: 'Myriad Pro Semibold' !important;}
 html {--antd-wave-shadow-color: #d63031 !important;}
 ::selection {color: #fff;background:#d63031 !important;}
 .defaulttheme a{color:#d63032}
@@ -317,7 +317,7 @@ ul.ant-pagination .ant-pagination-item a:focus{box-shadow:none}
 .assignedBox p{font-size:12px}
 
 .buttonfooter{position: fixed;bottom:0px;background:#fff;z-index:10;}
-.bulkUpload .ant-upload.ant-upload-drag{border:1px dashed #0A70B9;box-shadow: 5px 5px 6px #0000001A; margin-top:10px; padding:30px; text-align:center; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
+.bulkUpload .ant-upload.ant-upload-drag{border:1px dashed #0A70B9;box-shadow: 5px 5px 6px #0000001A;margin-top:10px; height:80px;text-align:center; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
 .bulkUpload .ant-upload.ant-upload-drag:not(.ant-upload-disabled):hover{border-color:#d63031}
 .bulkUpload .ant-upload.ant-upload-drag .ant-upload{padding:6px 0 6px}
 .bulkUpload .ant-btn-bulk{width:188px;; background:#E2E2E2;color:#000000;border-bottom:2px solid #E2E2E2;border-color:#E2E2E2}
@@ -325,17 +325,20 @@ ul.ant-pagination .ant-pagination-item a:focus{box-shadow:none}
 .bulkUpload .downloadTemp{padding-top:10px;width:188px; margin:auto;}
 .bulkUpload .ant-btn-primary{min-width:190px}
 .bulkUpload .bulkImpFooter{border-top:1px solid #d4d4d4; float:left; width:100%; padding:30px 0px; width:520px;}
-.bulkUpload .dateName .anticon-calendar{font-size:16px; vertical-align:middle; padding-right:5px;}
-.bulkUpload .dateName{color:#00000066;font-size:10px;margin-bottom:8px}
+.bulkUpload .dateName .fa-calendar{font-size:13px;color:#9B9B9B; vertical-align:middle; padding-right:5px;}
+.bulkUpload .dateName{color:#00000066;font-size:10px;margin-bottom:8px;font-family:'Myriad Pro bold'; }
 .bulkUpload .filedataname{color:#000;font-size:12px;font-family:'Myriad Pro bold'; margin-bottom:8px; }
-.bulkUpload .errortextComp{color:#F47E26;font-size:12px;margin-bottom:8px}
-.bulkUpload .recordtotalText{color:#000000;font-size:12px;margin-bottom:8px}
-.bulkUpload .linkurl a{color:#2148E6;margin-bottom:8px;display:block;}
+.bulkUpload .errortextComp{color:#F47E26;font-size:12px;margin-bottom:8px;font-family:'Myriad Pro Regular'; }
+.bulkUpload .recordtotalText{color:#000000;font-size:12px;margin-bottom:8px;font-family:'Myriad Pro Regular'; }
+.bulkUpload .linkurl a{color:#2148E6;margin-bottom:8px;display:block; text-decoration:underline;}
 .instructionbox{border:1px solid #BEDFE6;background:#F8FFFF; color:#0A70B9; margin:5px 0px 15px; padding:8px;border-radius:5px 5px 5px 5px;-moz-border-radius:5px 5px 5px 5px;-webkit-border-radius:5px 5px 5px 5px}
-
+.successIcon{background-image: url("images/Successfully-uploaded.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px;display:inline-block; vertical-align: middle;}
+.validationIcon{background-image: url("images/Validation-error.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px;display:inline-block;vertical-align: middle}
+.oigGsaIcon{background-image: url("images/OIG-GSA.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:20px;display:inline-block;vertical-align: middle}
 .errorLog .logHeaddata{color:#8D8D8D;font-size:12px; border-bottom:1px solid #C1C1C1; clear: both; padding:8px 0px;}
 .errorLog .fileName{float:left;}
 .errorLog .datetext{float:right}
+.backarrow{background:#fff url("images/back-icon.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:23px; height:17px; position:absolute;right: 10px;top: 16px;}
 
 /* .bulkUpload .hintText{margin-bottom:15px; font-size:12px;}
 .bulkUpload .decorated{overflow: hidden;text-align: center; width: 180px; margin: 0 auto; margin-bottom:15px; color:#9a9a9a}
