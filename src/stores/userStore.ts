@@ -115,10 +115,12 @@ class UserStore {
     }
 
     @action
-    async delete(entityDto: EntityDto) {
-        //await userService.delete(entityDto);
-        //this.users.items = this.users.items.filter((x: GetUserOutput) => x.id !== entityDto.id);
+    async getUserBulkImportLog(entityDto: EntityDto) {
+        debugger;
+        let result = await userService.getUserBulkImportLog(entityDto.id);
+        return result;
     }
+    
 
     /* FILTERS ***/
     @action

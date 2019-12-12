@@ -263,12 +263,12 @@ class User extends React.Component<IUserProps, IUserState> {
 
 
     delete(input: EntityDto) {
-        const self = this;
+        //const self = this;
         
         confirm({
             title: 'Do you Want to delete these items?',
             onOk() {
-                self.props.userStore.delete(input);
+                //self.props.userStore.delete(input);
             },
             onCancel() {
                 console.log('Cancel');

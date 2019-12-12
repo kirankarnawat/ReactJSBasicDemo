@@ -1,4 +1,4 @@
-import { EntityDto } from '../../services/dto/entityDto';
+
 import { PagedResultDto } from '../../services/dto/pagedResultDto';
 import { GetAllUserRequest } from "./dto/Request/getAllUserRequest";
 import { GetAllUserResponse } from "./dto/Response/getAllUserResponse";
@@ -16,6 +16,7 @@ import { UserEmailExistsCheckRequest } from './dto/Request/userEmailExistsCheckR
 import { UserLoginExistsCheckRequest } from './dto/Request/userLoginExistsCheckRequest';
 import { UserImportRequest } from './dto/Request/userImportRequest';
 import { UserImportResponse } from './dto/Response/userImportResponse';
+import { UserBulkImportLogListResponse } from './dto/Response/userBulkImportLogListResponse';
 
 declare var lms: any;
 
@@ -93,7 +94,6 @@ class UserService {
 
     //bulk upload
     public async uploadUserImport(userImportRequest: UserImportRequest): Promise<UserImportResponse> {
-        debugger;
 
         let formData = new FormData();
         formData.append('uploadedFile', userImportRequest.uploadedFile, userImportRequest.uploadedFile.name);
@@ -106,14 +106,24 @@ class UserService {
 
     //download template
     public async donloadUserTemplate(): Promise<File> {
-        debugger;
+        
         let result = await http.get(lms.toAPIPath(lms.APIType.USEREXCELTEMPLATE), { responseType: 'arraybuffer' });
         return result.data;
     }
 
-    public async delete(entityDto: EntityDto) {
-        let result = await http.delete('api/services/app/User/Delete', { params: entityDto });
-        return result.data;
+    public async getUserBulkImportLog(bulkImportId: string): Promise<PagedResultDto<UserBulkImportLogListResponse>> {
+        debugger;
+        var data = <PagedResultDto<UserBulkImportLogListResponse>>{};
+        try {
+            let result = await http.get(lms.toAPIPath(lms.APIType.USERBULKIMPORTLOGRESPONSE), { params: { BulkImportId: bulkImportId } });
+            data.items = result.data;
+            data.totalCount = data.items.length;
+            return data;
+        }
+        catch (e) {
+            console.log(e);
+        }
+        return data;
     }
 }
 

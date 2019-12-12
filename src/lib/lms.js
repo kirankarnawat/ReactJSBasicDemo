@@ -34,7 +34,7 @@ var lms = lms || {};
         USERBULKIMPORTMASTER: 'USERBULKIMPORTMASTER',
         USEREXCELTEMPLATE: 'USEREXCELTEMPLATE',
         USERBULKUPLOAD: 'USERBULKUPLOAD',
-
+        USERBULKIMPORTLOGRESPONSE: 'USERBULKIMPORTLOGRESPONSE'
     };
 
     //Get API Path of the variable
@@ -79,6 +79,9 @@ var lms = lms || {};
                 break;
             case lms.APIType.USERBULKUPLOAD:
                 path = '/user/uploaduserimport'
+                break;
+            case lms.APIType.USERBULKIMPORTLOGRESPONSE:
+                path = '/user/bulkimportlogs'
                 break;
 
 
