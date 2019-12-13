@@ -16,6 +16,7 @@ const AppConsts = {
     encdecSecretKey: "P%T1<-:1$n!O189r^e",
     pagesize: 10,
     dateFormat: 'YYYY/MM/DD',
+    datetimeFormat: 'YYYY-MM-DD hh:mm A',
     oigCheckURL: 'https://google.com'
 };
 export default AppConsts;

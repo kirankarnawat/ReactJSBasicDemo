@@ -20,6 +20,7 @@ import Stores from '../../stores/storeIdentifier';
 import UserStore from '../../stores/userStore';
 import { GetAllUserResponse } from '../../services/user/dto/Response/getAllUserResponse';
 
+import AppConsts from '../../lib/appconst';
 
 // #endregion
 
@@ -43,6 +44,7 @@ export interface IUserState {
 }
 
 const confirm = Modal.confirm;
+const pagesize = AppConsts.pagesize;
 
 // #endregion
 
@@ -117,11 +119,15 @@ class User extends React.Component<IUserProps, IUserState> {
     }
 
     //table management
-    handleTableChange = async (pagination: any, sorter: any) => {
+    handleTableChange = async (pagination: any, filters: any, sorter: any) => {
 
-        if (sorter.order) { this.props.userStore.filters.sortExp = sorter.field + " " + (sorter.order == "ascend" ? "asc" : "desc"); }
+        if (sorter.order) {
+            this.props.userStore.setFilter({
+                ...this.props.userStore.filters, sortExp: sorter.field + " " + (sorter.order == "ascend" ? "asc" : "desc")
+            });
+        }
 
-        this.props.userStore.filters.pageIndex = pagination.current;
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, pageIndex: pagination.current });
 
         await this.getAll();
     };
@@ -243,7 +249,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
     onHadnleBulkImportModalClose = async () => {
 
-        this.setState({...this.state, bulkModalVisible: false });
+        this.setState({ ...this.state, bulkModalVisible: false });
 
         const form = this.addeditUserFormRef.props.form;
         form.resetFields();
@@ -393,7 +399,7 @@ class User extends React.Component<IUserProps, IUserState> {
                                 size={'default'}
                                 bordered={true}
                                 columns={columns}
-                                pagination={{ size: 'small', pageSize: 10, total: users === undefined ? 0 : users.totalCount, defaultCurrent: 1 }}
+                                pagination={{ size: 'small', pageSize: pagesize, total: users === undefined ? 0 : users.totalCount, defaultCurrent: 1 }}
                                 loading={users === undefined ? true : false}
                                 dataSource={users === undefined ? [] : users.items.slice()}
                                 onChange={this.handleTableChange}

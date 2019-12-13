@@ -19,7 +19,7 @@ import moment from 'moment';
 
 const { Dragger } = Upload;
 
-const dateFormat = AppConsts.dateFormat;
+const dateFormat = AppConsts.datetimeFormat;
 
 export interface IBulkImportFileProps extends FormComponentProps {
 
