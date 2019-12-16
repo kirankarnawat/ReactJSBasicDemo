@@ -26,16 +26,17 @@ var lms = lms || {};
         CHECKOIG: 'CHECKOIG',
         USERDATABYID: 'USERDATABYID',
         USEREMAILCHECK: 'USEREMAILCHECK',
-        USERLOGINIDCHECK: 'USERLOGINIDCHECK',
-        
-
-        USERCHANGEPWD: 'USERCHANGEPWD',
-                
+        USERLOGINIDCHECK: 'USERLOGINIDCHECK',        
         USERBULKIMPORTMASTER: 'USERBULKIMPORTMASTER',
         USEREXCELTEMPLATE: 'USEREXCELTEMPLATE',
         USERBULKUPLOAD: 'USERBULKUPLOAD',
         USERBULKIMPORTLOGRESPONSE: 'USERBULKIMPORTLOGRESPONSE',
-        SAVEOIGUSERS:'SAVEOIGUSERS'
+        SAVEOIGUSERS: 'SAVEOIGUSERS',
+        USERBULKIMPORTSTATUS: 'USERBULKIMPORTSTATUS',
+        USERBULKIMPORTLSTALL: 'USERBULKIMPORTLSTALL',
+        GETBULKIMPORTUPLOADEDFILE: 'GETBULKIMPORTUPLOADEDFILE',
+
+        USERCHANGEPWD: 'USERCHANGEPWD',
     };
 
     //Get API Path of the variable
@@ -48,7 +49,6 @@ var lms = lms || {};
             case lms.APIType.USERSALT:
                 path = '/user/getsalt';
                 break;
-
             case lms.APIType.USERLIST:
                 path = '/user/userlist';
                 break;
@@ -58,7 +58,6 @@ var lms = lms || {};
             case lms.APIType.USERJOBCODES:
                 path = '/user/getlookups';
                 break;
-
             case lms.APIType.ADDEDITUSER:
                 path = '/user/addedituser';
                 break;
@@ -74,7 +73,6 @@ var lms = lms || {};
             case lms.APIType.USERLOGINIDCHECK:
                 path = '/user/isloginidinuse';
                 break;
-
             case lms.APIType.USEREXCELTEMPLATE:
                 path = '/user/getusertemplateexcel'
                 break;
@@ -87,7 +85,15 @@ var lms = lms || {};
             case lms.APIType.SAVEOIGUSERS:
                 path = '/user/saveoigusers'
                 break;
-
+            case lms.APIType.USERBULKIMPORTSTATUS:
+                path = '/lookup/getlookupbytype';
+                break;
+            case lms.APIType.USERBULKIMPORTLSTALL:
+                path = '/user/bulkimportlistall';
+                break;
+            case lms.APIType.GETBULKIMPORTUPLOADEDFILE :
+                path = '/user/getbulkimportuploadedfile';
+                break;
             case lms.APIType.USERCHANGEPWD:
                 path = '/user/changepassword';
                 break;

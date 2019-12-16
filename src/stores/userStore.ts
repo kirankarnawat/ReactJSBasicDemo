@@ -19,8 +19,13 @@ import { UserEmailExistsCheckRequest } from '../services/user/dto/Request/userEm
 import { UserLoginExistsCheckRequest } from '../services/user/dto/Request/userLoginExistsCheckRequest';
 import { UserImportRequest } from '../services/user/dto/Request/userImportRequest';
 import { SaveOIGUserRequest } from '../services/user/dto/Request/saveOIGUserRequest';
+import { LookupByTypeRequest } from '../services/dto/lookupByTypeRequest';
+import { LookupByTypeResponse } from '../services/dto/lookupByTypeResponse';
+import { UserBulkImportListRequest } from '../services/user/dto/Request/userBulkImportListRequest';
 
+import AppConsts from '../lib/appconst';
 
+const pagesize = AppConsts.pagesize;
 
 class UserStore {
 
@@ -30,17 +35,19 @@ class UserStore {
     @observable userOIG!: UserOIGResponse;
     @observable userById!: UserByIDResponse;
     @observable userExists!: string;
+    @observable userBulkImportStatus!: PagedResultDto<LookupByTypeResponse>;
+    @observable bulkfilters!: UserBulkImportListRequest;
 
     @action
     async getAll(getAllUserRequest: GetAllUserRequest) {
-        debugger;
+        
         let result = await userService.getAll(getAllUserRequest);
         return result;
     }
 
     @action
     async getUserById(getUserByIdRequest: UserByIDRequest) {
-        debugger;
+        
         let result = await userService.getUserById(getUserByIdRequest);
         this.userById = result;
     }
@@ -69,15 +76,15 @@ class UserStore {
 
     @action
     async checkOIG(userOIGRequest: UserOIGRequest) {
-        debugger;
+        
         let result = await userService.checkOIG(userOIGRequest);
-        debugger;
+        
         this.userOIG = result;
     }
 
     @action
     async checkIsEmailInUse(userEmailCheckRequest: UserEmailExistsCheckRequest) {
-        debugger;
+        
         let result = await userService.checkIsEmailInUse(userEmailCheckRequest);
         this.userExists = result.toString().toLowerCase();
     }
@@ -103,49 +110,77 @@ class UserStore {
 
     @action
     async downloadBulkTemplate() {
-        debugger;
+        
         let result = await userService.donloadUserTemplate();
         return result;
     }
 
     @action
     async uploadBulkImport(userImportRequest: UserImportRequest) {
-        debugger;
+        
         let result = await userService.uploadUserImport(userImportRequest);
         return result;
     }
 
     @action
     async getUserBulkImportLog(entityDto: EntityDto) {
-        debugger;
+        
         let result = await userService.getUserBulkImportLog(entityDto.id);
         return result;
     }
 
     @action
     async saveOIGUser(saveOIGUserRequest: SaveOIGUserRequest) {
-        debugger;
+        
         let result = await userService.saveOIGUser(saveOIGUserRequest);
         return result;
     }
-    
 
-    /* FILTERS ***/
     @action
     async initFilter() {
         this.userid = sessionService.getLoginUserId();
 
         this.filters = {
-            emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: 10, requesterUserId: this.userid, sortExp: '', status: true,
+            emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: pagesize, requesterUserId: this.userid, sortExp: '', status: true,
             hiringDateFrom: null, hiringDateTo: null, roleChangeDateFrom: null, roleChangeDateTo: null
         };
     }
-    /*** LOOKUP *****/
 
     @action
-    async GetUserJobRoles() {
+    async getUserJobRoles() {
         let result = await userService.getJobRoles();
         this.userjobroles = result;
+    }
+
+    @action
+    async getUserBulkImportStatus(lookupByTypeRequest: LookupByTypeRequest) {
+        let result = await userService.getBulkImportStatus(lookupByTypeRequest);
+        this.userBulkImportStatus = result;
+    }
+
+    @action
+    async getAllBulkImportHistory(userBulkImportListRequest: UserBulkImportListRequest) {
+        let result = await userService.getAllBulkImportHistory(userBulkImportListRequest);
+        return result;
+    }
+
+    @action
+    async initBulkFilter() {
+        debugger;
+        this.userid = sessionService.getLoginUserId();
+        this.bulkfilters = { importStatus: '', pageIndex: 1, pageSize: pagesize, requesterUserId: this.userid, sortExp: '' };
+    }
+
+    @action
+    async setBulkFilter(userBulkImportListRequest: UserBulkImportListRequest) {
+        this.bulkfilters = userBulkImportListRequest;
+    }
+
+    @action
+    async downloadBulkImportFile(bulkImportId: string) {
+
+        let result = await userService.downloadBulkUploadedFile(bulkImportId);
+        return result;
     }
 }
 

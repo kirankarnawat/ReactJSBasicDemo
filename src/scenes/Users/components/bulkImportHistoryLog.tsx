@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 
-import { Tabs, Table, Row, Col, Icon, Form, message } from 'antd';
+import { Tabs, Table, Row, Col, Icon, Form, message, Drawer } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 
 import { UserBulkImportLogListResponse } from '../../../services/user/dto/Response/userBulkImportLogListResponse';
@@ -18,14 +18,14 @@ const TabPane = Tabs.TabPane;
 const OIGCheckURL = AppConsts.oigCheckURL;
 const pagesize = AppConsts.pagesize;
 
-export interface IBulkImportLogProps extends FormComponentProps {
-
+export interface IBulkImportHistoryLogProps extends FormComponentProps {
+    visible: boolean;
     bulkimportid: string;
     bulkimportfname: string;
     bulkimportdate: string;
     tab: number;
     logData: UserBulkImportLogListResponse[];
-    onHandleFileLogClose: () => void;
+    onCancel: () => void;
 }
 
 
@@ -37,22 +37,14 @@ export interface IUserProps {
 
 @inject(Stores.UserStore)
 @observer
-class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps> {
+class bulkImportHistoryLog extends React.Component<IUserProps & IBulkImportHistoryLogProps> {
 
     state = {
-        activeKey: this.props.tab == 1 ? "1" : "2",
-        showForceSubmit: false,
+        showForceSubmit: false, activeKey: '1'
     };
 
-    async componentDidUpdate(prevProps, prevState) {
-        debugger;
-        if (this.props.bulkimportid !== prevProps.bulkimportid || this.props.tab !== prevProps.tab) {
-
-            this.setState({ activeKey: ((this.props.tab === 1) ? "1" : "2") });
-        }
-    }
-
     onHandleTabChange = (activeKey) => {
+
         this.setState({ ...this.state, activeKey: activeKey });
     }
 
@@ -65,9 +57,18 @@ class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps> {
         message.success('User saved successfully');
     }
 
+    onHanleResetForm = async () => {
+
+        await this.props.onCancel();
+
+        this.setState({ showForceSubmit: false, activeKey: '1' });
+
+        this.props.form.resetFields();
+    }
+
     render() {
 
-        const { logData, bulkimportfname, bulkimportdate, onHandleFileLogClose } = this.props;
+        const { logData, bulkimportfname, bulkimportdate, visible } = this.props;
 
         const columns = [
             { title: 'Row No', dataIndex: 'RowNo', sorter: false, key: 'RowNo', width: 150, render: (text: number) => <div>{text}</div> },
@@ -106,59 +107,60 @@ class BulkImportLog extends React.Component<IUserProps & IBulkImportLogProps> {
         const oigdata = (logData !== undefined) ? logData.filter(p => p.IsOIGError === true && p.IsUserAdded === false) : [];
 
         return (
-            <div className="errorLog" >
+            <Drawer title={'Error Log'} width={560} onClose={this.onHanleResetForm} visible={visible}>
+                <div className="errorLog" >
 
-                <div className="backarrow" onClick={onHandleFileLogClose}></div>
-
-                <Row className="antd-row">
-                    <Col className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
-                        <div className="logHeaddata">
-                            <div className="fileName">{bulkimportfname}</div>
-                            <div className="datetext"><Icon type="calendar" /> {bulkimportdate}</div>
-                            <div className="ant-clearfix"></div>
-                        </div>
-                    </Col>
-                </Row>
-
-                <Tabs activeKey={this.state.activeKey} size={'small'} tabBarGutter={64} onChange={this.onHandleTabChange}>
-
-                    <TabPane tab={'Validation Errors'} key={'1'}  >
-                        <div className="table-responsive">
-                            <div className="tableContainer table-responsive">
-                                <Table
-                                    rowKey={record => record.BulkImportLogId}
-                                    size={'default'}
-                                    bordered={true}
-                                    columns={columns}
-                                    pagination={{ size: 'small', pageSize: pagesize, total: valdata === undefined ? 0 : valdata.length, defaultCurrent: 1 }}
-                                    loading={oigdata === undefined ? true : false}
-                                    dataSource={valdata === undefined ? [] : valdata.slice()}
-                                    className="table"
-                                />
+                    <Row className="antd-row">
+                        <Col className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
+                            <div className="logHeaddata">
+                                <div className="fileName">{bulkimportfname}</div>
+                                <div className="datetext"><Icon type="calendar" /> {bulkimportdate}</div>
+                                <div className="ant-clearfix"></div>
                             </div>
-                        </div>
-                    </TabPane>
+                        </Col>
+                    </Row>
 
-                    <TabPane tab={'OIG-GSA Exclusion'} key={'2'}>
-                        <div className="table-responsive">
-                            <div className="tableContainer table-responsive">
-                                <Table
-                                    rowKey={record => record.BulkImportLogId}
-                                    size={'default'}
-                                    bordered={true}
-                                    columns={oigcolumns}
-                                    pagination={{ size: 'small', pageSize: pagesize, total: oigdata === undefined ? 0 : oigdata.length, defaultCurrent: 1 }}
-                                    loading={oigdata === undefined ? true : false}
-                                    dataSource={oigdata === undefined ? [] : oigdata.slice()}
-                                    className="table"
-                                />
+                    <Tabs activeKey={this.state.activeKey} size={'small'} tabBarGutter={64} onChange={this.onHandleTabChange}>
+
+                        <TabPane tab={'Validation Errors'} key={'1'}  >
+                            <div className="table-responsive">
+                                <div className="tableContainer table-responsive">
+                                    <Table
+                                        rowKey={record => record.BulkImportLogId}
+                                        size={'default'}
+                                        bordered={true}
+                                        columns={columns}
+                                        pagination={{ size: 'small', pageSize: pagesize, total: valdata === undefined ? 0 : valdata.length, defaultCurrent: 1 }}
+                                        loading={oigdata === undefined ? true : false}
+                                        dataSource={valdata === undefined ? [] : valdata.slice()}
+                                        className="table"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    </TabPane>
-                </Tabs>
-            </div>
+                        </TabPane>
+
+                        <TabPane tab={'OIG-GSA Exclusion'} key={'2'}>
+                            <div className="table-responsive">
+                                <div className="tableContainer table-responsive">
+                                    <Table
+                                        rowKey={record => record.BulkImportLogId}
+                                        size={'default'}
+                                        bordered={true}
+                                        columns={oigcolumns}
+                                        pagination={{ size: 'small', pageSize: pagesize, total: oigdata === undefined ? 0 : oigdata.length, defaultCurrent: 1 }}
+                                        loading={oigdata === undefined ? true : false}
+                                        dataSource={oigdata === undefined ? [] : oigdata.slice()}
+                                        className="table"
+                                    />
+                                </div>
+                            </div>
+                        </TabPane>
+                    </Tabs>
+
+                </div>
+            </Drawer>
         )
     }
 }
 
-export default Form.create<IBulkImportLogProps>()(BulkImportLog);
+export default Form.create<IBulkImportHistoryLogProps>()(bulkImportHistoryLog);

@@ -185,7 +185,7 @@ class User extends React.Component<IUserProps, IUserState> {
             data = (res !== undefined) ? res.items : [];
         }
 
-        await this.props.userStore.GetUserJobRoles();
+        await this.props.userStore.getUserJobRoles();
 
         this.setState({ userId: entityDto.id, addeditentitydata: data });
         this.Modal();
@@ -399,7 +399,7 @@ class User extends React.Component<IUserProps, IUserState> {
                                 size={'default'}
                                 bordered={true}
                                 columns={columns}
-                                pagination={{ size: 'small', pageSize: pagesize, total: users === undefined ? 0 : users.totalCount, defaultCurrent: 1 }}
+                                pagination={{ size: 'small', pageSize: pagesize, total: (users !== undefined && users.items.length > 0) ? users.items[0].totalCount : 0, defaultCurrent: 1 }}
                                 loading={users === undefined ? true : false}
                                 dataSource={users === undefined ? [] : users.items.slice()}
                                 onChange={this.handleTableChange}

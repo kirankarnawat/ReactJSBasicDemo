@@ -18,6 +18,10 @@ import { UserImportRequest } from './dto/Request/userImportRequest';
 import { UserImportResponse } from './dto/Response/userImportResponse';
 import { UserBulkImportLogListResponse } from './dto/Response/userBulkImportLogListResponse';
 import { SaveOIGUserRequest } from './dto/Request/saveOIGUserRequest';
+import { LookupByTypeRequest } from '../dto/lookupByTypeRequest';
+import { LookupByTypeResponse } from '../dto/lookupByTypeResponse';
+import { UserBulkImportListRequest } from './dto/Request/userBulkImportListRequest';
+import { UserBulkImportListResponse } from './dto/Response/userBulkImportListResponse';
 
 declare var lms: any;
 
@@ -28,7 +32,7 @@ class UserService {
 
         var data = <PagedResultDto<GetAllUserResponse>>{};
         data.items = result.data;
-        data.totalCount = (data.items.length > 0) ? data.items[0].totalCount : 0;
+        data.totalCount = (data.items.length > 0) ? data.items.length : 0;
 
         return data;
     }
@@ -130,6 +134,44 @@ class UserService {
     public async saveOIGUser(saveOIGUserRequest: SaveOIGUserRequest) {
 
         let result = await http.post(lms.toAPIPath(lms.APIType.SAVEOIGUSERS), saveOIGUserRequest);
+        return result.data;
+    }
+
+    public async getBulkImportStatus(lookupByTypeRequest: LookupByTypeRequest): Promise<PagedResultDto<LookupByTypeResponse>> {
+       
+        var data = <PagedResultDto<LookupByTypeResponse>>{};
+        try {
+            var URL = lms.toAPIPath(lms.APIType.USERBULKIMPORTSTATUS) + '?' + 'LookupType=' + lookupByTypeRequest.LookupType
+            let result = await http.post(URL);
+            data.items = result.data;
+            data.totalCount = data.items.length;
+            return data;
+        }
+        catch (e) {
+            console.log(e);
+        }
+        return data;
+    }
+
+    public async getAllBulkImportHistory(userBulkImportListRequest: UserBulkImportListRequest): Promise<PagedResultDto<UserBulkImportListResponse>> {
+
+        var data = <PagedResultDto<UserBulkImportListResponse>>{};
+        try {
+            let result = await http.post(lms.toAPIPath(lms.APIType.USERBULKIMPORTLSTALL), userBulkImportListRequest);
+            data.items = result.data;
+            data.totalCount = data.items.length;
+            return data;
+        }
+        catch (e) {
+            console.log(e);
+        }
+        return data;
+    }
+
+    //download bulk uploaded file
+    public async downloadBulkUploadedFile(bulkImportId: string): Promise<File> {
+
+        let result = await http.get(lms.toAPIPath(lms.APIType.GETBULKIMPORTUPLOADEDFILE), { params: { 'BulkImportId': bulkImportId }, responseType: 'arraybuffer' });
         return result.data;
     }
 }
