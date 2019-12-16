@@ -22,6 +22,9 @@ import { LookupByTypeRequest } from '../dto/lookupByTypeRequest';
 import { LookupByTypeResponse } from '../dto/lookupByTypeResponse';
 import { UserBulkImportListRequest } from './dto/Request/userBulkImportListRequest';
 import { UserBulkImportListResponse } from './dto/Response/userBulkImportListResponse';
+import { UserChangePasswordRequest } from './dto/Request/userChangePasswordRequest';
+
+var md5 = require('md5');
 
 declare var lms: any;
 
@@ -172,6 +175,28 @@ class UserService {
     public async downloadBulkUploadedFile(bulkImportId: string): Promise<File> {
 
         let result = await http.get(lms.toAPIPath(lms.APIType.GETBULKIMPORTUPLOADEDFILE), { params: { 'BulkImportId': bulkImportId }, responseType: 'arraybuffer' });
+        return result.data;
+    }
+
+    public async changePassword(userChangePasswordRequest: UserChangePasswordRequest): Promise<string> {
+
+        //hash password
+        if (userChangePasswordRequest.password !== '') {
+
+            var password = userChangePasswordRequest.password;
+            var hash = md5(password);
+            userChangePasswordRequest.password = hash;
+        }
+
+        //hash current password
+        if (userChangePasswordRequest.currentPassword !== '') {
+
+            var password = userChangePasswordRequest.currentPassword;
+            var hash = md5(password);
+            userChangePasswordRequest.currentPassword = hash;
+        }
+
+        let result = await http.post(lms.toAPIPath(lms.APIType.USERCHANGEPWD), userChangePasswordRequest);
         return result.data;
     }
 }

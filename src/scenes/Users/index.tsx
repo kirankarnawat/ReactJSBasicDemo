@@ -10,7 +10,7 @@ import UserQuickFilter from './components/userQuickFilter';
 import CreateOrUpdateUser from './components/createOrUpdateUser';
 import UserFilter from './components/userFilter';
 import BulkImport from './components/bulkImport';
-//import ResetPassword from './components/resetPassword';
+import ResetPassword from './components/resetPassword';
 
 import { EntityDto } from '../../services/dto/entityDto';
 import { GetUserEntityListResponse } from '../../services/user/dto/Response/getUserEntityListResponse';
@@ -267,10 +267,15 @@ class User extends React.Component<IUserProps, IUserState> {
         this.setState({ userId: entityDto.id });
 
         this.resetPassword();
-
-        // this.bulkimportFormRef.props.form.setFieldsValue({ ...this.props.userStore.editUser, roleNames: this.props.userStore.editUser.roleNames });
     }
 
+    onHandleResetPwdModalClose = async () => {
+
+        this.setState({ ...this.state, resetpassModalVisible: false });
+
+        const form = this.addeditUserFormRef.props.form;
+        form.resetFields();
+    };
     // #endregion
 
 
@@ -310,8 +315,10 @@ class User extends React.Component<IUserProps, IUserState> {
                         <div className="tablehoverbuttons"> <Icon type="ellipsis" className="ellipsisIcon" />
                             <div className="buttonshover">
                                 <div className="resetpassword" onClick={() => this.resetpasswordModalOpen({ id: text })} title="Reset password"></div>
+                                { /*
                                 <div className="bargraph" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Progress"></div>
                                 <div className="transfer" onClick={() => this.delete({ id: text })} title="Transparent"></div>
+                                */}
 
                                 <div className="editbtn" onClick={() => this.createOrUpdateModalOpen({ id: text })} title="Edit User"></div>
 
@@ -438,19 +445,13 @@ class User extends React.Component<IUserProps, IUserState> {
                     onCancel={this.onHadnleBulkImportModalClose}
                 />
 
-
-                { /* 
+                 
                 <ResetPassword
                     wrappedComponentRef={this.saveresetPasswordFormRef}
                     visible={this.state.resetpassModalVisible}
-                    onCancel={() =>
-                        this.setState({
-                            resetpassModalVisible: false,
-                        })
-                    }
-                    modalType={this.state.userId === '' ? 'edit' : 'create'}
+                    onCancel={this.onHandleResetPwdModalClose}
+                    id={this.state.userId}
                 />
-                */ }
 
             </Card>
         );

@@ -24,6 +24,7 @@ import { LookupByTypeResponse } from '../services/dto/lookupByTypeResponse';
 import { UserBulkImportListRequest } from '../services/user/dto/Request/userBulkImportListRequest';
 
 import AppConsts from '../lib/appconst';
+import { UserChangePasswordRequest } from '../services/user/dto/Request/userChangePasswordRequest';
 
 const pagesize = AppConsts.pagesize;
 
@@ -180,6 +181,13 @@ class UserStore {
     async downloadBulkImportFile(bulkImportId: string) {
 
         let result = await userService.downloadBulkUploadedFile(bulkImportId);
+        return result;
+    }
+
+    @action
+    async changePassword( userChangePasswordRequest : UserChangePasswordRequest) {
+
+        let result = await userService.changePassword(userChangePasswordRequest);
         return result;
     }
 }
