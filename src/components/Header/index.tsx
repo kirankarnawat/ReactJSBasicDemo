@@ -6,23 +6,20 @@ import { Link } from 'react-router-dom';
 
 import ChangePassword from '../../scenes/Users/components/changePassword'
 
-export interface IUserState {
-    changepassModalVisible: boolean;
-}
+
 export interface IHeaderProps {
     collapsed?: any;
     toggle?: any;
 }
 
 
-export class Header extends React.Component<IHeaderProps, IUserState> {
+export class Header extends React.Component<IHeaderProps> {
 
-    constructor(props: IHeaderProps) {
-        super(props);
-        this.state = {
-            changepassModalVisible: false
-        };
-    }
+    state = {
+        changepassModalVisible: false
+    };
+
+    // #region HANDLE CHANGE PASSWORD
 
     changepassFormRef: any;
 
@@ -30,25 +27,27 @@ export class Header extends React.Component<IHeaderProps, IUserState> {
         this.changepassFormRef = formRef;
     };
 
-    //FILER DRAWER
-    async changepassModalOpen() {
-        this.changepassModal();
-    }
-
-    //FILTER USER DATA
-    handleAdvFilter = () => {
-        const form = this.changepassFormRef.props.form;
-        form.validateFields(async (err: any, values: any) => {
-            this.setState({ changepassModalVisible: false });
-            form.resetFields();
-        });
-    }
-
     changepassModal = () => {
         this.setState({
             changepassModalVisible: !this.state.changepassModalVisible
         });
     };
+
+    // CHANGE PASSWORD
+    async changepassModalOpen() {
+
+        this.changepassModal();
+    }
+
+    onHandleChangePwdModalClose = async () => {
+
+        this.setState({ ...this.state, changepassModalVisible: false });
+
+        const form = this.changepassFormRef.props.form;
+        form.resetFields();
+    };
+
+    // #endregion
 
     render() {
 
@@ -91,16 +90,20 @@ export class Header extends React.Component<IHeaderProps, IUserState> {
         );
 
         return (
+
             <Col className={'header-container'}>
                 <div className="navbarLeft">
                     <div className="admintext">Super Admin</div>
                 </div>
+
                 <Col className="togglebtn">
                     <Icon className="trigger" type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'} onClick={this.props.toggle} />
                 </Col>
+
                 <div className="logoDiv">
                     <img src={require('../../images/main-logo.png')} alt="logo" />
                 </div>
+
                 <div className="navbarRight">
                     <Col>
                         <div className="navbarRightList">
@@ -120,15 +123,10 @@ export class Header extends React.Component<IHeaderProps, IUserState> {
 
                 <ChangePassword
                     visible={this.state.changepassModalVisible}
-                    onCancel={() =>
-                        this.setState({
-                            changepassModalVisible: false,
-                        })
-                    }
+                    onCancel={this.onHandleChangePwdModalClose}
                 />
 
             </Col>
-
         );
     }
 }

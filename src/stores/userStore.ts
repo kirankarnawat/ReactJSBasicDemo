@@ -178,6 +178,11 @@ class UserStore {
     }
 
     @action
+    async initUserId() {
+        this.userid = sessionService.getLoginUserId();
+    }
+
+    @action
     async downloadBulkImportFile(bulkImportId: string) {
 
         let result = await userService.downloadBulkUploadedFile(bulkImportId);
