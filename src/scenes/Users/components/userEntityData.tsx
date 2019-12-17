@@ -249,8 +249,8 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                         <FormItem>
                             <div className="switchbutton">
                                 <div><label>{'Status'} <span className="start">*</span> </label></div>
-
                                 <label className="mr8">{'Active'}</label>
+                                
                                 {getFieldDecorator('status', { initialValue: userById.status, valuePropName: "checked" })(
                                     <Checkbox onChange={this.handleChange} />
                                 )}

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Form, Input, AutoComplete, Checkbox } from 'antd';
+import { Form, Input, AutoComplete } from 'antd'; //, Checkbox
 import { FormComponentProps } from 'antd/lib/form';
 
 import Stores from '../../../stores/storeIdentifier';
@@ -97,10 +97,12 @@ class UserQuickFilter extends React.Component<IUserProps & IUserQuickFilterProp,
 
         return (
 
-            <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-16">
-                <ul className="filterlist">
-                    <li><div className="switchbutton mt5">
-                        <label className="mr8">{'Active'}</label> <Checkbox onChange={this.switchChange} checked={this.state.switchvalue} />
+
+            <ul className="filterlist">
+                <li><div className="switchbutton mt5">
+                    <label className="mr8">{'Active'} </label>
+                        <label className="mr8 switch"><input type="checkbox" onChange={this.switchChange} checked={this.state.switchvalue} /> {/*<Checkbox onChange={this.switchChange} checked={this.state.switchvalue} />*/}<span className="slider round"></span></label>
+                        <label>Inactive</label>
                     </div>
                     </li>
                     <li className="width227">
@@ -119,9 +121,9 @@ class UserQuickFilter extends React.Component<IUserProps & IUserQuickFilterProp,
                     <li><div className="refreshbg" onClick={this.handleRefreshSearch} ><span className="refreshbtn"></span></div></li>
 
                 </ul>
-            </div>
-        );
-    }
-}
 
+                );
+            }
+        }
+        
 export default Form.create<IUserQuickFilterProp>()(UserQuickFilter);

@@ -166,7 +166,8 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     };
 
-    // #endregion
+    // #endregion
+
 
     // #region HANDLE CREATE-EDIT
 
@@ -238,7 +239,8 @@ class User extends React.Component<IUserProps, IUserState> {
         });
     }
 
-    // #endregion
+    // #endregion
+
 
     // #region HANDLE BULK IMPORT
     //BULK IMPORT DRAWER
@@ -325,16 +327,16 @@ class User extends React.Component<IUserProps, IUserState> {
 
         const columns = [
             {
-                title: 'FirstName', dataIndex: 'firstName', sorter: true, key: 'firstName', width: 150,
+                title: 'FirstName', dataIndex: 'firstName', sorter: true, key: 'firstName', width:400,
                 render: (text: string, item: any) => <div> {(item.status === false) ? <span className="disabledrow"></span> : <span></span>} <span className="adminIcon"></span> {text}</div>
             },
-            { title: 'LastName', dataIndex: 'lastName', sorter: true, key: 'lastName', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'EmailAddress', dataIndex: 'emailAddress', sorter: true, key: 'emailAddress', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'Job Code', dataIndex: 'jobCode', sorter: true, key: 'jobCode', width: 150, render: (text: string) => <div>{text}</div> },
-            { title: 'Group Name', dataIndex: 'group1Name', sorter: true, key: 'group1Name', width: 150, render: (text: string) => <div>{text}</div> },
+            { title: 'LastName', dataIndex: 'lastName', sorter: true, key: 'lastName', width: 200, render: (text: string) => <div>{text}</div> },
+            { title: 'EmailAddress', dataIndex: 'emailAddress', sorter: true, key: 'emailAddress', width:500, render: (text: string) => <div>{text}</div> },
+            { title: 'Job Code', dataIndex: 'jobCode', sorter: true, key: 'jobCode', width:200, render: (text: string) => <div>{text}</div> },
+            { title: 'Group Name', dataIndex: 'group1Name', sorter: true, key: 'group1Name', width: 200, render: (text: string) => <div>{text}</div> },
             {
                 title: 'Options',
-                width: 150, dataIndex: 'userId', key: 'userId',
+                width: 100, dataIndex: 'userId', key: 'userId',
                 render: (text: string) => (
                     <div>
                         <div className="tablehoverbuttons"> <Icon type="ellipsis" className="ellipsisIcon" />
@@ -360,7 +362,6 @@ class User extends React.Component<IUserProps, IUserState> {
                     <Col className="contentHeader">
                         <div className="conHeader">
                             <div className="antd-row">
-                                <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
                                     <Col className="floatleft"
                                         xs={{ span: 24 }}
                                         sm={{ span: 24 }}
@@ -379,14 +380,13 @@ class User extends React.Component<IUserProps, IUserState> {
                                         lg={{ span: 12 }}>
                                         <div className="floatright">
                                             <ul className="headerListing floatleft">
-
                                                 <li className="active"><a href="#" onClick={() => this.createOrUpdateModalOpen({ id: '' })}><span className="text">Add User</span> <span className="icon iconUser">&nbsp;</span></a></li>
                                                 <li onClick={() => this.bulkimportModalOpen()}><a href="#"><span className="text">Bulk Import</span> <span className="icon iconbulkImp">&nbsp;</span></a></li>
-                                                <li><a href="#" onClick={this.handleDownloadFile} ><span className="text">Export to Excel</span> <span className="icon iconExTOEx">&nbsp;</span></a></li>
+                                                <li><a href="#" onClick={this.handleDownloadFile}><span className="text">Export to Excel</span> <span className="icon iconExTOEx">&nbsp;</span></a></li>
                                             </ul>
                                         </div>
                                     </Col>
-                                </div>
+                               
                             </div>
                         </div>
                     </Col>
@@ -397,22 +397,20 @@ class User extends React.Component<IUserProps, IUserState> {
                             <div className="antd-row">
                                 <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-8">
                                     <div>
-                                        <h6><strong>Showing {users.totalCount} of {(users.totalCount > 0) ? users.items[0].totalCount : 0} entries</strong></h6>
+                                        <h6>Showing {users.totalCount} of {(users.totalCount > 0) ? users.items[0].totalCount : 0} entries</h6>
                                     </div>
                                 </div>
-
-
-                                <UserQuickFilter wrappedComponentRef={this.savequickfilterFormRef} handleSearch={this.handleSearch} />
-
-
-                                <div className="filterWrapp floatright" onClick={() => this.filterModalOpen()}>
-                                    <a href="#">
-                                        <span id="sidebarCollapse" className="filterIcon">&nbsp;</span>
-                                    </a>
+                                <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-16">
+                                    <div className="rightContentdata">
+                                        <UserQuickFilter wrappedComponentRef={this.savequickfilterFormRef} handleSearch={this.handleSearch} />
+                                        <div className="filterWrapp" onClick={() => this.filterModalOpen()}>
+                                            <a href="#">
+                                                <span id="sidebarCollapse" className="filterIcon">&nbsp;</span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>

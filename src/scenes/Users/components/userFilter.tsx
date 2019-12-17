@@ -11,7 +11,10 @@ import UserStore from '../../../stores/userStore';
 
 import AppConsts from '../../../lib/appconst';
 
+import 'font-awesome/css/font-awesome.min.css'
+
 import moment from 'moment';
+
 
 import { GetUserEntityListResponse } from '../../../services/user/dto/Response/getUserEntityListResponse';
 
@@ -97,7 +100,7 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
 
         return (
             <div className="overfowYauto">
-                <Drawer title={'Advanced Filter'} width={350} onClose={onCancel} visible={visible} className="filterpopup">
+                <Drawer title={'Advanced Filter'} width={300} onClose={onCancel} visible={visible} className="filterpopup">
                     <div className="filterBody">
 
                         <div className="filterForm">
@@ -153,39 +156,37 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
                             </div>
                             <div className="antd-row">
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
-                                    <label className="floatleft">{'Hiring Date'}</label>
+                                    <label className="floatleft mb5">{'Hiring Date'}</label>
                                     <div>
                                         <ul className="filterdatelist">
-                                            <FormItem>
-                                                <li>
+                                            <li>
+                                                <FormItem>
                                                     {getFieldDecorator('hiringDateFrom', { initialValue: (filters.hiringDateFrom !== null ? moment(filters.hiringDateFrom, dateFormat) : undefined) })(<DatePicker placeholder='Hiring Date' />)}
-                                                </li>
-                                            </FormItem>
-                                            <li className="width10per">To</li>
-                                            <FormItem>
-                                                <li> {getFieldDecorator('hiringDateTo', { initialValue: (filters.hiringDateTo !== null ? moment(filters.hiringDateTo, dateFormat) : undefined) })(<DatePicker placeholder='Hiring Date' />)}</li>
-                                            </FormItem>
+                                                </FormItem>
+                                            </li>
+                                            <li className="width10per"><label>To</label></li>
+                                            <li> <FormItem> {getFieldDecorator('hiringDateTo', { initialValue: (filters.hiringDateTo !== null ? moment(filters.hiringDateTo, dateFormat) : undefined) })(<DatePicker placeholder='Hiring Date' />)} </FormItem></li>
+
                                         </ul>
                                     </div>
+
                                 </div>
                             </div>
                             <div className="antd-row">
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
-
-                                    <label className="floatleft">{'Role Change Date'}</label>
+                                    <label className="floatleft mb5">{'Role Change Date'}</label>
                                     <div>
                                         <ul className="filterdatelist">
-                                            <FormItem>
-                                                <li>
-                                                    {getFieldDecorator('roleChangeDateFrom', { initialValue: (filters.roleChangeDateFrom !== null ? moment(filters.roleChangeDateFrom, dateFormat) : undefined) })(<DatePicker placeholder='Change Date' />)}
-                                                </li>
+                                            <li><FormItem>
+                                                {getFieldDecorator('roleChangeDateFrom', { initialValue: (filters.roleChangeDateFrom !== null ? moment(filters.roleChangeDateFrom, dateFormat) : undefined) })(<DatePicker placeholder='Change Date' />)}
                                             </FormItem>
-                                            <li className="width10per">To</li>
-                                            <FormItem>
-                                                <li>
-                                                    {getFieldDecorator('roleChangeDateTo', { initialValue: (filters.roleChangeDateTo !== null ? moment(filters.roleChangeDateTo, dateFormat) : undefined) })(<DatePicker placeholder='Change Date' />)}
-                                                </li>
+                                            </li>
+
+                                            <li className="width10per"><label>To</label></li>
+                                            <li><FormItem>
+                                                {getFieldDecorator('roleChangeDateTo', { initialValue: (filters.roleChangeDateTo !== null ? moment(filters.roleChangeDateTo, dateFormat) : undefined) })(<DatePicker placeholder='Change Date' />)}
                                             </FormItem>
+                                            </li>
                                         </ul>
                                     </div>
 
@@ -195,6 +196,13 @@ class UserFilter extends React.Component<IUserProps & IFilterProps, IFilterState
                                 <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                                     <FormItem>
                                         <div><label>{'Status'}</label></div>
+                                        <div className="switchbutton mt5">
+                                            <label className="mr8">{'Active'} </label>
+                                            <label className="mr8 switch"><input type="checkbox" /> {/*<Checkbox onChange={this.switchChange} checked={this.state.switchvalue} />*/}<span className="slider round"></span></label>
+                                            <label>Inactive</label>
+                                        </div>
+
+
                                         <div className="switchbutton">
                                             <label className="mr8">{'Active'}</label>
                                             {getFieldDecorator('status', { initialValue: filters.status, valuePropName: "checked" })(<Checkbox />)}

@@ -5,7 +5,7 @@
 @font-face { font-family: 'Myriad Pro Semibold'; src: url('fonts/MyriadPro-Semibold.eot'); src: url('fonts/MyriadPro-Semibold.eot?#iefix') format('embedded-opentype'), url('fonts/MyriadPro-Semibold.woff2') format('woff2'), url('fonts/MyriadPro-Semibold.woff') format('woff'), url('fonts/MyriadPro-Semibold.ttf') format('truetype'), url('fonts/MyriadPro-Semibold.svg#MyriadPro-Semibold') format('svg'); font-weight: 600; font-style: normal; } 
 @font-face { font-family: 'Myriad Pro Cond'; src: url('fonts/MyriadPro-Cond.eot'); src: url('fonts/MyriadPro-Cond.eot?#iefix') format('embedded-opentype'), url('fonts/MyriadPro-Cond.woff2') format('woff2'), url('fonts/MyriadPro-Cond.woff') format('woff'), url('fonts/MyriadPro-Cond.ttf') format('truetype'), url('fonts/MyriadPro-Cond.svg#MyriadPro-Cond') format('svg'); font-weight: normal; font-style: normal; } 
 /*Globally  CSS */
-body{font-size:12px!important; color:#000000; background:#eceff1; font-family: 'Myriad Pro Semibold' !important;}
+body{font-size:12px!important; color:#000000; background:#eceff1; font-family: 'Myriad Pro Regular' !important;}
 html {--antd-wave-shadow-color: #d63031 !important;}
 ::selection {color: #fff;background:#d63031 !important;}
 .defaulttheme a{color:#d63032}
@@ -41,6 +41,8 @@ html {--antd-wave-shadow-color: #d63031 !important;}
 .defaulttheme .ant-tooltip{font-size:11px}
 .defaulttheme .ant-popover-inner-content{padding:0px 0px;}
 .defaulttheme .ant-popover-inner{border-radius:0}
+.defaulttheme .ant-message{font-size:12px}
+.defaulttheme .ant-card{height:100%}
 .defaulttheme .ant-tooltip .ant-tooltip-inner{min-height:auto; padding:2px 8px;}
 body .ant-col-lg-1, body .ant-col-lg-2, body .ant-col-lg-3, body .ant-col-lg-4, body .ant-col-lg-5, body .ant-col-lg-6, body .ant-col-lg-7, body .ant-col-lg-8, body .ant-col-lg-9, body .ant-col-lg-10, body .ant-col-lg-11, body .ant-col-lg-12, body .ant-col-lg-13, body .ant-col-lg-14, body .ant-col-lg-15, body .ant-col-lg-16, body .ant-col-lg-17, body .ant-col-lg-18, body .ant-col-lg-19, body .ant-col-lg-20,body .ant-col-lg-21, body .ant-col-lg-22, body .ant-col-lg-23, body .ant-col-lg-24{padding-left:8px;padding-right:8px;}
 body .ant-col-sm-1, body .ant-col-sm-2, body .ant-col-sm-3, body .ant-col-sm-4, body .ant-col-sm-5, body .ant-col-sm-6, body .ant-col-sm-7, body .ant-col-sm-8, body .ant-col-sm-9, body .ant-col-sm-10, body .ant-col-sm-11, body .ant-col-sm-12, body .ant-col-sm-13, body .ant-col-sm-14, body .ant-col-sm-15, body .ant-col-sm-16, body .ant-col-sm-17, body .ant-col-sm-18, body .ant-col-sm-19, body .ant-col-sm-20,body .ant-col-sm-21, body .ant-col-sm-22, body .ant-col-sm-23, body .ant-col-sm-24{padding-left:8px;padding-right:8px;}
@@ -54,6 +56,7 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .logoDiv img {max-width: 127px;}
 .defaulttheme .ml5{margin-left:5px}
 .mb15{margin-bottom:15px}
+.mb5{margin-bottom:5px}
 .mb20{margin-bottom:20px;}
 .mt7{margin-top:7px}
 .mt5{margin-top:5px}
@@ -64,14 +67,14 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .ant-clearfix{clear:both}
 .loginConatiner{padding-top:0;}
 .loginBox{position:relative;color:#000000DE }
-.loginBox .loginBoxCon .colLogLeft{width:50%;height:100%;padding:7% 12% 0px 12%;float:left;background:#ffffff;}
+.loginBox .loginBoxCon .colLogLeft{width:50%;height:100%;padding:7% 12% 0px 12%;float:left;background:#ffffff; position: fixed;}
 .loginBox .loginBoxCon .colLogLeft .colLogLeftInner{padding: 5% 17% 0px 17%;}
 .loginBox .loginBoxCon .colLogLeft h4{font-size:12px; font-family: 'Myriad Pro bold'; margin-bottom:0px;color:#fff;font-family: 'Myriad Pro bold';}
 .loginBox .loginBoxCon h2 {color: #000000;font-size: 30px;font-weight: bold;text-align: center;}
 .loginBox .loginBoxCon .colLogLeft .loginLogo img {max-width: 250px;}
 .loginBox .loginBoxCon .colLogLeft .ant-input{height:36px;}
 .loginBox .loginBoxCon .colLogLeft .ant-form-item-control{line-height:36px;}
-.loginBox .loginBoxCon .colLogRight{width:50%;float:left; position: relative;}
+.loginBox .loginBoxCon .colLogRight{width:50%;float:left; position: relative; margin-left:50%;}
 .loginBox .loginBoxCon .colLogRight .loginBg{width:100%;height:100%;}
 .loginBox .loginBoxCon .colLogRight .loginBg img{background-size: cover; background-size:100% 100%; width:100%; height:100%;}
 .loginBox .loginBoxCon .colLogLeft .loginLogo {margin-bottom: 20px;text-align: center;}
@@ -122,15 +125,15 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .header-container .admintext{font-size:12px}
 .header-container .navbarRightList ul{ margin:0;padding:0;list-style:none;}
 .header-container .navbarRightList ul li{float:left; margin-left:10px;}
-.header-container .helpIconIcon{background:url("images/help.png"); background-repeat: no-repeat, repeat; width:20px; height:20px; display: inline-block;vertical-align: middle;margin-right:5px;}
-.header-container .settingIcon{background:url("images/settings.png"); background-repeat: no-repeat, repeat; width:20px; height:20px; display: inline-block;vertical-align: middle;margin-right:5px;}
+.header-container .helpIconIcon{background:url("images/help.png"); background-repeat: no-repeat, repeat; width:20px; height:20px; display: inline-block;vertical-align: middle;margin-right:1px;}
+.header-container .settingIcon{background:url("images/settings.png"); background-repeat: no-repeat, repeat; width:20px; height:20px; display: inline-block;vertical-align: middle;margin-right:1px;}
 .header-container .bellIcon{background:url("images/Bell.png"); background-repeat: no-repeat, repeat; width:19px; height:22px; display: inline-block;vertical-align: middle;margin-right:5px;}
-.header-container .circle{width:31px;height:31px;color:#fff;background:#E41F35;border:1px solid #E41F35;font-size:12px; line-height:33px;vertical-align: middle; text-align:center;border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; display: inline-block;}
+.header-container .circle{width:31px;height:31px;color:#fff;background:#E41F35;border:1px solid #E41F35;font-size:12px; line-height:30px;vertical-align: middle; text-align:center;border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; display: inline-block;}
 .header-container .circle:hover{border:1px solid #E41F35;color:#E41F35;background:#fff;}
 .defaulttheme .topMenu{background:#000000; position:relative; top:-52px;border-radius:0;}
-.topMenu .circle{width:24px;height:24px;color:#fff;background:#E41F35;border:1px solid #E41F35;font-size:11px; margin-right:5px; line-height:24px;vertical-align: middle; text-align:center;border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; display: inline-block;}
+.topMenu .circle{width:24px;height:24px;color:#fff;background:#E41F35;border:1px solid #E41F35;font-size:11px; margin-right:5px; line-height:23px;vertical-align: middle; text-align:center;border-radius:100%; -moz-border-radius:100%; -webkit-border-radius:100%; display: inline-block;}
 .topMenu span{display:inline-block;}
-.topMenu li a{color:#fff;font-size:11px;padding:5px 19px;}
+.topMenu li a{color:#fff;font-size:11px;padding:5px 15px;}
 .topMenu li:hover{background:#E41F35;}
 .topMenu li:hover a{color:#fff}
 .changepassIcon{background:url("images/key.png"); background-repeat: no-repeat, repeat; width:22px; height:22px; display: inline-block;vertical-align: middle;margin-right:5px;}
@@ -149,6 +152,8 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .sideBarmenu .ant-menu-dark, .sideBarmenu .ant-menu-dark .ant-menu-sub{color: #878787;}
 .sideBarmenu .ant-menu-item:hover, .sideBarmenu .ant-menu-item-active, .sideBarmenu .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .sideBarmenu .ant-menu-submenu-active, .sideBarmenu .ant-menu-submenu-title:hover{color:#d63031;background:none}
 .sideBarmenu .ant-menu-vertical .ant-menu-submenu-selected{color:#d63031;border-bottom: 2px solid #d63031;}
+.sideBarmenu .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{color:#d63031;border-bottom: 2px solid #d63031; background:#fff;}
+.ant-menu-submenu .ant-menu-item-selected{color:#d63031;background:#fff !important}
 .sideBarmenu .ant-menu-vertical .ant-menu-submenu-selected  .ant-menu-submenu-arrow::before,.sideBarmenu .ant-menu-vertical .ant-menu-submenu-selected .ant-menu-submenu-arrow::after{background:#d63031;}
 .sideBarmenu .ant-menu-vertical .ant-menu-item::after, .sideBarmenu .ant-menu-vertical-left .ant-menu-item::after, .sideBarmenu .ant-menu-vertical-right .ant-menu-item::after, .sideBarmenu .ant-menu-inline .ant-menu-item::after{border-right:0}
 .sideBarmenu .dashboardmenuicon{background:url("images/Dashboard.png"); background-repeat: no-repeat, repeat; width:26px; height:25px; display: inline-block;vertical-align: middle;margin-right: 5px;}
@@ -156,6 +161,7 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .sideBarmenu .usermenuicon{background:url("images/Menu-User.png"); background-repeat: no-repeat, repeat; width:26px; height:28px; display: inline-block;vertical-align: middle;margin-right: 5px;position:relative;left: 3px;}
 .sideBarmenu .contrepomenuicon{background:url("images/ContentRepository.png"); background-repeat: no-repeat, repeat; width:28px; height:25px; display: inline-block;vertical-align: middle;margin-right: 5px;}
 .sideBarmenu .ant-menu li{border-bottom:2px solid #E2E2E2;line-height: 28px;}
+.ant-menu-item, .ant-menu-submenu-title{font-size:12px !important;}
 .ant-menu-submenu > .ant-menu{border-radius:0 !important;}
 .ant-menu-submenu li{border-bottom:1px solid #E2E2E2;}
 .ant-menu-submenu li:hover{color:#d63031;} 
@@ -166,17 +172,18 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 /******************** Left Menu CSS END********************/
 
 /****HEADING CSS ****/
-.heading h2{font-size:20px;font-family:'Myriad Pro bold';}
+.heading h2{font-size:20px;font-family:'Myriad Pro bold';color:#000}
 .subHeading{border-bottom:1px solid #E2E2E2; margin-bottom:15px;}
 .subHeading h3{color:#000000CC;font-size:14px;font-family:'Myriad Pro bold';}
 
 /********************COMMON TABLE  CSS ********************/
 #root .conHeader {border-bottom:1px solid #E41F35}
 .tblFilter{float: left; width: 100%; padding:10px 0; padding-bottom:4px;margin-bottom:15px;}
-.tblFilter h6{font-size:12px;margin-top:5px}
+.tblFilter h6{font-size:12px;margin-top:5px;font-weight:normal;color:#9B9B9B;font-family: 'Myriad Pro Regular';}
 .filterWrapp .filterIcon{float:left; background-image: url("images/filter.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px;margin-top:5px;}
 .filterWrapp .filterIcon:hover{background-image: url("images/filter-hover.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px;}
-.filtercontainer .filterlist{padding:0;margin: 0; float:right}
+.filtercontainer .filterlist{padding:0;margin: 0;float:left}
+
 .filtercontainer .filterlist .ant-select-combobox .ant-select-search__field{vertical-align:top;}
 .filtercontainer .filterlist .ant-select-auto-complete.ant-select .ant-input{height:25px;}
 .filtercontainer .filterlist li{float: left; margin-right:10px;}
@@ -192,7 +199,7 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .tableContainer .table tbody tr td{padding:10px 5px; color:#000000;font-size:12px}
 .tableContainer .table thead tr th:first-child,.tableContainer .table tbody tr td:first-child{width:40px}
 .tableContainer .tablehoverbuttons{position:relative; cursor:pointer}
-.tableContainer .buttonshover{position:absolute;top:-8px;left:-52px;z-index:100;display:none;background: #d63032;border-radius: 60px;-wbkit-border-radius: 60px;-moz-border-radius: 60px;padding: 8px 13px;}
+.tableContainer .buttonshover{position:absolute;top:-8px;left:-20px;z-index:100;display:none;background: #d63032;border-radius: 60px;-wbkit-border-radius: 60px;-moz-border-radius: 60px;padding: 8px 13px;}
 .tableContainer table tr.ant-table-row:hover .buttonshover{display:block}
 .tableContainer .resetpassword{background-image: url("images/resetpassword.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:26px; height:19px; display: inline-block; vertical-align:middle;}
 .tableContainer .bargraph{background-image: url("images/Bar_Graph.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:26px; height:18px; display: inline-block; vertical-align:middle;}
@@ -202,12 +209,14 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .adminIcon{background-image: url("images/adminIcon.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:26px; height:26px; display: inline-block; vertical-align:middle;}
 .disabledrow{background-image: url("images/disabledrow.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:26px; height:26px; display: inline-block; vertical-align:middle;}
 .refreshbg{background:#fff;border:1px solid #DBDBDB;border-radius:3px 3px 3px 3px;-moz-border-radius:3px 3px 3px 3px;-webkit-border-radius:3px 3px 3px 3px;height:25px;width:25px;text-align:center;line-height:25px;cursor:pointer; cursor: pointer;}
-.refreshbtn{background-image: url("images/refresh.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:13px; height:15px; display: inline-block; vertical-align:middle;}
+.refreshbtn{background-image: url("images/refresh.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:13px; height:17px; display: inline-block; vertical-align:middle;}
 .searchbg{background:#fff;border:1px solid #DBDBDB;border-radius:3px 3px 3px 3px;-moz-border-radius:3px 3px 3px 3px;-webkit-border-radius:3px 3px 3px 3px;height:25px;width:25px;text-align:center;line-height:25px;cursor:pointer; cursor: pointer;}
-.tabsearchbtn{background-image: url("images/search.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:13px; height:15px; display: inline-block; vertical-align:middle;}
-
+.tabsearchbtn{background-image: url("images/search.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:13px; height:17px; display: inline-block; vertical-align:middle;}
+.ant-table-body{max-height:450px; overflow-y: auto;}
 /********************COMMON TABLE  CSS END********************/
+.filtercontainer .rightContentdata{float:right}
 .trigger{padding: 0 14px;}
+.filterWrapp{float:left; margin-left:10px;}
 .filterWrapp .filterText{float:left; padding-right:10px}
 .filterWrapp .filterIcon{float:left; background-image: url("images/filter.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px}
 .filterWrapp .filterIcon:hover{background-image: url("images/filter-hover.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px}
@@ -219,7 +228,7 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 
 ul li{list-style: none;}
 ul.headerListing li{float:left; padding-left:10px; font-size:12px;}
-ul.headerListing li a{color:#5b5b5b; float:left}
+ul.headerListing li a{color:#000; float:left;font-family: 'Myriad Pro Semibold';}
 ul.headerListing li a span.text{float:left; padding-top:6px}
 ul.headerListing li a span.icon{float:left; width:28px; height:28px; margin-left:10px; background:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px;}
 ul.headerListing li a .icon.iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat; background-position: 7px 7px;}
@@ -250,6 +259,9 @@ ul.headerListing li.active a{color:#d63032; float:left}
 .filterBody .clearFilter .span{float:left}
 .filterBody .clearFilter .cleText{color:#3a4042; float:left; padding-right:10px}
 .filterBody .clearFilter .cleIcon{background-image: url("images/clear-all.png"); background-repeat: no-repeat, repeat; background-position:0px 0px;float:left; width:18px; height:19px;}
+.filterBody label{color:#000;font-size:12px;font-family: 'Myriad Pro Semibold';}
+.ant-calendar-picker .anticon-calendar svg{display:none;}
+.ant-calendar-picker .anticon-calendar:after{content: "\f073"; font-family:'FontAwesome';color:#9B9B9B; font-size:12px;}
 .filterForm {float:left; width:100%}
 .filterForm .lblText{float:left;color:#000000;font-size:12px;font-family: 'Myriad Pro Semibold';}
 .filterForm .clearText{text-decoration:underline; float:right; color:#a2a2a2;padding-top:2px}
@@ -331,6 +343,8 @@ ul.ant-pagination .ant-pagination-item a:focus{box-shadow:none}
 .bulkUpload .errortextComp{color:#F47E26;font-size:12px;margin-bottom:8px;font-family:'Myriad Pro Regular'; }
 .bulkUpload .recordtotalText{color:#000000;font-size:12px;margin-bottom:8px;font-family:'Myriad Pro Regular'; }
 .bulkUpload .linkurl a{color:#2148E6;margin-bottom:8px;display:block; text-decoration:underline;}
+.bulkUpload .ant-upload-list-item{font-size:12px}
+.bulkUpload .ant-upload-list-item-info .anticon-loading, .bulkUpload .ant-upload-list-item-info .anticon-paper-clip{top:2px}
 .instructionbox{border:1px solid #BEDFE6;background:#F8FFFF; color:#0A70B9; margin:5px 0px 15px; padding:8px;border-radius:5px 5px 5px 5px;-moz-border-radius:5px 5px 5px 5px;-webkit-border-radius:5px 5px 5px 5px}
 .successIcon{background-image: url("images/Successfully-uploaded.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px;display:inline-block; vertical-align: middle;}
 .validationIcon{background-image: url("images/Validation-error.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px;display:inline-block;vertical-align: middle}
@@ -338,7 +352,7 @@ ul.ant-pagination .ant-pagination-item a:focus{box-shadow:none}
 .errorLog .logHeaddata{color:#8D8D8D;font-size:12px; border-bottom:1px solid #C1C1C1; clear: both; padding:8px 0px;}
 .errorLog .fileName{float:left;}
 .errorLog .datetext{float:right}
-.backarrow{background:#fff url("images/back-icon.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:23px; height:17px; position:absolute;right: 10px;top: 16px;}
+.backarrow{background:#fff url("images/back-icon.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:23px; height:17px; position:absolute;right: 10px;top: 16px; cursor: pointer;}
 
 /* .bulkUpload .hintText{margin-bottom:15px; font-size:12px;}
 .bulkUpload .decorated{overflow: hidden;text-align: center; width: 180px; margin: 0 auto; margin-bottom:15px; color:#9a9a9a}
@@ -432,17 +446,21 @@ ul.assListing li .iconprogram{background-image: url("images/program.png"); backg
 .adminListconatiner .adminList ul li a{color:#000000}
 .adminListconatiner .adminList ul li:last-child{border:none;}
 
-.switchbutton .labeltext{ padding:0px 5px;font-size:12px;}
-.switchbutton .ant-switch-checked{background-color: #fff;border: 1px solid #000000;}
-.switchbutton .ant-switch{height:20px;border: 1px solid #000000;background: #fff;}
-.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{width:10px;height: 10px;}
-.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{background-color:#000000;}
-.switchbutton .ant-switch{height:15px; min-width:28px;}
+.switchbutton label{color:#000;font-family:'Myriad Pro Semibold';}
+.switchbutton .switch{position: relative;display:inline-block;width:36px;height:16px;}
+.switchbutton .switch input{opacity:0;width:0;height:0;}
+.switchbutton .slider{position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color:#ccc;-webkit-transition: .4s;transition: .4s;}
+.switchbutton .slider:before{position: absolute;content: "";height: 12px;width:12px;left: 4px;bottom: 2px;background-color: white;-webkit-transition: .4s;transition: .4s;}
+.switchbutton input:checked + .slider {background: #4CAF50;}
+.switchbutton input:focus + .slider {box-shadow: 0 0 1px #2196F3;}
+.switchbutton input:checked + .slider:before {-webkit-transform: translateX(16px);-ms-transform: translateX(16px);transform: translateX(16px);}
+.switchbutton .slider.round{border-radius:34px;}
+.switchbutton .slider.round:before {border-radius:50%;}
 
 .filterdatelist{margin:0;padding:0;float: left; width:100%}
 .filterdatelist .calIcon{position:absolute;right: 6px;top: 2px;font-size: 12px;cursor: pointer;}
-.filterdatelist li{width:40%; float: left;}
-.filterdatelist li.width10per{width:20%; text-align: center; font-weight: bold; padding-top:4px;}
+.filterdatelist li{width:44%; float: left;}
+.filterdatelist li.width10per{width:12%; text-align: center; font-weight: bold; padding-top:4px;}
 
 /****WARNING MSG ****/
 .warningMsg{background:#FFF6F6;border:1px solid #E2B6B5; width:100%; padding:10px;}
@@ -469,6 +487,57 @@ ul.assListing li .iconprogram{background-image: url("images/program.png"); backg
 .mainFooter p{margin-bottom:0px}
 footer{padding: 0;font-size: 11px}
 
+
+/***CONTENT REPOSITORY ***/
+.pt7per{margin-top:7% !important;}
+.conReposWrapp{margin-top:20px;float:left;width:100%;}
+.conReposWrapp{margin-top:20px; float:left; width:100%}
+.conReposWrapp .conReposBox{border:1px solid #dbdbdb; width:100%; float:left; margin:0% 2% 2% 0%;}
+.conReposWrapp .conReposBox:last-child{margin-right:0px}
+.conReposWrapp .conReposBox .conReposBoxHead{border-bottom:1px solid #dbdbdb; border-bottom:none; float:left; width:100%; padding:20px 20px;}
+.conReposWrapp .conReposBox .conReposBoxHead .icon{float:left; width:20%}
+.conReposWrapp .conReposBox .conReposBoxHead .icon img{max-width:54px}
+.conReposWrapp .conReposBox .conReposBoxHead .text h1{color:#ffa953;font-family: 'Myriad Pro Regular'; margin-bottom:0px; font-size:15px; padding-top:10px; min-height:60px}
+.conReposWrapp .conReposBox .conReposBoxFooter{float:left; width:100%}
+.conReposWrapp .conReposBox .conReposBoxFooter h2{color:#515151; padding:5px 20px; font-size:25px; margin-bottom:0px}
+.conReposWrapp .conReposBox .conReposBoxFooter h2 span{font-size:15px;font-family: 'Myriad Pro Regular';}
+
+.conRepoListing li:first-child{margin-left:0%;}
+.conRepoListing li {width:23.5%;margin-left:2%;float:left;}
+.conRepoListing,.conRepListing{margin:0;padding:0;}
+.conRepListing li{width:49% !important;float:left}
+.conRepoListing li{width:23.5%; margin-left:2%; float:left}
+.conRepoListing li:first-child{margin-left:0%}
+.conRepoListing li .conReposBoxHead .text h1{font-family: 'Myriad Pro Regular';}
+.conRepoListing li.scormLi .conReposBox .conReposBoxFooter{background:#fee6ae}
+.conRepoListing li.manualTemp .conReposBox .conReposBoxFooter{background:#fff1d9}
+.conRepoListing li.manualTemp .conReposBoxHead .text h1{color:#fdb618; max-width:150px}
+.conRepoListing li.quizAss .conReposBox .conReposBoxFooter{background:#fde7d5}
+.conRepoListing li.quizAss .conReposBoxHead .text h1{color:#f47e26; padding-top:20px}
+.conRepoListing li.survey .conReposBox .conReposBoxFooter{background:#e4f1e1}
+.conRepoListing li.survey .conReposBoxHead .text h1{color:#68bf62; padding-top:20px}
+.conRepoListing li.mediaBox .conReposBox .conReposBoxFooter{background:#d7eff1}
+.conRepoListing li.mediaBox .conReposBoxHead .text h1{color:#10b7bd; padding-top:10px}
+.conRepoListing li.events .conReposBox .conReposBoxFooter{background:#d1e0f1}
+.conRepoListing li.events .conReposBoxHead .text h1{color:#1979bd; padding-top:10px}
+.conRepoListing li.newsletter .conReposBox .conReposBoxFooter{background:#eaeaea}
+.conRepoListing li.newsletter .conReposBoxHead .text h1{color:#979799; padding-top:10px}
+.centerconRep{width:85%; margin:0px auto}
+.centerconRep li{width:31.33%}
+.conReposWrapp .conReposBox:hover {-webkit-box-shadow: 0px 0px 10px 0px rgba(164,204,214,1);-moz-box-shadow: 0px 0px 10px 0px rgba(164,204,214,1);box-shadow: 0px 0px 10px 0px rgba(164,204,214,1);}
+
 @media screen and (max-width:1366px) {
-    .filterpopup .ant-drawer-body{overflow-y: auto; max-height:450px;}
+.filterpopup .ant-drawer-body{overflow-y: auto; max-height:450px;}
+.loginBox .loginBoxCon .colLogLeft{padding:7% 4% 0px 4%;}
+.conReposWrapp .conReposBox .conReposBoxHead .icon{width:30%}
+.conReposWrapp .conReposBox .conReposBoxHead .text p{font-size:14px;}
+.conReposWrapp .conReposBox{/*width:31.90%;*/ margin:0% 1% 2% 1%}
+.conReposWrapp .conReposBox:first-child{margin-left: 0%;}
 }
+
+/* .switchbutton .labeltext{ padding:0px 5px;font-size:12px;}
+.switchbutton .ant-switch-checked{background-color: #fff;border: 1px solid #000000;}
+.switchbutton .ant-switch{height:20px;border: 1px solid #000000;background: #fff;}
+.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{width:10px;height: 10px;}
+.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{background-color:#000000;}
+.switchbutton .ant-switch{height:15px; min-width:28px;} */
