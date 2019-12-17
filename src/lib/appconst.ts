@@ -14,7 +14,7 @@ const AppConsts = {
     tokenCookieName: 'Lms.AuthToken',
     usercookieExpDays: 1,
     encdecSecretKey: "P%T1<-:1$n!O189r^e",
-    pagesize: 10,
+    pagesize: 50,
     dateFormat: 'YYYY/MM/DD',
     datetimeFormat: 'YYYY-MM-DD hh:mm A',
     oigCheckURL: 'https://google.com'

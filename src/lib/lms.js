@@ -35,7 +35,7 @@ var lms = lms || {};
         USERBULKIMPORTSTATUS: 'USERBULKIMPORTSTATUS',
         USERBULKIMPORTLSTALL: 'USERBULKIMPORTLSTALL',
         GETBULKIMPORTUPLOADEDFILE: 'GETBULKIMPORTUPLOADEDFILE',
-
+        EXPORTUSERDATA: 'EXPORTUSERDATA',
         USERCHANGEPWD: 'USERCHANGEPWD',
     };
 
@@ -93,6 +93,9 @@ var lms = lms || {};
                 break;
             case lms.APIType.GETBULKIMPORTUPLOADEDFILE :
                 path = '/user/getbulkimportuploadedfile';
+                break;
+            case lms.APIType.EXPORTUSERDATA :
+                path = '/user/exportuserdata';
                 break;
             case lms.APIType.USERCHANGEPWD:
                 path = '/user/changepassword';

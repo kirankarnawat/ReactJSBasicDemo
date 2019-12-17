@@ -122,6 +122,7 @@ export class Header extends React.Component<IHeaderProps> {
                 </div>
 
                 <ChangePassword
+                    wrappedComponentRef={this.savechangepassFormRef}
                     visible={this.state.changepassModalVisible}
                     onCancel={this.onHandleChangePwdModalClose}
                 />

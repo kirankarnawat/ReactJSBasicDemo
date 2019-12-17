@@ -12,6 +12,7 @@ import storageService from '../services/storageService';
 export const getAccessToken = () => storageService.getToken(); 
 
 class AuthenticationStore {
+
     @observable loginModel: LoginModel = new LoginModel();
 
     get isAuthenticated(): boolean
@@ -23,13 +24,13 @@ class AuthenticationStore {
 
     @action
     public async login(model: LoginModel) {
-        debugger;
+        
         let result = await tokenAuthService.authenticate({
             emailAddress: model.emailAddress,
             password: model.password,
             salt: ''
         });
-        debugger;
+        
         var info = new GetCurrentLoginInformations();
         var user = new UserLoginInfoDto();
         user.userId = result.userId;
@@ -44,14 +45,15 @@ class AuthenticationStore {
         result.expireInSeconds = 3600;
 
         var tokenExpireDate = model.rememberMe ? new Date(new Date().getTime() + 1000 * result.expireInSeconds) : undefined;
-        debugger;
+        
         storageService.setToken(result.token, tokenExpireDate);
     }
 
     @action
     logout() {
-        debugger;
+        
         storageService.removeUserCookie();
+
         storageService.clearToken();
     }
 }

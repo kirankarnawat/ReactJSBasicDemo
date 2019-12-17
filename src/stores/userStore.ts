@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 
 import { UserRequest } from '../services/user/dto/Request/userRequest';
 import { EntityDto } from '../services/dto/entityDto';
@@ -42,7 +42,7 @@ class UserStore {
     @action
     async getAll(getAllUserRequest: GetAllUserRequest) {
         
-        let result = await userService.getAll(getAllUserRequest);
+        let result = await userService.getAll(getAllUserRequest);        
         return result;
     }
 
@@ -50,7 +50,10 @@ class UserStore {
     async getUserById(getUserByIdRequest: UserByIDRequest) {
         
         let result = await userService.getUserById(getUserByIdRequest);
-        this.userById = result;
+
+        runInAction(() => {
+            this.userById = result;
+        });
     }
 
     @action
@@ -65,14 +68,20 @@ class UserStore {
 
     @action
     async createUser() {
-        this.userById = {
-            userId: '', firstName: '', lastName: '', emailAddress: '', loginId: '', contactNumber: '', hiringDate: null, zipCode: '', status: true, departmentId: '', jobCodeId: '', roleChangeDate: null, timeZoneId: '', profilePic: '', groupId: '', countryId: '', stateId: '', cityId: '', group1Name: '', group2Name: '', group3Name: '', group4Name: '', group5Name: '', isSuccess: true, totalCount: 0, createdDateDisplay: '', lastModifiedDateDisplay: ''
-        };
+
+        runInAction(() => {
+            this.userById = {
+                userId: '', firstName: '', lastName: '', emailAddress: '', loginId: '', contactNumber: '', hiringDate: null, zipCode: '', status: true, departmentId: '', jobCodeId: '', roleChangeDate: null, timeZoneId: '', profilePic: '', groupId: '', countryId: '', stateId: '', cityId: '', group1Name: '', group2Name: '', group3Name: '', group4Name: '', group5Name: '', isSuccess: true, totalCount: 0, createdDateDisplay: '', lastModifiedDateDisplay: ''
+            };
+        });
     }
 
     @action
     async setFilter(getAllUserRequest: GetAllUserRequest) {
-        this.filters = getAllUserRequest;
+
+        runInAction(() => {
+            this.filters = getAllUserRequest;
+        });
     }
 
     @action
@@ -80,39 +89,56 @@ class UserStore {
         
         let result = await userService.checkOIG(userOIGRequest);
         
-        this.userOIG = result;
+        runInAction(() => {
+            this.userOIG = result;
+        });
+
     }
 
     @action
     async checkIsEmailInUse(userEmailCheckRequest: UserEmailExistsCheckRequest) {
         
         let result = await userService.checkIsEmailInUse(userEmailCheckRequest);
-        this.userExists = result.toString().toLowerCase();
+        
+        runInAction(() => {
+            this.userExists = result.toString().toLowerCase();
+        });
     }
 
     @action
     async checkIsLoginIdInUse(userLoginCheckRequest: UserLoginExistsCheckRequest) {
+
         let result = await userService.checkIsLoginIdInUse(userLoginCheckRequest);
-        this.userExists = result.toString().toLowerCase();
+
+        runInAction(() => {
+            this.userExists = result.toString().toLowerCase();
+        });
     }
 
 
     @action
     async create(addUserRequest: UserRequest) {
         let result = await userService.create(addUserRequest);
-        this.userById = { ...this.userById, userId: result };
+        
+        runInAction(() => {
+            this.userById = { ...this.userById, userId: result };
+        });
     }
 
     @action
     async update(updateUserRequest: UserRequest) {
         let result = await userService.update(updateUserRequest);
-        this.userById = { ...this.userById, userId: result };
+
+        runInAction(() => {
+            this.userById = { ...this.userById, userId: result };
+        });
     }
 
     @action
     async downloadBulkTemplate() {
         
         let result = await userService.donloadUserTemplate();
+
         return result;
     }
 
@@ -120,6 +146,7 @@ class UserStore {
     async uploadBulkImport(userImportRequest: UserImportRequest) {
         
         let result = await userService.uploadUserImport(userImportRequest);
+
         return result;
     }
 
@@ -127,6 +154,7 @@ class UserStore {
     async getUserBulkImportLog(entityDto: EntityDto) {
         
         let result = await userService.getUserBulkImportLog(entityDto.id);
+
         return result;
     }
 
@@ -134,52 +162,75 @@ class UserStore {
     async saveOIGUser(saveOIGUserRequest: SaveOIGUserRequest) {
         
         let result = await userService.saveOIGUser(saveOIGUserRequest);
+
         return result;
     }
 
     @action
     async initFilter() {
-        this.userid = sessionService.getLoginUserId();
 
-        this.filters = {
-            emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: pagesize, requesterUserId: this.userid, sortExp: '', status: true,
-            hiringDateFrom: null, hiringDateTo: null, roleChangeDateFrom: null, roleChangeDateTo: null
-        };
+        runInAction(() => {
+            this.userid = sessionService.getLoginUserId();
+
+            this.filters = {
+                emailAddress: '', firstName: '', lastName: '', departmentId: '', groupId: '', jobCodeId: '', searchOnGroupId: '', pageIndex: 1, pageSize: pagesize, requesterUserId: this.userid, sortExp: 'firstName asc', status: true,
+                hiringDateFrom: null, hiringDateTo: null, roleChangeDateFrom: null, roleChangeDateTo: null
+            };
+        });
     }
 
     @action
     async getUserJobRoles() {
+
         let result = await userService.getJobRoles();
-        this.userjobroles = result;
+
+        runInAction(() => {
+            this.userjobroles = result;
+        });
     }
 
     @action
     async getUserBulkImportStatus(lookupByTypeRequest: LookupByTypeRequest) {
+
         let result = await userService.getBulkImportStatus(lookupByTypeRequest);
-        this.userBulkImportStatus = result;
+
+        runInAction(() => {
+            this.userBulkImportStatus = result;
+        });
+        
     }
 
     @action
     async getAllBulkImportHistory(userBulkImportListRequest: UserBulkImportListRequest) {
+
         let result = await userService.getAllBulkImportHistory(userBulkImportListRequest);
         return result;
     }
 
     @action
     async initBulkFilter() {
-        debugger;
+        
         this.userid = sessionService.getLoginUserId();
-        this.bulkfilters = { importStatus: '', pageIndex: 1, pageSize: pagesize, requesterUserId: this.userid, sortExp: '' };
+
+        runInAction(() => {
+            this.bulkfilters = { importStatus: '', pageIndex: 1, pageSize: pagesize, requesterUserId: this.userid, sortExp: '' };
+        });
     }
 
     @action
     async setBulkFilter(userBulkImportListRequest: UserBulkImportListRequest) {
-        this.bulkfilters = userBulkImportListRequest;
+
+        runInAction(() => {
+            this.bulkfilters = userBulkImportListRequest;
+        });
     }
 
     @action
     async initUserId() {
-        this.userid = sessionService.getLoginUserId();
+
+        runInAction(() => {
+            this.userid = sessionService.getLoginUserId();
+        });
     }
 
     @action

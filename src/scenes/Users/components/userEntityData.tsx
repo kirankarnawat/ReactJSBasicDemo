@@ -63,8 +63,8 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
             if (err) {
                 return;
             } else {
-
-                var grpid = (this.props.id === '') ? this.props.selgroupid : this.props.form.getFieldValue("groupId");
+                debugger;
+                var grpid = (this.props.id === '') ? this.props.selgroupid : this.props.treeentitydata.groupId
 
                 if (this.state.userid === '') {
                     if (this.state.isOIGCheckDone === false) {
