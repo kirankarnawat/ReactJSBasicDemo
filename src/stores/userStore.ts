@@ -246,6 +246,13 @@ class UserStore {
         let result = await userService.changePassword(userChangePasswordRequest);
         return result;
     }
+
+    @action
+    async exportUserData(getAllUserRequest: GetAllUserRequest) {
+
+        let result = await userService.exportUserData(getAllUserRequest);
+        return result;
+    }
 }
 
 export default UserStore;

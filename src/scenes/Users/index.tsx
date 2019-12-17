@@ -278,6 +278,31 @@ class User extends React.Component<IUserProps, IUserState> {
     };
     // #endregion
 
+    // #region EXPORT TO EXCEL
+
+    handleDownloadFile = async () => {
+
+        var datatype = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+        let data = await this.props.userStore.exportUserData(this.props.userStore.filters);
+
+        const blob = new Blob([data], { type: datatype });
+
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+
+        link.href = url;
+        link.setAttribute('download', "User Data_" + Date.now.toString());
+
+        document.body.appendChild(link);
+
+        link.click();
+        link.remove();
+
+        window.URL.revokeObjectURL(url);
+    }
+
+    // #endregion
 
     delete(input: EntityDto) {
         //const self = this;
@@ -357,7 +382,7 @@ class User extends React.Component<IUserProps, IUserState> {
 
                                                 <li className="active"><a href="#" onClick={() => this.createOrUpdateModalOpen({ id: '' })}><span className="text">Add User</span> <span className="icon iconUser">&nbsp;</span></a></li>
                                                 <li onClick={() => this.bulkimportModalOpen()}><a href="#"><span className="text">Bulk Import</span> <span className="icon iconbulkImp">&nbsp;</span></a></li>
-                                                <li><a href="#"><span className="text">Export to Excel</span> <span className="icon iconExTOEx">&nbsp;</span></a></li>
+                                                <li><a href="#" onClick={this.handleDownloadFile} ><span className="text">Export to Excel</span> <span className="icon iconExTOEx">&nbsp;</span></a></li>
                                             </ul>
                                         </div>
                                     </Col>

@@ -199,6 +199,13 @@ class UserService {
         let result = await http.post(lms.toAPIPath(lms.APIType.USERCHANGEPWD), userChangePasswordRequest);
         return result.data;
     }
+
+    //export user data
+    public async exportUserData(getAllUserRequest: GetAllUserRequest): Promise<File> {
+
+        let result = await http.post(lms.toAPIPath(lms.APIType.EXPORTUSERDATA), getAllUserRequest, { responseType: 'arraybuffer' });
+        return result.data;
+    }
 }
 
 export default new UserService();
