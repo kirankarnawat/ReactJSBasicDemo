@@ -40,6 +40,7 @@ class AuthenticationStore {
         info.user = user;
         info.features = result.userFeatures;
 
+        // save user information in cookie
         storageService.setUserCookie(info);
 
         result.expireInSeconds = 3600;
@@ -48,6 +49,7 @@ class AuthenticationStore {
         
         storageService.setToken(result.token, tokenExpireDate);
     }
+
 
     @action
     logout() {

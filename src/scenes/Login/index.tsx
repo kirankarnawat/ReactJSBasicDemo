@@ -9,8 +9,10 @@ import { FormComponentProps } from 'antd/lib/form';
 import { Redirect } from 'react-router-dom';
 
 import Stores from '../../stores/storeIdentifier';
+
 import './index.less';
 import rules from './index.validation';
+
 const FormItem = Form.Item;
 
 export interface ILoginProps extends FormComponentProps {
@@ -20,7 +22,6 @@ export interface ILoginProps extends FormComponentProps {
 }
 
 @inject(Stores.AuthenticationStore)
-
 @observer
 class Login extends React.Component<ILoginProps> {
 

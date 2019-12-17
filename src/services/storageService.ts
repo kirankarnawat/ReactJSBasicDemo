@@ -10,7 +10,7 @@ class StorageService {
     //Token actions
     public async setToken(value: any, expireDate: any) {
         var enckey = CryptoJS.AES.encrypt(JSON.stringify(value), AppConsts.encdecSecretKey);
-        Cookies.set(AppConsts.tokenCookieName, enckey, { expires: expireDate } );
+        Cookies.set(AppConsts.tokenCookieName, enckey, { expires: expireDate });
     }
 
     public getToken(): string {
@@ -27,54 +27,39 @@ class StorageService {
 
     //Loged User Action
     public async setUserCookie(value: any) {
-        value.features = [
-            {
-                "featureId": "Dashboard",
-                "featureName": "Dashboard",
-                "parentFeatureId": null,
-                "displayOrder": 0,
-                "isNoAction": false,
-                "isShowInMenu": true
-            },
-            {
-                "featureId": "UserManagement",
-                "featureName": "Manage Users",
-                "parentFeatureId": "UserManagement",
-                "displayOrder": 1,
-                "isNoAction": false,
-                "isShowInMenu": true
-            },
-            {
-                "featureId": "ManageUsers",
-                "featureName": "Manage Users",
-                "parentFeatureId": "UserManagement",
-                "displayOrder": 1,
-                "isNoAction": false,
-                "isShowInMenu": true
-            },
-            {
-                "featureId": "BulkImportHistory",
-                "featureName": "Manage Users",
-                "parentFeatureId": "UserManagement",
-                "displayOrder": 1,
-                "isNoAction": false,
-                "isShowInMenu": true
-            }
-        ];
 
+        // features in session
+        localStorage.setItem("features", JSON.stringify(value.features));
+
+        //empty data from features for cache
+        value.features = [];
+
+        // userdata in cookie
         var enckey = CryptoJS.AES.encrypt(JSON.stringify(value), AppConsts.encdecSecretKey);
         Cookies.set(AppConsts.userCookieName, enckey, { expires: new Date(new Date().getTime() + AppConsts.usercookieExpDays * 86400000) });
     }
 
     public getUserCookie(): GetCurrentLoginInformations {
+
+        //get user data from cookie
         const userJson = Cookies.get(AppConsts.userCookieName);
         var bytes = userJson !== undefined ? CryptoJS.AES.decrypt(userJson.toString(), AppConsts.encdecSecretKey) : userJson;
         var result = bytes !== undefined ? JSON.parse(bytes.toString(CryptoJS.enc.Utf8)) : bytes;
+
+        //features from session
+        if (result !== undefined) {
+
+            var data = localStorage.getItem("features");
+            result.features = (data !== null)? JSON.parse(data) : [];
+        }
 
         return result;
     }
 
     public async removeUserCookie() {
+
+        localStorage.removeItem("features");
+
         Cookies.remove(AppConsts.userCookieName);
     }
     //-------------------

@@ -20,6 +20,7 @@ export interface ISiderMenuProps {
 
 
 const SiderMenu = (props: ISiderMenuProps) => {
+
     const { collapsed, history, onCollapse } = props;
 
     let result = storageService.getUserCookie();
