@@ -52,7 +52,7 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp, IEnti
     };
 
     handleChange = (event) => {
-        
+
         this.setState({ ...this.state, searchvalue: event.target.value });
     };
 
@@ -67,14 +67,23 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp, IEnti
             result.map((item, index) => (
                 <ul className="tree" key={index.toString()}>
                     <li className="mt0">
-                        <a className="fristlink"><span className="treeIcon"></span> <span className="">{item.group1Name} </span> <span className="groupicon"></span><span className="values"></span></a>
-                        <ul>
+                        <a className="fristlink"><span className="treeIcon"></span> <span className="">{item.group1Name} </span> <span className="groupicon"></span><span className="values"></span>
+                            <span className={item.group2Name !== null ? 'adduserIcon hidden' : 'adduserIcon'} id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ ...this.state, result: [], searchvalue: '' }); }}></span>
+                        </a>
+                        <ul className={item.group2Name !== null ? '' : 'hidden'}>
                             <li>
-                                <a><span className="">{item.group2Name} </span> <span className="groupicon"></span><span className="values"></span></a>
-                                <ul>
-                                    <li><a> <span className="">{item.group3Name} </span> <span className="groupicon"></span><span className="values"></span></a>
-                                        <ul>
-                                            <li className="highlighted"><a><span className="">{item.group4Name} </span> <span className="groupicon"></span><span className="values"></span><span className="adduserIcon" id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ ...this.state, result: [], searchvalue: '' }); }}></span></a>
+                                <a><span className="">{item.group2Name} </span> <span className="groupicon"></span><span className="values"></span>
+                                    <span className={item.group3Name !== null ? 'adduserIcon hidden' : 'adduserIcon'} id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ ...this.state, result: [], searchvalue: '' }); }}></span>
+                                </a>
+                                <ul className={item.group3Name !== null ? '' : 'hidden'}>
+                                    <li>
+                                        <a> <span className="">{item.group3Name} </span> <span className="groupicon"></span><span className="values"></span>
+                                            <span className={item.group3Name !== null ? 'adduserIcon hidden' : 'adduserIcon'} id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ ...this.state, result: [], searchvalue: '' }); }}></span>
+                                        </a>
+                                        <ul className={item.group4Name !== null ? '' : 'hidden'}>
+                                            <li className="highlighted">
+                                                <a><span className="">{item.group4Name} </span> <span className="groupicon"></span><span className="values"></span>
+                                                    <span className={item.group4Name !== null ? 'adduserIcon hidden' : 'adduserIcon'} id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ ...this.state, result: [], searchvalue: '' }); }}></span></a>
                                             </li>
                                         </ul>
                                     </li>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form, Input, Button, Select, Row, Col, Icon, DatePicker, Checkbox } from 'antd';
+import { Form, Input, Button, Select, Row, Col, Icon, DatePicker, Switch } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import { FormComponentProps } from 'antd/lib/form';
 import rules from './userEntityData.validation';
@@ -255,12 +255,12 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                         <FormItem>
                             <div className="switchbutton">
                                 <div><label>{'Status'} <span className="start">*</span> </label></div>
-                                <label className="mr8">{'Active'}</label>
+                                <label className="mr8">{'Inactive'}</label>
 
                                 {getFieldDecorator('status', { initialValue: userById.status, valuePropName: "checked" })(
-                                    <Checkbox onChange={this.handleChange} />
+                                    <Switch onChange={this.handleChange} />
                                 )}
-                                <label className="ml8">{'Inactive'}</label>
+                                <label className="ml8">{'Active'}</label>
 
                             </div>
                         </FormItem>
