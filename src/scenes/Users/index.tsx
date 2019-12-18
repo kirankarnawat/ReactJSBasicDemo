@@ -292,9 +292,9 @@ class User extends React.Component<IUserProps, IUserState> {
 
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
-
+       
         link.href = url;
-        link.setAttribute('download', "User Data_" + Date.now.toString());
+        link.setAttribute('download', "User Data_" + new Date().toLocaleString().replace(',', '_').replace(' ','_'));
 
         document.body.appendChild(link);
 

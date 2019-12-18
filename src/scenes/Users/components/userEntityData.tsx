@@ -85,7 +85,7 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                         this.setState({ isAllDisable: true, successMsg: 'User created successfully', isSuccessMsgShow: true, isOIGMsgShow: false, userid: this.props.userStore.userById.userId });
                     }
                 } else {
-                    await this.props.userStore.update({ userId: this.state.userid , requesterUserId: this.props.userStore.userid, groupId: grpid, emailAddress: values["loginId"], ...values });
+                    await this.props.userStore.update({ userId: this.state.userid, requesterUserId: this.props.userStore.userid, groupId: grpid, emailAddress: values["loginId"], ...values });
                     this.setState({ successMsg: 'User updated successfully', isSuccessMsgShow: true, isOIGMsgShow: false });
                 }
             }
@@ -171,11 +171,17 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                             {
                                 (treeentitydata !== undefined) ?
                                     <ul className="treeentityinline">
-                                        <li><a href="#" className="links"><span className="treeIcon"></span><span className="text">{treeentitydata.group1Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
-                                        <li><a href="#" className="links"><span className="text">{treeentitydata.group2Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
-                                        <li><a href="#" className="links"><span className="text">{treeentitydata.group3Name}</span><span className="arrowicon"><Icon type="right" /></span></a></li>
+
+                                        <li><a href="#" className="links"><span className="treeIcon"></span><span className="text">{treeentitydata.group1Name}</span><span className={(treeentitydata.group2Name !== null) ? "arrowicon" : "arrowicon hidden"}><Icon type="right" /></span></a></li>
+
+                                        <li><a href="#" className="links"><span className="text">{treeentitydata.group2Name}</span><span className={(treeentitydata.group3Name !== null) ? "arrowicon" : "arrowicon hidden"}><Icon type="right" /></span></a></li>
+
+                                        <li><a href="#" className="links"><span className="text">{treeentitydata.group3Name}</span><span className={(treeentitydata.group4Name !== null) ? "arrowicon" : "arrowicon hidden"}><Icon type="right" /></span></a></li>
+
                                         <li><a href="#" className="links"><span className="text">{treeentitydata.group4Name}</span></a></li>
+
                                         <li className={this.state.isAllDisable === true ? 'floatRight' : 'floatRight hidden'}><a className="editEntityIcon" onClick={this.handleAllEnable}></a></li>
+
                                     </ul>
                                     : ""
                             }
@@ -250,7 +256,7 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                             <div className="switchbutton">
                                 <div><label>{'Status'} <span className="start">*</span> </label></div>
                                 <label className="mr8">{'Active'}</label>
-                                
+
                                 {getFieldDecorator('status', { initialValue: userById.status, valuePropName: "checked" })(
                                     <Checkbox onChange={this.handleChange} />
                                 )}

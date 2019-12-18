@@ -63,7 +63,7 @@ class UserQuickFilter extends React.Component<IUserProps & IUserQuickFilterProp,
 
     handleRefreshSearch = async () => {
 
-        this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "", firstName: "", status: true });
+        this.props.userStore.setFilter({ ...this.props.userStore.filters, groupId: "", searchOnGroupId: "", firstName: "", status: true, emailAddress: '', jobCodeId: '', hiringDateTo: null, hiringDateFrom: null, roleChangeDateTo: null, roleChangeDateFrom: null });
         this.setState({ ...this.state, groupvalue: '', namevalue: '', switchvalue: true });
         //parent load
         this.props.handleSearch();
