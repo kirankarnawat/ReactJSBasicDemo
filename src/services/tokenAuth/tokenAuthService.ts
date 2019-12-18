@@ -9,7 +9,7 @@ declare var lms: any;
 class TokenAuthService {
     public async authenticate(authenticationInput: AuthenticationModel): Promise<AuthenticationResultModel> {
 
-        let strSalt = await http.get(lms.toAPIPath(lms.APIType.USERSALT));
+        let strSalt = await http.get(lms.login.toAPIPath(lms.login.APIType.USERSALT));
         authenticationInput.salt = strSalt.data;
        
         //hash password
@@ -19,7 +19,7 @@ class TokenAuthService {
         var hashedPwd = md5(salt + hash);
         authenticationInput.password = hashedPwd;
 
-        let result = await http.post(lms.toAPIPath(lms.APIType.USERLOGIN), authenticationInput);
+        let result = await http.post(lms.login.toAPIPath(lms.login.APIType.USERLOGIN), authenticationInput);
         return result.data;
     }
 }

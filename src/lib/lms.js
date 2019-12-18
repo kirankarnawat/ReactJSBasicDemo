@@ -16,9 +16,45 @@ var lms = lms || {};
         return lms.appPath + path;
     };
 
-    lms.APIType = {
+
+    /* API MODULE ***************************************************/
+
+    // #region LOGIN MODULE API
+
+    //API Namespace
+    lms.login = lms.login || {};
+
+    //API ENUM
+    lms.login.APIType = {
+
         USERLOGIN: 'USERLOGIN',
         USERSALT: 'USERSALT',
+    };
+
+    //API Path
+    lms.login.toAPIPath = function (type) {
+        var path = '';
+        switch (type) {
+            case lms.login.APIType.USERLOGIN:
+                path = '/user/login';
+                break;
+            case lms.login.APIType.USERSALT:
+                path = '/user/getsalt';
+                break;
+        }
+        return path;
+    };
+
+    // #endregion
+
+    // #region USER MODULE API
+
+    //API Namespace
+    lms.user = lms.user || {};
+
+    //API ENUM
+    lms.user.APIType = {
+
         USERLIST: 'USERLIST',
         USERENTITYLIST: 'USERENTITYLIST',
         USERJOBCODES: 'USERJOBCODES',
@@ -26,7 +62,7 @@ var lms = lms || {};
         CHECKOIG: 'CHECKOIG',
         USERDATABYID: 'USERDATABYID',
         USEREMAILCHECK: 'USEREMAILCHECK',
-        USERLOGINIDCHECK: 'USERLOGINIDCHECK',        
+        USERLOGINIDCHECK: 'USERLOGINIDCHECK',
         USERBULKIMPORTMASTER: 'USERBULKIMPORTMASTER',
         USEREXCELTEMPLATE: 'USEREXCELTEMPLATE',
         USERBULKUPLOAD: 'USERBULKUPLOAD',
@@ -39,70 +75,68 @@ var lms = lms || {};
         USERCHANGEPWD: 'USERCHANGEPWD',
     };
 
-    //Get API Path of the variable
-    lms.toAPIPath = function (type) {
+    //API Path
+    lms.user.toAPIPath = function (type) {
         var path = '';
         switch (type) {
-            case lms.APIType.USERLOGIN:
-                path = '/user/login';
-                break;
-            case lms.APIType.USERSALT:
-                path = '/user/getsalt';
-                break;
-            case lms.APIType.USERLIST:
+            case lms.user.APIType.USERLIST:
                 path = '/user/userlist';
                 break;
-            case lms.APIType.USERENTITYLIST:
+            case lms.user.APIType.USERENTITYLIST:
                 path = '/entity/entitylist';
                 break;
-            case lms.APIType.USERJOBCODES:
+            case lms.user.APIType.USERJOBCODES:
                 path = '/user/getlookups';
                 break;
-            case lms.APIType.ADDEDITUSER:
+            case lms.user.APIType.ADDEDITUSER:
                 path = '/user/addedituser';
                 break;
-            case lms.APIType.CHECKOIG:
+            case lms.user.APIType.CHECKOIG:
                 path = '/user/checkoig';
                 break;
-            case lms.APIType.USERDATABYID:
+            case lms.user.APIType.USERDATABYID:
                 path = '/user/getuserdata';
                 break;
-            case lms.APIType.USEREMAILCHECK:
+            case lms.user.APIType.USEREMAILCHECK:
                 path = '/user/isemailinuse';
                 break;
-            case lms.APIType.USERLOGINIDCHECK:
+            case lms.user.APIType.USERLOGINIDCHECK:
                 path = '/user/isloginidinuse';
                 break;
-            case lms.APIType.USEREXCELTEMPLATE:
+            case lms.user.APIType.USEREXCELTEMPLATE:
                 path = '/user/getusertemplateexcel'
                 break;
-            case lms.APIType.USERBULKUPLOAD:
+            case lms.user.APIType.USERBULKUPLOAD:
                 path = '/user/uploaduserimport'
                 break;
-            case lms.APIType.USERBULKIMPORTLOGRESPONSE:
+            case lms.user.APIType.USERBULKIMPORTLOGRESPONSE:
                 path = '/user/bulkimportlogs'
                 break;
-            case lms.APIType.SAVEOIGUSERS:
+            case lms.user.APIType.SAVEOIGUSERS:
                 path = '/user/saveoigusers'
                 break;
-            case lms.APIType.USERBULKIMPORTSTATUS:
+            case lms.user.APIType.USERBULKIMPORTSTATUS:
                 path = '/lookup/getlookupbytype';
                 break;
-            case lms.APIType.USERBULKIMPORTLSTALL:
+            case lms.user.APIType.USERBULKIMPORTLSTALL:
                 path = '/user/bulkimportlistall';
                 break;
-            case lms.APIType.GETBULKIMPORTUPLOADEDFILE :
+            case lms.user.APIType.GETBULKIMPORTUPLOADEDFILE:
                 path = '/user/getbulkimportuploadedfile';
                 break;
-            case lms.APIType.EXPORTUSERDATA :
+            case lms.user.APIType.EXPORTUSERDATA:
                 path = '/user/exportuserdata';
                 break;
-            case lms.APIType.USERCHANGEPWD:
+            case lms.user.APIType.USERCHANGEPWD:
                 path = '/user/changepassword';
                 break;
         }
         return path;
     };
+
+    // #endregion
+
+    /****************************************************************/
 
 
 
