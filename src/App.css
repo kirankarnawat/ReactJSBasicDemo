@@ -83,12 +83,12 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .loginBox .loginBoxCon .loginLogo img{max-width:118px;}
 .loginBox .loginBoxCon .loginForm .form-group{margin-bottom:10px}
 .loginBox .loginBoxCon .loginForm .form-group label{margin-bottom:2px;font-size:12px}
-.loginBox .loginBoxCon .loginForm .loginFooter{margin-bottom:40px; float:left; width:100%;}
+.loginBox .loginBoxCon .loginForm .loginFooter{float:left; width:100%;}
 .loginBox .loginBoxCon .loginForm .loginFooter label{color:#000000DE;cursor: pointer;}
 .loginBox .loginBoxCon .loginForm .loginFooter a{color:#2185D0}
 .loginBox .loginBoxCon .loginForm .loginFooter a:hover{color:#c22b2c}
 
-.loginBox .loginBoxCon .loginForm .ant-form-item{margin-bottom:40px;}
+.loginBox .loginBoxCon .loginForm .ant-form-item{margin-bottom:25px;}
 .loginBox .loginBoxCon .loginForm .btn-primary{width:100%; float:left; border-bottom:0px}
 .loginBox .loginBoxCon .loginForm .passIcon{position:absolute; top:8px; right: 0; background: none; border: none;}
 .loginBox .loginBoxCon .loginForm .passIcon:focus{outline:none}
@@ -528,7 +528,9 @@ footer{padding: 0;font-size: 11px}
 
 @media screen and (max-width:1366px) {
 .filterpopup .ant-drawer-body{overflow-y: auto; max-height:450px;}
-.loginBox .loginBoxCon .colLogLeft{padding:7% 4% 0px 4%;}
+.loginBox .loginBoxCon .colLogLeft{padding:3% 4% 0px 4%;}
+.loginBox .loginBoxCon .colLogRight img {height: 89%;}
+.loginBox .loginBoxCon .colLogLeft .colLogLeftInner{padding:0% 27% 0px 27%;}
 .conReposWrapp .conReposBox .conReposBoxHead .icon{width:30%}
 .conReposWrapp .conReposBox .conReposBoxHead .text p{font-size:14px;}
 .conReposWrapp .conReposBox{/*width:31.90%;*/ margin:0% 1% 2% 1%}
