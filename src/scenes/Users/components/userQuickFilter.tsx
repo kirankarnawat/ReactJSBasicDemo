@@ -100,30 +100,30 @@ class UserQuickFilter extends React.Component<IUserProps & IUserQuickFilterProp,
 
             <ul className="filterlist">
                 <li><div className="switchbutton mt5">
+                    <label className="mr8">{'Inactive'} </label>
+                    <label className="mr8 switch"><input type="checkbox" onChange={this.switchChange} checked={this.state.switchvalue} /> {/*<Checkbox onChange={this.switchChange} checked={this.state.switchvalue} />*/}<span className="slider round"></span></label>
                     <label className="mr8">{'Active'} </label>
-                        <label className="mr8 switch"><input type="checkbox" onChange={this.switchChange} checked={this.state.switchvalue} /> {/*<Checkbox onChange={this.switchChange} checked={this.state.switchvalue} />*/}<span className="slider round"></span></label>
-                        <label>Inactive</label>
+                </div>
+                </li>
+                <li className="width227">
+                    <Input placeholder="First Name/ Last Name" allowClear={true} onChange={this.firstNameChange} value={this.state.namevalue} />
+                </li>
+                <li className="width227">
+                    <AutoComplete placeholder="Group 1/ Group 2/ Group 3" allowClear={true} onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch} value={this.state.groupvalue}>
+                        {children}
+                    </AutoComplete>
+                </li>
+                <li>
+                    <div className="searchbg" onClick={handleSearch} >
+                        <span className="tabsearchbtn"></span>
                     </div>
-                    </li>
-                    <li className="width227">
-                        <Input placeholder="First Name/ Last Name" allowClear={true} onChange={this.firstNameChange} value={this.state.namevalue} />
-                    </li>
-                    <li className="width227">
-                        <AutoComplete placeholder="Group 1/ Group 2/ Group 3" allowClear={true} onSelect={this.groupSelect} onChange={this.groupChange} onSearch={this.handleAutoSearch} value={this.state.groupvalue}>
-                            {children}
-                        </AutoComplete>
-                    </li>
-                    <li>
-                        <div className="searchbg" onClick={handleSearch} >
-                            <span className="tabsearchbtn"></span>
-                        </div>
-                    </li>
-                    <li><div className="refreshbg" onClick={this.handleRefreshSearch} ><span className="refreshbtn"></span></div></li>
+                </li>
+                <li><div className="refreshbg" onClick={this.handleRefreshSearch} ><span className="refreshbtn"></span></div></li>
 
-                </ul>
+            </ul>
 
-                );
-            }
-        }
-        
+        );
+    }
+}
+
 export default Form.create<IUserQuickFilterProp>()(UserQuickFilter);
