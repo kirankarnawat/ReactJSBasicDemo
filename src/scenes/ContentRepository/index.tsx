@@ -2,6 +2,7 @@
 import * as React from 'react';
 
 import { Card } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { inject, observer } from 'mobx-react';
 
@@ -88,7 +89,7 @@ class contentRepository extends React.Component<IContentRepositoryProps, IConten
                                     return (
 
                                         <li key={route.featureId} className={route.class}>
-                                            <a href="#">
+                                            <Link to={route.path}>
                                                 <div className="conReposBox">
                                                     <div className="conReposBoxHead">
                                                         <div className="icon"><img src={require('../../images/' + route.icon)} /></div>
@@ -100,7 +101,7 @@ class contentRepository extends React.Component<IContentRepositoryProps, IConten
                                                         {countdata(route.featureId, route.name)}
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </Link>
                                         </li>
                                     );
                                 })

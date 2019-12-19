@@ -155,12 +155,12 @@ export const appRouters: any = [
     {
         featureId: "ManageCourse",
         name: "SCORM 1.2",
-        path: '/bulkImportHistory',
+        path: '/ContentRepository/component/scrom',
         class: 'scormLi',
         icon: 'SCORM.png',
         showInMenu: false,
         parentFeatureId: 'ContentManagement',
-        component: LoadableComponent(() => import('../../scenes/ContentRepository')),
+        component: LoadableComponent(() => import('../../scenes/ContentRepository/component/scrom')),
     },
     {
         featureId: "ManageTemplates",
