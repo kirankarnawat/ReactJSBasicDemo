@@ -146,6 +146,7 @@ var lms = lms || {};
     lms.course.APIType = {
 
         CONTENTREPOSITORYCOUNT: 'CONTENTREPOSITORYCOUNT',
+        GETALLCOURSES: 'GETALLCOURSES',
     };
 
     //API Path
@@ -154,6 +155,9 @@ var lms = lms || {};
         switch (type) {
             case lms.course.APIType.CONTENTREPOSITORYCOUNT:
                 path = '/course/contentrepositorycount';
+                break;
+            case lms.course.APIType.GETALLCOURSES:
+                path = '/course/getallcourse';
                 break;
         }
         return path;
