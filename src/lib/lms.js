@@ -136,6 +136,30 @@ var lms = lms || {};
 
     // #endregion
 
+
+    // #region CONTENT REPOSITORY COURSE MODULE API
+
+    //API Namespace
+    lms.course = lms.course || {};
+
+    //API ENUM
+    lms.course.APIType = {
+
+        CONTENTREPOSITORYCOUNT: 'CONTENTREPOSITORYCOUNT',
+    };
+
+    //API Path
+    lms.course.toAPIPath = function (type) {
+        var path = '';
+        switch (type) {
+            case lms.course.APIType.CONTENTREPOSITORYCOUNT:
+                path = '/course/contentrepositorycount';
+                break;
+        }
+        return path;
+    };
+
+    // #endregion
     /****************************************************************/
 
 

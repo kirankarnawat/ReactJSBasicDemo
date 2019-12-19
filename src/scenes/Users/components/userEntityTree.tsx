@@ -3,7 +3,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import FormItem from 'antd/lib/form/FormItem';
 import { FormComponentProps } from 'antd/lib/form';
-import { Col, Input, Form } from 'antd';
+import { Col, Input, Form, Empty} from 'antd';
 
 import Stores from '../../../stores/storeIdentifier';
 import UserStore from '../../../stores/userStore';
@@ -78,12 +78,12 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp, IEnti
                                 <ul className={item.group3Name !== null ? '' : 'hidden'}>
                                     <li>
                                         <a> <span className="">{item.group3Name} </span> <span className="groupicon"></span><span className="values"></span>
-                                            <span className={item.group3Name !== null ? 'adduserIcon hidden' : 'adduserIcon'} id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ ...this.state, result: [], searchvalue: '' }); }}></span>
+                                            <span className={item.group4Name !== null ? 'adduserIcon hidden' : 'adduserIcon'} id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ ...this.state, result: [], searchvalue: '' }); }}></span>
                                         </a>
                                         <ul className={item.group4Name !== null ? '' : 'hidden'}>
                                             <li className="highlighted">
                                                 <a><span className="">{item.group4Name} </span> <span className="groupicon"></span><span className="values"></span>
-                                                    <span className={item.group4Name !== null ? 'adduserIcon hidden' : 'adduserIcon'} id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ ...this.state, result: [], searchvalue: '' }); }}></span></a>
+                                                    <span className='adduserIcon' id={item.groupId} onClick={() => { onHandleAddGroupUser(item.groupId); this.setState({ ...this.state, result: [], searchvalue: '' }); }}></span></a>
                                             </li>
                                         </ul>
                                     </li>
@@ -109,7 +109,7 @@ class userEntityTree extends React.Component<IUserProps & IEntityTreeProp, IEnti
                 <div className="antd-row">
                     <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
                         <div className="treedigram">
-                            {child}
+                            {child.length > 0 ? child : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
                         </div>
                     </div>
                 </div>

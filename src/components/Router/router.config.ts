@@ -28,7 +28,7 @@ export const appRouters: any = [
         component: LoadableComponent(() => import('../../components/Layout/AppLayout')),
         isLayout: true,
         showInMenu: false,
-        parentFeatureId : ''
+        parentFeatureId: ''
     },
 
     {
@@ -42,7 +42,7 @@ export const appRouters: any = [
         displayOrder: 0,
         component: LoadableComponent(() => import('../../scenes/Dashboard')),
     },
-    
+
     {
         featureId: 'UserManagement',
         title: 'Users',
@@ -76,7 +76,7 @@ export const appRouters: any = [
         displayOrder: 1,
         component: LoadableComponent(() => import('../../scenes/Users')),
     },
-    
+
     {
         featureId: 'SystemLogs',
         title: 'System Logs',
@@ -88,19 +88,9 @@ export const appRouters: any = [
         displayOrder: 1,
         component: LoadableComponent(() => import('../../scenes/Users')),
     },
-    // {
-    //     featureId: 'AddEditCourse',
-    //     title: 'Add Course',
-    //     name: 'ManageUsers',
-    //     path: '#',
-    //     parentFeatureId: 'ContentManagement',
-    //     className: 'groupmenuicon',
-    //     showInMenu: true,
-    //     displayOrder: 1,
-    //     component: LoadableComponent(() => import('../../scenes/Users')),
-    // },
+
     {
-      featureId: 'ManageUsers',
+        featureId: 'ManageUsers',
         title: 'Manage Users',
         name: 'ManageUsers',
         path: '/users',
@@ -112,16 +102,16 @@ export const appRouters: any = [
     },
     {
         featureId: 'ErrorLogs',
-          title: 'Error Logs',
-          name: 'ErrorLogs',
-          path: '#',
-          parentFeatureId: 'SystemLogs',
-          className: 'groupmenuicon',
-          showInMenu: true,
-          displayOrder: 1,
-          component: LoadableComponent(() => import('../../scenes/Users')),
-      },
-      {
+        title: 'Error Logs',
+        name: 'ErrorLogs',
+        path: '#',
+        parentFeatureId: 'SystemLogs',
+        className: 'groupmenuicon',
+        showInMenu: true,
+        displayOrder: 1,
+        component: LoadableComponent(() => import('../../scenes/Users')),
+    },
+    {
         featureId: 'BulkImportHistory',
         title: 'Bulk Import History',
         name: 'BulkImportHistory',
@@ -132,7 +122,7 @@ export const appRouters: any = [
         displayOrder: 1,
         component: LoadableComponent(() => import('../../scenes/Users/components/bulkImportHistory')),
     },
-    
+
     {
         featureId: 'EmailLogs',
         title: 'Email Logs',
@@ -159,6 +149,78 @@ export const appRouters: any = [
         icon: 'info-circle',
         showInMenu: false,
         component: LoadableComponent(() => import('../../scenes/Exception')),
+    },
+
+    //content repository dashboard items
+    {
+        featureId: "ManageCourse",
+        name: "SCORM 1.2",
+        path: '/bulkImportHistory',
+        class: 'scormLi',
+        icon: 'SCORM.png',
+        showInMenu: false,
+        parentFeatureId: 'ContentManagement',
+        component: LoadableComponent(() => import('../../scenes/ContentRepository')),
+    },
+    {
+        featureId: "ManageTemplates",
+        name: "Manual Templates",
+        path: '/bulkImportHistory',
+        class: 'manualTemp',
+        icon: 'manual-templates.png',
+        showInMenu: false,
+        parentFeatureId: 'ContentManagement',
+        component: LoadableComponent(() => import('../../scenes/ContentRepository')),
+    },
+    {
+        featureId: "ManageAssessment",
+        name: "Quiz/Assessments",
+        path: '/bulkImportHistory',
+        class: 'quizAss',
+        icon: 'quiz.png',
+        showInMenu: false,
+        parentFeatureId: 'ContentManagement',
+        component: LoadableComponent(() => import('../../scenes/ContentRepository')),
+    },
+    {
+        featureId: "ManageSurveys",
+        name: "Surveys",
+        path: '/bulkImportHistory',
+        class: 'survey',
+        icon: 'survey.png',
+        showInMenu: false,
+        parentFeatureId: 'ContentManagement',
+        component: LoadableComponent(() => import('../../scenes/ContentRepository')),
+    },
+    {
+        featureId: "ManageMedia",
+        name: "Media",
+        path: '/bulkImportHistory',
+        class: 'mediaBox',
+        icon: 'media.png',
+        showInMenu: false,
+        parentFeatureId: 'ContentManagement',
+        component: LoadableComponent(() => import('../../scenes/ContentRepository')),
+    },
+    {
+        featureId: "ManageWebinar",
+        name: "Events",
+        path: '/bulkImportHistory',
+        class: 'events',
+        icon: 'events.png',
+        showInMenu: false,
+        parentFeatureId: 'ContentManagement',
+        component: LoadableComponent(() => import('../../scenes/ContentRepository')),
+    },
+    {
+        featureId: "ManageNewsLetter",
+        name: "NewsLetter",
+        path: '/bulkImportHistory',
+        class: 'newsletter',
+        icon: 'newsletter.png',
+        showInMenu: false,
+        parentFeatureId: 'ContentManagement',
+        component: LoadableComponent(() => import('../../scenes/ContentRepository')),
     },
 ];
 

@@ -1,12 +1,75 @@
+
 import * as React from 'react';
 
 import { Card } from 'antd';
 
-class contentRepository extends React.Component{
+import { inject, observer } from 'mobx-react';
+
+import { appRouters } from '../../components/Router/router.config';
+import storageService from '../../services/storageService';
+import commonconst from '../../lib/commonconst';
+
+import Stores from '../../stores/storeIdentifier';
+import ContentRepositoryStore from '../../stores/contentrepositoryStore';
+import { ContentRepositoryCountResponse } from '../../services/contentrepository/dto/Response/contentRepositoryCountResponse';
+
+export interface IContentRepositoryProps {
+    contentrepositoryStore: ContentRepositoryStore;
+}
+
+export interface IContentRepositoryState {
+    counts: ContentRepositoryCountResponse;
+}
+
+
+@inject(Stores.ContentRepositoryStore)
+@observer
+class contentRepository extends React.Component<IContentRepositoryProps, IContentRepositoryState> {
+
     constructor(props) {
         super(props);
+        this.state = {
+            counts: { totalAssessments: 0, totalCourses: 0, totalEvents: 0, totalNewsletters: 0, totalPdfs: 0, totalSurveys: 0, totalTemplates: 0, totalVideos: 0 },
+        }
     }
+
+    async componentDidMount() {
+
+        await this.props.contentrepositoryStore.initUserId();
+
+        let res = await this.props.contentrepositoryStore.getContentRepositoryCount();
+
+        this.setState({ ...this.state, counts: res });
+    }
+
     render() {
+
+        const { counts } = this.state;
+
+        let result = storageService.getUserCookie();
+        let dtfeatures = (result.features !== undefined) ? result.features : [];
+
+        let contentmenu = dtfeatures.filter((item: any) => item.parentFeatureId === commonconst.PARENTFEATURE.PARENTFEATURE_CONTENTMANAGEMENT);
+        const child = appRouters.filter((item: any) => item.parentFeatureId === commonconst.PARENTFEATURE.PARENTFEATURE_CONTENTMANAGEMENT && item.showInMenu === false && contentmenu.filter(e => e['featureId'] === item.featureId));
+
+        const firstfour = (child.length > 0) ? child.slice(0, 4) : [];
+        const secondfour = (child.length > 0) ? child.slice(4) : [];
+
+        const countdata = (featureId: string, name: string) => {
+            debugger;
+            var tcount = 0, tcount1 = 0, tcount2 = 0;
+
+            switch (featureId) {
+                case commonconst.FEATURE.FEATURE_ASSESSMENTMANAGEMENT: tcount = counts.totalAssessments||0; return (<h2> {tcount} <span> {name} </span></h2>);
+                case commonconst.FEATURE.FEATURE_COURSEMANAGEMENT: tcount = counts.totalCourses || 0; return (<h2> {tcount} <span> {name} </span></h2>);
+                case commonconst.FEATURE.FEATURE_MEDIAMANAGEMENT: tcount1 = counts.totalVideos || 0; tcount2 = counts.totalPdfs || 0; return (<ul className="conRepListing"><li><h2> {tcount1} <span> Videos </span></h2></li><li><h2> {tcount2} <span> PDF </span></h2></li></ul>);
+                case commonconst.FEATURE.FEATURE_NEWSLETTERMANAGEMENT: tcount = counts.totalNewsletters || 0; return (<h2> {tcount} <span> {name} </span></h2>);
+                case commonconst.FEATURE.FEATURE_SURVEYSMANAGEMENT: tcount = counts.totalSurveys || 0; return (<h2> {tcount} <span> {name} </span></h2>);
+                case commonconst.FEATURE.FEATURE_TEMPLATESMANAGEMENT: tcount = counts.totalTemplates || 0; return (<h2> {tcount} <span> {name} </span></h2>);
+                case commonconst.FEATURE.FEATURE_WEBINARMANAGEMENT: tcount = counts.totalEvents || 0; return (<h2> {tcount} <span> {name} </span></h2>);
+            }
+        }
+
         return (
             <Card>
                 <div>
@@ -17,140 +80,60 @@ class contentRepository extends React.Component{
                             </div>
                         </div>
                     </div>
+
                     <div className="conReposWrapp pt7per">
                         <ul className="conRepoListing">
-                            <li className="scormLi">
-                                <a href="#">
-                                    <div className="conReposBox">
-                                        <div className="conReposBoxHead">
-                                            <div className="icon"><img src={require('../../images/SCORM.png')} /></div>
-                                            <div className="text">
-                                                <h1>SCORM 1.2</h1>
-                                            </div>
-                                        </div>
-                                        <div className="conReposBoxFooter">
-                                            <h2>
-                                              
-                                                11 <span>Courses</span>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li className="manualTemp">
-                                <a href="#">
-                                    <div className="conReposBox">
-                                        <div className="conReposBoxHead">
-                                            <div className="icon"><img src={require('../../images/manual-templates.png')} /></div>
-                                            <div className="text">
-                                                <h1>Manual Templates</h1>
-                                            </div>
-                                        </div>
-                                        <div className="conReposBoxFooter">
-                                            <h2>
-                                                98 <span>Templates</span>
+                            {
+                                firstfour.map((route: any, index: number) => {
+                                    return (
 
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li className="quizAss">
-                                <a href="#">
-                                    <div className="conReposBox">
-                                        <div className="conReposBoxHead">
-                                            <div className="icon"><img src={require('../../images/quiz.png')} /></div>
-                                            <div className="text">
-                                                <h1>Quiz/Assessments</h1>
-                                            </div>
-                                        </div>
-                                        <div className="conReposBoxFooter">
-                                            <h2>
-                                                3  <span>Quiz/Assessments</span>
-
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li className="survey">
-                                <a href="#">
-                                    <div className="conReposBox">
-                                        <div className="conReposBoxHead">
-                                            <div className="icon"><img src={require('../../images/survey.png')} /></div>
-                                            <div className="text">
-                                                <h1>Surveys</h1>
-                                            </div>
-                                        </div>
-                                        <div className="conReposBoxFooter">
-                                            <h2>
-                                                3 <span>Surveys</span>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+                                        <li key={route.featureId} className={route.class}>
+                                            <a href="#">
+                                                <div className="conReposBox">
+                                                    <div className="conReposBoxHead">
+                                                        <div className="icon"><img src={require('../../images/' + route.icon)} /></div>
+                                                        <div className="text">
+                                                            <h1>{route.name}</h1>
+                                                        </div>
+                                                    </div>
+                                                    <div className="conReposBoxFooter">
+                                                        {countdata(route.featureId, route.name)}
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    );
+                                })
+                            }
                         </ul>
                     </div>
+
                     <div className="conReposWrapp pbP15">
                         <ul className="conRepoListing centerconRep">
-                            <li className="mediaBox">
-                                <a href="#">
-                                    <div className="conReposBox">
-                                        <div className="conReposBoxHead">
-                                            <div className="icon"><img src={require('../../images/media.png')} /></div>
-                                            <div className="text">
-                                                <h1>Media</h1>
-                                            </div>
-                                        </div>
-                                        <div className="conReposBoxFooter">
-                                            <ul className="conRepListing">
-                                                <li>
-                                                    <h2>73 <span>Videos</span></h2>
-                                                </li>
-                                                <li>
-                                                    <h2>95 <span>PDF</span></h2>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li className="events">
-                                <a href="#">
-                                    <div className="conReposBox">
-                                        <div className="conReposBoxHead">
-                                            <div className="icon"><img src={require('../../images/events.png')} /></div>
-                                            <div className="text">
-                                                <h1>Events</h1>
-                                            </div>
-                                        </div>
-                                        <div className="conReposBoxFooter">
-                                            <h2>
-                                                113 <span>Events</span>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li className="newsletter">
-                                <a href="#">
-                                    <div className="conReposBox">
-                                        <div className="conReposBoxHead">
-                                            <div className="icon"><img src={require('../../images/newsletter.png')} /></div>
-                                            <div className="text">
-                                                <h1>NewsLetter</h1>
-                                            </div>
-                                        </div>
-                                        <div className="conReposBoxFooter">
-                                            <h2>
-                                                53 <span>NewsLetter</span>
 
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+                            {
+                                secondfour.map((route: any, index: number) => {
+                                    return (
+
+                                        <li key={route.featureId} className={route.class}>
+                                            <a href="#">
+                                                <div className="conReposBox">
+                                                    <div className="conReposBoxHead">
+                                                        <div className="icon"><img src={require('../../images/' + route.icon)} /></div>
+                                                        <div className="text">
+                                                            <h1>{route.name}</h1>
+                                                        </div>
+                                                    </div>
+                                                    <div className="conReposBoxFooter">
+                                                        {countdata(route.featureId, route.name)}
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    );
+                                })
+                            }
+
                         </ul>
                     </div>
 
