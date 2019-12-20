@@ -7,11 +7,14 @@ import { inject, observer } from 'mobx-react';
 
 import Stores from '../../../../stores/storeIdentifier';
 import ContentRepositoryStore from '../../../../stores/contentrepositoryStore';
+
 import { PagedResultDto } from '../../../../services/dto/pagedResultDto';
 import { GetAllCourseResponse } from '../../../../services/contentrepository/dto/Response/getAllCourseResponse';
 
 import AppConsts from '../../../../lib/appconst';
 import { EntityDto } from '../../../../services/dto/entityDto';
+
+import CreateOrUpdateCourse from './components/createOrUpdateCourse';
 
 // #endregion
 
@@ -109,7 +112,7 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState > {
     //ADD EDIT DRAWER OPEN
     async createOrUpdateCourseModalOpen(entityDto: EntityDto) {
 
-        let data;
+        //let data;
 
         //if (entityDto.id === '') {
         //    await this.props.userStore.createUser();
@@ -123,7 +126,7 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState > {
 
         //await this.props.userStore.getUserJobRoles();
 
-        this.setState({ courseId: entityDto.id, courses:data});
+        this.setState({ courseId: entityDto.id});
         this.Modal();
     }
 
@@ -253,6 +256,15 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState > {
                         </div>
                     </Col>
                 </Row>
+
+                <CreateOrUpdateCourse
+                    wrappedComponentRef={this.saveCreateOrUpdateCourseFormRef}
+                    visible={this.state.modalVisible}
+                    onCancel={this.onHandlecreateOrUpdateModalClose}
+                    modalType={this.state.courseId === '' ? 'create' : 'edit'}
+                    id={this.state.courseId}
+                />
+
             </Card>
         )
     };

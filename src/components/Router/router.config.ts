@@ -161,7 +161,7 @@ export const appRouters: any = [
         icon: 'SCORM.png',
         showInMenu: false,
         parentFeatureId: 'ContentManagement',
-        component: LoadableComponent(() => import('../../scenes/ContentRepository/component/course')),
+        component: LoadableComponent(() => import('../../scenes/ContentRepository/components/course')),
     },
     {
         featureId: "ManageTemplates",
