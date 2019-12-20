@@ -532,7 +532,7 @@ footer{padding: 0;font-size: 11px}
 .Coursecontrollist li:first-child{width:40%; margin-left:0}
 .noteText{color:#6B6B6B;font-size:11px}
 @media screen and (max-width:1366px) {
-.filterpopup .ant-drawer-body{overflow-y: auto; max-height:450px;}
+.ant-drawer-body{overflow-y: auto; max-height:400px;}
 .loginBox .loginBoxCon .colLogLeft{padding:3% 4% 0px 4%;}
 .loginBox .loginBoxCon .colLogRight img {height: 89%;}
 .loginBox .loginBoxCon .colLogLeft .colLogLeftInner{padding:0% 27% 0px 27%;}
