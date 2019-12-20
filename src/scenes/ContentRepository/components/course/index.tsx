@@ -150,14 +150,13 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState > {
 
         const columns = [
             {
-                title: 'Course Title', dataIndex: 'courseName', sorter: true, key: 'courseName', width: 400, render: (text: string) => <div>{text}</div>
+                title: 'Course Name', dataIndex: 'courseName', sorter: true, key: 'courseName', width: 400, render: (text: string) => <div>{text}</div>
             },
-            { title: 'Category', dataIndex: 'courseCategoryName', sorter: true, key: 'courseCategoryName', width: 200, render: (text: string) => <div>{text}</div> },
-            { title: 'Course ID', dataIndex: 'courseId', sorter: true, key: 'courseId', width: 500, render: (text: string) => <div>{text}</div> },
-            { title: 'Created On', dataIndex: 'createdDate', sorter: true, key: 'createdDate', width: 200, render: (text: string) => <div>{text}</div> },
+            { title: 'Course Category', dataIndex: 'courseCategoryName', sorter: true, key: 'courseCategoryName', width: 200, render: (text: string) => <div>{text}</div> },
+            { title: 'Created On', dataIndex: 'createdDateDisplay', sorter: true, key: 'createdDateDisplay', width: 200, render: (text: string) => <div>{text}</div> },
 
             {
-                title: 'Contact Hours', dataIndex: 'courseDurationHH', sorter: true, key: 'courseDurationHH', width: 200,
+                title: 'Duration', dataIndex: 'courseDurationHH', sorter: true, key: 'courseDurationHH', width: 200,
                 render: (text, row) => {
 
                     if (row.CourseDurationHH == 0) {
@@ -169,7 +168,7 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState > {
                 }
             },
 
-            { title: 'Price', dataIndex: 'coursePrice', sorter: true, key: 'coursePrice', width: 200, render: (text: string) => <div>{text}</div> },
+            { title: 'Price <i>(in $)</i>', dataIndex: 'coursePrice', sorter: true, key: 'coursePrice', width: 200, render: (text: string) => <div>{text}</div> },
 
             {
                 title: 'Edit',

@@ -18,7 +18,12 @@ class ContentRepositoryService {
     public async getAllCourses(getAllCourseRequest: GetAllCourseRequest): Promise<PagedResultDto<GetAllCourseResponse>> {
 
         let result = await http.post(lms.course.toAPIPath(lms.course.APIType.GETALLCOURSES), getAllCourseRequest);
-        return result.data;
+
+        var data = <PagedResultDto<GetAllCourseResponse>>{};
+        data.items = result.data;
+        data.totalCount = (data.items.length > 0) ? data.items.length : 0;
+
+        return data;
     }
 
 }
