@@ -329,7 +329,7 @@ ul.ant-pagination .ant-pagination-item a:focus{box-shadow:none}
 .assignedBox p{font-size:12px}
 
 .buttonfooter{position: fixed;bottom:0px;background:#fff;z-index:10;}
-.bulkUpload .ant-upload.ant-upload-drag{border:1px dashed #0A70B9;box-shadow: 5px 5px 6px #0000001A;margin-top:10px; height:80px;text-align:center; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
+.bulkUpload .ant-upload.ant-upload-drag{border:1px dashed #0A70B9;box-shadow: 5px 5px 6px #0000001A; height:80px;text-align:center; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
 .bulkUpload .ant-upload.ant-upload-drag:not(.ant-upload-disabled):hover{border-color:#d63031}
 .bulkUpload .ant-upload.ant-upload-drag .ant-upload{padding:6px 0 6px}
 .bulkUpload .ant-btn-bulk{width:188px;; background:#E2E2E2;color:#000000;border-bottom:2px solid #E2E2E2;border-color:#E2E2E2}
@@ -526,6 +526,11 @@ footer{padding: 0;font-size: 11px}
 .centerconRep li{width:31.33%}
 .conReposWrapp .conReposBox:hover {-webkit-box-shadow: 0px 0px 10px 0px rgba(164,204,214,1);-moz-box-shadow: 0px 0px 10px 0px rgba(164,204,214,1);box-shadow: 0px 0px 10px 0px rgba(164,204,214,1);}
 
+/***Course ADD/EDIT****/
+.Coursecontrollist{margin:0;padding:0;}
+.Coursecontrollist li{width:28%;float:left;margin:0px 0px 0px 2%}
+.Coursecontrollist li:first-child{width:40%; margin-left:0}
+.noteText{color:#6B6B6B;font-size:11px}
 @media screen and (max-width:1366px) {
 .filterpopup .ant-drawer-body{overflow-y: auto; max-height:450px;}
 .loginBox .loginBoxCon .colLogLeft{padding:3% 4% 0px 4%;}
@@ -537,9 +542,9 @@ footer{padding: 0;font-size: 11px}
 .conReposWrapp .conReposBox:first-child{margin-left: 0%;}
 }
 
-/* .switchbutton .labeltext{ padding:0px 5px;font-size:12px;}
-.switchbutton .ant-switch-checked{background-color: #fff;border: 1px solid #000000;}
-.switchbutton .ant-switch{height:20px;border: 1px solid #000000;background: #fff;}
+.switchbutton .labeltext{ padding:0px 5px;font-size:12px;}
+.switchbutton .ant-switch-checked{background-color:#4CAF50;border:none;}
+.switchbutton .ant-switch{height:20px;border:none;}
 .switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{width:10px;height: 10px;}
-.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{background-color:#000000;}
-.switchbutton .ant-switch{height:15px; min-width:28px;} */
+.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{background-color:#fff;}
+.switchbutton .ant-switch{height:15px; min-width:28px;}
