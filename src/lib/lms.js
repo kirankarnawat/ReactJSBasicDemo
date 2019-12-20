@@ -147,7 +147,11 @@ var lms = lms || {};
 
         CONTENTREPOSITORYCOUNT: 'CONTENTREPOSITORYCOUNT',
         GETALLCOURSES: 'GETALLCOURSES',
-        GETCOURSELOOKUPS: 'GETCOURSELOOKUPS'
+        GETCOURSELOOKUPS: 'GETCOURSELOOKUPS',
+        ADDEDITCOURSE: 'ADDEDITCOURSE',
+        UPLOADCOURSE: 'UPLOADCOURSE',
+        GETCOURSE: 'GETCOURSE',
+        ISCOURSENAMEINUSE: 'ISCOURSENAMEINUSE',
     };
 
     //API Path
@@ -162,6 +166,18 @@ var lms = lms || {};
                 break;
             case lms.course.APIType.GETCOURSELOOKUPS:
                 path = '/course/getlookups';
+                break;
+            case lms.course.APIType.ADDEDITCOURSE:
+                path = '/course/addeditcourse';
+                break;
+            case lms.course.APIType.UPLOADCOURSE:
+                path = '/course/uploadcourse';
+                break;
+            case lms.course.APIType.GETCOURSE:
+                path = '/course/getcourse';
+                break;
+            case lms.course.APIType.ISCOURSENAMEINUSE:
+                path = '/course/iscoursenameinuse';
                 break;
         }
         return path;
