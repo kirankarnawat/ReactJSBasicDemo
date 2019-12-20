@@ -62,7 +62,7 @@ class contentRepository extends React.Component<IContentRepositoryProps, IConten
 
             switch (featureId) {
                 case commonconst.FEATURE.FEATURE_ASSESSMENTMANAGEMENT: tcount = counts.totalAssessments||0; return (<h2> {tcount} <span> {name} </span></h2>);
-                case commonconst.FEATURE.FEATURE_COURSEMANAGEMENT: tcount = counts.totalCourses || 0; return (<h2> {tcount} <span> {name} </span></h2>);
+                case commonconst.FEATURE.FEATURE_COURSEMANAGEMENT: tcount = counts.totalCourses || 0; return (<h2> {tcount} <span> {'Courses'} </span></h2>);
                 case commonconst.FEATURE.FEATURE_MEDIAMANAGEMENT: tcount1 = counts.totalVideos || 0; tcount2 = counts.totalPdfs || 0; return (<ul className="conRepListing"><li><h2> {tcount1} <span> Videos </span></h2></li><li><h2> {tcount2} <span> PDF </span></h2></li></ul>);
                 case commonconst.FEATURE.FEATURE_NEWSLETTERMANAGEMENT: tcount = counts.totalNewsletters || 0; return (<h2> {tcount} <span> {name} </span></h2>);
                 case commonconst.FEATURE.FEATURE_SURVEYSMANAGEMENT: tcount = counts.totalSurveys || 0; return (<h2> {tcount} <span> {name} </span></h2>);
@@ -82,7 +82,7 @@ class contentRepository extends React.Component<IContentRepositoryProps, IConten
                         </div>
                     </div>
 
-                    <div className="conReposWrapp pt7per">
+                    <div className="conReposWrapp">
                         <ul className="conRepoListing">
                             {
                                 firstfour.map((route: any, index: number) => {

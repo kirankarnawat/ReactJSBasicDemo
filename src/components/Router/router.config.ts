@@ -155,7 +155,8 @@ export const appRouters: any = [
     {
         featureId: "ManageCourse",
         name: "SCORM 1.2",
-        path: '/ContentRepository/component/scrom',
+        title: "Manage Course",
+        path: '/scrom',
         class: 'scormLi',
         icon: 'SCORM.png',
         showInMenu: false,
@@ -165,6 +166,7 @@ export const appRouters: any = [
     {
         featureId: "ManageTemplates",
         name: "Manual Templates",
+        title: "Manage Templates",
         path: '/bulkImportHistory',
         class: 'manualTemp',
         icon: 'manual-templates.png',
@@ -175,6 +177,7 @@ export const appRouters: any = [
     {
         featureId: "ManageAssessment",
         name: "Quiz/Assessments",
+        title: "Manage Assessment",
         path: '/bulkImportHistory',
         class: 'quizAss',
         icon: 'quiz.png',
@@ -185,6 +188,7 @@ export const appRouters: any = [
     {
         featureId: "ManageSurveys",
         name: "Surveys",
+        title: "Manage Survey",
         path: '/bulkImportHistory',
         class: 'survey',
         icon: 'survey.png',
@@ -195,6 +199,7 @@ export const appRouters: any = [
     {
         featureId: "ManageMedia",
         name: "Media",
+        title: "Manage Media",
         path: '/bulkImportHistory',
         class: 'mediaBox',
         icon: 'media.png',
@@ -205,6 +210,7 @@ export const appRouters: any = [
     {
         featureId: "ManageWebinar",
         name: "Events",
+        title: "Manage Events",
         path: '/bulkImportHistory',
         class: 'events',
         icon: 'events.png',
@@ -215,6 +221,7 @@ export const appRouters: any = [
     {
         featureId: "ManageNewsLetter",
         name: "NewsLetter",
+        title: "Manage Newsletter",
         path: '/bulkImportHistory',
         class: 'newsletter',
         icon: 'newsletter.png',
