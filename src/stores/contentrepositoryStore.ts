@@ -5,6 +5,7 @@ import contentrepositoryService from '../services/contentrepository/contentrepos
 import { GetAllCourseRequest } from '../services/contentrepository/dto/Request/getAllCourseRequest';
 
 import AppConsts from '../lib/appconst';
+import { GetCourseCategoryResponse } from '../services/contentrepository/dto/Response/getCourseCategoryResponse';
 
 const pagesize = AppConsts.pagesize;
 
@@ -12,6 +13,7 @@ class ContentRepositoryStore {
 
     @observable userid!: string;
     @observable filters!: GetAllCourseRequest;
+    @observable coursecategory!: GetCourseCategoryResponse[];
 
     @action
     async initUserId() {
@@ -52,6 +54,16 @@ class ContentRepositoryStore {
 
         let result = await contentrepositoryService.getAllCourses(getAllCourseRequest);
         return result;
+    }
+
+    @action
+    async getCourseCategory() {
+        debugger;
+        let result = await contentrepositoryService.getCourseCategory();
+        debugger;
+        runInAction(() => {
+            this.coursecategory = result.items;
+        });
     }
 }
 

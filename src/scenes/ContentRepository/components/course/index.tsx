@@ -14,6 +14,7 @@ import { GetAllCourseResponse } from '../../../../services/contentrepository/dto
 import AppConsts from '../../../../lib/appconst';
 import { EntityDto } from '../../../../services/dto/entityDto';
 
+import CourseQuickFilter from './components/courseQuickFilter';
 import CreateOrUpdateCourse from './components/createOrUpdateCourse';
 
 // #endregion
@@ -52,10 +53,16 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState > {
     }
 
     // #region GLOBALS
+
     createorupdatecourseFormRef: any;
+    quickfilterFormRef: any;
 
     saveCreateOrUpdateCourseFormRef = (formRef: any) => {
         this.createorupdatecourseFormRef = formRef;
+    };
+
+    saveQuickfilterFormRef = (formRef: any) => {
+        this.quickfilterFormRef = formRef;
     };
 
     // #endregion    // #region USER MANAGEMENT
@@ -64,6 +71,8 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState > {
     async componentDidMount() {
 
         await this.props.contentrepositoryStore.initFilter();
+
+        await this.props.contentrepositoryStore.getCourseCategory();
 
         await this.getAll();
     }
@@ -168,7 +177,8 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState > {
                 }
             },
 
-            { title: 'Price <i>(in $)</i>', dataIndex: 'coursePrice', sorter: true, key: 'coursePrice', width: 200, render: (text: string) => <div>{text}</div> },
+            {
+                title: "Price (in $)" , dataIndex: 'coursePrice', sorter: true, key: 'coursePrice', width: 200, render: (text: string) => <div>{text}</div> },
 
             {
                 title: 'Edit',
@@ -199,7 +209,7 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState > {
                                     lg={{ span: 12 }}>
 
                                     <div className="heading">
-                                        <h2>Manage Users</h2>
+                                        <h2>Manage Course</h2>
                                     </div>
 
                                 </Col>
@@ -225,6 +235,11 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState > {
                                 <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-8">
                                     <div>
                                         <h6>Showing {courses.totalCount} of {(courses.totalCount > 0) ? courses.items[0].totalCount : 0} entries</h6>
+                                    </div>
+                                </div>
+                                <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-16">
+                                    <div className="rightContentdata">
+                                        <CourseQuickFilter wrappedComponentRef={this.saveQuickfilterFormRef} handleSearch={this.handleSearch} />
                                     </div>
                                 </div>
                             </div>

@@ -147,6 +147,7 @@ var lms = lms || {};
 
         CONTENTREPOSITORYCOUNT: 'CONTENTREPOSITORYCOUNT',
         GETALLCOURSES: 'GETALLCOURSES',
+        GETCOURSELOOKUPS: 'GETCOURSELOOKUPS'
     };
 
     //API Path
@@ -158,6 +159,9 @@ var lms = lms || {};
                 break;
             case lms.course.APIType.GETALLCOURSES:
                 path = '/course/getallcourse';
+                break;
+            case lms.course.APIType.GETCOURSELOOKUPS:
+                path = '/course/getlookups';
                 break;
         }
         return path;

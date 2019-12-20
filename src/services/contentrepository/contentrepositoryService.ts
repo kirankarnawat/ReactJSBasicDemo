@@ -4,6 +4,7 @@ import { ContentRepositoryCountResponse } from './dto/Response/contentRepository
 import { GetAllCourseRequest } from './dto/Request/getAllCourseRequest';
 import { GetAllCourseResponse } from './dto/Response/getAllCourseResponse';
 import { PagedResultDto } from '../dto/pagedResultDto';
+import { GetCourseCategoryResponse } from './dto/Response/getCourseCategoryResponse';
 
 declare var lms: any;
 
@@ -26,6 +27,19 @@ class ContentRepositoryService {
         return data;
     }
 
+    public async getCourseCategory(): Promise<PagedResultDto<GetCourseCategoryResponse>> {
+        var data = <PagedResultDto<GetCourseCategoryResponse>>{};
+        try {
+            let result = await http.get(lms.course.toAPIPath(lms.course.APIType.GETCOURSELOOKUPS));
+            data.items = result.data["listCourseCategory"];
+            data.totalCount = data.items.length;
+            return data;
+        }
+        catch (e) {
+            console.log(e);
+        }
+        return data;
+    }
 }
 
 export default new ContentRepositoryService();
