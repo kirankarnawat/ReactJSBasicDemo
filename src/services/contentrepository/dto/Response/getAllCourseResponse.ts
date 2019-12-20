@@ -1,16 +1,18 @@
 
 export interface GetAllCourseResponse {
 
-    CourseId: string,
-    CourseName: string,
-    CourseDescription: string,
-    CoursePrice: number,
-    CourseDurationHH: number,
-    CourseDurationMM: number,
-    Status: boolean | null,
-    DisplayStatus: string,
-    CourseUploadSuccess: boolean | null,
-    CreatedDate: Date,
-    CreatedDateDisplay: string,
-    CourseCategoryName: string
+    courseId: string,
+    courseName: string,
+    courseDescription: string,
+    coursePrice: number,
+    courseDurationHH: number,
+    courseDurationMM: number,
+    status: boolean,
+    courseCategoryId: string,
+    courseCategoryName: string,
+    createdDate: Date,
+    lastModifiedDate: Date,
+    totalCount: number,
+    createdDateDisplay: string,
+    lastModifiedDateDisplay: string
 }
