@@ -1,7 +1,6 @@
 
-import { PagedFilterAndSortedRequest } from '../../../dto/pagedFilterAndSortedRequest';
 
-export interface GetCourseRequest extends PagedFilterAndSortedRequest {
+export interface GetCourseRequest {
 
     courseId: string,
     status: boolean,

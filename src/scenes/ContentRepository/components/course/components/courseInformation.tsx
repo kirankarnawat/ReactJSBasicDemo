@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 
-import { Upload, Col, Icon, Input, Select, Row, DatePicker, Switch, Button, Form, message, InputNumber } from 'antd';
+import { Upload, Col, Icon, Input, Select, Row, DatePicker, Switch, Button, Form, message, InputNumber, Spin } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 
 import Stores from '../../../../../stores/storeIdentifier';
@@ -29,6 +29,7 @@ export interface IContentrepositoryProps {
 
 export interface ICourseInformationProp extends FormComponentProps {
     id: string;
+    handleKeyword: () => void;
 }
 
 export interface ICourseInformationState {
@@ -37,6 +38,7 @@ export interface ICourseInformationState {
     successMsg: string;
     isShowHeaderImg: boolean;
     isAllDisable: boolean;
+    loading: boolean;
 }
 
 const uploadimgprops = {
@@ -92,8 +94,9 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
         this.state = {
             isSuccessMsgShow: false,
             successMsg: '',
-            isShowHeaderImg: (this.props.contentrepositoryStore.courseById) ? this.props.contentrepositoryStore.courseById.showCourseHeaderImage : false,
+            isShowHeaderImg: this.props.contentrepositoryStore.courseById.showCourseHeaderImage,
             isAllDisable: false,
+            loading: false
         };
     }
 
@@ -117,7 +120,6 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
         return isImg;
     }
 
-
     onBeforeUploadZip(info) {
 
         const isZip = info.type === "application/x-zip-compressed";
@@ -126,7 +128,6 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
         }
         return isZip;
     }
-
 
     handleDataExists = async (rule, value, callback) => {
 
@@ -160,7 +161,7 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
             if (err) { return; }
             else {
 
-                debugger;
+                this.setState({ ...this.state, loading: true });
 
                 var cntzip = (values["uploadedFile"] && values["uploadedFile"].fileList.length > 0) ? values["uploadedFile"].fileList.length : -1;
                 var cntimg = (values["headerImage"] && values["headerImage"].fileList.length > 0) ? values["headerImage"].fileList.length : -1;
@@ -177,10 +178,14 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                     await this.props.contentrepositoryStore.addeditCourse({ courseId: res.courseId, requesterUserId: this.props.contentrepositoryStore.userid, courseHeaderImage: filename, ...values });
 
                     this.setState({ isAllDisable: true, successMsg: (this.props.id === '') ? commonconst.MESSAGES.COURSEADDSUCCESS : commonconst.MESSAGES.COURSEEDITSUCCESS, isSuccessMsgShow: true });
+
+                    this.props.handleKeyword();
                 }
                 else {
                     message.error(res.errorMessage);
                 }
+
+                this.setState({ ...this.state, loading: false });
             }
         });
     };
@@ -199,276 +204,278 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
 
         return (
 
-            <div className="pos">
+            <Spin spinning={this.state.loading}>
+                <div className="pos">
 
-                <Row className={(this.state.isSuccessMsgShow) ? 'antd-row mb10' : 'antd-row mb10 hidden'} >
-                    <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
-                        <div className="successMsg">
-                            <div className="successText">
-                                <div className="heading">
-                                    <h3>{this.state.successMsg}</h3>
+                    <Row className={(this.state.isSuccessMsgShow) ? 'antd-row mb10' : 'antd-row mb10 hidden'} >
+                        <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                            <div className="successMsg">
+                                <div className="successText">
+                                    <div className="heading">
+                                        <h3>{this.state.successMsg}</h3>
+                                    </div>
                                 </div>
+                                <div className="ant-clearfix"></div>
                             </div>
-                            <div className="ant-clearfix"></div>
-                        </div>
-                    </Col>
-                </Row>
+                        </Col>
+                    </Row>
 
-                <div>
-                    <span className={this.state.isAllDisable === true ? 'floatRight' : 'floatRight hidden'}><a className="editEntityIcon" onClick={this.handleAllEnable}></a></span>
-                </div>
+                    <div>
+                        <span className={this.state.isAllDisable === true ? 'floatRight' : 'floatRight hidden'}><a className="editEntityIcon" onClick={this.handleAllEnable}></a></span>
+                    </div>
 
-                <Row className="antd-row">
+                    <Row className="antd-row">
 
-                    <Col xs={{ span: 16 }} sm={{ span: 16 }} md={{ span: 16 }} lg={{ span: 16 }}>
+                        <Col xs={{ span: 16 }} sm={{ span: 16 }} md={{ span: 16 }} lg={{ span: 16 }}>
 
-                        <FormItem>
-                            <label>{'Category'} <span className="start">*</span> </label>
-                            {getFieldDecorator('courseCategoryId', { initialValue: courseById.courseCategoryId, rules: rules.courseCategoryId })(
-                                <Select showSearch placeholder="Select category" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}>
-                                    {childrencat}
-                                </Select>
-                            )}
-                        </FormItem>
+                            <FormItem>
+                                <label>{'Category'} <span className="start">*</span> </label>
+                                {getFieldDecorator('courseCategoryId', { initialValue: courseById.courseCategoryId, rules: rules.courseCategoryId })(
+                                    <Select showSearch placeholder="Select category" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}>
+                                        {childrencat}
+                                    </Select>
+                                )}
+                            </FormItem>
 
-                        <FormItem>
-                            <label>{'Title'} <span className="start">*</span> </label>
-                            {getFieldDecorator('courseName', { initialValue: courseById.courseName, rules: [{ required: true, message: 'Course title is required!' }, { validator: this.handleDataExists }] })(<Input placeholder="Title" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />)}
-                        </FormItem>
+                            <FormItem>
+                                <label>{'Title'} <span className="start">*</span> </label>
+                                {getFieldDecorator('courseName', { initialValue: courseById.courseName, rules: [{ required: true, message: 'Course title is required!' }, { validator: this.handleDataExists }] })(<Input placeholder="Title" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />)}
+                            </FormItem>
 
-                        <FormItem>
-                            <label>{'Description'} </label>
-                            {getFieldDecorator('courseDescription', { initialValue: courseById.courseDescription })(<TextArea rows={4} style={{ height: 117 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />)}
-                        </FormItem>
+                            <FormItem>
+                                <label>{'Description'} </label>
+                                {getFieldDecorator('courseDescription', { initialValue: courseById.courseDescription })(<TextArea rows={4} style={{ height: 117 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />)}
+                            </FormItem>
 
-                    </Col>
+                        </Col>
 
-                    <Col xs={{ span: 8 }} sm={{ span: 8 }} md={{ span: 8 }} lg={{ span: 8 }}>
+                        <Col xs={{ span: 8 }} sm={{ span: 8 }} md={{ span: 8 }} lg={{ span: 8 }}>
 
-                        <FormItem>
-                            <label>{'Course ID'} <span className="start">*</span> </label>
-                            {getFieldDecorator('courseUniqueId', { initialValue: courseById.courseUniqueId, rules: rules.courseUniqueId })
-                                (
-
-                                <InputNumber
-                                    size="small"
-                                    placeholder="Course ID"
-                                    min={0}
-                                    maxLength={3}
-                                    precision={0}
-                                    formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                    parser={value => (value !== undefined) ? value.replace(/\$\s?|(,*)/g, '') : 0}
-                                    onChange={this.handleChange}
-                                    className={this.state.isAllDisable ? 'disabled' : ''}
-                                />
-                                )
-                            }
-                        </FormItem>
-
-                        <FormItem>
-                            <div className="switchbutton">
-                                <div><label>{'Show Header Image'} </label></div>
-                                <label className="mr8">{'No'}</label>
-                                {getFieldDecorator('showCourseHeaderImage', { initialValue: courseById.showCourseHeaderImage, valuePropName: "checked" })(<Switch onChange={this.handleHeaderImgChange} className={this.state.isAllDisable ? 'disabled' : ''} />)}
-                                <label className="ml8">{'Yes'}</label>
-                            </div>
-                        </FormItem>
-
-                        <FormItem>
-                            <Col className="bulkUpload">
-
-                                <label>{'Banner '} <span className={(this.state.isShowHeaderImg) ? "start" : "start hidden"}>*</span> </label>
-
-                                {getFieldDecorator('headerImage', { rules: (this.state.isShowHeaderImg && !courseById.courseHeaderImage ) ? rules.headerImage : rules.norequired })
+                            <FormItem>
+                                <label>{'Course ID'} <span className="start">*</span> </label>
+                                {getFieldDecorator('courseUniqueId', { initialValue: courseById.courseUniqueId, rules: rules.courseUniqueId })
                                     (
-                                    <Dragger {...uploadimgprops} beforeUpload={this.onBeforeUploadImg} style={{ height: 100 }} className={this.state.isAllDisable ? 'disabled' : ''}                                    >
-                                        <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
-                                    </Dragger>
+
+                                    <InputNumber
+                                        size="small"
+                                        placeholder="Course ID"
+                                        min={0}
+                                        maxLength={3}
+                                        precision={0}
+                                        formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        parser={value => (value !== undefined) ? value.replace(/\$\s?|(,*)/g, '') : 0}
+                                        onChange={this.handleChange}
+                                        className={this.state.isAllDisable ? 'disabled' : ''}
+                                    />
                                     )
                                 }
+                            </FormItem>
 
-                                <span className={(courseById.courseHeaderImage) ? "noteText" : "noteText hidden"}>
-                                    <a href={courseById.courseHeaderImage} target="_blank">{"view image"}</a>
-                                </span>
+                            <FormItem>
+                                <div className="switchbutton">
+                                    <div><label>{'Show Header Image'} </label></div>
+                                    <label className="mr8">{'No'}</label>
+                                    {getFieldDecorator('showCourseHeaderImage', { initialValue: courseById.showCourseHeaderImage, valuePropName: "checked" })(<Switch onChange={this.handleHeaderImgChange} className={this.state.isAllDisable ? 'disabled' : ''} />)}
+                                    <label className="ml8">{'Yes'}</label>
+                                </div>
+                            </FormItem>
 
-                                <div className="noteText mt10">Note: - Dimensions should not exceed - 260 X 130 pixels.</div>
+                            <FormItem>
+                                <Col className="bulkUpload">
 
-                            </Col>
-                        </FormItem>
+                                    <label>{'Banner '} <span className={(this.state.isShowHeaderImg) ? "start" : "start hidden"}>*</span> </label>
 
-                    </Col>
-                </Row>
+                                    {getFieldDecorator('headerImage', { rules: (this.state.isShowHeaderImg && !courseById.courseHeaderImage) ? rules.headerImage : rules.norequired })
+                                        (
+                                        <Dragger {...uploadimgprops} beforeUpload={this.onBeforeUploadImg} style={{ height: 100 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}                                    >
+                                            <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
+                                        </Dragger>
+                                        )
+                                    }
 
-                <Row className="antd-row">
+                                    <span className={(courseById.courseHeaderImage) ? "noteText" : "noteText hidden"}>
+                                        <a href={courseById.courseHeaderImage} target="_blank">{"view image"}</a>
+                                    </span>
 
-                    <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
-                        <FormItem>
-                            <Col className="bulkUpload">
-                                <label>{'Upload (upto 500 MB) '} <span className="start">*</span> </label>
+                                    <div className="noteText mt10">Note: - Dimensions should not exceed - 260 X 130 pixels.</div>
 
-                                {getFieldDecorator('uploadedFile', { rules: (this.props.id === '') ? rules.uploadedFile : rules.norequired })
+                                </Col>
+                            </FormItem>
+
+                        </Col>
+                    </Row>
+
+                    <Row className="antd-row">
+
+                        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
+                            <FormItem>
+                                <Col className="bulkUpload">
+                                    <label>{'Upload (upto 500 MB) '} <span className="start">*</span> </label>
+
+                                    {getFieldDecorator('uploadedFile', { rules: (this.props.id === '') ? rules.uploadedFile : rules.norequired })
+                                        (
+                                        <Dragger {...uploadzipprops} beforeUpload={this.onBeforeUploadZip} onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}>
+                                            <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
+                                        </Dragger>
+                                        )
+                                    }
+
+                                    <div className="noteText mt10">Note: - Upload one Zip file (upto 700 MB) as your SCORM Content.</div>
+                                </Col>
+                            </FormItem>
+
+
+                            <ul className="Coursecontrollist">
+
+                                <li>
+                                    <div><label>{'Contact Hours'} <span className="start">*</span> </label></div>
+
+                                    <FormItem>
+                                        <span>
+                                            {getFieldDecorator('courseDurationHH', { initialValue: courseById.courseDurationHH, rules: rules.courseDurationHH })
+                                                (
+                                                <Select showSearch placeholder="Select Hr" style={{ width: 100 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'mr8 disabled' : 'mr8'}>
+                                                    {childrenHH}
+                                                </Select>
+                                                )
+                                            }
+                                        </span>
+                                    </FormItem>
+
+                                    <FormItem>
+                                        <span>
+
+                                            {getFieldDecorator('courseDurationMM', { initialValue: courseById.courseDurationMM, rules: [{ required: true, message: 'Course duration(in Min) is required' }] })
+                                                (
+                                                <Select showSearch placeholder="Select Min" style={{ width: 100 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'mr8 disabled' : 'mr8'}>
+                                                    {childrenMM}
+                                                </Select>
+                                                )
+                                            }
+                                        </span>
+                                    </FormItem>
+
+                                </li>
+
+                                <li>
+                                    <FormItem>
+                                        <div><label>{'Expiry'} </label></div>
+
+                                        {getFieldDecorator('expiryDate', { initialValue: (courseById.expiryDate !== null ? moment(courseById.expiryDate, dateFormat) : undefined) })
+                                            (
+                                            <DatePicker format={dateFormat} disabledDate={this.disabledDate} placeholder='Expiry Date' name="expiryDate" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
+                                            )
+                                        }
+                                    </FormItem>
+                                </li>
+
+                                <li>
+                                    <FormItem>
+                                        <div><label>{'Price'} </label></div>
+
+                                        {getFieldDecorator('coursePrice', { initialValue: courseById.coursePrice })
+                                            (
+
+                                            <InputNumber
+                                                size="small"
+                                                formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                                parser={value => (value !== undefined) ? value.replace(/\$\s?|(,*)/g, '') : 0}
+                                                onChange={this.handleChange}
+                                                className={this.state.isAllDisable ? 'disabled' : ''}
+                                            />
+
+                                            )
+                                        }
+                                    </FormItem>
+                                </li>
+                            </ul>
+                        </Col>
+                    </Row>
+
+                    <Row className="antd-row">
+                        <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }} lg={{ span: 8 }}>
+                            <FormItem>
+                                <label>{'Indicate launch preference '} <span className="start">*</span> </label>
+
+                                {getFieldDecorator('launchPreference', { initialValue: courseById.launchPreference, rules: rules.launchPreference })
                                     (
-                                    <Dragger {...uploadzipprops} beforeUpload={this.onBeforeUploadZip} className={this.state.isAllDisable ? 'disabled' : ''}>
-                                        <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
-                                    </Dragger>
+
+                                    <Select showSearch placeholder="Select launch preference" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}>
+                                        {childrenLaunch}
+                                    </Select>
+
                                     )
                                 }
-
-                                <div className="noteText mt10">Note: - Upload one Zip file (upto 700 MB) as your SCORM Content.</div>
-                            </Col>
-                        </FormItem>
-
-
-                        <ul className="Coursecontrollist">
-
-                            <li>
-                                <div><label>{'Contact Hours'} <span className="start">*</span> </label></div>
-
-                                <FormItem>
-                                    <span>
-                                        {getFieldDecorator('courseDurationHH', { initialValue: courseById.courseDurationHH, rules: rules.courseDurationHH })
-                                            (
-                                            <Select showSearch placeholder="Select Hr" style={{ width: 100 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'mr8 disabled' : 'mr8'}>
-                                                {childrenHH}
-                                            </Select>
-                                            )
-                                        }
-                                    </span>
-                                </FormItem>
-
-                                <FormItem>
-                                    <span>
-
-                                        {getFieldDecorator('courseDurationMM', { initialValue: courseById.courseDurationMM, rules: [{ required: true, message: 'Course duration(in Min) is required' }] })
-                                            (
-                                            <Select showSearch placeholder="Select Min" style={{ width: 100 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'mr8 disabled' : 'mr8'}>
-                                                {childrenMM}
-                                            </Select>
-                                            )
-                                        }
-                                    </span>
-                                </FormItem>
-
-                            </li>
-
-                            <li>
-                                <FormItem>
-                                    <div><label>{'Expiry'} </label></div>
-
-                                    {getFieldDecorator('expiryDate', { initialValue: (courseById.expiryDate !== null ? moment(courseById.expiryDate, dateFormat) : undefined) })
-                                        (
-                                        <DatePicker format={dateFormat} disabledDate={this.disabledDate} placeholder='Expiry Date' name="expiryDate" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
-                                        )
-                                    }
-                                </FormItem>
-                            </li>
-
-                            <li>
-                                <FormItem>
-                                    <div><label>{'Price'} </label></div>
-
-                                    {getFieldDecorator('coursePrice', { initialValue: courseById.coursePrice })
-                                        (
-
-                                        <InputNumber
-                                            size="small"
-                                            formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                            parser={value => (value !== undefined) ? value.replace(/\$\s?|(,*)/g, '') : 0}
-                                            onChange={this.handleChange}
-                                            className={this.state.isAllDisable ? 'disabled' : ''}
-                                        />
-
-                                        )
-                                    }
-                                </FormItem>
-                            </li>
-                        </ul>
-                    </Col>
-                </Row>
-
-                <Row className="antd-row">
-                    <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }} lg={{ span: 8 }}>
-                        <FormItem>
-                            <label>{'Indicate launch preference '} <span className="start">*</span> </label>
-
-                            {getFieldDecorator('launchPreference', { initialValue: courseById.launchPreference, rules: rules.launchPreference })
-                                (
-
-                                <Select showSearch placeholder="Select launch preference" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}>
-                                    {childrenLaunch}
-                                </Select>
-
-                                )
-                            }
-                        </FormItem>
-                    </Col>
-
-                    <Col xs={{ span: 24 }} sm={{ span: 16 }} md={{ span: 16 }} lg={{ span: 16 }}>
-
-
-                        <ul className="Coursecontrollist">
-
-                            <FormItem>
-                                <li>
-                                    <div className="switchbutton">
-                                        <div><label>{'Status'} </label></div>
-                                        <label className="mr8">{'Inactive'}</label>
-                                        {getFieldDecorator('status', { initialValue: courseById.status, valuePropName: "checked" })
-                                            (
-                                            <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
-                                            )
-                                        }
-                                        <label className="ml8">{'Active'}</label>
-                                    </div>
-                                </li>
                             </FormItem>
+                        </Col>
 
-                            <FormItem>
-                                <li>
-                                    <div className="switchbutton">
-                                        <div><label>{'Apply Certificate'} </label></div>
-                                        <label className="mr8">{'No'}</label>
-                                        {getFieldDecorator('isPrintCertificate', { initialValue: courseById.isPrintCertificate, valuePropName: "checked" })
-                                            (
-                                            <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
-                                            )
-                                        }
-                                        <label className="ml8">{'Yes'}</label>
-                                    </div>
-                                </li>
-                            </FormItem>
+                        <Col xs={{ span: 24 }} sm={{ span: 16 }} md={{ span: 16 }} lg={{ span: 16 }}>
 
-                            <FormItem>
-                                <li>
-                                    <div className="switchbutton">
-                                        <div><label>{'Include In Catalog'} </label></div>
-                                        <label className="mr8">{'No'}</label>
-                                        {getFieldDecorator('isInCatalog', { initialValue: courseById.isInCatalog, valuePropName: "checked" })
-                                            (
-                                            <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
-                                            )
-                                        }
-                                        <label className="ml8">{'Yes'}</label>
-                                    </div>
-                                </li>
-                            </FormItem>
-                        </ul>
-                    </Col>
-                </Row>
-                <div className="buttonfooter">
-                    <div className="antd-row">
-                        <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
-                            <div className="bulkImpFooter">
-                                <ul className="bulkImpListing">
+
+                            <ul className="Coursecontrollist">
+
+                                <FormItem>
                                     <li>
-                                        <Button type="primary" onClick={this.handleCreate} className={this.state.isAllDisable ? 'ant-btn-primary disabled' : 'ant-btn-primary'}>Submit</Button>
+                                        <div className="switchbutton">
+                                            <div><label>{'Status'} </label></div>
+                                            <label className="mr8">{'Inactive'}</label>
+                                            {getFieldDecorator('status', { initialValue: courseById.status, valuePropName: "checked" })
+                                                (
+                                                <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
+                                                )
+                                            }
+                                            <label className="ml8">{'Active'}</label>
+                                        </div>
                                     </li>
-                                </ul>
+                                </FormItem>
+
+                                <FormItem>
+                                    <li>
+                                        <div className="switchbutton">
+                                            <div><label>{'Apply Certificate'} </label></div>
+                                            <label className="mr8">{'No'}</label>
+                                            {getFieldDecorator('isPrintCertificate', { initialValue: courseById.isPrintCertificate, valuePropName: "checked" })
+                                                (
+                                                <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
+                                                )
+                                            }
+                                            <label className="ml8">{'Yes'}</label>
+                                        </div>
+                                    </li>
+                                </FormItem>
+
+                                <FormItem>
+                                    <li>
+                                        <div className="switchbutton">
+                                            <div><label>{'Include In Catalog'} </label></div>
+                                            <label className="mr8">{'No'}</label>
+                                            {getFieldDecorator('isInCatalog', { initialValue: courseById.isInCatalog, valuePropName: "checked" })
+                                                (
+                                                <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
+                                                )
+                                            }
+                                            <label className="ml8">{'Yes'}</label>
+                                        </div>
+                                    </li>
+                                </FormItem>
+                            </ul>
+                        </Col>
+                    </Row>
+                    <div className="buttonfooter">
+                        <div className="antd-row">
+                            <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
+                                <div className="bulkImpFooter">
+                                    <ul className="bulkImpListing">
+                                        <li>
+                                            <Button type="primary" onClick={this.handleCreate} className={this.state.isAllDisable ? 'ant-btn-primary disabled' : 'ant-btn-primary'}>Submit</Button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Spin>
         )
     };
 }

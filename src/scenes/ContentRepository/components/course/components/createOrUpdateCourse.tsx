@@ -10,7 +10,7 @@ import Stores from '../../../../../stores/storeIdentifier';
 import ContentRepositoryStore from '../../../../../stores/contentrepositoryStore';
 import CourseInformation from '../components/courseInformation'
 
-import KeyWords from '../components/keyWords'
+import CourseKeywords from '../components/courseKeywords'
 
 const TabPane = Tabs.TabPane;
 
@@ -34,13 +34,14 @@ class CreateOrUpdateCourse extends React.Component<IContentRepositoryProps & ICr
 
     state = {
         changestate: false,
+        disableTab: this.props.id === "" ? true : false
     };
 
     async componentDidUpdate(prevProps, prevState) {
 
         if (this.props.id !== prevProps.id) {
             if (this.props.id !== "") {
-                this.setState({ ...this.state, changestate: true });
+                this.setState({ ...this.state, changestate: true, disableTab: this.props.id === "" ? true : false });
             }
         }
     }
@@ -49,7 +50,11 @@ class CreateOrUpdateCourse extends React.Component<IContentRepositoryProps & ICr
 
         await this.props.onCancel();
 
-        this.setState({ ...this.state, changestate: false });
+        this.setState({ ...this.state, changestate: false, disableTab: true });
+    }
+
+    onHandleKeword = () => {
+        this.setState({ ...this.state, disableTab: false  })
     }
 
 
@@ -66,11 +71,11 @@ class CreateOrUpdateCourse extends React.Component<IContentRepositoryProps & ICr
                 <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
 
                     <TabPane tab={'Course Information'} key={'UserInformation'}>
-                        <CourseInformation id={this.props.id} />
+                        <CourseInformation id={this.props.id} handleKeyword={this.onHandleKeword} />
                     </TabPane>
 
-                    <TabPane tab={'Keywords'} key={'Keywords'}>
-                        <KeyWords />
+                    <TabPane tab={'Keywords'} key={'Keywords'} disabled={this.state.disableTab} >
+                        <CourseKeywords />
                     </TabPane>
 
                 </Tabs>

@@ -126,6 +126,10 @@ class ContentRepositoryStore {
     async addeditCourse(addeditCourseRequest: AddEditCourseRequest) {
 
         let result = await contentrepositoryService.addeditCourse(addeditCourseRequest);
+
+        if (result)
+            this.getCourse({ courseId: result, requesterUserId: this.userid, status: true, creatorName: '' })
+
         return result;
     }
 

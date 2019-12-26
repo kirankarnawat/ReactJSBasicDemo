@@ -1,30 +1,31 @@
 import * as React from 'react';
 
-import { Col, Input, Row, Tag } from 'antd';
+import { Col, Input, Row, Tag, Form } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
+import { FormComponentProps } from 'antd/lib/form';
 
-// import { inject, observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
-
-
-
-// @inject(Stores.ContentRepositoryStore)
-// @observer
-
+import Stores from '../../../../../stores/storeIdentifier';
+import ContentRepositoryStore from '../../../../../stores/contentrepositoryStore';
 
 
 export interface IContentrepositoryProps {
-    //contentrepositoryStore: ContentRepositoryStore;
+    contentrepositoryStore: ContentRepositoryStore;
 }
 
 export interface ICourseInformationState {
 
 }
-function log(e) {
-    console.log(e);
-  }
 
-class KeyWords extends React.Component<IContentrepositoryProps, ICourseInformationState>
+export interface ICourseKeywordsProps extends FormComponentProps {
+  
+}
+
+
+@inject(Stores.ContentRepositoryStore)
+@observer
+class CourseKeywords extends React.Component<ICourseKeywordsProps, ICourseInformationState>
 {
 
     render() {
@@ -44,8 +45,8 @@ class KeyWords extends React.Component<IContentrepositoryProps, ICourseInformati
                         <FormItem>
                             <label>{'Add Keyword'} <span className="start">*</span> </label>
                             <div className="tagsBox">
-                                <Tag closable  onClose={log}>Bloodbrone</Tag>
-                                <Tag closable  onClose={log}>Pathogen</Tag>
+                                <Tag closable >Bloodbrone</Tag>
+                                <Tag closable >Pathogen</Tag>
                             </div>
                         </FormItem>
                     </Col>
@@ -57,4 +58,4 @@ class KeyWords extends React.Component<IContentrepositoryProps, ICourseInformati
 }
 
 
-export default KeyWords;
+export default Form.create<ICourseKeywordsProps>()(CourseKeywords);
