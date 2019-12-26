@@ -10,6 +10,8 @@ import Stores from '../../../../../stores/storeIdentifier';
 import ContentRepositoryStore from '../../../../../stores/contentrepositoryStore';
 import CourseInformation from '../components/courseInformation'
 
+import KeyWords from '../components/keyWords'
+
 const TabPane = Tabs.TabPane;
 
 
@@ -47,7 +49,7 @@ class CreateOrUpdateCourse extends React.Component<IContentRepositoryProps & ICr
 
         await this.props.onCancel();
 
-        this.setState({ ...this.state, changestate: false});
+        this.setState({ ...this.state, changestate: false });
     }
 
 
@@ -67,8 +69,8 @@ class CreateOrUpdateCourse extends React.Component<IContentRepositoryProps & ICr
                         <CourseInformation id={this.props.id} />
                     </TabPane>
 
-                    <TabPane tab={'KeyWords'} key={'KeyWords'}>
-
+                    <TabPane tab={'Keywords'} key={'Keywords'}>
+                        <KeyWords />
                     </TabPane>
 
                 </Tabs>
