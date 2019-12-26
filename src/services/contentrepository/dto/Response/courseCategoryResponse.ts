@@ -1,5 +1,5 @@
 
-export interface GetCourseCategoryResponse {
+export interface CourseCategoryResponse {
 
     courseCategoryId: string,
     courseCategoryName: string,

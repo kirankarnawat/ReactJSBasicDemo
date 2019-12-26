@@ -5,5 +5,6 @@ export interface GetCourseRequest extends PagedFilterAndSortedRequest {
 
     courseId: string,
     status: boolean,
-    requesterUserId: string
+    requesterUserId: string,
+    creatorName: string
 }

@@ -93,7 +93,7 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
     };
 
     handleAllEnable = () => {
-        this.setState({ isAllDisable: false });
+        this.setState({ ...this.state, isAllDisable: false });
     }
 
     disabledDate = (current) => {

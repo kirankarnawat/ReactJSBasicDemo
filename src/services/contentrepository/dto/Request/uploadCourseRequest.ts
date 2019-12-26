@@ -2,6 +2,6 @@
 export interface UploadCourseRequest{
 
     courseId: string,
-    uploadedFile: File,
-    uploadedHeaderImage: File
+    uploadedFile: File | null,
+    uploadedHeaderImage: File | null
 }

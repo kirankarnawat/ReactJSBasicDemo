@@ -14,7 +14,7 @@ export interface AddEditCourseRequest {
     launchPreference: string,
     windowSizeHeight: number,
     windowSizeWidth: number,
-    expiryDate: Date,
+    expiryDate: Date | null,
     status: boolean,
     courseCategoryId: string,
     courseUniqueId: number,

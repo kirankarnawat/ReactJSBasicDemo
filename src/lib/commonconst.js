@@ -15,4 +15,8 @@ export default {
         PARENTFEATURE_CONTENTMANAGEMENT: "ContentManagement",        
     },
 
+    MESSAGES: {
+        COURSEADDSUCCESS: 'Course created successfully',
+        COURSEEDITSUCCESS: 'Course updated successfully',
+    }
 };

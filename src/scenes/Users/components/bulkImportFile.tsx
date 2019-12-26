@@ -190,23 +190,6 @@ class BulkImportFile extends React.Component<IUserProps & IBulkImportFileProps, 
 
                         </Col>
                     </Row>
-
-                    { /* 
-                    <Row className="antd-row">
-                        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
-                            <div className="buttonfooter">
-                                <div className="bulkImpFooter">
-                                    <ul className="bulkImpListing">
-                                        <li>
-                                            <button type="submit" className="ant-btn ant-btn-default">Submit</button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </Col>
-                    </Row>
-                    */}
-
                 </div>
             </div>
         );
