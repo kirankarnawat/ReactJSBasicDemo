@@ -45,8 +45,8 @@ class ContentRepositoryService {
     }
 
     public async getCourse(getCourseRequest: GetCourseRequest): Promise<GetCourseResponse> {
-
-        let result = await http.post(lms.course.toAPIPath(lms.course.APIType.GETCOURSE), getCourseRequest);
+        debugger;
+        let result = await http.get(lms.course.toAPIPath(lms.course.APIType.GETCOURSE), { params: getCourseRequest });
         return result.data;
     }
 
@@ -57,7 +57,7 @@ class ContentRepositoryService {
     }
 
     public async uploadCourse(uploadCourseRequest: UploadCourseRequest): Promise<UploadCourseResponse> {
-        debugger;
+        
         var data = <UploadCourseResponse>{};
 
         let formData = new FormData();
@@ -79,7 +79,7 @@ class ContentRepositoryService {
     }
 
     public async addeditCourse(addeditCourseRequest: AddEditCourseRequest): Promise<string> {
-        debugger;
+        
         let result = await http.post(lms.course.toAPIPath(lms.course.APIType.ADDEDITCOURSE), addeditCourseRequest);
         return result.data;
     }

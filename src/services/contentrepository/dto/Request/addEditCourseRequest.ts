@@ -17,9 +17,6 @@ export interface AddEditCourseRequest {
     expiryDate: Date | null,
     status: boolean,
     courseCategoryId: string,
-    courseUniqueId: number,
-    pageIndex: number,
-    pageSize: number,
-    sortExp: string,
+    courseUniqueId: number,    
     requesterUserId: string
 }

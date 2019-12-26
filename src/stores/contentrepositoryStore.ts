@@ -90,8 +90,7 @@ class ContentRepositoryStore {
             this.courseById = {
                 courseId: '', courseName: '', courseDescription: '', coursePrice: 0, courseDurationHH: 0, courseDurationMM: 0, showCourseHeaderImage: false,
                 courseHeaderImage: '', isPrintCertificate: false, isInCatalog: false, launchPreference: '', windowSizeHeight: 0, windowSizeWidth: 0,
-                expiryDate: null, status: true, courseCategoryId: '', courseUniqueId: 0, pageIndex: 0, pageSize: pagesize,
-                sortExp: '', requesterUserId: ''
+                expiryDate: null, status: true, courseCategoryId: '', courseUniqueId: 0,requesterUserId: ''
             };
         });
     }
@@ -100,7 +99,10 @@ class ContentRepositoryStore {
     async getCourse(getCourseRequest: GetCourseRequest) {
 
         let result = await contentrepositoryService.getCourse(getCourseRequest);
-        return result;
+
+        runInAction(() => {
+            this.courseById = result;
+        });
     }
 
     @action
@@ -121,7 +123,7 @@ class ContentRepositoryStore {
     }
 
     @action
-    async AddCourse(addeditCourseRequest: AddEditCourseRequest) {
+    async addeditCourse(addeditCourseRequest: AddEditCourseRequest) {
 
         let result = await contentrepositoryService.addeditCourse(addeditCourseRequest);
         return result;

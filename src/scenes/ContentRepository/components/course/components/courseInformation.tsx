@@ -9,7 +9,9 @@ import Stores from '../../../../../stores/storeIdentifier';
 import ContentRepositoryStore from '../../../../../stores/contentrepositoryStore';
 import { FormComponentProps } from 'antd/lib/form';
 
+import moment from 'moment';
 import commonconst from '../../../../../lib/commonconst';
+import AppConsts from '../../../../../lib/appconst';
 
 import rules from './courseInformation.validation';
 
@@ -19,6 +21,7 @@ const { Option } = Select;
 
 const { TextArea } = Input;
 
+const dateFormat = AppConsts.dateFormat;
 
 export interface IContentrepositoryProps {
     contentrepositoryStore: ContentRepositoryStore;
@@ -52,7 +55,7 @@ const uploadimgprops = {
         }
         else if (status === 'error') {
 
-            message.error(`${info.file.name} file is set for upload.`);
+            message.warning(`${info.file.name} file is set for upload.`);
         }
     },
 };
@@ -73,7 +76,7 @@ const uploadzipprops = {
         }
         else if (status === 'error') {
 
-            message.error(`${info.file.name} file is set for upload.`);
+            message.warning(`${info.file.name} file is set for upload.`);
         }
     },
 };
@@ -89,9 +92,20 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
         this.state = {
             isSuccessMsgShow: false,
             successMsg: '',
-            isShowHeaderImg: this.props.contentrepositoryStore.courseById.showCourseHeaderImage,
+            isShowHeaderImg: (this.props.contentrepositoryStore.courseById) ? this.props.contentrepositoryStore.courseById.showCourseHeaderImage : false,
             isAllDisable: false,
         };
+    }
+
+    async componentDidUpdate(prevProps, prevState) {
+
+        if (this.props.id !== prevProps.id) {
+            if (this.props.id !== "") {
+                this.setState({
+                    ...this.state, isSuccessMsgShow: false, isAllDisable: false, successMsg: '', isShowHeaderImg: this.props.contentrepositoryStore.courseById.showCourseHeaderImage
+                });
+            }
+        }
     }
 
     onBeforeUploadImg(info) {
@@ -135,6 +149,10 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
         this.setState({ ...this.state, isAllDisable: false });
     }
 
+    disabledDate = (current) => {
+        return current < moment().endOf('day');
+    }
+
     //ADD EDIT COURSE DATA
     handleCreate = () => {
         this.props.form.validateFields(async (err: any, values: any) => {
@@ -151,7 +169,12 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
 
                 if (res.courseId !== null) {
 
-                    await this.props.contentrepositoryStore.AddCourse({ courseId: res.courseId, requesterUserId: this.props.contentrepositoryStore.userid, ...values });
+                    var headerFileName = (cntimg === -1) ? '' : values["headerImage"].fileList[cntimg - 1].originFileObj.name;
+                    var headerExisting = this.props.contentrepositoryStore.courseById.courseHeaderImage;
+
+                    var filename = (headerFileName) ? headerFileName : (headerExisting ? headerExisting : '');
+
+                    await this.props.contentrepositoryStore.addeditCourse({ courseId: res.courseId, requesterUserId: this.props.contentrepositoryStore.userid, courseHeaderImage: filename, ...values });
 
                     this.setState({ isAllDisable: true, successMsg: (this.props.id === '') ? commonconst.MESSAGES.COURSEADDSUCCESS : commonconst.MESSAGES.COURSEEDITSUCCESS, isSuccessMsgShow: true });
                 }
@@ -173,7 +196,6 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
         const childrenHH = this.props.contentrepositoryStore.courseDurationHH.map(item => <Option key={item.lookUpValue}>{item.lookUpName}</Option>);
         const childrenMM = this.props.contentrepositoryStore.courseDurationMM.map(item => <Option key={item.lookUpValue}>{item.lookUpName}</Option>);
         const childrenLaunch = this.props.contentrepositoryStore.courseLaunchPreference.map(item => <Option key={item.lookUpValue}>{item.lookUpName}</Option>);
-
 
         return (
 
@@ -202,7 +224,7 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
 
                         <FormItem>
                             <label>{'Category'} <span className="start">*</span> </label>
-                            {getFieldDecorator('courseCatgoryId', { initialValue: courseById.courseCategoryId, rules: rules.courseCategoryId })(
+                            {getFieldDecorator('courseCategoryId', { initialValue: courseById.courseCategoryId, rules: rules.courseCategoryId })(
                                 <Select showSearch placeholder="Select category" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}>
                                     {childrencat}
                                 </Select>
@@ -232,7 +254,7 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                                     size="small"
                                     placeholder="Course ID"
                                     min={0}
-                                    max={999}
+                                    maxLength={3}
                                     precision={0}
                                     formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     parser={value => (value !== undefined) ? value.replace(/\$\s?|(,*)/g, '') : 0}
@@ -257,18 +279,19 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
 
                                 <label>{'Banner '} <span className={(this.state.isShowHeaderImg) ? "start" : "start hidden"}>*</span> </label>
 
-                                {getFieldDecorator('headerImage', { rules: this.state.isShowHeaderImg ? rules.headerImage : rules.norequired })
+                                {getFieldDecorator('headerImage', { rules: (this.state.isShowHeaderImg && !courseById.courseHeaderImage ) ? rules.headerImage : rules.norequired })
                                     (
-                                    <Dragger {...uploadimgprops} beforeUpload={this.onBeforeUploadImg} style={{ height: 100 }} className={this.state.isAllDisable ? 'disabled' : ''}>
+                                    <Dragger {...uploadimgprops} beforeUpload={this.onBeforeUploadImg} style={{ height: 100 }} className={this.state.isAllDisable ? 'disabled' : ''}                                    >
                                         <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
                                     </Dragger>
                                     )
                                 }
-                                <div className="noteText mt10">Note: - Dimensions should not exceed - 260 X 130 pixels.</div>
 
-                                <span className={(this.state.isShowHeaderImg && courseById.courseHeaderImage !== '') ? "noteText" : "noteText hidden"}>
-                                    <a href={courseById.courseHeaderImage} target="_blank" > View Image </a>
+                                <span className={(courseById.courseHeaderImage) ? "noteText" : "noteText hidden"}>
+                                    <a href={courseById.courseHeaderImage} target="_blank">{"view image"}</a>
                                 </span>
+
+                                <div className="noteText mt10">Note: - Dimensions should not exceed - 260 X 130 pixels.</div>
 
                             </Col>
                         </FormItem>
@@ -283,7 +306,7 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                             <Col className="bulkUpload">
                                 <label>{'Upload (upto 500 MB) '} <span className="start">*</span> </label>
 
-                                {getFieldDecorator('uploadedFile', { rules: rules.uploadedFile })
+                                {getFieldDecorator('uploadedFile', { rules: (this.props.id === '') ? rules.uploadedFile : rules.norequired })
                                     (
                                     <Dragger {...uploadzipprops} beforeUpload={this.onBeforeUploadZip} className={this.state.isAllDisable ? 'disabled' : ''}>
                                         <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
@@ -332,9 +355,9 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                                 <FormItem>
                                     <div><label>{'Expiry'} </label></div>
 
-                                    {getFieldDecorator('expiryDate', { initialValue: courseById.expiryDate })
+                                    {getFieldDecorator('expiryDate', { initialValue: (courseById.expiryDate !== null ? moment(courseById.expiryDate, dateFormat) : undefined) })
                                         (
-                                        <DatePicker onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
+                                        <DatePicker format={dateFormat} disabledDate={this.disabledDate} placeholder='Expiry Date' name="expiryDate" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
                                         )
                                     }
                                 </FormItem>

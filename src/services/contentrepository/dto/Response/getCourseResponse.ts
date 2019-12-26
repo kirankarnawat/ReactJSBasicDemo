@@ -21,4 +21,5 @@ export interface GetCourseResponse {
     expiryDate: Date ,
     coursePrice: number ,
     courseCategoryId: string
+    courseUniqueId: number
 }
