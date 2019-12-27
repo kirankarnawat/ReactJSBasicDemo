@@ -16,7 +16,11 @@ export default {
     },
 
     MESSAGES: {
+        COMMONERROR: 'Error, please contact administrator',
         COURSEADDSUCCESS: 'Course created successfully',
         COURSEEDITSUCCESS: 'Course updated successfully',
+        KEYWORDADDSUCCESS: 'Course keyword added successfully',
+        KEYWORDDELSUCCESS: 'Course keyword removed successfully',
+        KEYWORDEXISTS: 'Keyword is already exists in the course',
     }
 };

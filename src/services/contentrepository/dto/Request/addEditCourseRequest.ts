@@ -1,10 +1,11 @@
+import { CourseKeywordResponse } from '../Response/courseKeywordResponse';
 
 export interface AddEditCourseRequest {
 
     courseId: string,
     courseName: string,
     courseDescription: string,
-    coursePrice: number,
+    coursePrice: number | null,
     courseDurationHH: number,
     courseDurationMM: number,
     showCourseHeaderImage: boolean,
@@ -18,5 +19,6 @@ export interface AddEditCourseRequest {
     status: boolean,
     courseCategoryId: string,
     courseUniqueId: number,    
-    requesterUserId: string
+    requesterUserId: string,
+    listCourseMasterKeyWord: CourseKeywordResponse[],
 }

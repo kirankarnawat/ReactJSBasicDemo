@@ -10,6 +10,9 @@ import { CourseNameExistsCheckRequest } from './dto/Request/courseNameExistsChec
 import { UploadCourseRequest } from './dto/Request/uploadCourseRequest';
 import { UploadCourseResponse } from './dto/Response/uploadCourseResponse';
 import { AddEditCourseRequest } from './dto/Request/addEditCourseRequest';
+import { CourseKeywordExistsCheckRequest } from './dto/Request/courseKeywordExistsCheckRequest';
+import { AddCourseKeywordRequest } from './dto/Request/addCourseKeywordRequest';
+import { EntityDto } from '../dto/entityDto';
 
 declare var lms: any;
 
@@ -81,7 +84,37 @@ class ContentRepositoryService {
     public async addeditCourse(addeditCourseRequest: AddEditCourseRequest): Promise<string> {
         
         let result = await http.post(lms.course.toAPIPath(lms.course.APIType.ADDEDITCOURSE), addeditCourseRequest);
+
         return result.data;
+    }
+
+    public async checkIsCourseKeywordInUse(courseKeywordExistsCheckRequest: CourseKeywordExistsCheckRequest): Promise<string> {
+
+        let result = await http.get(lms.course.toAPIPath(lms.course.APIType.ISCOURSEKEYWORDINUSE), { params: courseKeywordExistsCheckRequest });
+
+        return result.data;
+    }
+
+    public async addCourseKeyword(addCourseKeywordRequest: AddCourseKeywordRequest): Promise<string> {
+
+        let result = await http.post(lms.course.toAPIPath(lms.course.APIType.ADDCOURSEKEYWORD), addCourseKeywordRequest);
+
+        return result.data;
+    }
+
+    public async removeCourseKeyword(entityDto: EntityDto): Promise<string> {
+        debugger;
+        var data = '';
+        try {
+            var URL = lms.course.toAPIPath(lms.course.APIType.DELCOURSEKEYWORD) + '?' + 'CourseKeyWordId=' + entityDto.id
+            let result = await http.post(URL);
+            data = (result.status === 200) ? entityDto.id : '';
+        }
+        catch (e) {
+            data = e;
+        }
+
+        return data;
     }
 }
 

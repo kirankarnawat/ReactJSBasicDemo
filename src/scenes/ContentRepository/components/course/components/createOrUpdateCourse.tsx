@@ -75,7 +75,7 @@ class CreateOrUpdateCourse extends React.Component<IContentRepositoryProps & ICr
                     </TabPane>
 
                     <TabPane tab={'Keywords'} key={'Keywords'} disabled={this.state.disableTab} >
-                        <CourseKeywords />
+                        <CourseKeywords id={this.props.id} />
                     </TabPane>
 
                 </Tabs>

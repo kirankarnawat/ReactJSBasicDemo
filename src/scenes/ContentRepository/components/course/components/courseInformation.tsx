@@ -158,7 +158,9 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
     handleCreate = () => {
         this.props.form.validateFields(async (err: any, values: any) => {
             debugger;
-            if (err) { return; }
+            if (err) {
+                return;
+            }
             else {
 
                 this.setState({ ...this.state, loading: true });
@@ -175,7 +177,7 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
 
                     var filename = (headerFileName) ? headerFileName : (headerExisting ? headerExisting : '');
 
-                    await this.props.contentrepositoryStore.addeditCourse({ courseId: res.courseId, requesterUserId: this.props.contentrepositoryStore.userid, courseHeaderImage: filename, ...values });
+                    await this.props.contentrepositoryStore.addeditCourse({ courseId: res.courseId, requesterUserId: this.props.contentrepositoryStore.userid, courseHeaderImage: filename, coursePrice: values["coursePrice"] === 0 ? null : values["coursePrice"]  , ...values });
 
                     this.setState({ isAllDisable: true, successMsg: (this.props.id === '') ? commonconst.MESSAGES.COURSEADDSUCCESS : commonconst.MESSAGES.COURSEEDITSUCCESS, isSuccessMsgShow: true });
 
