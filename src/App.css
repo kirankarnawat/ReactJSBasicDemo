@@ -8,8 +8,8 @@
 body{font-size:12px!important; color:#000000; background:#eceff1; font-family: 'Myriad Pro Regular' !important;}
 html {--antd-wave-shadow-color: #d63031 !important;}
 ::selection {color: #fff;background:#d63031 !important;}
-.defaulttheme a{color:#d63032}
-.defaulttheme a:hover{color:#5b5b5b}
+.defaulttheme a{color: #424242;}
+.defaulttheme a:hover{color:#d63031}
 .defaulttheme .ant-card{font-size:12px;color:#000000}
 .defaulttheme .ant-card-body{padding:15px}
 .defaulttheme .ant-checkbox-checked .ant-checkbox-inner{background:#d63032;border-color:#d63032;}
@@ -49,6 +49,7 @@ body .ant-col-sm-1, body .ant-col-sm-2, body .ant-col-sm-3, body .ant-col-sm-4, 
 body .ant-col-md-1, body .ant-col-md-2, body .ant-col-md-3, body .ant-col-md-4, body .ant-col-md-5, body .ant-col-md-6, body .ant-col-md-7, body .ant-col-md-8, body .ant-col-md-9, body .ant-col-md-10, body .ant-col-md-11, body .ant-col-md-12, body .ant-col-md-13, body .ant-col-md-14, body .ant-col-md-15, body .ant-col-md-16, body .ant-col-md-17, body .ant-col-md-18, body .ant-col-md-19, body .ant-col-md-20,body .ant-col-md-21, body .ant-col-md-22, body .ant-col-md-23, body .ant-col-md-24{padding-left:8px;padding-right:8px;}
 body .ant-col-xs-1, body .ant-col-xs-2, body .ant-col-xs-3, body .ant-col-xs-4, body .ant-col-xs-5, body .ant-col-xs-6, body .ant-col-xs-7, body .ant-col-xs-8, body .ant-col-xs-9, body .ant-col-xs-10, body .ant-col-xs-11, body .ant-col-xs-12, body .ant-col-xs-13, body .ant-col-xs-14, body .ant-col-xs-15, body .ant-col-xs-16, body .ant-col-xs-17, body .ant-col-xs-18, body .ant-col-xs-19, body .ant-col-xs-20,body .ant-col-xs-21, body .ant-col-xs-22, body .ant-col-xs-23, body .ant-col-xs-24{padding-left:8px;padding-right:8px;}
 body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right:-8px;margin-left:-8px; position: relative;clear: both;}
+body .customeclass20{width:20%}
 .rel{position:relative;}
 
 /*Globally  CSS END*/
@@ -157,7 +158,7 @@ body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap:
 .sideBarmenu .ant-menu-vertical .ant-menu-submenu-selected  .ant-menu-submenu-arrow::before,.sideBarmenu .ant-menu-vertical .ant-menu-submenu-selected .ant-menu-submenu-arrow::after{background:#d63031;}
 .sideBarmenu .ant-menu-vertical .ant-menu-item::after, .sideBarmenu .ant-menu-vertical-left .ant-menu-item::after, .sideBarmenu .ant-menu-vertical-right .ant-menu-item::after, .sideBarmenu .ant-menu-inline .ant-menu-item::after{border-right:0}
 .sideBarmenu .dashboardmenuicon{background:url("images/Dashboard.png"); background-repeat: no-repeat, repeat; width:26px; height:25px; display: inline-block;vertical-align: middle;margin-right: 5px;}
-.sideBarmenu .groupmenuicon{background:url("images/Menu-User.png"); background-repeat: no-repeat, repeat; width:26px; height:25px; display: inline-block;vertical-align: middle;margin-right: 5px;}
+.sideBarmenu .groupmenuicon{background:url("images/Group.png"); background-repeat: no-repeat, repeat; width:30px; height:25px; display: inline-block;vertical-align: middle;margin-right: 5px;}
 .sideBarmenu .usermenuicon{background:url("images/Menu-User.png"); background-repeat: no-repeat, repeat; width:26px; height:28px; display: inline-block;vertical-align: middle;margin-right: 5px;position:relative;left: 3px;}
 .sideBarmenu .contrepomenuicon{background:url("images/ContentRepository.png"); background-repeat: no-repeat, repeat; width:28px; height:25px; display: inline-block;vertical-align: middle;margin-right: 5px;}
 .sideBarmenu .ant-menu li{border-bottom:2px solid #E2E2E2;line-height: 28px;}
@@ -287,14 +288,15 @@ ul.bulkImpListing li .ant-btn{width:100%; min-width:200px}
 .coloraddfile{color:#0A70B9; font-family: 'Myriad Pro bold';}
 .pos{position:relative}
 
-.ant-drawer .ant-drawer-title{font-family: 'Myriad Pro bold'; font-size:20px}
-.ant-drawer .ant-tabs-nav {float:left; width:100%; border-bottom:1px solid #C1C1C1}
-.ant-drawer .ant-tabs-bar{border-color:#C1C1C1;}
-.ant-drawer .ant-tabs-nav .ant-tabs-tab{padding:10px 5px; font-size:12px; color:#848484; margin:0px 15px;margin:0px 20px 0px 0px}
-.ant-drawer .ant-tabs .ant-tabs-small-bar .ant-tabs-tab{padding:8px 12px}
-.ant-drawer .ant-tabs-nav .ant-tabs-tab:hover{border:none;color:#e41f35}
-.ant-drawer .ant-tabs-nav .ant-tabs-ink-bar{border:none; border-bottom:3px solid #e41f35 !important; }
-.ant-drawer .ant-tabs-nav .ant-tabs-tab-active{ font-size:15px; color:#000;font-family: 'Myriad Pro bold';}
+body .ant-drawer-title{font-family: 'Myriad Pro bold'; font-size:20px}
+body .ant-tabs-nav {float:left; width:100%; border-bottom:1px solid #C1C1C1}
+body .ant-tabs-bar{border-color:#C1C1C1;}
+body .ant-tabs-nav .ant-tabs-tab{padding:10px 5px; font-size:12px; color:#848484; margin:0px 15px;margin:0px 20px 0px 0px}
+body .ant-tabs .ant-tabs-small-bar .ant-tabs-tab{padding:8px 12px}
+body .ant-tabs-nav .ant-tabs-tab:hover{border:none;color:#e41f35}
+body .ant-tabs-nav .ant-tabs-ink-bar{border:none; border-bottom:3px solid #e41f35 !important; }
+body .ant-tabs-nav .ant-tabs-tab-active{ font-size:15px; color:#000;font-family: 'Myriad Pro bold';}
+
 .ant-drawer .ant-btn{text-transform:uppercase; text-align:center; padding:0px 10px; font-size:12px}
 .ant-drawer .ant-btn-default{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
 .ant-drawer .ant-btn-default:hover{background:#d63031; color:#ffffff; border-color:#d63031; border-bottom:2px solid #a61726}
@@ -534,6 +536,43 @@ footer{padding: 0;font-size: 11px}
 .noteText{color:#6B6B6B;font-size:11px}
 .tagsBox{border: 1px solid #CCCCCC; min-height:180px; padding:10px;border-radius:5px 5px 5px 5px;-moz-border-radius:5px 5px 5px 5px;-webkit-border-radius:5px 5px 5px 5px}
 
+.switchbutton .labeltext{padding:0px 5px;font-size:12px;}
+.switchbutton .ant-switch-checked{background-color:#4CAF50;border:none;}
+.switchbutton .ant-switch{height:20px;border:none;}
+.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{width:10px;height: 10px;}
+.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{background-color:#fff;}
+.switchbutton .ant-switch{height:15px; min-width:28px;}
+.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{top:2px}
+.mngGroupBox{background: #f8f8f8;border: 1px solid #c5c5c5;padding:10px;min-height:620px}
+.activemngGroupBox{background: #fff}
+.inactivemngGroupBox{background: #f8f8f8}
+.mngGroupBoxHeader{margin-bottom: 10px;padding:15px 0px;float:left;width:100%;border-bottom: 2px solid #e8e8e8;}
+.mngGroupBox .mngGroupBoxHeader h4{font-family:'Myriad Pro Semibold';font-size: 16px;margin-bottom:0px;margin-top:0px;position: relative;top: -2px;}
+.mngGroupBox .mngGroupBoxHeader .iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;}
+.mngGroupBox .mngGroupBoxHeader .icon{width:21px; height:21px;background-color:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; vertical-align: middle; text-align: center;}
+.mngGroupBox .mngGroupBoxHeader .icon:hover,.mngGroupBox .mngGroupBoxHeader .active:hover{background-color:#d63032}
+.activeBdr{border-bottom: 2px solid #ec6574;}
+.mngGroupBoxBody{margin-top:15px}
+.managegroupbody .mngGrouplisting{list-style: none; margin:0;padding:0;}
+.managegroupbody .mngGrouplisting li{float:left;width:100%;padding:10px 10px; cursor:pointer;}
+.managegroupbody .mngGrouplisting li .text{float:left;}
+.managegroupbody .mngGrouplisting li .iconNo{float:right;}
+.managegroupbody .mngGrouplisting li .iconNo .editIcon2{float:left;cursor: pointer;}
+.managegroupbody .mngGrouplisting li .iconNo .editIcon2{background:url("images/edit-g.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;height: 18px;width: 20px;vertical-align: middle;}
+.managegroupbody .mngGrouplisting li .iconNo .icon{background:url("images/users.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;height: 18px;width: 25px;vertical-align: middle;}
+.managegroupbody .mngGrouplisting li .iconNo .no{float:left;width:40px;text-align: center;}
+.managegroupbody .mngGrouplisting li .iconNo .icon{float:left;}
+.managegroupbody .mngGrouplisting li.active{border: 1px solid #dddddd;background:#ffffff;z-index: 1;font-family: 'Myriad Pro bold';  position: relative;}
+.managegroupbody .mngGrouplisting li.active:after{content: '';background: #ffffff;width:29px;height:100%; padding: 25px 10px 16px;right: -29px;position: absolute;top: -1px;border: 1px solid #dddddd;border-left: none;border-right: none;}
+.managegroupbody .mngGrouplisting li:hover{background:#ffffff;}
+.managegroupbody .mngGrouplisting li:hover .icon{background:url("images/users_Active.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;}
+.managegroupbody .mngGrouplisting li:hover .editIcon2{background:url("images/edit-g_Active.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;}
+.managegroupbody .mngGrouplisting li:hover .no,.managegroupbody .mngGrouplisting li:hover .text{color:#d63032}
+.managegroupbody .mngGrouplisting li.inactive{background:#f8f8f8;border: 1px solid #dddddd;z-index: 1;font-family: 'Myriad Pro bold';  position: relative;}
+.managegroupbody .mngGrouplisting li.inactive:after{content: '';background: #f8f8f8;width:29px;height:100%; padding: 25px 10px 16px;right: -29px;position: absolute;top: -1px;border: 1px solid #dddddd;border-left: none;border-right: none;}
+
+
+
 @media screen and (max-width:1366px) {
 .ant-drawer-body{overflow-y: auto; max-height:400px;}
 .loginBox .loginBoxCon .colLogLeft{padding:3% 4% 0px 4%;}
@@ -543,12 +582,9 @@ footer{padding: 0;font-size: 11px}
 .conReposWrapp .conReposBox .conReposBoxHead .text p{font-size:14px;}
 .conReposWrapp .conReposBox{/*width:31.90%;*/ margin:0% 1% 2% 1%}
 .conReposWrapp .conReposBox:first-child{margin-left: 0%;}
+.managegroupbody .mngGrouplisting li{padding:10px 5px;}
+.managegroupbody .mngGrouplisting li .text{width:60%}
+body .customeclass20{padding-left:4px;padding-right:4px;}
 }
 
-.switchbutton .labeltext{ padding:0px 5px;font-size:12px;}
-.switchbutton .ant-switch-checked{background-color:#4CAF50;border:none;}
-.switchbutton .ant-switch{height:20px;border:none;}
-.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{width:10px;height: 10px;}
-.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{background-color:#fff;}
-.switchbutton .ant-switch{height:15px; min-width:28px;}
-.switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{top:2px}
+

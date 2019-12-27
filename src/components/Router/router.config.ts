@@ -42,6 +42,17 @@ export const appRouters: any = [
         displayOrder: 0,
         component: LoadableComponent(() => import('../../scenes/Dashboard')),
     },
+    {
+        featureId: 'ManageGroups',
+        title: 'Group',
+        name: 'Group',
+        path: '/group',
+        parentFeatureId: '',
+        className: 'groupmenuicon',
+        showInMenu: true,
+        displayOrder: 1,
+        component: LoadableComponent(() => import('../../scenes/Group')),
+    },
 
     {
         featureId: 'UserManagement',
