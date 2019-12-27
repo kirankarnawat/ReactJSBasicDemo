@@ -7,7 +7,7 @@ import { Row, Col } from 'antd';
 class GroupHierarchy extends React.Component {
     render() {
         return (
-            <Row className="antd-row">
+            <Row className="antd-row antdCustomRow">
                 <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className="customeclass20">
                     <div className="mngGroupBox">
                         <div className="mngGroupBoxHeader">

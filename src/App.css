@@ -583,8 +583,11 @@ footer{padding: 0;font-size: 11px}
 .conReposWrapp .conReposBox{/*width:31.90%;*/ margin:0% 1% 2% 1%}
 .conReposWrapp .conReposBox:first-child{margin-left: 0%;}
 .managegroupbody .mngGrouplisting li{padding:10px 5px;}
-.managegroupbody .mngGrouplisting li .text{width:60%}
+.managegroupbody .mngGrouplisting li .text{width:50%}
 body .customeclass20{padding-left:4px;padding-right:4px;}
+body .antdCustomRow{margin-left:4px;margin-right:4px;}
+.managegroupbody .mngGrouplisting li.inactive:after{width:21px;padding: 25px 10px 13px;right: -21px;}
+.managegroupbody .mngGrouplisting li.active:after{width:21px;padding: 25px 10px 13px;right: -21px;}
 }
 
 
