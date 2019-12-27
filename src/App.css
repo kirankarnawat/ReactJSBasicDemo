@@ -562,14 +562,14 @@ footer{padding: 0;font-size: 11px}
 .managegroupbody .mngGrouplisting li .iconNo .icon{background:url("images/users.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;height: 18px;width: 25px;vertical-align: middle;}
 .managegroupbody .mngGrouplisting li .iconNo .no{float:left;width:40px;text-align: center;}
 .managegroupbody .mngGrouplisting li .iconNo .icon{float:left;}
-.managegroupbody .mngGrouplisting li.active{border: 1px solid #dddddd;background:#ffffff;z-index: 1;font-family: 'Myriad Pro bold';  position: relative;}
-.managegroupbody .mngGrouplisting li.active:after{content: '';background: #ffffff;width:29px;height:100%; padding: 25px 10px 16px;right: -29px;position: absolute;top: -1px;border: 1px solid #dddddd;border-left: none;border-right: none;}
+.managegroupbody .mngGrouplisting li.active{border: 1px solid #c5c5c5;background:#ffffff;z-index: 1;font-family: 'Myriad Pro bold';  position: relative;}
+.managegroupbody .mngGrouplisting li.active:after{content: '';background: #ffffff;width:29px;height:104%;right: -29px;position: absolute;top: -1px;border: 1px solid #c5c5c5;border-left: none;border-right: none;}
 .managegroupbody .mngGrouplisting li:hover{background:#ffffff;}
 .managegroupbody .mngGrouplisting li:hover .icon{background:url("images/users_Active.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;}
 .managegroupbody .mngGrouplisting li:hover .editIcon2{background:url("images/edit-g_Active.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;}
 .managegroupbody .mngGrouplisting li:hover .no,.managegroupbody .mngGrouplisting li:hover .text{color:#d63032}
-.managegroupbody .mngGrouplisting li.inactive{background:#f8f8f8;border: 1px solid #dddddd;z-index: 1;font-family: 'Myriad Pro bold';  position: relative;}
-.managegroupbody .mngGrouplisting li.inactive:after{content: '';background: #f8f8f8;width:29px;height:100%; padding: 25px 10px 16px;right: -29px;position: absolute;top: -1px;border: 1px solid #dddddd;border-left: none;border-right: none;}
+.managegroupbody .mngGrouplisting li.inactive{background:#f8f8f8;border: 1px solid #c5c5c5;z-index: 1;font-family: 'Myriad Pro bold';  position: relative;}
+.managegroupbody .mngGrouplisting li.inactive:after{content: '';background: #f8f8f8;width:29px;height:104%;right: -29px;position: absolute;top: -1px;border: 1px solid #c5c5c5;border-left: none;border-right: none;}
 
 
 
@@ -586,8 +586,8 @@ footer{padding: 0;font-size: 11px}
 .managegroupbody .mngGrouplisting li .text{width:50%}
 body .customeclass20{padding-left:4px;padding-right:4px;}
 body .antdCustomRow{margin-left:4px;margin-right:4px;}
-.managegroupbody .mngGrouplisting li.inactive:after{width:21px;padding: 25px 10px 13px;right: -21px;}
-.managegroupbody .mngGrouplisting li.active:after{width:21px;padding: 25px 10px 13px;right: -21px;}
+.managegroupbody .mngGrouplisting li.inactive:after{width:21px;right: -21px;}
+.managegroupbody .mngGrouplisting li.active:after{width:21px;right: -21px;}
 }
 
 
