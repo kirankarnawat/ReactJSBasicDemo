@@ -125,7 +125,7 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState> {
             await this.props.contentrepositoryStore.createCourse();
         } else {
             debugger;
-            await this.props.contentrepositoryStore.getCourse({ courseId: entityDto.id, status: true, requesterUserId: this.props.contentrepositoryStore.userid, creatorName: creator});
+            await this.props.contentrepositoryStore.getCourse({ courseId: entityDto.id, status: true, requesterUserId: this.props.contentrepositoryStore.userid, creatorName: creator });
         }
 
         this.setState({ courseId: entityDto.id });
