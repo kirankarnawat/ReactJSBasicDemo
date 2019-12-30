@@ -7,8 +7,9 @@ import Stores from '../../../../../stores/storeIdentifier';
 import ContentRepositoryStore from '../../../../../stores/contentrepositoryStore';
 
 import { inject, observer } from 'mobx-react';*/
-import GroupHierarchy from '../Group/components/hierarchy';
-import GroupSystemRole from '../Group/components/systemRole';
+
+import GroupHierarchy from '../Group/components/groupHierarchy';
+import GroupSystemRole from '../Group/components/groupSystemRole';
 
 const TabPane = Tabs.TabPane;
 

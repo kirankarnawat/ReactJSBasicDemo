@@ -4,4 +4,5 @@ export default class Stores {
     static UserStore: string = 'userStore';
     static SessionStore: string = 'sessionStore';
     static ContentRepositoryStore: string = 'contentrepositoryStore';
+    static GroupStore: string = 'groupStore';
 }

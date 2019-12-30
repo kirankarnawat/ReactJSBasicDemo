@@ -57,7 +57,7 @@ class GroupHierarchy extends React.Component {
                     </div>
                 </Col>
                 <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className="customeclass20">
-                    <div className="mngGroupBox activemngGroupBox">
+                    <div className="mngGroupBox">
                         <div className="mngGroupBoxHeader">
                             <div className="floatleft">
                                 <h4 id="Name_Group1">Association</h4>
@@ -104,6 +104,8 @@ class GroupHierarchy extends React.Component {
                         <div className="clearfix"></div>
                     </div>
                 </Col>
+
+                
                 <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className="customeclass20">
                     <div className="mngGroupBox activemngGroupBox">
                         <div className="mngGroupBoxHeader">
@@ -152,6 +154,8 @@ class GroupHierarchy extends React.Component {
                         <div className="clearfix"></div>
                     </div>
                 </Col>
+
+                
                 <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className="customeclass20">
                     <div className="mngGroupBox activemngGroupBox">
                         <div className="mngGroupBoxHeader">
@@ -232,7 +236,7 @@ class GroupHierarchy extends React.Component {
                                         </span>
                                     </a>
                                 </li>
-                                <li>
+                                <li >
                                     <a href="#">
                                         <span className="text ">  Cardinal Health</span>
                                         <span className="iconNo">
@@ -248,6 +252,7 @@ class GroupHierarchy extends React.Component {
                         <div className="clearfix"></div>
                     </div>
                 </Col>
+                
             </Row>
 
         )
