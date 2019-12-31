@@ -25,25 +25,31 @@ import { SaveGroup4Request } from '../services/group/dto/Request/saveGroup4Reque
 import { Group5NameExistsCheckRequest } from '../services/group/dto/Request/group5NameExistsCheckRequest';
 import { Group5Response } from '../services/group/dto/Response/group5Response';
 import { SaveGroup5Request } from '../services/group/dto/Request/saveGroup5Request';
+
 import { PagedResultDto } from '../services/dto/pagedResultDto';
+
 import { LookupByTypeRequest } from '../services/dto/lookupByTypeRequest';
 import { LookupByTypeResponse } from '../services/dto/lookupByTypeResponse';
+
+import { GroupResponse } from '../services/group/dto/Response/groupResponse';
+import { GetCountryResponse } from '../services/group/dto/Response/getCountryResponse';
+import { GetStateResponse } from '../services/group/dto/Response/getStateResponse';
+import { GetCityResponse } from '../services/group/dto/Response/getCityResponse';
 
 class GroupStore {
 
     @observable userid!: string;
     @observable grExists!: string;
-    @observable gr1ById !: Group1Response;
-    @observable gr2ById !: Group2Response;
-    @observable gr3ById !: Group3Response;
-    @observable gr4ById !: Group4Response;
-    @observable gr5ById !: Group5Response;
+    @observable grById !: GroupResponse;
     @observable gr1All !: PagedResultDto<Group1Response>;
     @observable gr2All !: PagedResultDto<Group2Response>;
     @observable gr3All !: PagedResultDto<Group3Response>;
     @observable gr4All !: PagedResultDto<Group4Response>;
     @observable gr5All !: PagedResultDto<Group5Response>;
     @observable groupLevelMaster !: PagedResultDto<LookupByTypeResponse>;
+    @observable groupCountry !: PagedResultDto<GetCountryResponse>;
+    @observable groupState !: PagedResultDto<GetStateResponse>;
+    @observable groupCity !: PagedResultDto<GetCityResponse>;
 
     @action
     async getLevelMasterData(lookupByTypeRequest: LookupByTypeRequest) {
@@ -53,6 +59,42 @@ class GroupStore {
         runInAction(() => {
             this.groupLevelMaster = result;
             this.userid = sessionService.getLoginUserId();
+        });
+    }
+
+    @action
+    async getGroupLookups() {
+
+        let result = JSON.parse(await groupService.getGroupLookups());
+
+        var countryLst = <PagedResultDto<GetCountryResponse>>{};
+        var stateLst = <PagedResultDto<GetStateResponse>>{};
+        var cityLst = <PagedResultDto<GetCityResponse>>{};
+
+        countryLst.items = result["listCountries"];
+        countryLst.totalCount = countryLst.items.length;
+
+        stateLst.items = result["listStates"];
+        stateLst.totalCount = stateLst.items.length;
+
+        cityLst.items = result["listCities"];
+        cityLst.totalCount = cityLst.items.length;
+
+        runInAction(() => {
+
+            this.groupCountry = countryLst;
+            this.groupCity = cityLst;
+            this.groupState = stateLst;
+        });
+    }
+
+    @action
+    async createGroup(parentid: string) {
+
+        runInAction(() => {
+            this.grById = {
+                cityId: '', countryId: '', creatorName: '', groupId: '', groupName: '', groupParentId: parentid, location: '', stateId: '', status: true, zipCode: ''
+            };
         });
     }
 
@@ -87,23 +129,21 @@ class GroupStore {
         let result = await groupService.getGroup1ById(entityDto);
 
         runInAction(() => {
-            this.gr1ById = result;
-        });
-    }
-
-    @action
-    async createGroup1() {
-
-        runInAction(() => {
-            this.gr1ById = {
-                cityId: '', countryId: '', createdDateDisplay: '', creatorName: '', description: '', group1Id: '', group1Name: '', isSuccess: true, lastModifiedDateDisplay: '', stateId: '', status: true, totalCount: 0, totalMemberCount: 0, zipCode: ''
+            this.grById = {
+                groupId: result.group1Id, groupName: result.group1Name, cityId: result.cityId, countryId: result.countryId,
+                groupParentId: '', location: '', creatorName: result.creatorName, stateId: result.stateId, status: result.status, zipCode: result.zipCode
             };
         });
     }
 
-
     @action
-    async saveGroup1Data(saveGroup1Request: SaveGroup1Request) {
+    async saveGroup1Data(saveGroupRequest: GroupResponse) {
+
+        var saveGroup1Request: SaveGroup1Request;
+        saveGroup1Request = {
+            group1Id: saveGroupRequest.groupId, group1Name: saveGroupRequest.groupName, cityId: saveGroupRequest.cityId, countryId: saveGroupRequest.countryId,
+            creatorName: saveGroupRequest.creatorName, description: '', requesterUserId: this.userid, stateId: saveGroupRequest.stateId, status: saveGroupRequest.status, zipCode: saveGroupRequest.zipCode
+        }
 
         let result = await groupService.saveGroup1Data(saveGroup1Request);
 
@@ -142,23 +182,22 @@ class GroupStore {
         let result = await groupService.getGroup2ById(entityDto);
 
         runInAction(() => {
-            this.gr2ById = result;
-        });
-    }
-
-    @action
-    async createGroup2() {
-
-        runInAction(() => {
-            this.gr2ById = {
-                cityId: '', countryId: '', createdDateDisplay: '', creatorName: '', description: '', group1Id: '', group2Id: '', group2Name: '', isSuccess: true, lastModifiedDateDisplay: '', stateId: '', status: true, totalCount: 0, totalMemberCount: 0, zipCode: '', isVirtual: true
+            this.grById = {
+                cityId: result.cityId, countryId: result.countryId, creatorName: result.creatorName, groupId: result.group2Id,
+                groupName: result.group2Name, groupParentId: result.group1Id, location: '', stateId: result.stateId, status: result.status, zipCode: result.zipCode
             };
         });
     }
 
-
     @action
-    async saveGroup2Data(saveGroup2Request: SaveGroup2Request) {
+    async saveGroup2Data(saveGroupRequest: GroupResponse) {
+
+        var saveGroup2Request: SaveGroup2Request;
+        saveGroup2Request = {
+            group2Id: saveGroupRequest.groupId, group2Name: saveGroupRequest.groupName, group1Id: saveGroupRequest.groupParentId, cityId: saveGroupRequest.cityId, countryId: saveGroupRequest.countryId,
+            creatorName: saveGroupRequest.creatorName, description: '', requesterUserId: this.userid, stateId: saveGroupRequest.stateId, status: saveGroupRequest.status, zipCode: saveGroupRequest.zipCode,
+            isVirtual: false
+        }
 
         let result = await groupService.saveGroup2Data(saveGroup2Request);
 
@@ -196,25 +235,22 @@ class GroupStore {
         let result = await groupService.getGroup3ById(entityDto);
 
         runInAction(() => {
-            this.gr3ById = result;
-            this.gr4All = { items: [], totalCount: 0 };
-            this.gr5All = { items: [], totalCount: 0 };
-        });
-    }
-
-    @action
-    async createGroup3() {
-
-        runInAction(() => {
-            this.gr3ById = {
-                cityId: '', countryId: '', createdDateDisplay: '', creatorName: '', description: '', group2Id: '', group3Id: '', group3Name: '', isSuccess: true, lastModifiedDateDisplay: '', stateId: '', status: true, totalCount: 0, totalMemberCount: 0, zipCode: '', isVirtual: true
+            this.grById = {
+                cityId: result.cityId, countryId: result.countryId, creatorName: result.creatorName, groupId: result.group3Id,
+                groupName: result.group3Name, groupParentId: result.group2Id, location: '', stateId: result.stateId, status: result.status, zipCode: result.zipCode
             };
         });
     }
 
-
     @action
-    async saveGroup3Data(saveGroup3Request: SaveGroup3Request) {
+    async saveGroup3Data(saveGroupRequest: GroupResponse) {
+
+        var saveGroup3Request: SaveGroup3Request
+        saveGroup3Request = {
+            group3Id: saveGroupRequest.groupId, group3Name: saveGroupRequest.groupName, group2Id: saveGroupRequest.groupParentId, cityId: saveGroupRequest.cityId, countryId: saveGroupRequest.countryId,
+            creatorName: saveGroupRequest.creatorName, description: '', requesterUserId: this.userid, stateId: saveGroupRequest.stateId, status: saveGroupRequest.status, zipCode: saveGroupRequest.zipCode,
+            isVirtual: false
+        }
 
         let result = await groupService.saveGroup3Data(saveGroup3Request);
 
@@ -251,23 +287,22 @@ class GroupStore {
         let result = await groupService.getGroup4ById(entityDto);
 
         runInAction(() => {
-            this.gr4ById = result;
-        });
-    }
-
-    @action
-    async createGroup4() {
-
-        runInAction(() => {
-            this.gr4ById = {
-                cityId: '', countryId: '', createdDateDisplay: '', creatorName: '', description: '', group3Id: '', group4Id: '', group4Name: '', isSuccess: true, lastModifiedDateDisplay: '', stateId: '', status: true, totalCount: 0, totalMemberCount: 0, zipCode: '', isVirtual: true
+            this.grById = {
+                cityId: result.cityId, countryId: result.countryId, creatorName: result.creatorName, groupId: result.group4Id,
+                groupName: result.group4Name, groupParentId: result.group3Id, location: '', stateId: result.stateId, status: result.status, zipCode: result.zipCode
             };
         });
     }
 
-
     @action
-    async saveGroup4Data(saveGroup4Request: SaveGroup4Request) {
+    async saveGroup4Data(saveGroupRequest: GroupResponse) {
+
+        var saveGroup4Request: SaveGroup4Request
+        saveGroup4Request = {
+            group4Id: saveGroupRequest.groupId, group4Name: saveGroupRequest.groupName, group3Id: saveGroupRequest.groupParentId, cityId: saveGroupRequest.cityId, countryId: saveGroupRequest.countryId,
+            creatorName: saveGroupRequest.creatorName, description: '', requesterUserId: this.userid, stateId: saveGroupRequest.stateId, status: saveGroupRequest.status, zipCode: saveGroupRequest.zipCode,
+            isVirtual: false
+        }
 
         let result = await groupService.saveGroup4Data(saveGroup4Request);
 
@@ -303,23 +338,22 @@ class GroupStore {
         let result = await groupService.getGroup5ById(entityDto);
 
         runInAction(() => {
-            this.gr5ById = result;
-        });
-    }
-
-    @action
-    async createGroup5() {
-
-        runInAction(() => {
-            this.gr5ById = {
-                cityId: '', countryId: '', createdDateDisplay: '', creatorName: '', description: '', group4Id: '', group5Id: '', group5Name: '', location: '', isSuccess: true, lastModifiedDateDisplay: '', stateId: '', status: true, totalCount: 0, totalMemberCount: 0, zipCode: '', isVirtual: true
+            this.grById = {
+                cityId: result.cityId, countryId: result.countryId, creatorName: result.creatorName, groupId: result.group5Id,
+                groupName: result.group5Name, groupParentId: result.group4Id, location: '', stateId: result.stateId, status: result.status, zipCode: result.zipCode
             };
         });
     }
 
-
     @action
-    async saveGroup5Data(saveGroup5Request: SaveGroup5Request) {
+    async saveGroup5Data(saveGroupRequest: GroupResponse) {
+
+        var saveGroup5Request: SaveGroup5Request
+        saveGroup5Request = {
+            group5Id: saveGroupRequest.groupId, group5Name: saveGroupRequest.groupName, group4Id: saveGroupRequest.groupParentId, cityId: saveGroupRequest.cityId, countryId: saveGroupRequest.countryId,
+            creatorName: saveGroupRequest.creatorName, description: '', requesterUserId: this.userid, stateId: saveGroupRequest.stateId, status: saveGroupRequest.status, zipCode: saveGroupRequest.zipCode,
+            location: saveGroupRequest.location
+        }
 
         let result = await groupService.saveGroup5Data(saveGroup5Request);
 

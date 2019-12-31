@@ -212,7 +212,7 @@ var lms = lms || {};
         SAVEGR1: 'SAVEGR1', SAVEGR2: 'SAVEGR2', SAVEGR3: 'SAVEGR3', SAVEGR4: 'SAVEGR4', SAVEGR5: 'SAVEGR5',
         GETGR1: 'GETGR1', GETGR2: 'GETGR2', GETGR3: 'GETGR3', GETGR4: 'GETGR4', GETGR5: 'GETGR5',
         NAMEEXISTSGR1: 'NAMEEXISTSGR1', NAMEEXISTSGR2: 'NAMEEXISTSGR2', NAMEEXISTSGR3: 'NAMEEXISTSGR3', NAMEEXISTSGR4: 'NAMEEXISTSGR4', NAMEEXISTSGR5: 'NAMEEXISTSGR5',
-        LEVELMASTER: 'LEVELMASTER'
+        LEVELMASTER: 'LEVELMASTER', GROUPLOOKUPS:'GROUPLOOKUPS'
     };
 
     //API Path
@@ -281,6 +281,9 @@ var lms = lms || {};
                 break;
             case lms.group.APIType.LEVELMASTER:
                 path = '/lookup/getlookupbytype';
+                break;
+            case lms.group.APIType.GROUPLOOKUPS:
+                path = '/user/getlookups';
                 break;
         }
         return path;

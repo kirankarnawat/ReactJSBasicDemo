@@ -18,10 +18,11 @@ export interface IHierarchyProp extends FormComponentProps {
     level: number;
     levelId: string;
     levelName: string;
+    parentGroupId: string;
     isActive: boolean;
     isSelectedActive: boolean;
     isSelectedInactive: boolean;
-    onSelectLevelGroup: (value: number) => void;
+    onSelectLevelGroup: (value: number, grpid: string) => void;
 }
 
 
@@ -36,8 +37,9 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp> {
     getGroupData = () => {
 
         var data;
-               
+
         switch (this.props.level) {
+
             case 1:
                 data = (this.props.groupStore.gr1All) ?
                     this.props.groupStore.gr1All.items.map((item, index) => (
@@ -53,6 +55,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp> {
                         </li>
                     )) : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
                 break;
+
             case 2:
                 data = (this.props.groupStore.gr2All) ?
                     this.props.groupStore.gr2All.items.map((item, index) => (
@@ -68,6 +71,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp> {
                         </li>
                     )) : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
                 break;
+
             case 3:
                 data = (this.props.groupStore.gr3All) ?
                     this.props.groupStore.gr3All.items.map((item, index) => (
@@ -83,6 +87,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp> {
                         </li>
                     )) : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
                 break;
+
             case 4:
                 data = (this.props.groupStore.gr4All) ?
                     this.props.groupStore.gr4All.items.map((item, index) => (
@@ -98,12 +103,13 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp> {
                         </li>
                     )) : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
                 break;
+
             case 5:
                 data = (this.props.groupStore.gr5All) ?
                     this.props.groupStore.gr5All.items.map((item, index) => (
                         <li key={item.group5Id} className={(this.state.selectedGroupId === item.group5Id && this.props.isSelectedActive === true) ? 'active' : ((this.state.selectedGroupId === item.group5Id && this.props.isSelectedInactive === true) ? 'inactive' : '')}>
                             <a href="#" onClick={() => this.selectGroup(item.group5Id)}>
-                                <span className={(item.status === false) ? "text strike" :"text"}>  {item.group5Name}</span>
+                                <span className={(item.status === false) ? "text strike" : "text"}>  {item.group5Name}</span>
                                 <span className="iconNo">
                                     <span className="editIcon2" onClick={() => this.editGroup(item.group5Id)}></span>
                                     <span className="no">{item.totalMemberCount}</span>
@@ -113,6 +119,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp> {
                         </li>
                     )) : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
                 break;
+
             default: data = <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
         }
         return data;
@@ -123,14 +130,17 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp> {
     }
 
     addGroup = () => {
-        console.log('add');
+
+        console.log(this.props.parentGroupId);
+
+        this.props.groupStore.createGroup(this.props.parentGroupId);
     }
 
     selectGroup = (data: string) => {
 
         this.setState({ ...this.state, selectedGroupId: data });
 
-        this.props.onSelectLevelGroup(this.props.level);
+        this.props.onSelectLevelGroup(this.props.level, data);
 
         switch (this.props.level) {
             case 1:
@@ -146,7 +156,6 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp> {
                 this.props.groupStore.getAllGroup5Data({ id: data });
                 break;
         }
-        
     }
 
     render() {
@@ -168,7 +177,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp> {
                     </div>
 
                     <div className="floatright">
-                        <Button disabled={!isActive} onClick={() => this.addGroup} className="icon iconUser"></Button>
+                        <Button disabled={!isActive} onClick={this.addGroup} className="icon iconUser"></Button>
                     </div>
 
                 </div>

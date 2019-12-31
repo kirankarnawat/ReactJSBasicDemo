@@ -80,7 +80,7 @@ class GroupService {
     }
 
     public async getAllGroup2(entityDto: EntityDto): Promise<PagedResultDto<Group2Response>> {
-        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.GETALLGR2), { params: { 'Group1Id' : entityDto.id } });
+        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.GETALLGR2), { params: { 'Group1Id': entityDto.id } });
 
         var data = <PagedResultDto<Group2Response>>{};
         data.items = result.data;
@@ -96,7 +96,7 @@ class GroupService {
         return result.data;
     }
 
-    public async saveGroup2Data(saveGroupRequest: SaveGroup2Request): Promise<string>  {
+    public async saveGroup2Data(saveGroupRequest: SaveGroup2Request): Promise<string> {
 
         var data = '';
         try {
@@ -135,7 +135,7 @@ class GroupService {
         return result.data;
     }
 
-    public async saveGroup3Data(saveGroupRequest: SaveGroup3Request): Promise<string>  {
+    public async saveGroup3Data(saveGroupRequest: SaveGroup3Request): Promise<string> {
 
         var data = '';
         try {
@@ -174,7 +174,7 @@ class GroupService {
         return result.data;
     }
 
-    public async saveGroup4Data(saveGroupRequest: SaveGroup4Request): Promise<string>  {
+    public async saveGroup4Data(saveGroupRequest: SaveGroup4Request): Promise<string> {
 
         var data = '';
         try {
@@ -213,7 +213,7 @@ class GroupService {
         return result.data;
     }
 
-    public async saveGroup5Data(saveGroupRequest: SaveGroup5Request): Promise<string>  {
+    public async saveGroup5Data(saveGroupRequest: SaveGroup5Request): Promise<string> {
 
         var data = '';
         try {
@@ -242,6 +242,14 @@ class GroupService {
         }
         return data;
     }
+
+    public async getGroupLookups(): Promise<string> {
+
+        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.GROUPLOOKUPS));
+
+        return JSON.stringify(result.data);
+    }
+
 }
 
 export default new GroupService();

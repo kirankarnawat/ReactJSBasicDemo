@@ -17,6 +17,7 @@ export interface IGroupHierarchyState {
     isGr1Active: boolean; isGr2Active: boolean; isGr3Active: boolean; isGr4Active: boolean; isGr5Active: boolean;
     isGr1SelActive: boolean; isGr2SelActive: boolean; isGr3SelActive: boolean; isGr4SelActive: boolean; isGr5SelActive: boolean;
     isGr1SelInactive: boolean; isGr2SelInactive: boolean; isGr3SelInactive: boolean; isGr4SelInactive: boolean; isGr5SelInactive: boolean;
+    parentGroupId: string;
 }
 
 
@@ -30,6 +31,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
             isGr1Active: true, isGr2Active: false, isGr3Active: false, isGr4Active: false, isGr5Active: false,
             isGr1SelActive: false, isGr2SelActive: false, isGr3SelActive: false, isGr4SelActive: false, isGr5SelActive: false,
             isGr1SelInactive: false, isGr2SelInactive: false, isGr3SelInactive: false, isGr4SelInactive: false, isGr5SelInactive: false,
+            parentGroupId: ''
         }
     }
 
@@ -58,7 +60,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
     }
 
 
-    onHandleSetLevelGroupState = (value: number) => {
+    onHandleSetLevelGroupState = (value: number, grpid: string) => {
         debugger;
         switch (value) {
             case 1:
@@ -67,6 +69,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
                     isGr1Active: false, isGr2Active: true, isGr3Active: false, isGr4Active: false, isGr5Active: false,
                     isGr1SelActive: true, isGr2SelActive: false, isGr3SelActive: false, isGr4SelActive: false, isGr5SelActive: false,
                     isGr1SelInactive: false, isGr2SelInactive: false, isGr3SelInactive: false, isGr4SelInactive: false, isGr5SelInactive: false,
+                    parentGroupId: grpid
                 });
                 break;
             case 2:
@@ -75,6 +78,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
                     isGr1Active: false, isGr2Active: false, isGr3Active: true, isGr4Active: false, isGr5Active: false,
                     isGr1SelActive: false, isGr2SelActive: true, isGr3SelActive: false, isGr4SelActive: false, isGr5SelActive: false,
                     isGr1SelInactive: true, isGr2SelInactive: false, isGr3SelInactive: false, isGr4SelInactive: false, isGr5SelInactive: false,
+                    parentGroupId: grpid
                 });
                 break;
             case 3:
@@ -83,6 +87,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
                     isGr1Active: false, isGr2Active: false, isGr3Active: false, isGr4Active: true, isGr5Active: false,
                     isGr1SelActive: false, isGr2SelActive: false, isGr3SelActive: true, isGr4SelActive: false, isGr5SelActive: false,
                     isGr1SelInactive: true, isGr2SelInactive: true, isGr3SelInactive: false, isGr4SelInactive: false, isGr5SelInactive: false,
+                    parentGroupId: grpid
                 });
                 break;
             case 4:
@@ -91,6 +96,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
                     isGr1Active: false, isGr2Active: false, isGr3Active: false, isGr4Active: false, isGr5Active: true,
                     isGr1SelActive: false, isGr2SelActive: false, isGr3SelActive: false, isGr4SelActive: true, isGr5SelActive: false,
                     isGr1SelInactive: true, isGr2SelInactive: true, isGr3SelInactive: true, isGr4SelInactive: false, isGr5SelInactive: false,
+                    parentGroupId: grpid
                 });
                 break;
             case 5:
@@ -120,6 +126,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
                                 level={index + 1}
                                 levelId={item["lookUpValue"]}
                                 levelName={item["lookUpName"]}
+                                parentGroupId={this.state.parentGroupId}
                                 isActive={this.getGroupState(index + 1)}
                                 isSelectedActive={this.getGroupSelActiveState(index + 1)}
                                 isSelectedInactive={this.getGroupSelInactiveState(index + 1)}
