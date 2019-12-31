@@ -16,6 +16,7 @@ import { UserBulkImportLogListResponse } from '../../../services/user/dto/Respon
 import { UserBulkImportListResponse } from '../../../services/user/dto/Response/userBulkImportListResponse';
 
 import BulkImportHistoryLog from './bulkImportHistoryLog'
+import commonconst from '../../../lib/commonconst';
 
 // #endregion
 
@@ -71,7 +72,7 @@ class BulkImportHistory extends React.Component<IUserProps, IBulkImportHistorySt
     async componentDidMount() {
         debugger;
         await this.props.userStore.initBulkFilter();
-        await this.props.userStore.getUserBulkImportStatus({ LookupType:'BULK_IMPORT_STATUS' });
+        await this.props.userStore.getUserBulkImportStatus({ LookupType: commonconst.LOOKUPS.BULKIMPORT });
         await this.getAll();
     }
 

@@ -12,7 +12,7 @@ export default {
     },
 
     PARENTFEATURE: {
-        PARENTFEATURE_CONTENTMANAGEMENT: "ContentManagement",        
+        PARENTFEATURE_CONTENTMANAGEMENT: "ContentManagement",
     },
 
     MESSAGES: {
@@ -22,5 +22,10 @@ export default {
         KEYWORDADDSUCCESS: 'Course keyword added successfully',
         KEYWORDDELSUCCESS: 'Course keyword removed successfully',
         KEYWORDEXISTS: 'Keyword is already exists in the course',
+    },
+
+    LOOKUPS: {
+        BULKIMPORT: 'BULK_IMPORT_STATUS',
+        LEVELMASTER: 'LEVEL_MASTER',
     }
 };

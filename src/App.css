@@ -546,7 +546,7 @@ footer{padding: 0;font-size: 11px}
 .mngGroupBox{background: #f8f8f8;border: 1px solid #c5c5c5;padding:10px;min-height:620px}
 .activemngGroupBox{background: #fff}
 .inactivemngGroupBox{background: #f8f8f8}
-.mngGroupBoxHeader{margin-bottom: 10px;padding:15px 0px;float:left;width:100%;border-bottom: 2px solid #e8e8e8;}
+.mngGroupBoxHeader{margin-bottom: 10px;padding:15px 0px;float:left;width:100%;border-bottom: 2px solid #E91E63;}
 .mngGroupBox .mngGroupBoxHeader h4{font-family:'Myriad Pro Semibold';font-size: 16px;margin-bottom:0px;margin-top:0px;position: relative;top: -2px;}
 .mngGroupBox .mngGroupBoxHeader .iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;}
 .mngGroupBox .mngGroupBoxHeader .icon{width:21px; height:21px;background-color:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; vertical-align: middle; text-align: center;}
@@ -570,7 +570,7 @@ footer{padding: 0;font-size: 11px}
 .managegroupbody .mngGrouplisting li:hover .no,.managegroupbody .mngGrouplisting li:hover .text{color:#d63032}
 .managegroupbody .mngGrouplisting li.inactive{background:#f8f8f8;border: 1px solid #c5c5c5;z-index: 1;font-family: 'Myriad Pro bold';  position: relative;}
 .managegroupbody .mngGrouplisting li.inactive:after{content: '';background: #f8f8f8;width:29px;height:104%;right: -29px;position: absolute;top: -1px;border: 1px solid #c5c5c5;border-left: none;border-right: none;}
-
+.strike {text-decoration: line-through;} 
 
 
 @media screen and (max-width:1366px) {

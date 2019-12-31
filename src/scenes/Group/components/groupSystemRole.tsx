@@ -1,8 +1,13 @@
+
 import * as React from 'react';
+
+import { Form } from 'antd';
+
 //import { inject, observer } from 'mobx-react';
 
 
 class GroupSystemRole extends React.Component {
+
     render() {
         return (
             <div className="groupMainContainer">
@@ -15,4 +20,4 @@ class GroupSystemRole extends React.Component {
     };
 }
 
-export default GroupSystemRole;
+export default Form.create()(GroupSystemRole);

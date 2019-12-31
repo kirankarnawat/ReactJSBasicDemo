@@ -103,7 +103,7 @@ class ContentRepositoryService {
     }
 
     public async removeCourseKeyword(entityDto: EntityDto): Promise<string> {
-        debugger;
+        
         var data = '';
         try {
             var URL = lms.course.toAPIPath(lms.course.APIType.DELCOURSEKEYWORD) + '?' + 'CourseKeyWordId=' + entityDto.id

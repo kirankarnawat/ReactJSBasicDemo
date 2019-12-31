@@ -211,7 +211,8 @@ var lms = lms || {};
         GETALLGR1: 'GETALLGR1', GETALLGR2: 'GETALLGR2', GETALLGR3: 'GETALLGR3', GETALLGR4: 'GETALLGR4', GETALLGR5: 'GETALLGR5',
         SAVEGR1: 'SAVEGR1', SAVEGR2: 'SAVEGR2', SAVEGR3: 'SAVEGR3', SAVEGR4: 'SAVEGR4', SAVEGR5: 'SAVEGR5',
         GETGR1: 'GETGR1', GETGR2: 'GETGR2', GETGR3: 'GETGR3', GETGR4: 'GETGR4', GETGR5: 'GETGR5',
-        NAMEEXISTSGR1: 'NAMEEXISTSGR1', NAMEEXISTSGR2: 'NAMEEXISTSGR2', NAMEEXISTSGR3: 'NAMEEXISTSGR3', NAMEEXISTSGR4: 'NAMEEXISTSGR4', NAMEEXISTSGR5: 'NAMEEXISTSGR5'
+        NAMEEXISTSGR1: 'NAMEEXISTSGR1', NAMEEXISTSGR2: 'NAMEEXISTSGR2', NAMEEXISTSGR3: 'NAMEEXISTSGR3', NAMEEXISTSGR4: 'NAMEEXISTSGR4', NAMEEXISTSGR5: 'NAMEEXISTSGR5',
+        LEVELMASTER: 'LEVELMASTER'
     };
 
     //API Path
@@ -219,64 +220,67 @@ var lms = lms || {};
         var path = '';
         switch (type) {
             case lms.group.APIType.GETALLGR1:
-                path = '/Hierarchy/getallgroup1';
+                path = '/hierarchy/getallgroup1';
                 break;
             case lms.group.APIType.GETALLGR2:
-                path = '/Hierarchy/getallgroup2';
+                path = '/hierarchy/getallgroup2';
                 break;
             case lms.group.APIType.GETALLGR3:
-                path = '/Hierarchy/getallgroup3';
+                path = '/hierarchy/getallgroup3';
                 break;
             case lms.group.APIType.GETALLGR4:
-                path = '/Hierarchy/getallgroup4';
+                path = '/hierarchy/getallgroup4';
                 break;
             case lms.group.APIType.GETALLGR5:
-                path = '/Hierarchy/getallgroup5';
+                path = '/hierarchy/getallgroup5';
                 break;
             case lms.group.APIType.SAVEGR1:
-                path = '/Hierarchy/savegroup1';
+                path = '/hierarchy/savegroup1';
                 break;
             case lms.group.APIType.SAVEGR2:
-                path = '/Hierarchy/savegroup2';
+                path = '/hierarchy/savegroup2';
                 break;
             case lms.group.APIType.SAVEGR3:
-                path = '/Hierarchy/savegroup3';
+                path = '/hierarchy/savegroup3';
                 break;
             case lms.group.APIType.SAVEGR4:
-                path = '/Hierarchy/savegroup4';
+                path = '/hierarchy/savegroup4';
                 break;
             case lms.group.APIType.SAVEGR5:
-                path = '/Hierarchy/savegroup5';
+                path = '/hierarchy/savegroup5';
                 break;
             case lms.group.APIType.GETGR1:
-                path = '/Hierarchy/getgroup1';
+                path = '/hierarchy/getgroup1';
                 break;
             case lms.group.APIType.GETGR2:
-                path = '/Hierarchy/getgroup2';
+                path = '/hierarchy/getgroup2';
                 break;
             case lms.group.APIType.GETGR3:
-                path = '/Hierarchy/getgroup3';
+                path = '/hierarchy/getgroup3';
                 break;
             case lms.group.APIType.GETGR4:
-                path = '/Hierarchy/getgroup4';
+                path = '/hierarchy/getgroup4';
                 break;
             case lms.group.APIType.GETGR5:
-                path = '/Hierarchy/getgroup5';
+                path = '/hierarchy/getgroup5';
                 break;
             case lms.group.APIType.NAMEEXISTSGR1:
-                path = '/Hierarchy/isgroup1nameexists';
+                path = '/hierarchy/isgroup1nameexists';
                 break;
             case lms.group.APIType.NAMEEXISTSGR2:
-                path = '/Hierarchy/isgroup2nameexists';
+                path = '/hierarchy/isgroup2nameexists';
                 break;
             case lms.group.APIType.NAMEEXISTSGR3:
-                path = '/Hierarchy/isgroup3nameexists';
+                path = '/hierarchy/isgroup3nameexists';
                 break;
             case lms.group.APIType.NAMEEXISTSGR4:
-                path = '/Hierarchy/isgroup4nameexists';
+                path = '/hierarchy/isgroup4nameexists';
                 break;
             case lms.group.APIType.NAMEEXISTSGR5:
-                path = '/Hierarchy/isgroup5nameexists';
+                path = '/hierarchy/isgroup5nameexists';
+                break;
+            case lms.group.APIType.LEVELMASTER:
+                path = '/lookup/getlookupbytype';
                 break;
         }
         return path;

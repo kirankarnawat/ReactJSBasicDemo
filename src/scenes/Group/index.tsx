@@ -1,82 +1,57 @@
+
 import * as React from 'react';
 
-import { Tabs,Col, Row,Card } from 'antd';
+import { Tabs, Col, Row, Card } from 'antd';
 
-/*import { inject, observer } from 'mobx-react';
-import Stores from '../../../../../stores/storeIdentifier';
-import ContentRepositoryStore from '../../../../../stores/contentrepositoryStore';
-
-import { inject, observer } from 'mobx-react';*/
+import { inject, observer } from 'mobx-react';
 
 import GroupHierarchy from '../Group/components/groupHierarchy';
 import GroupSystemRole from '../Group/components/groupSystemRole';
 
+import Stores from '../../stores/storeIdentifier';
+import GroupStore from '../../stores/groupStore';
+import commonconst from '../../lib/commonconst';
+
 const TabPane = Tabs.TabPane;
 
-//#region Local State and Property
-export interface IGroupsProps {
-    visible: boolean;
-    onCancel: () => void;
-    modalType: string;
-    id: string;
+export interface IGroupProps {
+    groupStore: GroupStore;
 }
 
-/*
-export interface IGroupsProps {
-    contentrepositoryStore: ContentRepositoryStore;
-}
 
-@inject(Stores.ContentRepositoryStore)
+@inject(Stores.GroupStore)
 @observer
-*/
+class MainGroupContent extends React.Component<IGroupProps> {  
 
-class MainGroupContent extends React.Component<IGroupsProps>
-{
-    state = {
-        changestate: false,
-    };
+    // start up event
+    async componentDidMount() {
 
-    async componentDidUpdate(prevProps, prevState) {
+        await this.props.groupStore.getLevelMasterData({ LookupType: commonconst.LOOKUPS.LEVELMASTER });
 
-        if (this.props.id !== prevProps.id) {
-            if (this.props.id !== "") {
-                this.setState({ ...this.state, changestate: true });
-            }
-        }
-    }
-
-    onHanleResetForm = async () => {
-
-        await this.props.onCancel();
-
-        this.setState({ ...this.state, changestate: false });
+        await this.props.groupStore.getAllGroup1Data();
     }
 
     render() {
 
-        //if (this.props.contentrepositoryStore.coursecategory === undefined) return (<div></div>);
-
-       // const { visible } = this.props;
-
         return (
             <Card>
-            <div>
-                <div className="contentHeader">
-                    <div className="conHeader">
-                        <Row className="antd-row">
-                            <Col className="floatleft"
-                                xs={{ span: 24 }}
-                                sm={{ span: 24 }}
-                                md={{ span: 24 }}
-                                lg={{ span: 12 }}>
-                                <div className="heading">
-                                    <h2>Manage Groups</h2>
-                                </div>
-                            </Col>
-                        </Row>
+                <div>
+                    <div className="contentHeader">
+                        <div className="conHeader">
+                            <Row className="antd-row">
+                                <Col className="floatleft"
+                                    xs={{ span: 24 }}
+                                    sm={{ span: 24 }}
+                                    md={{ span: 24 }}
+                                    lg={{ span: 12 }}>
+                                    <div className="heading">
+                                        <h2>Manage Groups</h2>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
                     </div>
-                </div>
-                
+
                     <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
                         <TabPane tab={'Hierarchy'} key={'UserInformation'}>
                             <GroupHierarchy />
@@ -86,8 +61,8 @@ class MainGroupContent extends React.Component<IGroupsProps>
                             <GroupSystemRole />
                         </TabPane>
                     </Tabs>
-                
-            </div>
+
+                </div>
             </Card>
         );
     }
