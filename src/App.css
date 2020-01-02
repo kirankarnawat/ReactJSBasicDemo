@@ -563,17 +563,20 @@ ul.headerListing li a span.backIcon{background-image:url("images/back-arrow.png"
 .mngGroupBox{background: #f8f8f8;border: 1px solid #c5c5c5;padding:10px;min-height:620px}
 .activemngGroupBox{background: #fff}
 .inactivemngGroupBox{background: #f8f8f8}
-.mngGroupBoxHeader{margin-bottom: 10px;padding:15px 0px;float:left;width:100%;border-bottom: 2px solid #E91E63;}
-.mngGroupBox .mngGroupBoxHeader h4{font-family:'Myriad Pro Semibold';font-size: 16px;margin-bottom:0px;margin-top:0px;position: relative;top: -2px;}
-.mngGroupBox .mngGroupBoxHeader .iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;}
-.mngGroupBox .mngGroupBoxHeader .icon{width:21px; height:21px;background-color:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; vertical-align: middle; text-align: center;}
+.mngGroupBoxHeader{margin-bottom: 10px;padding:15px 0px;float:left;width:100%;border-bottom:2px solid #e8e8e8}
+.mngGroupBox .mngGroupBoxHeader h4{font-family:'Myriad Pro Semibold';font-size: 16px;margin-bottom:0px;margin-top:0px;position: relative;top: -2px;color:#d9d9d9}
+.mngGroupBox .mngGroupBoxHeader .iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat;background-position:5px 5px;display:inline-block;}
+.mngGroupBox .mngGroupBoxHeader .icon{width:25px; height:25px;background-color:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; vertical-align: middle; text-align: center;}
 .mngGroupBox .mngGroupBoxHeader .icon:hover,.mngGroupBox .mngGroupBoxHeader .active:hover{background-color:#d63032}
-
+.mngGroupBox .mngGroupBoxHeader .ant-btn.disabled, .mngGroupBox .mngGroupBoxHeader .ant-btn[disabled]{background-color:#d9d9d9}
+.activemngGroupBox .mngGroupBoxHeader .icon{background-color:#d63032}
+.activemngGroupBox .mngGroupBoxHeader h4{color:#000000}
+.activemngGroupBox .mngGroupBoxHeader{border-color:#E91E63;}
 .activeBdr{border-bottom: 2px solid #ec6574;}
 .mngGroupBoxBody{margin-top:15px}
 .managegroupbody .mngGrouplisting{list-style: none; margin:0;padding:0;}
 .managegroupbody .mngGrouplisting li{float:left;width:100%;padding:10px 10px; cursor:pointer;}
-.managegroupbody .mngGrouplisting li .text{float:left;}
+.managegroupbody .mngGrouplisting li .text{float:left; width:50%;word-break: break-all;}
 .managegroupbody .mngGrouplisting li .iconNo{float:right;}
 .managegroupbody .mngGrouplisting li .iconNo .editIcon2{float:left;cursor: pointer;}
 .managegroupbody .mngGrouplisting li .iconNo .editIcon2{background:url("images/edit-g.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;height: 18px;width: 20px;vertical-align: middle;}
