@@ -86,7 +86,7 @@ class userEntitydata extends React.Component<IUserProps & IUserEntityProps> {
                     }
                 } else {
                     await this.props.userStore.update({ userId: this.state.userid, requesterUserId: this.props.userStore.userid, groupId: grpid, emailAddress: values["loginId"], ...values });
-                    this.setState({ successMsg: 'User updated successfully', isSuccessMsgShow: true, isOIGMsgShow: false });
+                    this.setState({ isAllDisable: true, successMsg: 'User updated successfully', isSuccessMsgShow: true, isOIGMsgShow: false });
                 }
             }
         });

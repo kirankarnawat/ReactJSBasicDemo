@@ -1,5 +1,4 @@
 const rules = {
-    groupname: [{ required: true, message: 'Name is required' }],
     country: [{ required: true, message: 'Country is required!' }],
     state: [{ required: true, message: 'State is required!' }],
     city: [{ required: true, message: 'City is required!' }],

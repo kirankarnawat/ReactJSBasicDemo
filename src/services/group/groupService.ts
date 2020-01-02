@@ -51,7 +51,7 @@ class GroupService {
 
     public async getGroup1ById(entityDto: EntityDto): Promise<Group1Response> {
 
-        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.GETGR1), { params: entityDto.id });
+        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.GETGR1), { params: { 'Group1Id': entityDto.id } });
 
         return result.data;
     }

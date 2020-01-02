@@ -64,7 +64,7 @@ class GroupStore {
 
     @action
     async getGroupLookups() {
-
+        debugger;
         let result = JSON.parse(await groupService.getGroupLookups());
 
         var countryLst = <PagedResultDto<GetCountryResponse>>{};

@@ -28,6 +28,8 @@ class MainGroupContent extends React.Component<IGroupProps> {
 
         await this.props.groupStore.getLevelMasterData({ LookupType: commonconst.LOOKUPS.LEVELMASTER });
 
+        await this.props.groupStore.getGroupLookups();
+
         await this.props.groupStore.getAllGroup1Data();
     }
 

@@ -22,6 +22,8 @@ export default {
         KEYWORDADDSUCCESS: 'Course keyword added successfully',
         KEYWORDDELSUCCESS: 'Course keyword removed successfully',
         KEYWORDEXISTS: 'Keyword is already exists in the course',
+        GROUPADDSUCCESS: 'Group created successfully',
+        GROUPEDITSUCCESS: 'Group updated successfully',
     },
 
     LOOKUPS: {
