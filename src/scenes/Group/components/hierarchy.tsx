@@ -132,7 +132,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp, IHierarchy
                     this.props.groupStore.gr1All.items.map((item, index) => (
                         <li key={item.group1Id} className={(this.state.selectedGroupId === item.group1Id && this.props.isSelectedActive === true) ? 'active' : ((this.state.selectedGroupId === item.group1Id && this.props.isSelectedInactive === true) ? 'inactive' : '')}>
                             <a href="#">
-                                <span className="text" onClick={() => this.selectGroup(item.group1Id, item.group1Name)}>  {item.group1Name}</span>
+                                <span className={(item.status === false) ? "text strike" : "text"} onClick={() => this.selectGroup(item.group1Id, item.group1Name)}>  {item.group1Name}</span>
                                 <span className="iconNo">
                                     <span className="editIcon2" onClick={() => this.createOrUpdateModalOpen({ id: item.group1Id })}></span>
                                     <span className="no">{item.totalMemberCount}</span>
@@ -148,7 +148,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp, IHierarchy
                     this.props.groupStore.gr2All.items.map((item, index) => (
                         <li key={item.group2Id} className={(this.state.selectedGroupId === item.group2Id && this.props.isSelectedActive === true) ? 'active' : ((this.state.selectedGroupId === item.group2Id && this.props.isSelectedInactive === true) ? 'inactive' : '')}>
                             <a href="#" >
-                                <span className="text" onClick={() => this.selectGroup(item.group2Id, item.group2Name)}>  {item.group2Name}</span>
+                                <span className={(item.status === false) ? "text strike" : "text"} onClick={() => this.selectGroup(item.group2Id, item.group2Name)}>  {item.group2Name}</span>
                                 <span className="iconNo">
                                     <span className="editIcon2" onClick={() => this.createOrUpdateModalOpen({ id: item.group2Id })}></span>
                                     <span className="no">{item.totalMemberCount}</span>
@@ -164,7 +164,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp, IHierarchy
                     this.props.groupStore.gr3All.items.map((item, index) => (
                         <li key={item.group3Id} className={(this.state.selectedGroupId === item.group3Id && this.props.isSelectedActive === true) ? 'active' : ((this.state.selectedGroupId === item.group3Id && this.props.isSelectedInactive === true) ? 'inactive' : '')}>
                             <a href="#" >
-                                <span className="text" onClick={() => this.selectGroup(item.group3Id, item.group3Name)}>  {item.group3Name}</span>
+                                <span className={(item.status === false) ? "text strike" : "text"} onClick={() => this.selectGroup(item.group3Id, item.group3Name)}>  {item.group3Name}</span>
                                 <span className="iconNo">
                                     <span className="editIcon2" onClick={() => this.createOrUpdateModalOpen({ id: item.group3Id })}></span>
                                     <span className="no">{item.totalMemberCount}</span>
@@ -180,7 +180,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp, IHierarchy
                     this.props.groupStore.gr4All.items.map((item, index) => (
                         <li key={item.group4Id} className={(this.state.selectedGroupId === item.group4Id && this.props.isSelectedActive === true) ? 'active' : ((this.state.selectedGroupId === item.group4Id && this.props.isSelectedInactive === true) ? 'inactive' : '')}>
                             <a href="#">
-                                <span className="text" onClick={() => this.selectGroup(item.group4Id, item.group4Name)}>  {item.group4Name}</span>
+                                <span className={(item.status === false) ? "text strike" : "text"} onClick={() => this.selectGroup(item.group4Id, item.group4Name)}>  {item.group4Name}</span>
                                 <span className="iconNo">
                                     <span className="editIcon2" onClick={() => this.createOrUpdateModalOpen({ id: item.group4Id })}></span>
                                     <span className="no">{item.totalMemberCount}</span>
@@ -239,7 +239,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp, IHierarchy
 
         if (this.props.groupStore.gr1All === undefined) return (<div></div>);
 
-        const { levelId, levelName, isActive } = this.props;
+        const { levelId, levelName, isActive, isSelectedActive, isSelectedInactive } = this.props;
 
         const child = this.getGroupData();
 
@@ -250,7 +250,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp, IHierarchy
                 <div className="mngGroupBoxHeader">
 
                     <div className="floatleft">
-                        <h4 id={'name_' + levelId}>{levelName}</h4>
+                        <h4 id={'name_' + levelId} className={(isActive === true || isSelectedActive === true || isSelectedInactive === true) ? "black" : "" }>{levelName}</h4>
                     </div>
 
                     <div className="floatright">

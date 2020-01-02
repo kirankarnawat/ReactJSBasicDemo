@@ -592,7 +592,7 @@ ul.headerListing li a span.backIcon{background-image:url("images/back-arrow.png"
 .managegroupbody .mngGrouplisting li.inactive{background:#f8f8f8;border: 1px solid #c5c5c5;z-index: 1;font-family: 'Myriad Pro bold';  position: relative;}
 .managegroupbody .mngGrouplisting li.inactive:after{content: '';background: #f8f8f8;width:29px;height:104%;right: -29px;position: absolute;top: -1px;border: 1px solid #c5c5c5;border-left: none;border-right: none;}
 .strike {text-decoration: line-through;} 
-
+.black {color: #000000!important;}
 
 @media screen and (max-width:1366px) {
 .ant-drawer-body{overflow-y: auto; max-height:400px;}

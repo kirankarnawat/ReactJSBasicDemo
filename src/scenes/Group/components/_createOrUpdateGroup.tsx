@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 
-import { Form, Drawer, Row, Col, Button, Input, Select, Switch } from 'antd';
+import { Form, Drawer, Row, Col, Button, Input, Select, message, Icon, Switch } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import { FormComponentProps } from 'antd/lib/form';
 
@@ -77,7 +77,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
 
         this.props.form.setFieldsValue({ 'stateId': '', 'cityId': '' })
 
-        this.setState({ ...this.state, childrenstate: data, childrencity: [], isSuccessMsgShow: false, isAllDisable: false, successMsg: '', });
+        this.setState({ ...this.state, childrenstate: data, childrencity: [] });
     }
 
     handleStateChange = (value: any) => {
@@ -86,7 +86,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
 
         this.props.form.setFieldsValue({ 'cityId': '' })
 
-        this.setState({ ...this.state, childrencity: data, isSuccessMsgShow: false, isAllDisable: false, successMsg: '', });
+        this.setState({ ...this.state, childrencity: data });
     }
 
     onHanleResetForm = async () => {
@@ -140,26 +140,29 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                 debugger;
 
                 let data = ({ requesterUserId: this.props.groupStore.userid, groupId: this.props.groupStore.grById.groupId, groupParentId: this.props.groupStore.grById.groupParentId, ...values });
+                let res = '';
 
                 switch (this.props.level) {
                     case 1:
-                        await this.props.groupStore.saveGroup1Data(data);
+                        res = await this.props.groupStore.saveGroup1Data(data);
                         break;
                     case 2:
-                        await this.props.groupStore.saveGroup2Data(data);
+                        res = await this.props.groupStore.saveGroup2Data(data);
                         break;
                     case 3:
-                        await this.props.groupStore.saveGroup3Data(data);
+                        res = await this.props.groupStore.saveGroup3Data(data);
                         break;
                     case 4:
-                        await this.props.groupStore.saveGroup4Data(data);
+                        res = await this.props.groupStore.saveGroup4Data(data);
                         break;
                     case 5:
-                        await this.props.groupStore.saveGroup5Data(data);
+                        res = await this.props.groupStore.saveGroup5Data(data);
                         break;
                 }
 
                 this.setState({ isAllDisable: true, isSuccessMsgShow: true, successMsg: (this.props.groupStore.grById.groupId) ? commonconst.MESSAGES.GROUPEDITSUCCESS : commonconst.MESSAGES.GROUPADDSUCCESS });
+
+                message.success(res);
             }
         });
     };
@@ -180,7 +183,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
 
         return (
 
-            <Drawer title={'Add/Edit ' + levelName} width={360} onClose={this.onHanleResetForm} visible={visible}>
+            <Drawer title={'Add/Edit ' + levelName} width={560} onClose={this.onHanleResetForm} visible={visible}>
 
                 <div>
 
@@ -197,46 +200,39 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                         </Col>
                     </Row>
 
-
-
-                    {(entitydata !== undefined && entitydata[0]) ?
-                        <Row className="antd-row">
-                            <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
-                                <div className="treedigram">
-                                    <ul className="tree">
-                                        <li className="mt0">
-                                            <a className="fristlink"><span className="treeIcon"></span> <span className="">{entitydata[0]} </span> <span className="groupicon"></span><span className="values"></span>
-                                            </a>
-                                            <ul className={entitydata[1] ? '' : 'hidden'}>
-                                                <li>
-                                                    <a><span className="">{entitydata[1]} </span> <span className="groupicon"></span><span className="values"></span>
-                                                    </a>
-                                                    <ul className={entitydata[2] ? '' : 'hidden'}>
-                                                        <li>
-                                                            <a> <span className="">{entitydata[2]} </span> <span className="groupicon"></span><span className="values"></span>
-                                                            </a>
-                                                            <ul className={entitydata[3] ? '' : 'hidden'}>
-                                                                <li className="highlighted">
-                                                                    <a><span className="">{entitydata[3]} </span> <span className="groupicon"></span><span className="values"></span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </Col>
-                        </Row>
-                        : ""
-                    }
-
-                    <div className={this.state.isAllDisable === true ? 'floatRight' : 'floatRight hidden'}><a className="editEntityIcon" onClick={this.handleAllEnable}></a></div>
-
                     <Row className="antd-row">
                         <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+
+                            <div className="treeinlinestructure">
+
+                                {(entitydata !== undefined && entitydata[0]) ?
+
+                                    <ul className="treeentityinline">
+
+                                        <li><a href="#" className="links"><span className="treeIcon"></span><span className="text">{entitydata[0]}</span><span className={(entitydata[1]) ? "arrowicon" : "arrowicon hidden"}><Icon type="right" /></span></a></li>
+
+                                        <li><a href="#" className="links"><span className="text">{entitydata[1]}</span><span className={(entitydata[2]) ? "arrowicon" : "arrowicon hidden"}><Icon type="right" /></span></a></li>
+
+                                        <li><a href="#" className="links"><span className="text">{entitydata[2]}</span><span className={(entitydata[3]) ? "arrowicon" : "arrowicon hidden"}><Icon type="right" /></span></a></li>
+
+                                        <li><a href="#" className="links"><span className="text">{entitydata[3]}</span></a></li>
+
+                                        <li className={this.state.isAllDisable === true ? 'floatRight' : 'floatRight hidden'}><a className="editEntityIcon" onClick={this.handleAllEnable}></a></li>
+
+                                    </ul>
+
+                                    : ""
+                                }
+
+                            </div>
+
+                        </Col>
+                    </Row>
+
+                    <div className="hrLine mb15"></div>
+
+                    <Row className="antd-row">
+                        <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                             <FormItem>
                                 <label>{levelName + ((level === 5) ? ' ID' : ' Name')} <span className="start">*</span> </label>
                                 {getFieldDecorator('groupName', { initialValue: grById.groupName, rules: [{ required: true, message: 'Group name is required!' }, { validator: this.handleDataExists }] })(<Input placeholder={levelName + ((level === 5) ? ' ID' : ' Name')} name="groupName" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} />)}
@@ -245,7 +241,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                     </Row>
 
                     <Row className="antd-row">
-                        <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                        <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                             <FormItem>
                                 <label>{'Country'} <span className="start">*</span> </label>
                                 <div>
@@ -260,7 +256,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                     </Row>
 
                     <Row className="antd-row">
-                        <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                        <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                             <FormItem>
                                 <label>{'State'} <span className="start">*</span> </label>
                                 <div>
@@ -275,7 +271,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                     </Row>
 
                     <Row className="antd-row">
-                        <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                        <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                             <FormItem>
                                 <label>{'City'} <span className="start">*</span> </label>
                                 <div>
@@ -290,7 +286,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                     </Row>
 
                     <Row className="antd-row">
-                        <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                        <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                             <FormItem>
                                 <label>{'Zip Code'} </label>
                                 {getFieldDecorator('zipCode', { initialValue: grById.zipCode })(<Input placeholder='Zip Code' name="zipCode" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} />)}
@@ -299,7 +295,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                     </Row>
 
                     <Row className={(level === 5) ? "antd-row" : "antd-row hidden"}>
-                        <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                        <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                             <FormItem>
                                 <label>{'Location'} </label>
                                 {getFieldDecorator('location', { initialValue: grById.location })(<Input placeholder='Location' name="location" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} />)}
@@ -308,7 +304,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                     </Row>
 
                     <Row className="antd-row">
-                        <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
+                        <Col lg={{ span: 12 }} sm={{ span: 12 }} md={{ span: 12 }} xs={{ span: 12 }}>
                             <FormItem>
                                 <div className="switchbutton">
                                     <div><label>{'Status'} <span className="start">*</span> </label></div>
@@ -324,19 +320,21 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                         </Col>
                     </Row>
 
-                    {/* <div className="hrLine mb15"></div> */}
-                    <div className="btnfooterContainer">
+                    <div className="hrLine mb15"></div>
+
+                    <div className="buttonfooter">
                         <div className="antd-row">
-                            <div className="ant-col-lg-24 ant-col-sm-24 ant-col-md-24 ant-col-xs-24">
-                                <ul className="bulkImpListing">
-                                    <li>
-                                        <Button onClick={this.handleCreate} className={this.state.isAllDisable ? 'ant-btn-primary disabled' : 'ant-btn-primary'} type="primary">Submit</Button>
-                                    </li>
-                                </ul>
+                            <div className="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24">
+                                <div className="bulkImpFooter">
+                                    <ul className="bulkImpListing">
+                                        <li>
+                                            <Button onClick={this.handleCreate} className={this.state.isAllDisable ? 'ant-btn-primary disabled' : 'ant-btn-primary'} type="primary">Submit</Button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </Drawer>
         );

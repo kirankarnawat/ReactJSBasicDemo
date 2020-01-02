@@ -101,7 +101,7 @@ class GroupStore {
     // #region Group1 Actions
     @action
     async checkIsGroup1NameInUse(grNameCheckRequest: Group1NameExistsCheckRequest) {
-
+        debugger;
         let result = await groupService.checkIsGroup1NameInUse(grNameCheckRequest);
 
         runInAction(() => {
@@ -147,6 +147,14 @@ class GroupStore {
 
         let result = await groupService.saveGroup1Data(saveGroup1Request);
 
+        let updatedresult = await groupService.getAllGroup1();
+
+        runInAction(() => {
+
+            this.grById = ({ ...this.grById, groupId: result });
+            this.gr1All = updatedresult;
+        });
+
         return result;
     }
 
@@ -155,7 +163,7 @@ class GroupStore {
     // #region Group2 Actions
     @action
     async checkIsGroup2NameInUse(grNameCheckRequest: Group2NameExistsCheckRequest) {
-
+        debugger;
         let result = await groupService.checkIsGroup2NameInUse(grNameCheckRequest);
 
         runInAction(() => {
@@ -200,6 +208,14 @@ class GroupStore {
         }
 
         let result = await groupService.saveGroup2Data(saveGroup2Request);
+
+        let updatedresult = await groupService.getAllGroup2({ id: saveGroupRequest.groupParentId });
+
+        runInAction(() => {
+
+            this.grById = ({ ...this.grById, groupId: result });
+            this.gr2All = updatedresult;
+        });
 
         return result;
     }
@@ -254,6 +270,14 @@ class GroupStore {
 
         let result = await groupService.saveGroup3Data(saveGroup3Request);
 
+        let updatedresult = await groupService.getAllGroup3({ id: saveGroupRequest.groupParentId });
+
+        runInAction(() => {
+
+            this.grById = ({ ...this.grById, groupId: result });
+            this.gr3All = updatedresult;
+        });
+
         return result;
     }
 
@@ -306,6 +330,14 @@ class GroupStore {
 
         let result = await groupService.saveGroup4Data(saveGroup4Request);
 
+        let updatedresult = await groupService.getAllGroup4({ id: saveGroupRequest.groupParentId });
+
+        runInAction(() => {
+
+            this.grById = ({ ...this.grById, groupId: result });
+            this.gr4All = updatedresult;
+        });
+
         return result;
     }
 
@@ -356,6 +388,14 @@ class GroupStore {
         }
 
         let result = await groupService.saveGroup5Data(saveGroup5Request);
+
+        let updatedresult = await groupService.getAllGroup5({ id: saveGroupRequest.groupParentId });
+
+        runInAction(() => {
+
+            this.grById = ({ ...this.grById, groupId: result });
+            this.gr5All = updatedresult;
+        });
 
         return result;
     }
