@@ -50,8 +50,9 @@ body .ant-col-md-1, body .ant-col-md-2, body .ant-col-md-3, body .ant-col-md-4, 
 body .ant-col-xs-1, body .ant-col-xs-2, body .ant-col-xs-3, body .ant-col-xs-4, body .ant-col-xs-5, body .ant-col-xs-6, body .ant-col-xs-7, body .ant-col-xs-8, body .ant-col-xs-9, body .ant-col-xs-10, body .ant-col-xs-11, body .ant-col-xs-12, body .ant-col-xs-13, body .ant-col-xs-14, body .ant-col-xs-15, body .ant-col-xs-16, body .ant-col-xs-17, body .ant-col-xs-18, body .ant-col-xs-19, body .ant-col-xs-20,body .ant-col-xs-21, body .ant-col-xs-22, body .ant-col-xs-23, body .ant-col-xs-24{padding-left:8px;padding-right:8px;}
 body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right:-8px;margin-left:-8px; position: relative;clear: both;}
 body .customeclass20{width:20%}
+body .ant-input-number{width:100%;}
 .rel{position:relative;}
-
+.text-center{text-align: center;}
 /*Globally  CSS END*/
 
 .logoDiv img {max-width: 127px;}
@@ -332,6 +333,8 @@ ul.ant-pagination .ant-pagination-item a:focus{box-shadow:none}
 
 .buttonfooter{position: fixed;bottom:0px;background:#fff;z-index:10;}
 .bulkUpload .ant-upload{font-size:12px;}
+.bulkUpload .ant-upload p{color:#B5B5B5;}
+.bulkUpload .anticon-paper-clip{font-size:17px;vertical-align:top;}
 .bulkUpload .ant-upload.ant-upload-drag{border:1px dashed #0A70B9;box-shadow: 5px 5px 6px #0000001A; height:80px;text-align:center; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
 .bulkUpload .ant-upload.ant-upload-drag:not(.ant-upload-disabled):hover{border-color:#d63031}
 .bulkUpload .ant-upload.ant-upload-drag .ant-upload{padding:6px 0 6px}
@@ -347,6 +350,8 @@ ul.ant-pagination .ant-pagination-item a:focus{box-shadow:none}
 .bulkUpload .recordtotalText{color:#000000;font-size:12px;margin-bottom:8px;font-family:'Myriad Pro Regular'; }
 .bulkUpload .linkurl a{color:#2148E6;margin-bottom:8px;display:block; text-decoration:underline;}
 .bulkUpload .ant-upload-list-item{font-size:12px}
+.bulkUpload .ant-upload-list-item .ant-upload-list-item-name,.bulkUpload .ant-upload-list-item .anticon-paper-clip{color:#6B6B6B}
+.bulkUpload .ant-upload-list-item .anticon-delete{color:#6B6B6B !important}
 .bulkUpload .ant-upload-list-item-info .anticon-loading, .bulkUpload .ant-upload-list-item-info .anticon-paper-clip{top:2px}
 .instructionbox{border:1px solid #BEDFE6;background:#F8FFFF; color:#0A70B9; margin:5px 0px 15px; padding:8px;border-radius:5px 5px 5px 5px;-moz-border-radius:5px 5px 5px 5px;-webkit-border-radius:5px 5px 5px 5px}
 .successIcon{background-image: url("images/Successfully-uploaded.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:20px; height:15px;display:inline-block; vertical-align: middle;}
@@ -533,9 +538,9 @@ footer{padding: 0;font-size: 11px}
 .Coursecontrollist{margin:0;padding:0;}
 .Coursecontrollist li{width:28%;float:left;margin:0px 0px 0px 2%}
 .Coursecontrollist li:first-child{width:40%; margin-left:0}
-.noteText{color:#6B6B6B;font-size:11px}
-.tagsBox{border: 1px solid #CCCCCC; min-height:180px; padding:10px;border-radius:5px 5px 5px 5px;-moz-border-radius:5px 5px 5px 5px;-webkit-border-radius:5px 5px 5px 5px}
 
+.noteText{color:#6B6B6B;font-size:11px;font-family:'Myriad Pro light';}
+.tagsBox{border: 1px solid #CCCCCC; min-height:180px; padding:10px;border-radius:5px 5px 5px 5px;-moz-border-radius:5px 5px 5px 5px;-webkit-border-radius:5px 5px 5px 5px}
 .switchbutton .labeltext{padding:0px 5px;font-size:12px;}
 .switchbutton .ant-switch-checked{background-color:#4CAF50;border:none;}
 .switchbutton .ant-switch{height:20px;border:none;}
@@ -543,6 +548,9 @@ footer{padding: 0;font-size: 11px}
 .switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{background-color:#fff;}
 .switchbutton .ant-switch{height:15px; min-width:28px;}
 .switchbutton .ant-switch-loading-icon, .switchbutton .ant-switch::after{top:2px}
+
+
+
 .mngGroupBox{background: #f8f8f8;border: 1px solid #c5c5c5;padding:10px;min-height:620px}
 .activemngGroupBox{background: #fff}
 .inactivemngGroupBox{background: #f8f8f8}

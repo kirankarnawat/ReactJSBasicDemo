@@ -177,7 +177,7 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
 
                     var filename = (headerFileName) ? headerFileName : (headerExisting ? headerExisting : '');
 
-                    await this.props.contentrepositoryStore.addeditCourse({ courseId: res.courseId, requesterUserId: this.props.contentrepositoryStore.userid, courseHeaderImage: filename, coursePrice: values["coursePrice"] === 0 ? null : values["coursePrice"]  , ...values });
+                    await this.props.contentrepositoryStore.addeditCourse({ courseId: res.courseId, requesterUserId: this.props.contentrepositoryStore.userid, courseHeaderImage: filename, coursePrice: values["coursePrice"] === 0 ? null : values["coursePrice"], ...values });
 
                     this.setState({ isAllDisable: true, successMsg: (this.props.id === '') ? commonconst.MESSAGES.COURSEADDSUCCESS : commonconst.MESSAGES.COURSEEDITSUCCESS, isSuccessMsgShow: true });
 
@@ -205,10 +205,8 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
         const childrenLaunch = this.props.contentrepositoryStore.courseLaunchPreference.map(item => <Option key={item.lookUpValue}>{item.lookUpName}</Option>);
 
         return (
-
             <Spin spinning={this.state.loading}>
                 <div className="pos">
-
                     <Row className={(this.state.isSuccessMsgShow) ? 'antd-row mb10' : 'antd-row mb10 hidden'} >
                         <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
                             <div className="successMsg">
@@ -221,13 +219,10 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                             </div>
                         </Col>
                     </Row>
-
                     <div>
                         <span className={this.state.isAllDisable === true ? 'floatRight' : 'floatRight hidden'}><a className="editEntityIcon" onClick={this.handleAllEnable}></a></span>
                     </div>
-
                     <Row className="antd-row">
-
                         <Col xs={{ span: 16 }} sm={{ span: 16 }} md={{ span: 16 }} lg={{ span: 16 }}>
 
                             <FormItem>
@@ -238,7 +233,6 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                                     </Select>
                                 )}
                             </FormItem>
-
                             <FormItem>
                                 <label>{'Title'} <span className="start">*</span> </label>
                                 {getFieldDecorator('courseName', { initialValue: courseById.courseName, rules: [{ required: true, message: 'Course title is required!' }, { validator: this.handleDataExists }] })(<Input placeholder="Title" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />)}
@@ -248,40 +242,35 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                                 <label>{'Description'} </label>
                                 {getFieldDecorator('courseDescription', { initialValue: courseById.courseDescription })(<TextArea rows={4} style={{ height: 117 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />)}
                             </FormItem>
-
                         </Col>
-
                         <Col xs={{ span: 8 }} sm={{ span: 8 }} md={{ span: 8 }} lg={{ span: 8 }}>
-
                             <FormItem>
                                 <label>{'Course ID'} <span className="start">*</span> </label>
                                 {getFieldDecorator('courseUniqueId', { initialValue: courseById.courseUniqueId, rules: rules.courseUniqueId })
                                     (
 
-                                    <InputNumber
-                                        size="small"
-                                        placeholder="Course ID"
-                                        min={0}
-                                        maxLength={3}
-                                        precision={0}
-                                        formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                        parser={value => (value !== undefined) ? value.replace(/\$\s?|(,*)/g, '') : 0}
-                                        onChange={this.handleChange}
-                                        className={this.state.isAllDisable ? 'disabled' : ''}
-                                    />
+                                        <InputNumber
+                                            size="small"
+                                            placeholder="Course ID"
+                                            min={0}
+                                            maxLength={3}
+                                            precision={0}
+                                            formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                            parser={value => (value !== undefined) ? value.replace(/\$\s?|(,*)/g, '') : 0}
+                                            onChange={this.handleChange}
+                                            className={this.state.isAllDisable ? 'disabled' : ''}
+                                        />
                                     )
                                 }
                             </FormItem>
-
                             <FormItem>
                                 <div className="switchbutton">
-                                    <div><label>{'Show Header Image'} </label></div>
+                                    <div className="mt5"><label>{'Show Header Image'} </label></div>
                                     <label className="mr8">{'No'}</label>
                                     {getFieldDecorator('showCourseHeaderImage', { initialValue: courseById.showCourseHeaderImage, valuePropName: "checked" })(<Switch onChange={this.handleHeaderImgChange} className={this.state.isAllDisable ? 'disabled' : ''} />)}
                                     <label className="ml8">{'Yes'}</label>
                                 </div>
                             </FormItem>
-
                             <FormItem>
                                 <Col className="bulkUpload">
 
@@ -289,9 +278,9 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
 
                                     {getFieldDecorator('headerImage', { rules: (this.state.isShowHeaderImg && !courseById.courseHeaderImage) ? rules.headerImage : rules.norequired })
                                         (
-                                        <Dragger {...uploadimgprops} beforeUpload={this.onBeforeUploadImg} style={{ height: 100 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}                                    >
-                                            <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
-                                        </Dragger>
+                                            <Dragger {...uploadimgprops} beforeUpload={this.onBeforeUploadImg} style={{ height: 100 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}                                    >
+                                                <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
+                                            </Dragger>
                                         )
                                     }
 
@@ -299,16 +288,13 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                                         <a href={courseById.courseHeaderImage} target="_blank">{"view image"}</a>
                                     </span>
 
-                                    <div className="noteText mt10">Note: - Dimensions should not exceed - 260 X 130 pixels.</div>
+                                    <div className="noteText mt10 text-center">Note: - Dimensions should not exceed - 260 X 130 pixels.</div>
 
                                 </Col>
                             </FormItem>
-
                         </Col>
                     </Row>
-
                     <Row className="antd-row">
-
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
                             <FormItem>
                                 <Col className="bulkUpload">
@@ -316,75 +302,64 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
 
                                     {getFieldDecorator('uploadedFile', { rules: (this.props.id === '') ? rules.uploadedFile : rules.norequired })
                                         (
-                                        <Dragger {...uploadzipprops} beforeUpload={this.onBeforeUploadZip} onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}>
-                                            <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
-                                        </Dragger>
+                                            <Dragger {...uploadzipprops} beforeUpload={this.onBeforeUploadZip} onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}>
+                                                <p className="hintText"><Icon type="paper-clip" /> <span className="coloraddfile">Add file </span> or drop file here</p>
+                                            </Dragger>
                                         )
                                     }
 
-                                    <div className="noteText mt10">Note: - Upload one Zip file (upto 700 MB) as your SCORM Content.</div>
+                                    <div className="noteText mt10 text-center">Note: - Upload one Zip file (upto 700 MB) as your SCORM Content.</div>
                                 </Col>
                             </FormItem>
-
-
                             <ul className="Coursecontrollist">
-
                                 <li>
-                                    <div><label>{'Contact Hours'} <span className="start">*</span> </label></div>
-
                                     <FormItem>
-                                        <span>
-                                            {getFieldDecorator('courseDurationHH', { initialValue: courseById.courseDurationHH, rules: rules.courseDurationHH })
-                                                (
-                                                <Select showSearch placeholder="Select Hr" style={{ width: 100 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'mr8 disabled' : 'mr8'}>
-                                                    {childrenHH}
-                                                </Select>
-                                                )
-                                            }
-                                        </span>
+                                        <div><label>{'Contact Hours'} <span className="start">*</span> </label></div>
+                                        <div className="antd-row">
+                                            <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }}>
+                                                {getFieldDecorator('courseDurationHH', { initialValue: courseById.courseDurationHH, rules: rules.courseDurationHH })
+                                                    (
+                                                        <Select showSearch placeholder="Select Hr" onChange={this.handleChange} className={this.state.isAllDisable ? 'mr8 disabled' : 'mr8'}>
+                                                            {childrenHH}
+                                                        </Select>
+                                                    )
+                                                }
+                                            </Col>
+                                            <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }}>
+                                                {getFieldDecorator('courseDurationMM', { initialValue: courseById.courseDurationMM, rules: [{ required: true, message: 'Course duration(in Min) is required' }] })
+                                                    (
+                                                        <Select showSearch placeholder="Select Min"  onChange={this.handleChange} className={this.state.isAllDisable ? 'mr8 disabled' : 'mr8'}>
+                                                            {childrenMM}
+                                                        </Select>
+                                                    )
+                                                }
+                                            </Col>
+                                        </div>
                                     </FormItem>
-
-                                    <FormItem>
-                                        <span>
-
-                                            {getFieldDecorator('courseDurationMM', { initialValue: courseById.courseDurationMM, rules: [{ required: true, message: 'Course duration(in Min) is required' }] })
-                                                (
-                                                <Select showSearch placeholder="Select Min" style={{ width: 100 }} onChange={this.handleChange} className={this.state.isAllDisable ? 'mr8 disabled' : 'mr8'}>
-                                                    {childrenMM}
-                                                </Select>
-                                                )
-                                            }
-                                        </span>
-                                    </FormItem>
-
                                 </li>
-
                                 <li>
                                     <FormItem>
                                         <div><label>{'Expiry'} </label></div>
 
                                         {getFieldDecorator('expiryDate', { initialValue: (courseById.expiryDate !== null ? moment(courseById.expiryDate, dateFormat) : undefined) })
                                             (
-                                            <DatePicker format={dateFormat} disabledDate={this.disabledDate} placeholder='Expiry Date' name="expiryDate" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
+                                                <DatePicker style={{width:150}} format={dateFormat} disabledDate={this.disabledDate} placeholder='Expiry Date' name="expiryDate" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
                                             )
                                         }
                                     </FormItem>
                                 </li>
-
                                 <li>
                                     <FormItem>
                                         <div><label>{'Price'} </label></div>
-
                                         {getFieldDecorator('coursePrice', { initialValue: courseById.coursePrice })
                                             (
-
-                                            <InputNumber
-                                                size="small"
-                                                formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                                parser={value => (value !== undefined) ? value.replace(/\$\s?|(,*)/g, '') : 0}
-                                                onChange={this.handleChange}
-                                                className={this.state.isAllDisable ? 'disabled' : ''}
-                                            />
+                                                <InputNumber style={{width:100}}
+                                                    size="small"
+                                                    formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                                    parser={value => (value !== undefined) ? value.replace(/\$\s?|(,*)/g, '') : 0}
+                                                    onChange={this.handleChange}
+                                                    className={this.state.isAllDisable ? 'disabled' : ''}
+                                                />
 
                                             )
                                         }
@@ -393,7 +368,6 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                             </ul>
                         </Col>
                     </Row>
-
                     <Row className="antd-row">
                         <Col xs={{ span: 24 }} sm={{ span: 8 }} md={{ span: 8 }} lg={{ span: 8 }}>
                             <FormItem>
@@ -402,64 +376,58 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                                 {getFieldDecorator('launchPreference', { initialValue: courseById.launchPreference, rules: rules.launchPreference })
                                     (
 
-                                    <Select showSearch placeholder="Select launch preference" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}>
-                                        {childrenLaunch}
-                                    </Select>
+                                        <Select showSearch placeholder="Select launch preference" onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''}>
+                                            {childrenLaunch}
+                                        </Select>
 
                                     )
                                 }
                             </FormItem>
                         </Col>
-
                         <Col xs={{ span: 24 }} sm={{ span: 16 }} md={{ span: 16 }} lg={{ span: 16 }}>
-
-
                             <ul className="Coursecontrollist">
-
-                                <FormItem>
-                                    <li>
+                                <li>
+                                    <FormItem>
                                         <div className="switchbutton">
                                             <div><label>{'Status'} </label></div>
                                             <label className="mr8">{'Inactive'}</label>
                                             {getFieldDecorator('status', { initialValue: courseById.status, valuePropName: "checked" })
                                                 (
-                                                <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
+                                                    <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
                                                 )
                                             }
                                             <label className="ml8">{'Active'}</label>
                                         </div>
-                                    </li>
-                                </FormItem>
-
-                                <FormItem>
-                                    <li>
+                                    </FormItem>
+                                </li>
+                                <li>
+                                    <FormItem>
                                         <div className="switchbutton">
                                             <div><label>{'Apply Certificate'} </label></div>
                                             <label className="mr8">{'No'}</label>
                                             {getFieldDecorator('isPrintCertificate', { initialValue: courseById.isPrintCertificate, valuePropName: "checked" })
                                                 (
-                                                <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
+                                                    <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
                                                 )
                                             }
                                             <label className="ml8">{'Yes'}</label>
                                         </div>
-                                    </li>
-                                </FormItem>
-
-                                <FormItem>
-                                    <li>
+                                    </FormItem>
+                                </li>
+                                <li>
+                                    <FormItem>
                                         <div className="switchbutton">
                                             <div><label>{'Include In Catalog'} </label></div>
                                             <label className="mr8">{'No'}</label>
                                             {getFieldDecorator('isInCatalog', { initialValue: courseById.isInCatalog, valuePropName: "checked" })
                                                 (
-                                                <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
+                                                    <Switch onChange={this.handleChange} className={this.state.isAllDisable ? 'disabled' : ''} />
                                                 )
                                             }
                                             <label className="ml8">{'Yes'}</label>
                                         </div>
-                                    </li>
-                                </FormItem>
+                                    </FormItem>
+                                </li>
                             </ul>
                         </Col>
                     </Row>
