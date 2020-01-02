@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { Card, Col, Row, Table, Icon } from 'antd';
 import { inject, observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
 import Stores from '../../../../stores/storeIdentifier';
 import ContentRepositoryStore from '../../../../stores/contentrepositoryStore';
@@ -65,7 +66,9 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState> {
         this.quickfilterFormRef = formRef;
     };
 
-    // #endregion    // #region USER MANAGEMENT
+    // #endregion
+
+    // #region USER MANAGEMENT
 
     // start up event
     async componentDidMount() {
@@ -104,7 +107,9 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState> {
         await this.getAll();
     }
 
-    // #endregion    // #region MODAL POP
+    // #endregion
+
+    // #region MODAL POP
 
     // show modal
     Modal = () => {
@@ -145,12 +150,13 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState> {
         await this.getAll();
     };
 
-    // #endregion
+    // #endregion
+
+
 
     public render() {
 
         const { courses } = this.state;
-
         const columns = [
             {
                 title: 'Course Name', dataIndex: 'courseName', sorter: true, key: 'courseName', width: 400, render: (text: string) => <div>{text}</div>
@@ -183,6 +189,7 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState> {
                         <div className="tablehoverbuttons"> <Icon type="ellipsis" className="ellipsisIcon" />
                             <div className="buttonshover">
                                 <div className="editbtn" onClick={() => this.createOrUpdateCourseModalOpen({ id: text }, row.creatorName)} title="Edit Course"></div>
+                                <div className="viewbtn" title="View Course"></div>
                             </div>
                         </div>
                     </div>
@@ -217,6 +224,8 @@ class Course extends React.Component<IContentRepositoryProps, ICourseState> {
                                     <div className="floatright">
                                         <ul className="headerListing floatleft">
                                             <li className="active"><a href="#" onClick={() => this.createOrUpdateCourseModalOpen({ id: '' }, '')}><span className="text">Add Course</span> <span className="icon iconUser">&nbsp;</span></a></li>
+                                            <li><Link to="/ContentRepository"><span className="text">Back</span> <span className="icon backIcon">&nbsp;</span></Link></li>
+                                        
                                         </ul>
                                     </div>
                                 </Col>

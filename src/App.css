@@ -196,18 +196,21 @@ body .ant-input-number{width:100%;}
 .tableContainer table{margin-bottom:0px}
 .tableContainer table{border:none !important}
 .tableContainer .ant-table-bordered .ant-table-thead > tr > th,.tableContainer .ant-table-bordered .ant-table-tbody > tr > td{border-right:none}
+.tableContainer .ant-table-thead > tr > th .ant-table-column-sorter .ant-table-column-sorter-inner{color:#000000;}
+.tableContainer .ant-table-thead > tr > th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-up.on, .tableContainer .ant-table-thead > tr > th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-down.on{color:#4CAF50}
+.tableContainer .ant-table-thead > tr > th .ant-table-column-sorter .ant-table-column-sorter-inner i{font-size:11px;}
 .tableContainer .ant-table-thead > tr > th{background:none}
 .tableContainer .table thead tr th{color:#000000;font-family: 'Myriad Pro bold'; border-bottom:2px solid #e1e1e1; padding:10px 0px 10px 0px;font-size:12px}
-.tableContainer .table tbody tr td{padding:10px 5px; color:#000000;font-size:12px}
+.tableContainer .table tbody tr td{padding:10px 5px; color:#000000;font-size:12px;position: relative;}
 .tableContainer .table thead tr th:first-child,.tableContainer .table tbody tr td:first-child{width:40px}
-.tableContainer .tablehoverbuttons{position:relative; cursor:pointer}
-.tableContainer .buttonshover{position:absolute;top:-8px;left:-20px;z-index:100;display:none;background: #d63032;border-radius: 60px;-wbkit-border-radius: 60px;-moz-border-radius: 60px;padding: 8px 13px;}
+.tableContainer .tablehoverbuttons{/*position:relative; */cursor:pointer}
+.tableContainer .buttonshover{position:absolute;top:15%;left:-20px;z-index:100;display:none;background: #d63032;border-radius: 60px;-wbkit-border-radius: 60px;-moz-border-radius: 60px;padding: 8px 13px;}
 .tableContainer table tr.ant-table-row:hover .buttonshover{display:block}
 .tableContainer .resetpassword{background-image: url("images/resetpassword.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:26px; height:19px; display: inline-block; vertical-align:middle;}
 .tableContainer .bargraph{background-image: url("images/Bar_Graph.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:26px; height:18px; display: inline-block; vertical-align:middle;}
 .tableContainer .transfer{background-image: url("images/transfer.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:26px; height:16px; display: inline-block; vertical-align:middle;}
 .tableContainer .editbtn{background-image: url("images/edit.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:22px; height:18px; display: inline-block; vertical-align:middle;margin-left: 7px;}
-/* .tablehoverbuttons .editbtn,.tablehoverbuttons .deletebtn{display:inline-block;color:#fff;padding:2px 5px;font-size:17px;} */
+.tableContainer .viewbtn{background-image: url("images/view.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:26px; height:18px; display: inline-block; vertical-align:middle;margin-left: 7px;}
 .adminIcon{background-image: url("images/adminIcon.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:26px; height:26px; display: inline-block; vertical-align:middle;}
 .disabledrow{background-image: url("images/disabledrow.png"); background-repeat: no-repeat, repeat; background-position: 0px 0px; width:26px; height:26px; display: inline-block; vertical-align:middle;}
 .refreshbg{background:#fff;border:1px solid #DBDBDB;border-radius:3px 3px 3px 3px;-moz-border-radius:3px 3px 3px 3px;-webkit-border-radius:3px 3px 3px 3px;height:25px;width:25px;text-align:center;line-height:25px;cursor:pointer; cursor: pointer;}
@@ -538,9 +541,15 @@ footer{padding: 0;font-size: 11px}
 .Coursecontrollist{margin:0;padding:0;}
 .Coursecontrollist li{width:28%;float:left;margin:0px 0px 0px 2%}
 .Coursecontrollist li:first-child{width:40%; margin-left:0}
-
+.customui{position: relative;}
+.customui .custometext{position:absolute;right:1px;top:1px;border-left:1px solid #d9d9d9;height:24px; width:27px; line-height:24px;text-align: center;}
+.customui .ant-select-arrow{z-index:100000}
+.customui .ant-select-arrow i{opacity:0}
 .noteText{color:#6B6B6B;font-size:11px;font-family:'Myriad Pro light';}
 .tagsBox{border: 1px solid #CCCCCC; min-height:180px; padding:10px;border-radius:5px 5px 5px 5px;-moz-border-radius:5px 5px 5px 5px;-webkit-border-radius:5px 5px 5px 5px}
+ul.headerListing li a span.backIcon{background-image:url("images/back-arrow.png"); background-repeat: no-repeat, repeat;background-position:5px 7px;display:inline-block;}
+
+
 .switchbutton .labeltext{padding:0px 5px;font-size:12px;}
 .switchbutton .ant-switch-checked{background-color:#4CAF50;border:none;}
 .switchbutton .ant-switch{height:20px;border:none;}
@@ -559,6 +568,7 @@ footer{padding: 0;font-size: 11px}
 .mngGroupBox .mngGroupBoxHeader .iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;}
 .mngGroupBox .mngGroupBoxHeader .icon{width:21px; height:21px;background-color:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; vertical-align: middle; text-align: center;}
 .mngGroupBox .mngGroupBoxHeader .icon:hover,.mngGroupBox .mngGroupBoxHeader .active:hover{background-color:#d63032}
+
 .activeBdr{border-bottom: 2px solid #ec6574;}
 .mngGroupBoxBody{margin-top:15px}
 .managegroupbody .mngGrouplisting{list-style: none; margin:0;padding:0;}

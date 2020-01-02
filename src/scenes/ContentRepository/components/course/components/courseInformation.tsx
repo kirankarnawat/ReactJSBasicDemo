@@ -30,6 +30,7 @@ export interface IContentrepositoryProps {
 export interface ICourseInformationProp extends FormComponentProps {
     id: string;
     handleKeyword: () => void;
+    
 }
 
 export interface ICourseInformationState {
@@ -318,19 +319,24 @@ class CourseInformation extends React.Component<IContentrepositoryProps & ICours
                                         <div className="antd-row">
                                             <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }}>
                                                 {getFieldDecorator('courseDurationHH', { initialValue: courseById.courseDurationHH, rules: rules.courseDurationHH })
-                                                    (
+                                                    (   <div className="customui">
                                                         <Select showSearch placeholder="Select Hr" onChange={this.handleChange} className={this.state.isAllDisable ? 'mr8 disabled' : 'mr8'}>
                                                             {childrenHH}
                                                         </Select>
+                                                        <div className="custometext">Hr</div>
+                                                        </div>
                                                     )
                                                 }
                                             </Col>
                                             <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 12 }} lg={{ span: 12 }}>
                                                 {getFieldDecorator('courseDurationMM', { initialValue: courseById.courseDurationMM, rules: [{ required: true, message: 'Course duration(in Min) is required' }] })
                                                     (
+                                                        <div className="customui">
                                                         <Select showSearch placeholder="Select Min"  onChange={this.handleChange} className={this.state.isAllDisable ? 'mr8 disabled' : 'mr8'}>
                                                             {childrenMM}
                                                         </Select>
+                                                        <div className="custometext">Min</div>
+                                                        </div>
                                                     )
                                                 }
                                             </Col>
