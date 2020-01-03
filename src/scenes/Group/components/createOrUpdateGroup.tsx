@@ -72,7 +72,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
     }
 
     handleCountryChange = (value: any) => {
-        debugger;
+        
         var data = this.props.groupStore.groupState.items.filter(p => p.countryId === value).map(item => <Option key={item.stateId}>{item.stateName}</Option>);
 
         this.props.form.setFieldsValue({ 'stateId': '', 'cityId': '' })
@@ -239,7 +239,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                         <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
                             <FormItem>
                                 <label>{levelName + ((level === 5) ? ' ID' : ' Name')} <span className="start">*</span> </label>
-                                {getFieldDecorator('groupName', { initialValue: grById.groupName, rules: [{ required: true, message: 'Group name is required!' }, { validator: this.handleDataExists }] })(<Input placeholder={levelName + ((level === 5) ? ' ID' : ' Name')} name="groupName" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} />)}
+                                {getFieldDecorator('groupName', { initialValue: grById.groupName, rules: [{ required: true, message: 'Group name is required!' }, { validator: this.handleDataExists }] })(<Input placeholder={levelName + ((level === 5) ? ' ID' : ' Name')} name="groupName" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} maxLength={50} />)}
                             </FormItem>
                         </Col>
                     </Row>
@@ -293,7 +293,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                         <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
                             <FormItem>
                                 <label>{'Zip Code'} </label>
-                                {getFieldDecorator('zipCode', { initialValue: grById.zipCode })(<Input placeholder='Zip Code' name="zipCode" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} />)}
+                                {getFieldDecorator('zipCode', { initialValue: grById.zipCode })(<Input placeholder='Zip Code' name="zipCode" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} maxLength={10} />)}
                             </FormItem>
                         </Col>
                     </Row>
@@ -302,7 +302,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                         <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
                             <FormItem>
                                 <label>{'Location'} </label>
-                                {getFieldDecorator('location', { initialValue: grById.location })(<Input placeholder='Location' name="location" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} />)}
+                                {getFieldDecorator('location', { initialValue: grById.location })(<Input placeholder='Location' name="location" className={this.state.isAllDisable ? 'disabled' : ''} onChange={this.handleChange} maxLength={50} />)}
                             </FormItem>
                         </Col>
                     </Row>

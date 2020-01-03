@@ -212,7 +212,10 @@ var lms = lms || {};
         SAVEGR1: 'SAVEGR1', SAVEGR2: 'SAVEGR2', SAVEGR3: 'SAVEGR3', SAVEGR4: 'SAVEGR4', SAVEGR5: 'SAVEGR5',
         GETGR1: 'GETGR1', GETGR2: 'GETGR2', GETGR3: 'GETGR3', GETGR4: 'GETGR4', GETGR5: 'GETGR5',
         NAMEEXISTSGR1: 'NAMEEXISTSGR1', NAMEEXISTSGR2: 'NAMEEXISTSGR2', NAMEEXISTSGR3: 'NAMEEXISTSGR3', NAMEEXISTSGR4: 'NAMEEXISTSGR4', NAMEEXISTSGR5: 'NAMEEXISTSGR5',
-        LEVELMASTER: 'LEVELMASTER', GROUPLOOKUPS:'GROUPLOOKUPS'
+        LEVELMASTER: 'LEVELMASTER', GROUPLOOKUPS: 'GROUPLOOKUPS',
+
+        GETALLROLES: 'GETALLROLES', SEARCHASSIGNMENT: 'SEARCHASSIGNMENT', GRADMINUSERS: 'GRADMINUSERS',
+        ACTIVEINACTIVEROLE: 'ACTIVEINACTIVEROLE',ASSIGNROLE:'ASSIGNROLE', DELROLE: 'DELROLE'
     };
 
     //API Path
@@ -285,6 +288,26 @@ var lms = lms || {};
             case lms.group.APIType.GROUPLOOKUPS:
                 path = '/user/getlookups';
                 break;
+
+            case lms.group.APIType.GETALLROLES:
+                path = '/systemrole/getallroles';
+                break;
+            case lms.group.APIType.SEARCHASSIGNMENT:
+                path = '/systemrole/searchforassignment';
+                break;
+            case lms.group.APIType.GRADMINUSERS:
+                path = '/systemrole/groupadminusers';
+                break;
+            case lms.group.APIType.ACTIVEINACTIVEROLE:
+                path = '/systemrole/activeinactiveuserrole';
+                break;
+            case lms.group.APIType.ASSIGNROLE:
+                path = '/systemrole/assignrole';
+                break;
+            case lms.group.APIType.DELROLE:
+                path = '/systemrole/deleteusersystemrole';
+                break;
+
         }
         return path;
     };

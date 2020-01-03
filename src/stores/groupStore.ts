@@ -35,21 +35,30 @@ import { GroupResponse } from '../services/group/dto/Response/groupResponse';
 import { GetCountryResponse } from '../services/group/dto/Response/getCountryResponse';
 import { GetStateResponse } from '../services/group/dto/Response/getStateResponse';
 import { GetCityResponse } from '../services/group/dto/Response/getCityResponse';
+import { GetAllSystemRoleResponse } from '../services/group/dto/Response/getAllSystemRoleResponse';
+import { SearchAssignmentRequest } from '../services/group/dto/Request/searchAssignmentRequest';
+import { GroupAdminUsersRequest } from '../services/group/dto/Request/groupAdminUsersRequest';
+import { SystemRoleRequest } from '../services/group/dto/Request/systemRoleRequest';
+import { SystemRoleDelRequest } from '../services/group/dto/Request/systemRoleDelRequest';
 
 class GroupStore {
 
     @observable userid!: string;
     @observable grExists!: string;
+
     @observable grById !: GroupResponse;
     @observable gr1All !: PagedResultDto<Group1Response>;
     @observable gr2All !: PagedResultDto<Group2Response>;
     @observable gr3All !: PagedResultDto<Group3Response>;
     @observable gr4All !: PagedResultDto<Group4Response>;
     @observable gr5All !: PagedResultDto<Group5Response>;
+
     @observable groupLevelMaster !: PagedResultDto<LookupByTypeResponse>;
     @observable groupCountry !: PagedResultDto<GetCountryResponse>;
     @observable groupState !: PagedResultDto<GetStateResponse>;
     @observable groupCity !: PagedResultDto<GetCityResponse>;
+
+    @observable systemRolesAll !: PagedResultDto<GetAllSystemRoleResponse>;
 
     @action
     async getLevelMasterData(lookupByTypeRequest: LookupByTypeRequest) {
@@ -401,5 +410,61 @@ class GroupStore {
     }
 
     // #endregion
+
+    // #region System Roles
+
+    @action
+    async getAllSystemRoles() {
+
+        let result = await groupService.getAllSystemRoles();
+
+        runInAction(() => {
+            this.systemRolesAll = result;
+        });
+    }
+
+    @action
+    async searchAssignment(searchAssignmentRequest: SearchAssignmentRequest) {
+
+        let result = await groupService.searchAssignment(searchAssignmentRequest);
+
+        return result;
+    }
+
+    @action
+    async getGroupAdminUsers(groupAdminUsersRequest: GroupAdminUsersRequest) {
+
+        let result = await groupService.getGroupAdminUsers(groupAdminUsersRequest);
+
+        return result;
+    }
+
+    @action
+    async userRoleActiveInactive(systemRoleRequest: SystemRoleRequest) {
+
+        let result = await groupService.userRoleActiveInactive(systemRoleRequest);
+
+        return result;
+    }
+
+    @action
+    async userRoleAssign(systemRoleRequest: SystemRoleRequest) {
+
+        let result = await groupService.userRoleAssign(systemRoleRequest);
+
+        return result;
+    }
+
+    @action
+    async userRoleUnassign(systemRoleDelRequest: SystemRoleDelRequest) {
+
+        let result = await groupService.userRoleUnassign(systemRoleDelRequest);
+
+        return result;
+    }
+
+    // #endregion
+
+
 }
 export default GroupStore;

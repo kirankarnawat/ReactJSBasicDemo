@@ -26,10 +26,19 @@ import { Group5Response } from './dto/Response/group5Response';
 import { SaveGroup5Request } from './dto/Request/saveGroup5Request';
 import { LookupByTypeRequest } from '../dto/lookupByTypeRequest';
 import { LookupByTypeResponse } from '../dto/lookupByTypeResponse';
+import { GetAllSystemRoleResponse } from './dto/Response/getAllSystemRoleResponse';
+import { SearchAssignmentRequest } from './dto/Request/searchAssignmentRequest';
+import { SearchAssignmentResponse } from './dto/Response/searchAssignmentResponse';
+import { GroupAdminUsersRequest } from './dto/Request/groupAdminUsersRequest';
+import { GroupAdminUsersResponse } from './dto/Response/groupAdminUsersResponse';
+import { SystemRoleRequest } from './dto/Request/systemRoleRequest';
+import { SystemRoleDelRequest } from './dto/Request/systemRoleDelRequest';
 
 declare var lms: any;
 
 class GroupService {
+
+    //#region HIERARCHY
 
     // #region GROUP1
     public async checkIsGroup1NameInUse(grNameCheckRequest: Group1NameExistsCheckRequest): Promise<string> {
@@ -249,6 +258,87 @@ class GroupService {
 
         return JSON.stringify(result.data);
     }
+
+    // #endregion
+
+    // #region SYSTEM ROLES
+
+    public async getAllSystemRoles(): Promise<PagedResultDto<GetAllSystemRoleResponse>> {
+
+        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.GETALLROLES));
+
+        var data = <PagedResultDto<GetAllSystemRoleResponse>>{};
+        data.items = result.data;
+        data.totalCount = (data.items.length > 0) ? data.items.length : 0;
+
+        return data;
+    }
+
+    public async searchAssignment( searchAssignmentRequest : SearchAssignmentRequest): Promise<PagedResultDto<SearchAssignmentResponse>> {
+
+        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.SEARCHASSIGNMENT), { params: searchAssignmentRequest });
+
+        var data = <PagedResultDto<SearchAssignmentResponse>>{};
+        data.items = result.data;
+        data.totalCount = (data.items.length > 0) ? data.items.length : 0;
+
+        return data;
+    }
+
+    public async getGroupAdminUsers(groupAdminUsersRequest: GroupAdminUsersRequest): Promise<PagedResultDto<GroupAdminUsersResponse>> {
+
+        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.GRADMINUSERS), { params: groupAdminUsersRequest });
+
+        var data = <PagedResultDto<GroupAdminUsersResponse>>{};
+        data.items = result.data;
+        data.totalCount = (data.items.length > 0) ? data.items.length : 0;
+
+        return data;
+    }
+
+    public async userRoleActiveInactive(systemRoleRequest: SystemRoleRequest): Promise<string> {
+
+        var data = '';
+        try {
+            let result = await http.post(lms.group.toAPIPath(lms.group.APIType.ACTIVEINACTIVEROLE), systemRoleRequest);
+            data = (result.status === 200) ? result.data : '';
+        }
+        catch (e) {
+            data = e;
+        }
+
+        return data;
+    }
+
+    public async userRoleAssign(systemRoleRequest: SystemRoleRequest): Promise<string> {
+
+        var data = '';
+        try {
+            let result = await http.post(lms.group.toAPIPath(lms.group.APIType.ASSIGNROLE), systemRoleRequest);
+            data = (result.status === 200) ? result.data : '';
+        }
+        catch (e) {
+            data = e;
+        }
+
+        return data;
+    }
+
+    public async userRoleUnassign(systemRoleDelRequest: SystemRoleDelRequest): Promise<string> {
+
+        var data = '';
+        try {
+            let result = await http.get(lms.group.toAPIPath(lms.group.APIType.DELROLE), { params: systemRoleDelRequest});
+            data = (result.status === 200) ? result.data : '';
+        }
+        catch (e) {
+            data = e;
+        }
+
+        return data;
+    }
+
+    // #endregion
 
 }
 
