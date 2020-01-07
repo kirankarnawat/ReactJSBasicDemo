@@ -7,10 +7,13 @@ import { Form, Switch, Button, Empty, message } from 'antd';
 
 import Stores from '../../../stores/storeIdentifier';
 import GroupStore from '../../../stores/groupStore';
-import { EntityDto } from '../../../services/dto/entityDto';
+
 import { PagedResultDto } from '../../../services/dto/pagedResultDto';
 import { GroupAdminUsersResponse } from '../../../services/group/dto/Response/groupAdminUsersResponse';
+
 import commonconst from '../../../lib/commonconst';
+
+import SystemPeoplePicker from './systemPeoplePicker';
 
 export interface IGroupProps {
     groupStore: GroupStore;
@@ -41,21 +44,14 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
     // #region HANDLE CREATE-EDIT
 
     //ADD EDIT DRAWER OPEN
-    async createOrUpdateModalOpen(entityDto: EntityDto) {
+    createOrUpdateModalOpen = async() => {
 
-        var data = ['', '', '', ''];
-
-        if (entityDto.id === '') {
+        //var data = ['', '', '', ''];
 
             //await this.props.groupStore.createGroup(this.props.parentGroupId);
             //data = [this.props.grp1, this.props.grp2, this.props.grp3, this.props.grp4];
 
-        } else {
-            //            await this.props.groupStore.getGroup5DataById(entityDto);
-            //          data = [this.props.grp1, this.props.grp2, this.props.grp3, this.props.grp4];
-        }
-
-        this.setState({ groupId: entityDto.id, addeditentitydata: data });
+        //this.setState({ addeditentitydata: data });
 
         this.Modal();
     }
@@ -70,6 +66,7 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
         form.resetFields();
     };
 
+
     Modal = () => {
         this.setState({
             modalVisible: !this.state.modalVisible,
@@ -79,7 +76,7 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
     // #endregion
 
 
-    handleUserStatus = async(checked, userroleid) => {
+    handleUserStatus = async (checked, userroleid) => {
 
         let result = await this.props.groupStore.userRoleActiveInactive({ userRoleId: userroleid, status: checked, requesterUserId: this.props.groupStore.userid });
 
@@ -121,7 +118,7 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
                         <h4 id="Name_Group1">People</h4>
                     </div>
                     <div className="floatright">
-                        <Button className="icon iconUser"></Button>
+                        <Button className="icon iconUser" onClick={this.createOrUpdateModalOpen}></Button>
                     </div>
                 </div>
                 <div className="managegroupbody">
@@ -134,6 +131,12 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
                 </div>
 
                 <div className="clearfix"></div>
+
+                <SystemPeoplePicker
+                    wrappedComponentRef={this.saveaddeditFormRef}
+                    visible={this.state.modalVisible}
+                    onCancel={this.onHandlecreateOrUpdateModalClose}
+                />
 
             </div>
 
