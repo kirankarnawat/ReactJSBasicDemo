@@ -65,7 +65,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp, IHierarchy
 
     //ADD EDIT DRAWER OPEN
     async createOrUpdateModalOpen(entityDto: EntityDto) {
-
+        debugger;
         var data = ['','','',''];
 
         if (entityDto.id === '') {

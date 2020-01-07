@@ -136,13 +136,13 @@ class GroupStore {
 
     @action
     async getGroup1DataById(entityDto: EntityDto) {
-
+        debugger;
         let result = await groupService.getGroup1ById(entityDto);
-
+        debugger;
         runInAction(() => {
             this.grById = {
-                groupId: result.group1Id, groupName: result.group1Name, cityId: result.cityId, countryId: result.countryId,
-                groupParentId: '', location: '', creatorName: result.creatorName, stateId: result.stateId, status: result.status, zipCode: result.zipCode
+                groupId: result.group1Id, groupName: result.group1Name, cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId:''),
+                groupParentId: '', location: '', creatorName: result.creatorName, stateId: (result.stateId ? result.stateId:''), status: result.status, zipCode: result.zipCode
             };
         });
     }
@@ -202,8 +202,8 @@ class GroupStore {
 
         runInAction(() => {
             this.grById = {
-                cityId: result.cityId, countryId: result.countryId, creatorName: result.creatorName, groupId: result.group2Id,
-                groupName: result.group2Name, groupParentId: result.group1Id, location: '', stateId: result.stateId, status: result.status, zipCode: result.zipCode
+                cityId: (result.cityId ? result.cityId:''), countryId: (result.countryId ? result.countryId:''), creatorName: result.creatorName, groupId: result.group2Id,
+                groupName: result.group2Name, groupParentId: result.group1Id, location: '', stateId: (result.stateId ? result.stateId:''), status: result.status, zipCode: result.zipCode
             };
         });
     }
@@ -263,8 +263,8 @@ class GroupStore {
 
         runInAction(() => {
             this.grById = {
-                cityId: result.cityId, countryId: result.countryId, creatorName: result.creatorName, groupId: result.group3Id,
-                groupName: result.group3Name, groupParentId: result.group2Id, location: '', stateId: result.stateId, status: result.status, zipCode: result.zipCode
+                cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId:''), creatorName: result.creatorName, groupId: result.group3Id,
+                groupName: result.group3Name, groupParentId: result.group2Id, location: '', stateId: (result.stateId ? result.stateId:''), status: result.status, zipCode: result.zipCode
             };
         });
     }
@@ -323,8 +323,8 @@ class GroupStore {
 
         runInAction(() => {
             this.grById = {
-                cityId: result.cityId, countryId: result.countryId, creatorName: result.creatorName, groupId: result.group4Id,
-                groupName: result.group4Name, groupParentId: result.group3Id, location: '', stateId: result.stateId, status: result.status, zipCode: result.zipCode
+                cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId:''), creatorName: result.creatorName, groupId: result.group4Id,
+                groupName: result.group4Name, groupParentId: result.group3Id, location: '', stateId: (result.stateId ? result.stateId:''), status: result.status, zipCode: result.zipCode
             };
         });
     }
@@ -382,8 +382,8 @@ class GroupStore {
 
         runInAction(() => {
             this.grById = {
-                cityId: result.cityId, countryId: result.countryId, creatorName: result.creatorName, groupId: result.group5Id,
-                groupName: result.group5Name, groupParentId: result.group4Id, location: '', stateId: result.stateId, status: result.status, zipCode: result.zipCode
+                cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId:''), creatorName: result.creatorName, groupId: result.group5Id,
+                groupName: result.group5Name, groupParentId: result.group4Id, location: '', stateId: (result.stateId ? result.stateId:''), status: result.status, zipCode: result.zipCode
             };
         });
     }
