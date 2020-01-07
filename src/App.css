@@ -53,8 +53,6 @@ body .customeclass20{width:20%}
 body .ant-input-number{width:100%;}
 .rel{position:relative;}
 .text-center{text-align: center;}
-body .customeclass30{width:30%}
-body .customeclass25{width:25%}
 /*Globally  CSS END*/
 
 .logoDiv img {max-width: 127px;}
@@ -79,8 +77,8 @@ body .customeclass25{width:25%}
 .loginBox .loginBoxCon .colLogLeft .ant-input{height:36px;}
 .loginBox .loginBoxCon .colLogLeft .ant-form-item-control{line-height:36px;}
 .loginBox .loginBoxCon .colLogRight{width:50%;float:left; position: relative; margin-left:50%;}
-.loginBox .loginBoxCon .colLogRight .loginBg{width:100%;height:100%;}
-.loginBox .loginBoxCon .colLogRight .loginBg img{background-size: cover; background-size:100% 100%; width:100%; height:100%;}
+/* .loginBox .loginBoxCon .colLogRight .loginBg{width:100%;height:100%;} */
+.loginBox .loginBoxCon .colLogRight .loginBg img{max-width:100%;height:auto; display:block}
 .loginBox .loginBoxCon .colLogLeft .loginLogo {margin-bottom: 20px;text-align: center;}
 .loginBox .loginBoxCon .colLogRight .contentRt{padding: 10px 10px 10px 10px; background:#ebeff2 ;}
 .loginBox .loginBoxCon .colLogRight p {color:#000000;font-size: 13px;}
@@ -297,11 +295,11 @@ ul.bulkImpListing li .ant-btn{width:100%; min-width:200px}
 body .ant-drawer-title{font-family: 'Myriad Pro bold'; font-size:20px}
 body .ant-tabs-nav {float:left; width:100%; border-bottom:1px solid #C1C1C1}
 body .ant-tabs-bar{border-color:#C1C1C1;}
-body .ant-tabs-nav .ant-tabs-tab{padding:10px 5px; font-size:12px; color:#848484; margin:0px 15px;margin:0px 20px 0px 0px}
+body .ant-tabs-nav .ant-tabs-tab{padding:10px 5px; font-size:14px; color:#848484; margin:0px 15px;margin:0px 20px 0px 0px}
 body .ant-tabs .ant-tabs-small-bar .ant-tabs-tab{padding:8px 12px}
 body .ant-tabs-nav .ant-tabs-tab:hover{border:none;color:#e41f35}
 body .ant-tabs-nav .ant-tabs-ink-bar{border:none; border-bottom:3px solid #e41f35 !important; }
-body .ant-tabs-nav .ant-tabs-tab-active{ font-size:15px; color:#000;font-family: 'Myriad Pro bold';}
+body .ant-tabs-nav .ant-tabs-tab-active{ font-size:16px; color:#000;font-family: 'Myriad Pro bold';}
 
 .ant-drawer .ant-btn{text-transform:uppercase; text-align:center; padding:0px 10px; font-size:12px}
 .ant-drawer .ant-btn-default{background:#2d3436; color:#ffffff; border-color:#2d3436; border-bottom:2px solid #1f3344}
@@ -565,7 +563,7 @@ ul.headerListing li a span.backIcon{background-image:url("images/back-arrow.png"
 .mngGroupBox{background: #f8f8f8;border: 1px solid #c5c5c5;padding:10px;min-height:620px}
 .activemngGroupBox{background: #fff}
 .inactivemngGroupBox{background: #f8f8f8}
-.mngGroupBoxHeader{margin-bottom: 10px;padding:15px 0px;float:left;width:100%;border-bottom:2px solid #e8e8e8}
+.mngGroupBoxHeader{margin-bottom: 10px;padding:2px 0px 10px;float:left;width:100%;border-bottom:2px solid #e8e8e8}
 .mngGroupBox .mngGroupBoxHeader h4{font-family:'Myriad Pro Semibold';font-size: 16px;margin-bottom:0px;margin-top:0px;position: relative;top: -2px;color:#d9d9d9}
 .mngGroupBox .mngGroupBoxHeader .iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat;background-position:5px 5px;display:inline-block;}
 .mngGroupBox .mngGroupBoxHeader .icon{width:25px; height:25px;background-color:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; vertical-align: middle; text-align: center;}
@@ -593,15 +591,26 @@ ul.headerListing li a span.backIcon{background-image:url("images/back-arrow.png"
 .managegroupbody .mngGrouplisting li:hover .no,.managegroupbody .mngGrouplisting li:hover .text{color:#d63032}
 .managegroupbody .mngGrouplisting li.inactive{background:#f8f8f8;border: 1px solid #c5c5c5;z-index: 1;font-family: 'Myriad Pro bold';  position: relative;}
 .managegroupbody .mngGrouplisting li.inactive:after{content: '';background: #f8f8f8;width:29px;height:104%;right: -29px;position: absolute;top: -1px;border: 1px solid #c5c5c5;border-left: none;border-right: none;}
-.managegroupbody .mngGrouplisting a .ulText{color:#929292; font-size:11px; font-family: 'Myriad Pro Regular'; float:left; width:100%}
 .strike {text-decoration: line-through;} 
 .black {color: #000000!important;}
+.peopleEditPgs .peopleList{list-style:none;padding:0;margin:0;border-top:2px solid #e8e8e8}
+.peopleEditPgs .peopleList li{padding:10px;float:left;width:100%;border-bottom:1px solid #e8e8e8}
+.peopleEditPgs .peopleList .textData{width:80%;float:left}
+.peopleEditPgs .peopleList .rightCont{width:20%;float:left}
+.peopleEditPgs .peopleList .textData h6{margin-bottom:0px;font-family:'Myriad Pro bold';font-size:12px;}
+.peopleEditPgs .peopleList .textData p{font-size:10px;color:#b6b6b6;margin-bottom:0px;}
+.peopleEditPgs .peopleList .iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat;background-position:4px 4px;display:inline-block;}
+.peopleEditPgs .peopleList .icon{cursor:pointer;margin-top:7px;width:21px; height:21px;background-color:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; vertical-align: middle; text-align: center;}
+.peopleEditPgs .peopleList .icon:hover,.peopleEditPgs .peopleList .active:hover{background-color:#d63032}
 
 @media screen and (max-width:1366px) {
 .ant-drawer-body{overflow-y: auto; max-height:400px;}
 .loginBox .loginBoxCon .colLogLeft{padding:3% 4% 0px 4%;}
-.loginBox .loginBoxCon .colLogRight img {height: 89%;}
+.loginBox .loginBoxCon .colLogRight .loginBg img{max-width:100%;width:100% }
+.loginBox .loginBoxCon .colLogRight .loginBg{height:430px;overflow: hidden;}
 .loginBox .loginBoxCon .colLogLeft .colLogLeftInner{padding:0% 27% 0px 27%;}
+.loginBox .loginBoxCon .colLogRight p{font-size:12px;padding:5px 10px 0px;margin-bottom:0;}
+.loginBox .loginBoxCon .colLogRight .contentRt{padding-top:0}
 .conReposWrapp .conReposBox .conReposBoxHead .icon{width:30%}
 .conReposWrapp .conReposBox .conReposBoxHead .text p{font-size:14px;}
 .conReposWrapp .conReposBox{/*width:31.90%;*/ margin:0% 1% 2% 1%}

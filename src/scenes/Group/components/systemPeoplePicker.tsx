@@ -1,14 +1,15 @@
 
 import * as React from 'react';
 
-import { Form, Tabs, Drawer} from 'antd';
+import { Form, Drawer, Input, Col } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-
+import FormItem from 'antd/lib/form/FormItem';
 import { inject, observer } from 'mobx-react';
 
 import Stores from '../../../stores/storeIdentifier';
 import GroupStore from '../../../stores/groupStore';
 
+const { Search } = Input;
 
 //#region Local State and Property
 export interface IGroupProps {
@@ -20,7 +21,7 @@ export interface ISystemPeoplePickerProps extends FormComponentProps {
     onCancel: () => void;
 }
 
-const { TabPane } = Tabs
+//const { TabPane } = Tabs
 
 @inject(Stores.GroupStore)
 @observer
@@ -67,13 +68,54 @@ class SystemPeoplePicker extends React.Component<IGroupProps & ISystemPeoplePick
 
         return (
             <Drawer title={'People Picker'} width={560} onClose={this.onHanleResetForm} visible={visible}>
-                <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
-                    <TabPane tab={'User Information'} key={'UserInformation'}>
-                        <div className="pos">
-                            
-                        </div>
-                    </TabPane>
-                </Tabs>
+                <div className="peopleEditPgs">
+                    <div className="antd-row">
+                        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
+                            <FormItem>
+                                <label>{'People Search'} <span className="start">*</span> </label>
+                                <Search placeholder="First Name / Last Name / Email Address" allowClear={true}>
+                                </Search>
+                            </FormItem>
+                        </Col>
+                    </div>
+                    <div className="antd-row">
+                        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
+                            <FormItem>
+                                <label>{'Association/ Brand/ Pharmacy/ NCPDP'} <span className="start">*</span> </label>
+                                <Search placeholder="Association/ Brand/ Pharmacy/ NCPDP" allowClear={true}>
+                                </Search>
+                            </FormItem>
+                        </Col>
+                    </div>
+                    <div className="antd-row">
+                        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
+                            <ul className="peopleList">
+                                <li>
+                                    <span className="textData">
+                                        <h6>Super Admin</h6>
+                                        <p>Cardinal Health</p>
+                                    </span>
+                                    <span className="rightCont"><span className="floatright"><span className="icon iconUser"></span></span></span>
+                                </li>
+                                <li>
+                                    <span className="textData">
+                                        <h6>Super Admin</h6>
+                                        <p>Cardinal Health</p>
+                                    </span>
+                                    <span className="rightCont"><span className="floatright"><span className="icon iconUser"></span></span></span>
+                                </li>
+                                <li>
+                                    <span className="textData">
+                                        <h6>Super Admin</h6>
+                                        <p>Cardinal Health</p>
+                                    </span>
+                                    <span className="rightCont"><span className="floatright"><span className="icon iconUser"></span></span></span>
+                                </li>
+                            </ul>
+                        </Col>
+                    </div>
+                </div>
+
             </Drawer>
         );
     }
