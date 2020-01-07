@@ -24,6 +24,7 @@ export interface ISystemPeopleProp extends FormComponentProps {
     isActive: boolean;
     groupid: string;
     groupname: string;
+    searchon: string;
     selGrPeopleData: PagedResultDto<GroupAdminUsersResponse>;
 }
 
@@ -33,6 +34,7 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
 
     state = {
         modalVisible: false,
+        systemuserdata: []
     }
 
     addeditGroupFormRef: any;
@@ -46,12 +48,9 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
     //ADD EDIT DRAWER OPEN
     createOrUpdateModalOpen = async() => {
 
-        //var data = ['', '', '', ''];
+        //let result = await this.props.groupStore.getSystemUsers({ groupId: this.props.groupid, noPaging: true, searchOnGroupId: this.props.searchon, requesterUserId: this.props.groupStore.userid, status: true, firstName:'' });
 
-            //await this.props.groupStore.createGroup(this.props.parentGroupId);
-            //data = [this.props.grp1, this.props.grp2, this.props.grp3, this.props.grp4];
-
-        //this.setState({ addeditentitydata: data });
+        //this.setState({ ...this.state, systemuserdata: (result ? result.items : []) });
 
         this.Modal();
     }
@@ -136,6 +135,7 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
                     wrappedComponentRef={this.saveaddeditFormRef}
                     visible={this.state.modalVisible}
                     onCancel={this.onHandlecreateOrUpdateModalClose}
+                    systemusers={this.state.systemuserdata}                    
                 />
 
             </div>

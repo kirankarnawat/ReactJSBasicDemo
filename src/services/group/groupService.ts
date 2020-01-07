@@ -32,7 +32,9 @@ import { SearchAssignmentResponse } from './dto/Response/searchAssignmentRespons
 import { GroupAdminUsersRequest } from './dto/Request/groupAdminUsersRequest';
 import { GroupAdminUsersResponse } from './dto/Response/groupAdminUsersResponse';
 import { SystemRoleRequest } from './dto/Request/systemRoleRequest';
-import { SystemRoleDelRequest } from './dto/Request/systemRoleDelRequest';
+import { SystemUserRequest } from './dto/Request/systemUserRequest';
+import { SystemUserResponse } from './dto/Response/systemUserResponse';
+import { SystemUserAssignRequest } from './dto/Request/systemUserAssignRequest';
 
 declare var lms: any;
 
@@ -310,11 +312,11 @@ class GroupService {
         return data;
     }
 
-    public async userRoleAssign(systemRoleRequest: SystemRoleRequest): Promise<string> {
+    public async userRoleAssign(systemUserAssignRequest: SystemUserAssignRequest): Promise<string> {
 
         var data = '';
         try {
-            let result = await http.post(lms.group.toAPIPath(lms.group.APIType.ASSIGNROLE), systemRoleRequest);
+            let result = await http.post(lms.group.toAPIPath(lms.group.APIType.ASSIGNROLE), systemUserAssignRequest);
             data = (result.status === 200) ? 'Success' : '';
         }
         catch (e) {
@@ -324,16 +326,27 @@ class GroupService {
         return data;
     }
 
-    public async userRoleUnassign(systemRoleDelRequest: SystemRoleDelRequest): Promise<string> {
+    //public async userRoleUnassign(systemRoleDelRequest: SystemRoleDelRequest): Promise<string> {
 
-        var data = '';
-        try {
-            let result = await http.get(lms.group.toAPIPath(lms.group.APIType.DELROLE), { params: systemRoleDelRequest});
-            data = (result.status === 200) ? result.data : '';
-        }
-        catch (e) {
-            data = e;
-        }
+    //    var data = '';
+    //    try {
+    //        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.DELROLE), { params: systemRoleDelRequest});
+    //        data = (result.status === 200) ? result.data : '';
+    //    }
+    //    catch (e) {
+    //        data = e;
+    //    }
+
+    //    return data;
+    //}
+
+    public async getSystemUsers(systemUserRequest: SystemUserRequest): Promise<PagedResultDto<SystemUserResponse>> {
+        debugger;
+        let result = await http.post(lms.group.toAPIPath(lms.group.APIType.GRADMINUSERS), systemUserRequest);
+
+        var data = <PagedResultDto<SystemUserResponse>>{};
+        data.items = result.data;
+        data.totalCount = (data.items.length > 0) ? data.items.length : 0;
 
         return data;
     }

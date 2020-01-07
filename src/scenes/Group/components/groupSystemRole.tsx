@@ -77,7 +77,7 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
                 </Col>
 
                 <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className={(this.state.isShowPep === true) ? "customeclass20" : "customeclass20 hidden"}>
-                    <SystemPeople isActive={this.state.isPeopleActive} groupid={this.state.selGroupId} groupname={this.state.selGroupName} selGrPeopleData={this.state.selGrPeopleData} />
+                    <SystemPeople isActive={this.state.isPeopleActive} groupid={this.state.selGroupId} groupname={this.state.selGroupName} searchon={this.state.searchonGroupId} selGrPeopleData={this.state.selGrPeopleData} />
                 </Col>
             </Row>
         )

@@ -39,7 +39,9 @@ import { GetAllSystemRoleResponse } from '../services/group/dto/Response/getAllS
 import { SearchAssignmentRequest } from '../services/group/dto/Request/searchAssignmentRequest';
 import { GroupAdminUsersRequest } from '../services/group/dto/Request/groupAdminUsersRequest';
 import { SystemRoleRequest } from '../services/group/dto/Request/systemRoleRequest';
-import { SystemRoleDelRequest } from '../services/group/dto/Request/systemRoleDelRequest';
+
+import { SystemUserRequest } from '../services/group/dto/Request/systemUserRequest';
+import { SystemUserAssignRequest } from '../services/group/dto/Request/systemUserAssignRequest';
 
 class GroupStore {
 
@@ -448,17 +450,25 @@ class GroupStore {
     }
 
     @action
-    async userRoleAssign(systemRoleRequest: SystemRoleRequest) {
+    async userRoleAssign(systemUserAssignRequest: SystemUserAssignRequest) {
 
-        let result = await groupService.userRoleAssign(systemRoleRequest);
+        let result = await groupService.userRoleAssign(systemUserAssignRequest);
 
         return result;
     }
 
-    @action
-    async userRoleUnassign(systemRoleDelRequest: SystemRoleDelRequest) {
+    //@action
+    //async userRoleUnassign(systemRoleDelRequest: SystemRoleDelRequest) {
 
-        let result = await groupService.userRoleUnassign(systemRoleDelRequest);
+    //    let result = await groupService.userRoleUnassign(systemRoleDelRequest);
+
+    //    return result;
+    //}
+
+    @action
+    async getSystemUsers(systemUserRequest: SystemUserRequest) {
+
+        let result = await groupService.getSystemUsers(systemUserRequest);
 
         return result;
     }

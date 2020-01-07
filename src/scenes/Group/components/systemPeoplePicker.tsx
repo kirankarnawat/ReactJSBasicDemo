@@ -1,15 +1,16 @@
 
 import * as React from 'react';
 
-import { Form, Drawer, Input, Col } from 'antd';
-import { FormComponentProps } from 'antd/lib/form';
+import { Form, Drawer, Col, Input } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
+import { FormComponentProps } from 'antd/lib/form';
+
 import { inject, observer } from 'mobx-react';
 
 import Stores from '../../../stores/storeIdentifier';
 import GroupStore from '../../../stores/groupStore';
+import { SystemUserResponse } from '../../../services/group/dto/Response/systemUserResponse';
 
-const { Search } = Input;
 
 //#region Local State and Property
 export interface IGroupProps {
@@ -19,9 +20,10 @@ export interface IGroupProps {
 export interface ISystemPeoplePickerProps extends FormComponentProps {
     visible: boolean;
     onCancel: () => void;
+    systemusers: SystemUserResponse[];
 }
 
-//const { TabPane } = Tabs
+const { Search } = Input
 
 @inject(Stores.GroupStore)
 @observer

@@ -40,8 +40,8 @@ class SystemRole extends React.Component<IGroupProps & ISystemRoleProp> {
         data = (this.props.groupStore.systemRolesAll) ?
 
             this.props.groupStore.systemRolesAll.items.map((item, index) => (
-                <li key={item.roleId} className={(this.state.selRoleId === item.roleId && this.props.isSelectedActive === true) ? 'active' : ((this.state.selRoleId === item.roleId && this.props.isSelectedInactive === true) ? 'inactive' : '')}>
-                    <a href="#" onClick={() => this.selectSystemRole(item.roleId, item.searchonGroupId)}>
+                <li key={item.roleId} onClick={() => this.selectSystemRole(item.roleId, item.searchonGroupId)} className={(this.state.selRoleId === item.roleId && this.props.isSelectedActive === true) ? 'active' : ((this.state.selRoleId === item.roleId && this.props.isSelectedInactive === true) ? 'inactive' : '')}>
+                    <a href="#">
                         <span className="text" >  {item.displayRole}</span>
                     </a>
                 </li>
