@@ -86,17 +86,19 @@ class SystemGroup extends React.Component<IGroupProps & ISystemGroupProp, ISyste
 
                 <li key={item.groupId} onClick={() => this.selectGroup(item.groupId, item.groupName)} className={(this.state.selGroupId === item.groupId && this.props.isSelectedActive === true) ? 'active' : ''}>
                     <a href="#" >
-                        <span className={(item.status === false) ? "text strike" : "text"}>  {item.groupName}</span>
-                        <span className="iconNo">
-                            <span className="no">{item.totalAdmin}</span>
-                            <span className="icon"></span>
-                        </span>
+                        <span className={(item.status === false) ? "text strike" : "text"}><div className="boldFont"> {item.groupName}</div> 
                         <span className="ulText">
                             {
                                 item.group1Name + (item.group2Name ? ' / ' + item.group2Name : '') + (item.group3Name ? ' / ' + item.group3Name : '')
                                 + (item.group4Name ? ' / ' + item.group4Name : '') + (item.group5Name ? ' / ' + item.group5Name : '')
                             }
                         </span>
+                        </span>
+                        <span className="iconNo mt7">
+                            <span className="no">{item.totalAdmin}</span>
+                            <span className="icon"></span>
+                        </span>
+                        
                     </a>
                 </li>
 

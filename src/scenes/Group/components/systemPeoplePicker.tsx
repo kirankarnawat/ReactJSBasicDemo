@@ -69,7 +69,7 @@ class SystemPeoplePicker extends React.Component<IGroupProps & ISystemPeoplePick
         const { visible } = this.props;
 
         return (
-            <Drawer title={'People Picker'} width={560} onClose={this.onHanleResetForm} visible={visible}>
+            <Drawer title={'People Picker'} width={340} onClose={this.onHanleResetForm} visible={visible}>
                 <div className="peopleEditPgs">
                     <div className="antd-row">
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>

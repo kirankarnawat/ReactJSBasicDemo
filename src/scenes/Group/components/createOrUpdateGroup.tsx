@@ -202,7 +202,7 @@ class CreateOrUpdateGroup extends React.Component<IGroupProps & ICreateOrUpdateG
                     {(entitydata !== undefined && entitydata[0]) ?
                         <Row className="antd-row">
                             <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }}>
-                                <div className="treedigram">
+                                <div className="treedigram addEditGroup">
                                     <ul className="tree">
                                         <li className="mt0">
                                             <a className="fristlink"><span className="treeIcon"></span> <span className="">{entitydata[0]} </span> <span className="groupicon"></span><span className="values"></span>

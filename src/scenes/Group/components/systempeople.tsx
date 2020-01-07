@@ -95,15 +95,17 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
 
             <li key={item.userId}>
                 <a href="#">
-                    <span className="text"> {item.firstName} {item.lastName}</span>
-                    <span className="switchbutton">
-                        <label className="mr8">{'Inactive'}</label>
-                        <Switch onChange={(value) => this.handleUserStatus(value, item.userRoleId)} defaultChecked={(item.status.toLowerCase() === 'true') ? true : false} />
-                        <label className="ml8">{'Active'}</label>
-                    </span>
+                    <span className="text width100per"> <div className="boldFont">{item.firstName} {item.lastName}</div> 
                     <span className="ulText">
                         {this.props.groupname}
                     </span>
+                    </span>
+                    <div className="switchbutton mt5">
+                        <label className="mr8">{'Inactive'}</label>
+                        <Switch onChange={(value) => this.handleUserStatus(value, item.userRoleId)} defaultChecked={(item.status.toLowerCase() === 'true') ? true : false} />
+                        <label className="ml8">{'Active'}</label>
+                    </div>
+                   
                 </a>
             </li>
 
@@ -122,7 +124,7 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
                 </div>
                 <div className="managegroupbody">
 
-                    <div className="text">  Total Count of Admin : ({(selGrPeopleData) ? selGrPeopleData.totalCount : 0})</div>
+                    <div className="text boldFont">  Total Count of Admin : ({(selGrPeopleData) ? selGrPeopleData.totalCount : 0})</div>
 
                     <ul className="mngGrouplisting">
                         {child}
