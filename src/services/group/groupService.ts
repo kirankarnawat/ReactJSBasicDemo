@@ -297,11 +297,11 @@ class GroupService {
     }
 
     public async userRoleActiveInactive(systemRoleRequest: SystemRoleRequest): Promise<string> {
-
+        debugger;
         var data = '';
         try {
             let result = await http.post(lms.group.toAPIPath(lms.group.APIType.ACTIVEINACTIVEROLE), systemRoleRequest);
-            data = (result.status === 200) ? result.data : '';
+            data = (result.status === 200) ? 'Success' : '';
         }
         catch (e) {
             data = e;
@@ -315,7 +315,7 @@ class GroupService {
         var data = '';
         try {
             let result = await http.post(lms.group.toAPIPath(lms.group.APIType.ASSIGNROLE), systemRoleRequest);
-            data = (result.status === 200) ? result.data : '';
+            data = (result.status === 200) ? 'Success' : '';
         }
         catch (e) {
             data = e;

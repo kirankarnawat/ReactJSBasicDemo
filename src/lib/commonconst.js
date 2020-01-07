@@ -24,7 +24,9 @@ export default {
         KEYWORDEXISTS: 'Keyword is already exists in the course',
         GROUPADDSUCCESS: 'Group created successfully',
         GROUPEDITSUCCESS: 'Group updated successfully',
-        GROUPEXISTS:'Group name is already exist',
+        GROUPEXISTS: 'Group name is already exist',
+        USERACTIVESUCCESS: 'User activated successfully',
+        USERINACTIVESUCCESS: 'User inactivated successfully',
     },
 
     LOOKUPS: {

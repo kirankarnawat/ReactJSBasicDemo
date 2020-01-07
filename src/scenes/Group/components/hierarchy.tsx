@@ -253,7 +253,7 @@ class Hierarchy extends React.Component<IGroupProps & IHierarchyProp, IHierarchy
                         <h4 id={'name_' + levelId} className={(isActive === true || isSelectedActive === true || isSelectedInactive === true) ? "black" : "" }>{levelName}</h4>
                     </div>
 
-                    <div className="floatright">
+                    <div className={(this.props.level > 2) ? "floatright" : "floatright hidden"}>
                         <Button disabled={!isActive} onClick={() => this.createOrUpdateModalOpen({ id: '' })} className="icon iconUser"></Button>
                     </div>
 
