@@ -54,7 +54,7 @@ class MainGroupContent extends React.Component<IGroupProps> {
                         </div>
                     </div>
 
-                    <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
+                    <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64} className="groupPage">
                         <TabPane tab={'Hierarchy'} key={'UserInformation'}>
                             <GroupHierarchy />
                         </TabPane>
