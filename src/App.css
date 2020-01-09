@@ -51,6 +51,7 @@ body .ant-col-xs-1, body .ant-col-xs-2, body .ant-col-xs-3, body .ant-col-xs-4, 
 body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right:-8px;margin-left:-8px; position: relative;clear: both;}
 body .customeclass20{width:20%}
 body .customeclass25{width:25%}
+body .customeclass30{width:30%}
 body .ant-input-number{width:100%;}
 body .width100per{width:100%  !important}
 .ant-menu{color:rgba(0, 0, 0, 1) !important}

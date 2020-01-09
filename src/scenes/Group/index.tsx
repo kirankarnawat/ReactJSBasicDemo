@@ -26,11 +26,15 @@ class MainGroupContent extends React.Component<IGroupProps> {
     // start up event
     async componentDidMount() {
 
+        await this.props.groupStore.initUserId();
+
         await this.props.groupStore.getLevelMasterData({ LookupType: commonconst.LOOKUPS.LEVELMASTER });
 
         await this.props.groupStore.getGroupLookups();
 
         await this.props.groupStore.getAllGroup1Data();
+
+        await this.props.groupStore.getAllSystemRoles();
     }
 
     render() {

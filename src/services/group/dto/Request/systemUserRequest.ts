@@ -1,7 +1,7 @@
 
 export interface SystemUserRequest {
 
-    searchOnGroupId: string,
+    searchOnGroupId: string;
     firstName: string;
     groupId: string,
     requesterUserId: string,

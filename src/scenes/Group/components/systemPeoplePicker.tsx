@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 
-import { Form, Drawer, Col, Input } from 'antd';
+import { Form, Drawer, Col, Input, Empty } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import { FormComponentProps } from 'antd/lib/form';
 
@@ -66,7 +66,21 @@ class SystemPeoplePicker extends React.Component<IGroupProps & ISystemPeoplePick
 
     render() {
 
-        const { visible } = this.props;
+        const { visible, systemusers } = this.props;
+
+        const child = (systemusers && systemusers.length > 0) ?
+
+            systemusers.map((item, index) => (
+
+                <li>
+                    <span className="textData">
+                        <h6>{item.firstName} {item.lastName}</h6>
+                        <p>{item.groupName}</p>
+                    </span>
+                    <span className="rightCont"><span className="floatright"><span className="icon iconUser"></span></span></span>
+                </li>
+
+            )) : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
 
         return (
             <Drawer title={'People Picker'} width={340} onClose={this.onHanleResetForm} visible={visible}>
@@ -92,32 +106,11 @@ class SystemPeoplePicker extends React.Component<IGroupProps & ISystemPeoplePick
                     <div className="antd-row">
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
                             <ul className="peopleList">
-                                <li>
-                                    <span className="textData">
-                                        <h6>Super Admin</h6>
-                                        <p>Cardinal Health</p>
-                                    </span>
-                                    <span className="rightCont"><span className="floatright"><span className="icon iconUser"></span></span></span>
-                                </li>
-                                <li>
-                                    <span className="textData">
-                                        <h6>Super Admin</h6>
-                                        <p>Cardinal Health</p>
-                                    </span>
-                                    <span className="rightCont"><span className="floatright"><span className="icon iconUser"></span></span></span>
-                                </li>
-                                <li>
-                                    <span className="textData">
-                                        <h6>Super Admin</h6>
-                                        <p>Cardinal Health</p>
-                                    </span>
-                                    <span className="rightCont"><span className="floatright"><span className="icon iconUser"></span></span></span>
-                                </li>
+                                {child}
                             </ul>
                         </Col>
                     </div>
                 </div>
-
             </Drawer>
         );
     }

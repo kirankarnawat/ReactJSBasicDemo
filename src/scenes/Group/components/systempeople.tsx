@@ -37,6 +37,13 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
         systemuserdata: []
     }
 
+    async componentDidUpdate(prevProps, prevState) {
+
+        if (this.props.selGrPeopleData !== prevProps.selGrPeopleData) {
+            this.setState({ modalVisible: false, systemuserdata: []});
+        }
+    }
+
     addeditGroupFormRef: any;
 
     saveaddeditFormRef = (formRef: any) => {
@@ -48,9 +55,9 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
     //ADD EDIT DRAWER OPEN
     createOrUpdateModalOpen = async() => {
 
-        //let result = await this.props.groupStore.getSystemUsers({ groupId: this.props.groupid, noPaging: true, searchOnGroupId: this.props.searchon, requesterUserId: this.props.groupStore.userid, status: true, firstName:'' });
-
-        //this.setState({ ...this.state, systemuserdata: (result ? result.items : []) });
+        let result = await this.props.groupStore.getSystemUsers({ groupId: this.props.groupid, noPaging: true, requesterUserId: this.props.groupStore.userid, status: true, firstName: '', searchOnGroupId: '' });
+        
+        this.setState({ ...this.state, systemuserdata: (result ? result.items : []) });
 
         this.Modal();
     }
@@ -93,7 +100,7 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
 
         const child = (selGrPeopleData) ? selGrPeopleData.items.map((item, index) => (
 
-            <li key={item.userId}>
+            <li key={item.userId + index}>
                 <a href="#">
                     <span className="text width100per"> <div className="boldFont">{item.firstName} {item.lastName}</div> 
                     <span className="ulText">

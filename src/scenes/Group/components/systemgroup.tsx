@@ -84,7 +84,7 @@ class SystemGroup extends React.Component<IGroupProps & ISystemGroupProp, ISyste
 
             groupdata.items.map((item, index) => (
 
-                <li key={item.groupId} onClick={() => this.selectGroup(item.groupId, item.groupName)} className={(this.state.selGroupId === item.groupId && this.props.isSelectedActive === true) ? 'active' : ''}>
+                <li key={item.groupId} onClick={() => this.selectGroup(item.groupId, item.groupName) } className={(this.state.selGroupId === item.groupId && this.props.isSelectedActive === true) ? 'active' : ''}>
                     <a href="#" >
                         <span className={(item.status === false) ? "text strike" : "text"}><div className="boldFont"> {item.groupName}</div> 
                         <span className="ulText">

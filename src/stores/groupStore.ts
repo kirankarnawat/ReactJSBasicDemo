@@ -62,14 +62,22 @@ class GroupStore {
 
     @observable systemRolesAll !: PagedResultDto<GetAllSystemRoleResponse>;
 
+
+    @action
+    async initUserId() {
+
+        runInAction(() => {
+            this.userid = sessionService.getLoginUserId();
+        });
+    }
+
     @action
     async getLevelMasterData(lookupByTypeRequest: LookupByTypeRequest) {
 
         let result = await groupService.getLevelMasterData(lookupByTypeRequest);
 
         runInAction(() => {
-            this.groupLevelMaster = result;
-            this.userid = sessionService.getLoginUserId();
+            this.groupLevelMaster = result;            
         });
     }
 
@@ -418,7 +426,7 @@ class GroupStore {
     @action
     async getAllSystemRoles() {
 
-        let result = await groupService.getAllSystemRoles();
+        let result = await groupService.getAllSystemRoles(this.userid);
 
         runInAction(() => {
             this.systemRolesAll = result;

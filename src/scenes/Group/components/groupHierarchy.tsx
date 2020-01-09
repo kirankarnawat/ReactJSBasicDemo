@@ -34,12 +34,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
             parentGroupId: '', grp1name: '', grp2name: '', grp3name: '', grp4name: ''
         }
     }
-
-    async componentDidMount() {
-
-        await this.props.groupStore.getAllSystemRoles();
-    }
-
+        
     getGroupState = (value: number) => {
         switch (value) {
             case 1: return this.state.isGr1Active; case 2: return this.state.isGr2Active;

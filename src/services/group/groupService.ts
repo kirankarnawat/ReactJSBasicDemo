@@ -265,9 +265,9 @@ class GroupService {
 
     // #region SYSTEM ROLES
 
-    public async getAllSystemRoles(): Promise<PagedResultDto<GetAllSystemRoleResponse>> {
-
-        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.GETALLROLES));
+    public async getAllSystemRoles(id: string): Promise<PagedResultDto<GetAllSystemRoleResponse>> {
+        
+        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.GETALLROLES), { params: { 'RequesterUserId': id } });
 
         var data = <PagedResultDto<GetAllSystemRoleResponse>>{};
         data.items = result.data;
@@ -276,7 +276,7 @@ class GroupService {
         return data;
     }
 
-    public async searchAssignment( searchAssignmentRequest : SearchAssignmentRequest): Promise<PagedResultDto<SearchAssignmentResponse>> {
+    public async searchAssignment(searchAssignmentRequest: SearchAssignmentRequest): Promise<PagedResultDto<SearchAssignmentResponse>> {
 
         let result = await http.get(lms.group.toAPIPath(lms.group.APIType.SEARCHASSIGNMENT), { params: searchAssignmentRequest });
 
@@ -326,23 +326,9 @@ class GroupService {
         return data;
     }
 
-    //public async userRoleUnassign(systemRoleDelRequest: SystemRoleDelRequest): Promise<string> {
-
-    //    var data = '';
-    //    try {
-    //        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.DELROLE), { params: systemRoleDelRequest});
-    //        data = (result.status === 200) ? result.data : '';
-    //    }
-    //    catch (e) {
-    //        data = e;
-    //    }
-
-    //    return data;
-    //}
-
     public async getSystemUsers(systemUserRequest: SystemUserRequest): Promise<PagedResultDto<SystemUserResponse>> {
-        debugger;
-        let result = await http.post(lms.group.toAPIPath(lms.group.APIType.GRADMINUSERS), systemUserRequest);
+
+        let result = await http.post(lms.group.toAPIPath(lms.group.APIType.SYSTEMUSERLIST), systemUserRequest);
 
         var data = <PagedResultDto<SystemUserResponse>>{};
         data.items = result.data;
