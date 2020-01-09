@@ -50,8 +50,7 @@ body .ant-col-md-1, body .ant-col-md-2, body .ant-col-md-3, body .ant-col-md-4, 
 body .ant-col-xs-1, body .ant-col-xs-2, body .ant-col-xs-3, body .ant-col-xs-4, body .ant-col-xs-5, body .ant-col-xs-6, body .ant-col-xs-7, body .ant-col-xs-8, body .ant-col-xs-9, body .ant-col-xs-10, body .ant-col-xs-11, body .ant-col-xs-12, body .ant-col-xs-13, body .ant-col-xs-14, body .ant-col-xs-15, body .ant-col-xs-16, body .ant-col-xs-17, body .ant-col-xs-18, body .ant-col-xs-19, body .ant-col-xs-20,body .ant-col-xs-21, body .ant-col-xs-22, body .ant-col-xs-23, body .ant-col-xs-24{padding-left:8px;padding-right:8px;}
 body .antd-row{display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right:-8px;margin-left:-8px; position: relative;clear: both;}
 body .customeclass20{width:20%}
-body .customeclass25{width:25%}
-body .customeclass30{width:30%}
+body .customeclass4{width:33.33%}
 body .ant-input-number{width:100%;}
 body .width100per{width:100%  !important}
 .ant-menu{color:rgba(0, 0, 0, 1) !important}
@@ -583,7 +582,7 @@ ul.headerListing li a span.backIcon{background-image:url("images/back-arrow.png"
 .mngGroupBoxBody{margin-top:15px}
 .managegroupbody .mngGrouplisting{list-style: none; margin:0;padding:0;}
 .managegroupbody .mngGrouplisting li{float:left;width:100%;padding:10px 10px; cursor:pointer;}
-.managegroupbody .mngGrouplisting li .text{float:left; width:50%;word-break: break-all;}
+.managegroupbody .mngGrouplisting li .text{float:left; width:48%;word-break: break-all;}
 .managegroupbody .mngGrouplisting li .iconNo{float:right;}
 .managegroupbody .mngGrouplisting li .iconNo .editIcon2{float:left;cursor: pointer;}
 .managegroupbody .mngGrouplisting li .iconNo .editIcon2{background:url("images/edit-g.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;height: 18px;width: 20px;vertical-align: middle;}
@@ -612,6 +611,8 @@ ul.headerListing li a span.backIcon{background-image:url("images/back-arrow.png"
 .peopleEditPgs .peopleList .icon{cursor:pointer;margin-top:7px;width:21px; height:21px;background-color:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; vertical-align: middle; text-align: center;}
 .peopleEditPgs .peopleList .icon:hover,.peopleEditPgs .peopleList .active:hover{background-color:#d63032}
 
+/* .groupPage .ant-tabs-content{overflow-y:auto;max-height:400px} */
+
 @media screen and (max-width:1366px) {
 .ant-drawer-body{overflow-y: auto; max-height:400px;}
 .loginBox .loginBoxCon .colLogLeft{padding:3% 4% 0px 4%;}
@@ -627,14 +628,15 @@ ul.headerListing li a span.backIcon{background-image:url("images/back-arrow.png"
 .managegroupbody .mngGrouplisting li{padding:10px 5px;}
 .managegroupbody .mngGrouplisting li .text{width:50%}
 body .customeclass20{padding-left:4px;padding-right:4px;}
-body .customeclass25{padding-left:4px;padding-right:4px;}
+body .customeclass4{padding-left:4px;padding-right:4px;}
 body .antdCustomRow{margin-left:4px;margin-right:4px;}
 .managegroupbody .mngGrouplisting li.inactive:after{width:21px;right: -21px;}
 .managegroupbody .mngGrouplisting li.active:after{width:21px;right: -21px;}
+.mngGroupBox{min-height:440px;}
 }
 
 @media screen and (max-width:767px) {
 body .customeclass20{width:100%}
-body .customeclass25{width:100%}
+body .customeclass4{width:100%}
 }
 

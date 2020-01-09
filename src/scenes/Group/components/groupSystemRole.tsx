@@ -68,15 +68,15 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
 
         return (
             <Row className="antd-row antdCustomRow">
-                <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className="customeclass25">
+                <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className="customeclass4">
                     <SystemRole isActive={this.state.isRoleActive} isSelectedActive={this.state.isRoleSelActive} isSelectedInactive={this.state.isRoleSelInactive} onSelectSystemRole={this.onSelectSystemRole} />
                 </Col>
 
-                <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className={(this.state.isShowGr === true) ? "customeclass30" : "customeclass30 hidden"}>
+                <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className={(this.state.isShowGr === true) ? "customeclass4" : "customeclass4 hidden"}>
                     <SystemGroup isActive={this.state.isGroupActive} roleid={this.state.selRoleId} searchon={this.state.searchonGroupId} isSelectedActive={this.state.isGroupSelActive} onSelectGroup={this.onSelectGroup} onDeSelectGroup={this.onDeSelectGroup} />
                 </Col>
 
-                <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className={(this.state.isShowPep === true) ? "customeclass30" : "customeclass30 hidden"}>
+                <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className={(this.state.isShowPep === true) ? "customeclass4" : "customeclass4 hidden"}>
                     <SystemPeople isActive={this.state.isPeopleActive} groupid={this.state.selGroupId} groupname={this.state.selGroupName} searchon={this.state.searchonGroupId} selGrPeopleData={this.state.selGrPeopleData} />
                 </Col>
             </Row>
