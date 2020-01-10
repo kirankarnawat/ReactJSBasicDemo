@@ -215,7 +215,8 @@ var lms = lms || {};
         LEVELMASTER: 'LEVELMASTER', GROUPLOOKUPS: 'GROUPLOOKUPS',
 
         GETALLROLES: 'GETALLROLES', SEARCHASSIGNMENT: 'SEARCHASSIGNMENT', GRADMINUSERS: 'GRADMINUSERS',
-        ACTIVEINACTIVEROLE: 'ACTIVEINACTIVEROLE', ASSIGNROLE: 'ASSIGNROLE', DELROLE: 'DELROLE', SYSTEMUSERLIST:'SYSTEMUSERLIST'
+        ACTIVEINACTIVEROLE: 'ACTIVEINACTIVEROLE', ASSIGNROLE: 'ASSIGNROLE', DELROLE: 'DELROLE', SYSTEMUSERLIST: 'SYSTEMUSERLIST',
+        SYSTEMSEARCHENTITYLIST:'SYSTEMSEARCHENTITYLIST'
     };
 
     //API Path
@@ -309,6 +310,9 @@ var lms = lms || {};
                 break;
             case lms.group.APIType.SYSTEMUSERLIST:
                 path = '/user/userlist';
+                break;
+            case lms.group.APIType.SYSTEMSEARCHENTITYLIST:
+                path = '/entity/entitylist';
                 break;
 
         }

@@ -35,6 +35,8 @@ import { SystemRoleRequest } from './dto/Request/systemRoleRequest';
 import { SystemUserRequest } from './dto/Request/systemUserRequest';
 import { SystemUserResponse } from './dto/Response/systemUserResponse';
 import { SystemUserAssignRequest } from './dto/Request/systemUserAssignRequest';
+import { GetUserEntityListRequest } from '../user/dto/Request/getUserEntityListRequest';
+import { GetUserEntityListResponse } from '../user/dto/Response/getUserEntityListResponse';
 
 declare var lms: any;
 
@@ -331,6 +333,17 @@ class GroupService {
         let result = await http.post(lms.group.toAPIPath(lms.group.APIType.SYSTEMUSERLIST), systemUserRequest);
 
         var data = <PagedResultDto<SystemUserResponse>>{};
+        data.items = result.data;
+        data.totalCount = (data.items.length > 0) ? data.items.length : 0;
+
+        return data;
+    }
+
+    public async getSearchEntityList(getSearchEntityList: GetUserEntityListRequest): Promise<PagedResultDto<GetUserEntityListResponse>> {
+
+        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.SYSTEMSEARCHENTITYLIST), { params: getSearchEntityList});
+
+        var data = <PagedResultDto<GetUserEntityListResponse>>{};
         data.items = result.data;
         data.totalCount = (data.items.length > 0) ? data.items.length : 0;
 

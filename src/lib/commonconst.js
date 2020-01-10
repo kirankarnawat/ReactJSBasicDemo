@@ -27,6 +27,7 @@ export default {
         GROUPEXISTS: 'Group name is already exist',
         USERACTIVESUCCESS: 'User activated successfully',
         USERINACTIVESUCCESS: 'User inactivated successfully',
+        USERASSIGNSUCCESS: 'User assigned successfully',
     },
 
     LOOKUPS: {

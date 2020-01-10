@@ -42,6 +42,9 @@ import { SystemRoleRequest } from '../services/group/dto/Request/systemRoleReque
 
 import { SystemUserRequest } from '../services/group/dto/Request/systemUserRequest';
 import { SystemUserAssignRequest } from '../services/group/dto/Request/systemUserAssignRequest';
+import { GetUserEntityListRequest } from '../services/user/dto/Request/getUserEntityListRequest';
+import { SystemUserResponse } from '../services/group/dto/Response/systemUserResponse';
+import { GroupAdminUsersResponse } from '../services/group/dto/Response/groupAdminUsersResponse';
 
 class GroupStore {
 
@@ -61,7 +64,8 @@ class GroupStore {
     @observable groupCity !: PagedResultDto<GetCityResponse>;
 
     @observable systemRolesAll !: PagedResultDto<GetAllSystemRoleResponse>;
-
+    @observable systemUsers !: SystemUserResponse[];
+    @observable assignedAdmin !: PagedResultDto<GroupAdminUsersResponse>;
 
     @action
     async initUserId() {
@@ -77,7 +81,7 @@ class GroupStore {
         let result = await groupService.getLevelMasterData(lookupByTypeRequest);
 
         runInAction(() => {
-            this.groupLevelMaster = result;            
+            this.groupLevelMaster = result;
         });
     }
 
@@ -149,8 +153,8 @@ class GroupStore {
         debugger;
         runInAction(() => {
             this.grById = {
-                groupId: result.group1Id, groupName: result.group1Name, cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId:''),
-                groupParentId: '', location: '', creatorName: result.creatorName, stateId: (result.stateId ? result.stateId:''), status: result.status, zipCode: result.zipCode
+                groupId: result.group1Id, groupName: result.group1Name, cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId : ''),
+                groupParentId: '', location: '', creatorName: result.creatorName, stateId: (result.stateId ? result.stateId : ''), status: result.status, zipCode: result.zipCode
             };
         });
     }
@@ -210,8 +214,8 @@ class GroupStore {
 
         runInAction(() => {
             this.grById = {
-                cityId: (result.cityId ? result.cityId:''), countryId: (result.countryId ? result.countryId:''), creatorName: result.creatorName, groupId: result.group2Id,
-                groupName: result.group2Name, groupParentId: result.group1Id, location: '', stateId: (result.stateId ? result.stateId:''), status: result.status, zipCode: result.zipCode
+                cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId : ''), creatorName: result.creatorName, groupId: result.group2Id,
+                groupName: result.group2Name, groupParentId: result.group1Id, location: '', stateId: (result.stateId ? result.stateId : ''), status: result.status, zipCode: result.zipCode
             };
         });
     }
@@ -271,8 +275,8 @@ class GroupStore {
 
         runInAction(() => {
             this.grById = {
-                cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId:''), creatorName: result.creatorName, groupId: result.group3Id,
-                groupName: result.group3Name, groupParentId: result.group2Id, location: '', stateId: (result.stateId ? result.stateId:''), status: result.status, zipCode: result.zipCode
+                cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId : ''), creatorName: result.creatorName, groupId: result.group3Id,
+                groupName: result.group3Name, groupParentId: result.group2Id, location: '', stateId: (result.stateId ? result.stateId : ''), status: result.status, zipCode: result.zipCode
             };
         });
     }
@@ -331,8 +335,8 @@ class GroupStore {
 
         runInAction(() => {
             this.grById = {
-                cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId:''), creatorName: result.creatorName, groupId: result.group4Id,
-                groupName: result.group4Name, groupParentId: result.group3Id, location: '', stateId: (result.stateId ? result.stateId:''), status: result.status, zipCode: result.zipCode
+                cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId : ''), creatorName: result.creatorName, groupId: result.group4Id,
+                groupName: result.group4Name, groupParentId: result.group3Id, location: '', stateId: (result.stateId ? result.stateId : ''), status: result.status, zipCode: result.zipCode
             };
         });
     }
@@ -390,8 +394,8 @@ class GroupStore {
 
         runInAction(() => {
             this.grById = {
-                cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId:''), creatorName: result.creatorName, groupId: result.group5Id,
-                groupName: result.group5Name, groupParentId: result.group4Id, location: '', stateId: (result.stateId ? result.stateId:''), status: result.status, zipCode: result.zipCode
+                cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId : ''), creatorName: result.creatorName, groupId: result.group5Id,
+                groupName: result.group5Name, groupParentId: result.group4Id, location: '', stateId: (result.stateId ? result.stateId : ''), status: result.status, zipCode: result.zipCode
             };
         });
     }
@@ -446,14 +450,24 @@ class GroupStore {
 
         let result = await groupService.getGroupAdminUsers(groupAdminUsersRequest);
 
-        return result;
+        runInAction(() => {
+            this.assignedAdmin = result ;
+        });
+    }
+
+    @action
+    async emptyGroupAdminUsers() {
+
+        runInAction(() => {
+            this.assignedAdmin = { items: [], totalCount:0 };
+        });
     }
 
     @action
     async userRoleActiveInactive(systemRoleRequest: SystemRoleRequest) {
 
         let result = await groupService.userRoleActiveInactive(systemRoleRequest);
-
+        
         return result;
     }
 
@@ -465,18 +479,20 @@ class GroupStore {
         return result;
     }
 
-    //@action
-    //async userRoleUnassign(systemRoleDelRequest: SystemRoleDelRequest) {
-
-    //    let result = await groupService.userRoleUnassign(systemRoleDelRequest);
-
-    //    return result;
-    //}
-
     @action
     async getSystemUsers(systemUserRequest: SystemUserRequest) {
 
         let result = await groupService.getSystemUsers(systemUserRequest);
+
+        runInAction(() => {
+            this.systemUsers = result && result.items.length > 0 ? result.items : [];
+        });
+    }
+
+    @action
+    async getSearchEntityList(getUserEntityListRequest: GetUserEntityListRequest) {
+
+        let result = await groupService.getSearchEntityList(getUserEntityListRequest);
 
         return result;
     }

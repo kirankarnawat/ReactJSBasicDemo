@@ -11,8 +11,6 @@ import { inject, observer } from 'mobx-react';
 
 import Stores from '../../../stores/storeIdentifier';
 import GroupStore from '../../../stores/groupStore';
-import { GroupAdminUsersResponse } from '../../../services/group/dto/Response/groupAdminUsersResponse';
-import { PagedResultDto } from '../../../services/dto/pagedResultDto';
 
 export interface IGroupProps {
     groupStore: GroupStore;
@@ -24,7 +22,6 @@ export interface IGroupSystemRoleState {
     isGroupActive: boolean; isGroupSelActive: boolean;
     isPeopleActive: boolean;
     isShowGr: boolean; isShowPep: boolean;
-    selGrPeopleData: PagedResultDto<GroupAdminUsersResponse>
 }
 
 
@@ -39,8 +36,7 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
             isRoleActive: true, isRoleSelActive: false, isRoleSelInactive: false,
             isGroupActive: false, isGroupSelActive: false,
             isPeopleActive: false,
-            isShowGr: false, isShowPep: false,
-            selGrPeopleData: { items: [], totalCount: 0 }
+            isShowGr: false, isShowPep: false            
         }
     }
 
@@ -54,21 +50,23 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
 
     onSelectGroup = async (grid: string, grname: string) => {
 
-        let result = await this.props.groupStore.getGroupAdminUsers({ GroupId: grid, RequesterUserId: this.props.groupStore.userid, SearchOnGroupId: this.state.searchonGroupId });
+        await this.props.groupStore.getGroupAdminUsers({ GroupId: grid, RequesterUserId: this.props.groupStore.userid, SearchOnGroupId: this.state.searchonGroupId });
 
-        this.setState({ ...this.state, selGroupId: grid, selGroupName: grname, isShowPep: true, isRoleSelActive: false, isRoleSelInactive: true, isGroupActive: false, isGroupSelActive: true, isPeopleActive: true, selGrPeopleData: result });
+        this.setState({ ...this.state, selGroupId: grid, selGroupName: grname, isShowPep: true, isRoleSelActive: false, isRoleSelInactive: true, isGroupActive: false, isGroupSelActive: true, isPeopleActive: true });
     }
 
     onDeSelectGroup = () => {
 
-        this.setState({ ...this.state, selGroupId: '', selGroupName: '', isShowPep: false, isRoleSelActive: true, isRoleSelInactive: false, isGroupActive: true, isGroupSelActive: false, isPeopleActive: false, selGrPeopleData: { items: [], totalCount: 0 } });
+        this.props.groupStore.emptyGroupAdminUsers();
+
+        this.setState({ ...this.state, selGroupId: '', selGroupName: '', isShowPep: false, isRoleSelActive: true, isRoleSelInactive: false, isGroupActive: true, isGroupSelActive: false, isPeopleActive: false });
     }
 
     render() {
 
         return (
             <Row className="antd-row antdCustomRow">
-                <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className="customeclass4">
+                <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className="customeclass25">
                     <SystemRole isActive={this.state.isRoleActive} isSelectedActive={this.state.isRoleSelActive} isSelectedInactive={this.state.isRoleSelInactive} onSelectSystemRole={this.onSelectSystemRole} />
                 </Col>
 
@@ -77,7 +75,7 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
                 </Col>
 
                 <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className={(this.state.isShowPep === true) ? "customeclass4" : "customeclass4 hidden"}>
-                    <SystemPeople isActive={this.state.isPeopleActive} groupid={this.state.selGroupId} groupname={this.state.selGroupName} searchon={this.state.searchonGroupId} selGrPeopleData={this.state.selGrPeopleData} />
+                    <SystemPeople isActive={this.state.isPeopleActive} groupid={this.state.selGroupId} groupname={this.state.selGroupName} searchon={this.state.searchonGroupId} roleid={this.state.selRoleId} />
                 </Col>
             </Row>
         )

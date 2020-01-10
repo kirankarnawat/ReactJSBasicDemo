@@ -8,9 +8,6 @@ import { Form, Switch, Button, Empty, message } from 'antd';
 import Stores from '../../../stores/storeIdentifier';
 import GroupStore from '../../../stores/groupStore';
 
-import { PagedResultDto } from '../../../services/dto/pagedResultDto';
-import { GroupAdminUsersResponse } from '../../../services/group/dto/Response/groupAdminUsersResponse';
-
 import commonconst from '../../../lib/commonconst';
 
 import SystemPeoplePicker from './systemPeoplePicker';
@@ -24,8 +21,8 @@ export interface ISystemPeopleProp extends FormComponentProps {
     isActive: boolean;
     groupid: string;
     groupname: string;
+    roleid: string;
     searchon: string;
-    selGrPeopleData: PagedResultDto<GroupAdminUsersResponse>;
 }
 
 @inject(Stores.GroupStore)
@@ -39,7 +36,7 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
 
     async componentDidUpdate(prevProps, prevState) {
 
-        if (this.props.selGrPeopleData !== prevProps.selGrPeopleData) {
+        if (this.props.groupStore.assignedAdmin !== prevProps.groupStore.assignedAdmin) {
             this.setState({ modalVisible: false, systemuserdata: []});
         }
     }
@@ -55,10 +52,8 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
     //ADD EDIT DRAWER OPEN
     createOrUpdateModalOpen = async() => {
 
-        let result = await this.props.groupStore.getSystemUsers({ groupId: this.props.groupid, noPaging: true, requesterUserId: this.props.groupStore.userid, status: true, firstName: '', searchOnGroupId: '' });
+        await this.props.groupStore.getSystemUsers({ groupId: this.props.groupid, noPaging: true, requesterUserId: this.props.groupStore.userid, status: true, firstName: '', searchOnGroupId: '' });
         
-        this.setState({ ...this.state, systemuserdata: (result ? result.items : []) });
-
         this.Modal();
     }
 
@@ -94,11 +89,11 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
 
     render() {
 
-        if (!this.props.selGrPeopleData) return (<div></div>);
+        if (!this.props.groupStore.assignedAdmin) return (<div></div>);
 
-        const { selGrPeopleData } = this.props;
+        const { assignedAdmin } = this.props.groupStore;
 
-        const child = (selGrPeopleData) ? selGrPeopleData.items.map((item, index) => (
+        const child = (assignedAdmin) ? assignedAdmin.items.map((item, index) => (
 
             <li key={item.userId + index}>
                 <a href="#">
@@ -131,7 +126,7 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
                 </div>
                 <div className="managegroupbody">
 
-                    <div className="text boldFont">  Total Count of Admin : ({(selGrPeopleData) ? selGrPeopleData.totalCount : 0})</div>
+                    <div className="text boldFont">  Total Count of Admin : ({(assignedAdmin) ? assignedAdmin.totalCount : 0})</div>
 
                     <ul className="mngGrouplisting">
                         {child}
@@ -144,7 +139,9 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
                     wrappedComponentRef={this.saveaddeditFormRef}
                     visible={this.state.modalVisible}
                     onCancel={this.onHandlecreateOrUpdateModalClose}
-                    systemusers={this.state.systemuserdata}                    
+                    chaingroupid={this.props.groupid}
+                    chainroleid={this.props.roleid}
+                    chainsearchon={this.props.searchon}
                 />
 
             </div>
