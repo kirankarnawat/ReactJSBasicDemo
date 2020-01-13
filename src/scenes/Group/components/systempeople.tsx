@@ -37,7 +37,7 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
     async componentDidUpdate(prevProps, prevState) {
 
         if (this.props.groupStore.assignedAdmin !== prevProps.groupStore.assignedAdmin) {
-            this.setState({ modalVisible: false, systemuserdata: []});
+            this.setState({ modalVisible: false, systemuserdata: [] });
         }
     }
 
@@ -50,10 +50,10 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
     // #region HANDLE CREATE-EDIT
 
     //ADD EDIT DRAWER OPEN
-    createOrUpdateModalOpen = async() => {
+    createOrUpdateModalOpen = async () => {
 
         await this.props.groupStore.getSystemUsers({ groupId: this.props.groupid, noPaging: true, requesterUserId: this.props.groupStore.userid, status: true, firstName: '', searchOnGroupId: '' });
-        
+
         this.Modal();
     }
 
@@ -97,17 +97,17 @@ class SystemPeople extends React.Component<IGroupProps & ISystemPeopleProp> {
 
             <li key={item.userId + index}>
                 <a href="#">
-                    <span className="text width100per"> <div className="boldFont">{item.firstName} {item.lastName}</div> 
-                    <span className="ulText">
-                        {this.props.groupname}
-                    </span>
+                    <span className="text width100per"> <div className="boldFont">{item.firstName} {item.lastName}</div>
+                        <span className="ulText">
+                            {this.props.groupname}
+                        </span>
                     </span>
                     <div className="switchbutton mt5">
                         <label className="mr8">{'Inactive'}</label>
                         <Switch onChange={(value) => this.handleUserStatus(value, item.userRoleId)} defaultChecked={(item.status.toLowerCase() === 'true') ? true : false} />
                         <label className="ml8">{'Active'}</label>
                     </div>
-                   
+
                 </a>
             </li>
 

@@ -37,6 +37,7 @@ import { SystemUserResponse } from './dto/Response/systemUserResponse';
 import { SystemUserAssignRequest } from './dto/Request/systemUserAssignRequest';
 import { GetUserEntityListRequest } from '../user/dto/Request/getUserEntityListRequest';
 import { GetUserEntityListResponse } from '../user/dto/Response/getUserEntityListResponse';
+import { GroupSearchResponse } from './dto/Response/groupSearchResponse';
 
 declare var lms: any;
 
@@ -344,6 +345,17 @@ class GroupService {
         let result = await http.get(lms.group.toAPIPath(lms.group.APIType.SYSTEMSEARCHENTITYLIST), { params: getSearchEntityList});
 
         var data = <PagedResultDto<GetUserEntityListResponse>>{};
+        data.items = result.data;
+        data.totalCount = (data.items.length > 0) ? data.items.length : 0;
+
+        return data;
+    }
+
+    public async getSystemHierarchyRoleSearch(getSearchEntityList: GetUserEntityListRequest): Promise<PagedResultDto<GroupSearchResponse>> {
+
+        let result = await http.get(lms.group.toAPIPath(lms.group.APIType.ENTITYLISTFORHIERARCHYANDROLE), { params: getSearchEntityList });
+
+        var data = <PagedResultDto<GroupSearchResponse>>{};
         data.items = result.data;
         data.totalCount = (data.items.length > 0) ? data.items.length : 0;
 

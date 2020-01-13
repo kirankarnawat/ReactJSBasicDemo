@@ -1,11 +1,12 @@
 
 import * as React from 'react';
 
-import { Form, Row, Col } from 'antd';
+import { Form, Row, Col, Card } from 'antd';
 
 import SystemRole from './systemrole';
 import SystemGroup from './systemgroup';
 import SystemPeople from './systempeople';
+import SystemRoleSearch from './systemroleSearch';
 
 import { inject, observer } from 'mobx-react';
 
@@ -40,6 +41,12 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
         }
     }
 
+    quickfilterFormRef: any;
+
+    savequickfilterFormRef = (formRef: any) => {
+        this.quickfilterFormRef = formRef;
+    };
+
     onSelectSystemRole = (value: string, searchonval: string) => {
 
         this.setState({
@@ -65,6 +72,14 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
     render() {
 
         return (
+
+            <Card>
+                <div className="floatright">
+                    <div className="rightContentdata">
+                        <SystemRoleSearch wrappedComponentRef={this.savequickfilterFormRef} />
+                    </div>
+                </div>
+
             <Row className="antd-row antdCustomRow">
                 <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className="customeclass25">
                     <SystemRole isActive={this.state.isRoleActive} isSelectedActive={this.state.isRoleSelActive} isSelectedInactive={this.state.isRoleSelInactive} onSelectSystemRole={this.onSelectSystemRole} />
@@ -77,7 +92,8 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
                 <Col lg={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} xs={{ span: 24 }} className={(this.state.isShowPep === true) ? "customeclass4" : "customeclass4 hidden"}>
                     <SystemPeople isActive={this.state.isPeopleActive} groupid={this.state.selGroupId} groupname={this.state.selGroupName} searchon={this.state.searchonGroupId} roleid={this.state.selRoleId} />
                 </Col>
-            </Row>
+                </Row>
+            </Card>
         )
     };
 }

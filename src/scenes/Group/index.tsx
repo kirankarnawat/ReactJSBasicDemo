@@ -5,12 +5,15 @@ import { Tabs, Col, Row, Card } from 'antd';
 
 import { inject, observer } from 'mobx-react';
 
-import GroupHierarchy from '../Group/components/groupHierarchy';
-import GroupSystemRole from '../Group/components/groupSystemRole';
+import GroupHierarchy from './components/groupHierarchy';
+import GroupSystemRole from './components/groupSystemRole';
+
 
 import Stores from '../../stores/storeIdentifier';
 import GroupStore from '../../stores/groupStore';
 import commonconst from '../../lib/commonconst';
+
+
 
 const TabPane = Tabs.TabPane;
 
@@ -53,20 +56,23 @@ class MainGroupContent extends React.Component<IGroupProps> {
                                     <div className="heading">
                                         <h2>Manage Groups</h2>
                                     </div>
-                                </Col>
+                                </Col>                                
                             </Row>
+
+                            <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64} className="groupPage">
+                                <TabPane tab={'Hierarchy'} key={'UserInformation'}>
+                                    <GroupHierarchy />
+                                </TabPane>
+
+                                <TabPane tab={'System Role'} key={'System Role'}>
+                                    <GroupSystemRole />
+                                </TabPane>
+                            </Tabs>  
+                            
                         </div>
                     </div>
 
-                    <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64} className="groupPage">
-                        <TabPane tab={'Hierarchy'} key={'UserInformation'}>
-                            <GroupHierarchy />
-                        </TabPane>
-
-                        <TabPane tab={'System Role'} key={'System Role'}>
-                            <GroupSystemRole />
-                        </TabPane>
-                    </Tabs>
+                                      
 
                 </div>
             </Card>

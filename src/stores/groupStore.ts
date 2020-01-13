@@ -121,6 +121,19 @@ class GroupStore {
         });
     }
 
+    @action
+    async emptyGroupsForSearch() {
+
+        runInAction(() => {
+
+            this.gr2All = { items: [], totalCount:0 };
+            this.gr3All = { items: [], totalCount: 0 };
+            this.gr4All = { items: [], totalCount: 0 };
+            this.gr5All = { items: [], totalCount: 0 };
+        });
+    }
+
+
     // #region Group1 Actions
     @action
     async checkIsGroup1NameInUse(grNameCheckRequest: Group1NameExistsCheckRequest) {
@@ -143,6 +156,23 @@ class GroupStore {
             this.gr3All = { items: [], totalCount: 0 };
             this.gr4All = { items: [], totalCount: 0 };
             this.gr5All = { items: [], totalCount: 0 };
+        });
+    }
+
+    @action
+    async getSearchGroup1Data(entityDto: EntityDto) {
+
+        let result = await groupService.getGroup1ById(entityDto);
+
+        runInAction(() => {
+            this.gr1All = { items: [], totalCount: 0 };
+            this.gr2All = { items: [], totalCount: 0 };
+            this.gr3All = { items: [], totalCount: 0 };
+            this.gr4All = { items: [], totalCount: 0 };
+            this.gr5All = { items: [], totalCount: 0 };
+
+            this.gr1All.items.push(result);
+            this.gr1All.totalCount = 1;
         });
     }
 
@@ -208,6 +238,22 @@ class GroupStore {
     }
 
     @action
+    async getSearchGroup2Data(entityDto: EntityDto) {
+
+        let result = await groupService.getGroup2ById(entityDto);
+
+        runInAction(() => {
+            this.gr2All = { items: [], totalCount: 0 };
+            this.gr3All = { items: [], totalCount: 0 };
+            this.gr4All = { items: [], totalCount: 0 };
+            this.gr5All = { items: [], totalCount: 0 };
+
+            this.gr2All.items.push(result);
+            this.gr2All.totalCount = 1;
+        });
+    }
+
+    @action
     async getGroup2DataById(entityDto: EntityDto) {
 
         let result = await groupService.getGroup2ById(entityDto);
@@ -269,6 +315,21 @@ class GroupStore {
     }
 
     @action
+    async getSearchGroup3Data(entityDto: EntityDto) {
+
+        let result = await groupService.getGroup3ById(entityDto);
+
+        runInAction(() => {
+            this.gr3All = { items: [], totalCount: 0 };
+            this.gr4All = { items: [], totalCount: 0 };
+            this.gr5All = { items: [], totalCount: 0 };
+
+            this.gr3All.items.push(result);
+            this.gr3All.totalCount = 1;
+        });
+    }
+
+    @action
     async getGroup3DataById(entityDto: EntityDto) {
 
         let result = await groupService.getGroup3ById(entityDto);
@@ -325,6 +386,20 @@ class GroupStore {
         runInAction(() => {
             this.gr4All = result;
             this.gr5All = { items: [], totalCount: 0 };
+        });
+    }
+
+    @action
+    async getSearchGroup4Data(entityDto: EntityDto) {
+
+        let result = await groupService.getGroup4ById(entityDto);
+
+        runInAction(() => {
+            this.gr4All = { items: [], totalCount: 0 };
+            this.gr5All = { items: [], totalCount: 0 };
+
+            this.gr4All.items.push(result);
+            this.gr4All.totalCount = 1;
         });
     }
 
@@ -397,6 +472,19 @@ class GroupStore {
                 cityId: (result.cityId ? result.cityId : ''), countryId: (result.countryId ? result.countryId : ''), creatorName: result.creatorName, groupId: result.group5Id,
                 groupName: result.group5Name, groupParentId: result.group4Id, location: '', stateId: (result.stateId ? result.stateId : ''), status: result.status, zipCode: result.zipCode
             };
+        });
+    }
+
+    @action
+    async getSearchGroup5Data(entityDto: EntityDto) {
+
+        let result = await groupService.getGroup5ById(entityDto);
+
+        runInAction(() => {
+            this.gr5All = { items: [], totalCount: 0 };
+
+            this.gr5All.items.push(result);
+            this.gr5All.totalCount = 1;
         });
     }
 
@@ -497,8 +585,14 @@ class GroupStore {
         return result;
     }
 
-    // #endregion
+    @action
+    async getSystemHierarchyRoleSearch(getSearchEntityList: GetUserEntityListRequest) {
 
+        let result = await groupService.getSystemHierarchyRoleSearch(getSearchEntityList);
+
+        return result;
+    }
+    // #endregion
 
 }
 export default GroupStore;
