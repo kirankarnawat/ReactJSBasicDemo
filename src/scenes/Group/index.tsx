@@ -24,7 +24,7 @@ export interface IGroupProps {
 
 @inject(Stores.GroupStore)
 @observer
-class MainGroupContent extends React.Component<IGroupProps> {  
+class MainGroupContent extends React.Component<IGroupProps> {
 
     // start up event
     async componentDidMount() {
@@ -56,23 +56,23 @@ class MainGroupContent extends React.Component<IGroupProps> {
                                     <div className="heading">
                                         <h2>Manage Groups</h2>
                                     </div>
-                                </Col>                                
+                                </Col>
                             </Row>
-
-                            <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64} className="groupPage">
-                                <TabPane tab={'Hierarchy'} key={'UserInformation'}>
-                                    <GroupHierarchy />
-                                </TabPane>
-
-                                <TabPane tab={'System Role'} key={'System Role'}>
-                                    <GroupSystemRole />
-                                </TabPane>
-                            </Tabs>  
-                            
                         </div>
                     </div>
+                    <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={10} className="groupPage">
+                        <TabPane tab={'Hierarchy'} key={'UserInformation'}>
+                            <GroupHierarchy />
+                        </TabPane>
 
-                                      
+                        <TabPane tab={'System Role'} key={'System Role'}>
+                            <GroupSystemRole />
+                        </TabPane>
+                    </Tabs>
+
+
+
+
 
                 </div>
             </Card>

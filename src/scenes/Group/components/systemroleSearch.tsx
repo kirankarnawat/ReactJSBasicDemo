@@ -90,7 +90,7 @@ class SystemRoleSearch extends React.Component<IGroupProps & ISystemRoleSearchPr
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         return (
-
+<div className="filtercontainer customsearch">
             <ul className="filterlist">
 
                 <li className="width227">
@@ -104,6 +104,7 @@ class SystemRoleSearch extends React.Component<IGroupProps & ISystemRoleSearchPr
                 <li><div className="refreshbg" onClick={this.handleRefreshSearch}><span className="refreshbtn"></span></div></li>
 
             </ul>
+            </div>
 
         );
     }

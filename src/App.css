@@ -588,7 +588,7 @@ ul.headerListing li a span.backIcon{background-image:url("images/back-arrow.png"
 .managegroupbody .mngGrouplisting li .iconNo .editIcon2{float:left;cursor: pointer;}
 .managegroupbody .mngGrouplisting li .iconNo .editIcon2{background:url("images/edit-g.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;height: 18px;width: 20px;vertical-align: middle;}
 .managegroupbody .mngGrouplisting li .iconNo .icon{background:url("images/users.png"); background-repeat: no-repeat, repeat;background-position: 4px 4px;display:inline-block;height: 18px;width: 25px;vertical-align: middle;}
-.managegroupbody .mngGrouplisting li .iconNo .no{float:left;width:40px;text-align: center;}
+.managegroupbody .mngGrouplisting li .iconNo .no{float:left;width:25px;text-align: center;}
 .managegroupbody .mngGrouplisting li .iconNo .icon{float:left;}
 .managegroupbody .mngGrouplisting li.active{border: 1px solid #c5c5c5;background:#ffffff;z-index: 1;font-family: 'Myriad Pro bold';  position: relative;}
 .managegroupbody .mngGrouplisting li.active:after{content: '';background: #ffffff;width:29px;height:104%;right: -29px;position: absolute;top: -1px;border: 1px solid #c5c5c5;border-left: none;border-right: none;}
@@ -611,7 +611,10 @@ ul.headerListing li a span.backIcon{background-image:url("images/back-arrow.png"
 .peopleEditPgs .peopleList .iconUser{background-image: url("images/add-user.png"); background-repeat: no-repeat, repeat;background-position:4px 4px;display:inline-block;}
 .peopleEditPgs .peopleList .icon{cursor:pointer;margin-top:7px;width:21px; height:21px;background-color:#000000; border-radius: 100px; -moz-border-radius: 100px; -webkit-border-radius: 100px; vertical-align: middle; text-align: center;}
 .peopleEditPgs .peopleList .icon:hover,.peopleEditPgs .peopleList .active:hover{background-color:#d63032}
-
+.customsearch{position:absolute;top:7px;right:0}
+.ant-card-body .groupPage{overflow:visible;}
+.antdCustomRow .customeclass20{overflow-y: auto;max-height:621px;overflow-x:hidden;}
+.customsearch .filterlist .width227{width:320px}
 /* .groupPage .ant-tabs-content{overflow-y:auto;max-height:400px} */
 
 @media screen and (max-width:1366px) {

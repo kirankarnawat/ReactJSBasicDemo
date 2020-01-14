@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { inject, observer } from 'mobx-react';
 
-import { Row, Col, Form, Card } from 'antd';
+import { Row, Col, Form } from 'antd';
 import Hierarchy from './hierarchy';
 import HierarchySearch from './hierarchySearch';
 
@@ -182,7 +182,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
         const { groupStore } = this.props;
 
         return (
-            <Card>
+            <div>
                 <div className="floatright">
                     <div className="rightContentdata">
                         <HierarchySearch
@@ -224,7 +224,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
                     }
                 </Row>
 
-            </Card>
+            </div>
         )
     };
 }

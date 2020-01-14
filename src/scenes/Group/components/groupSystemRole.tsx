@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 
-import { Form, Row, Col, Card } from 'antd';
+import { Form, Row, Col} from 'antd';
 
 import SystemRole from './systemrole';
 import SystemGroup from './systemgroup';
@@ -114,7 +114,7 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
 
         return (
 
-            <Card>
+            <div>
                 <div className="floatright">
                     <div className="rightContentdata">
                         <SystemRoleSearch
@@ -138,7 +138,7 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
                         <SystemPeople isActive={this.state.isPeopleActive} groupid={this.state.selGroupId} groupname={this.state.selGroupName} searchon={this.state.searchonGroupId} roleid={this.state.selRoleId} />
                     </Col>
                 </Row>
-            </Card>
+            </div>
         )
     };
 }
