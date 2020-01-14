@@ -22,8 +22,7 @@ export interface IHierarchySearchProp extends FormComponentProps {
 
 export interface IHierarchySearchState {
 
-    result: GetUserEntityListResponse[];
-    searchval: string;
+    result: GetUserEntityListResponse[];    
 }
 
 const { Option } = Select;
@@ -37,7 +36,7 @@ class HierarchySearch extends React.Component<IGroupProps & IHierarchySearchProp
         super(props);
 
         this.state = {
-            result: [], searchval:''
+            result: []
         };
     }
 
@@ -51,13 +50,13 @@ class HierarchySearch extends React.Component<IGroupProps & IHierarchySearchProp
 
     groupChange = (val) => {
 
-        this.setState({ ...this.state, searchval: val });
+        this.props.form.setFieldsValue({ 'groupId': val })
     }
 
-       
+
     handleRefreshSearch = async () => {
 
-        this.setState({ ...this.state, searchval: ''});
+        this.props.form.setFieldsValue({ 'groupId': '' })
 
         //parent load
         this.props.onRefreshSearch();
@@ -84,6 +83,8 @@ class HierarchySearch extends React.Component<IGroupProps & IHierarchySearchProp
 
         if (this.props.groupStore.gr1All === undefined) return (<div></div>);
 
+        const { getFieldDecorator } = this.props.form;
+
         const { result } = this.state;
 
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
@@ -91,11 +92,13 @@ class HierarchySearch extends React.Component<IGroupProps & IHierarchySearchProp
         return (
 
             <ul className="filterlist">
-                
+
                 <li className="width227">
-                    <AutoComplete placeholder="Association/ Brand/ Pharmacy/ NCPDP" onChange={this.groupChange} onSelect={this.groupSelect} value={this.state.searchval} onSearch={this.handleAutoSearch}>
-                        {children}
-                    </AutoComplete>
+                    {getFieldDecorator('groupId', { initialValue: '' })(
+                        <AutoComplete placeholder="Association/ Brand/ Pharmacy/ NCPDP" onChange={this.groupChange} onSelect={this.groupSelect} onSearch={this.handleAutoSearch}>
+                            {children}
+                        </AutoComplete>
+                    )}
                 </li>
 
                 <li><div className="refreshbg" onClick={this.handleRefreshSearch}><span className="refreshbtn"></span></div></li>

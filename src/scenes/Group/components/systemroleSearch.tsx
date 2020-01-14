@@ -16,13 +16,13 @@ export interface IGroupProps {
 
 export interface ISystemRoleSearchProp extends FormComponentProps {
 
-    //handleSearch: (value: number) => void;
+    onSearch: (value: string) => void;
+    onRefreshSearch: () => void;
 }
 
 export interface ISystemRoleSearchState {
 
     result: GetUserEntityListResponse[];
-    groupvalue: '';
 }
 
 const { Option } = Select;
@@ -36,29 +36,31 @@ class SystemRoleSearch extends React.Component<IGroupProps & ISystemRoleSearchPr
         super(props);
 
         this.state = {
-            result: [], groupvalue: ''
+            result: []
         };
     }
 
 
-    groupChange = (data: any) => {
-        this.setState({ ...this.state, groupvalue: data });
+    groupSelect = (option: any) => {
+        debugger;
+        var grpid = option ? option.split("~")[0] : "";
+
+        this.props.onSearch(grpid);
     }
 
-    
-    //groupSelect = (option: any) => {
-    //    this.props.groupStore.setFilter({ ...this.props.groupStore.filters, groupId: option ? option.split("~")[0] : "", searchOnGroupId: option ? option.split("~")[1] : "" });
-    //}
+    groupChange = (val) => {
 
-    //handleRefreshSearch = async () => {
+        this.props.form.setFieldsValue({ 'groupId': val })
+    }
 
-    //    this.props.groupStore.setFilter({ ...this.props.groupStore.filters, groupId: "", searchOnGroupId: "", firstName: "", status: true, emailAddress: '', jobCodeId: '', hiringDateTo: null, hiringDateFrom: null, roleChangeDateTo: null, roleChangeDateFrom: null });
 
-    //    this.setState({ ...this.state, groupvalue: ''});
+    handleRefreshSearch = async () => {
 
-    //    //parent load
-    //    this.props.handleSearch();
-    //}
+        this.props.form.setFieldsValue({ 'groupId': '' })
+
+        //parent load
+        this.props.onRefreshSearch();
+    }
 
     handleAutoSearch = async (value: string) => {
 
@@ -79,30 +81,27 @@ class SystemRoleSearch extends React.Component<IGroupProps & ISystemRoleSearchPr
 
     render() {
 
-        if (this.props.groupStore.gr1All === undefined) return (<div></div>);
+        if (this.props.groupStore.systemRolesAll === undefined) return (<div></div>);
+
+        const { getFieldDecorator } = this.props.form;
 
         const { result } = this.state;
-        //const { handleSearch } = this.props;
 
         const children = result.map(item => <Option key={item.groupId + '~' + item.searchOnGroupId}>{item.groupName}</Option>);
 
         return (
 
             <ul className="filterlist">
-                
+
                 <li className="width227">
-                    <AutoComplete placeholder="Association/ Brand/ Pharmacy/ NCPDP" allowClear={true} onChange={this.groupChange} onSearch={this.handleAutoSearch} value={this.state.groupvalue}>
-                        {children}
-                    </AutoComplete>
+                    {getFieldDecorator('groupId', { initialValue: '' })(
+                        <AutoComplete placeholder="Association/ Brand/ Pharmacy/ NCPDP" onChange={this.groupChange} onSelect={this.groupSelect} onSearch={this.handleAutoSearch}>
+                            {children}
+                        </AutoComplete>
+                    )}
                 </li>
 
-                <li>
-                    <div className="searchbg" >
-                        <span className="tabsearchbtn"></span>
-                    </div>
-                </li>
-
-                <li><div className="refreshbg"><span className="refreshbtn"></span></div></li>
+                <li><div className="refreshbg" onClick={this.handleRefreshSearch}><span className="refreshbtn"></span></div></li>
 
             </ul>
 

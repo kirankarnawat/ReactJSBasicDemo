@@ -119,6 +119,9 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
                 });
                 break;
         }
+
+        const form = this.quickfilterFormRef.props.form;
+        form.resetFields();
     }
 
     onHandleSearchGroupState = async (grpid: string) => {
@@ -129,7 +132,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
         let result = await this.props.groupStore.getSystemHierarchyRoleSearch({ GroupId: grpid, RequesterUserId: this.props.groupStore.userid, SearchPhrase: '' });
 
         if (result && result.items.length > 0) {
-
+            debugger;
             let res = result.items[0];
 
             //get date first
@@ -141,19 +144,19 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
 
             //set state
 
-            this.setState({
+            this.setState({ ...this.state,
 
                 grp1name: res.group1Name, grp2name: ((res.group2Name && res.group3Name) ? res.group2Name : ''), grp3name: ((res.group3Name && res.group4Name) ? res.group3Name : ''), grp4name: ((res.group4Name && res.group5Name) ? res.group4Name : ''),
 
                 searchgrp1id: res.group1Id, searchgrp2id: res.group2Id ? res.group2Id : '', searchgrp3id: res.group3Id ? res.group3Id : '', searchgrp4id: res.group4Id ? res.group4Id:'',
 
-                isGr1Active: (!res.group2Id) ? true : false, isGr2Active: (!res.group3Id) ? true : false, isGr3Active: (!res.group4Id) ? true : false, isGr4Active: (!res.group5Id) ? true : false, isGr5Active: (res.group5Id) ? true : false,
+                isGr1Active: ((res.group1Id && !res.group2Id) ? true : false), isGr2Active: ((res.group2Id && !res.group3Id) ? true : false), isGr3Active: ((res.group3Id && !res.group4Id) ? true : false), isGr4Active: ((res.group4Id && !res.group5Id)?true:false), isGr5Active:((res.group5Id)?true:false),
 
-                isGr1SelActive: (res.group2Id && !res.group3Id) ? true : false, isGr2SelActive: (res.group3Id && !res.group4Id) ? true : false, isGr3SelActive: (res.group4Id && !res.group5Id) ? true : false, isGr4SelActive: (res.group5Id) ? true : false, isGr5SelActive: false,
+                isGr1SelActive:((res.group2Id && !res.group3Id)?true:false), isGr2SelActive:((res.group3Id && !res.group4Id)?true:false), isGr3SelActive:((res.group4Id && !res.group5Id)?true:false), isGr4SelActive:((res.group5Id)?true:false), isGr5SelActive:false,
 
-                isGr1SelInactive: (res.group3Id?true:false) , isGr2SelInactive: (res.group4Id?true:false), isGr3SelInactive: (res.group5Id? true : false), isGr4SelInactive: false, isGr5SelInactive: false,
+                isGr1SelInactive:(res.group3Id?true:false) , isGr2SelInactive:(res.group4Id?true:false), isGr3SelInactive:(res.group5Id? true : false), isGr4SelInactive:false, isGr5SelInactive:false,
 
-                parentGroupId: (res.group5Id ? res.group4Id : (res.group4Id ? res.group3Id : (res.group3Id ? res.group2Id : (res.group2Id ? res.group1Id: '')))),
+                parentGroupId:(res.group5Id ? res.group4Id : (res.group4Id ? res.group3Id : (res.group3Id ? res.group2Id : (res.group2Id ? res.group1Id: '')))),
             })
         }
     }
@@ -163,6 +166,7 @@ class GroupHierarchy extends React.Component<IGroupProps, IGroupHierarchyState> 
         await this.props.groupStore.getAllGroup1Data();
 
         this.setState({
+            ...this.state,
             isGr1Active: true, isGr2Active: false, isGr3Active: false, isGr4Active: false, isGr5Active: false,
             isGr1SelActive: false, isGr2SelActive: false, isGr3SelActive: false, isGr4SelActive: false, isGr5SelActive: false,
             isGr1SelInactive: false, isGr2SelInactive: false, isGr3SelInactive: false, isGr4SelInactive: false, isGr5SelInactive: false,
