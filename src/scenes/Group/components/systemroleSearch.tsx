@@ -42,7 +42,7 @@ class SystemRoleSearch extends React.Component<IGroupProps & ISystemRoleSearchPr
 
 
     groupSelect = (option: any) => {
-        debugger;
+        
         var grpid = option ? option.split("~")[0] : "";
 
         this.props.onSearch(grpid);

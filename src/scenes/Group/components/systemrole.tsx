@@ -37,12 +37,12 @@ class SystemRole extends React.Component<IGroupProps & ISystemRoleProp> {
 
         if (this.props.searchRoleId && this.props.searchRoleId != prevProps.searchRoleId) {
 
-            this.setState({ selRoleId: '', searchonGroupId: '' });
+            this.setState({ selRoleId: this.props.searchRoleId, searchonGroupId: '' });
         }
     }
 
     getRoleData = () => {
-        debugger;
+        
         var data;
 
         data = (this.props.groupStore.systemRolesAll) ?
@@ -50,8 +50,10 @@ class SystemRole extends React.Component<IGroupProps & ISystemRoleProp> {
             this.props.groupStore.systemRolesAll.items.map((item, index) => (
 
                 <li key={item.roleId} onClick={() => this.selectSystemRole(item.roleId, item.searchonGroupId)}
+
                     className={(  (this.state.selRoleId === item.roleId || this.props.searchRoleId === item.roleId) && this.props.isSelectedActive === true) ? 'active' :
                         (((this.state.selRoleId === item.roleId || this.props.searchRoleId === item.roleId) && this.props.isSelectedInactive === true) ? 'inactive' : '')}>
+
                     <a href="#">
                         <span className="text" >  {item.displayRole}</span>
                     </a>

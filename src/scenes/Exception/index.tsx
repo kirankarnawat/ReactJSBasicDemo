@@ -11,14 +11,13 @@ import error500 from '../../images/500.png';
 import errorST from '../../images/ST.png';
 
 class Exception extends React.Component<any, any> {
+
     public render() {
+
+        debugger;
         const exception = [
             { errorCode: '404', errorImg: error404, errorDescription: 'Sorry, the page you visited does not exist' },
-            {
-                errorCode: '401',
-                errorImg: error401,
-                errorDescription: 'Sorry, you dont have access to this page',
-            },
+            { errorCode: '401', errorImg: error401, errorDescription: 'Sorry, you dont have access to this page', },
             { errorCode: '500', errorImg: error500, errorDescription: 'Sorry, the server is reporting an error' },
             { errorCode: 'sessiontimeout', errorImg: errorST, errorDescription: 'Session Timeout!' },
         ];
@@ -81,13 +80,11 @@ class Exception extends React.Component<any, any> {
                         xxl={{ span: 24, offset: 0 }}
                     >
                         <Button type={'primary'}>
-                            <Link
-                                to={{
-                                    pathname: '/',
-                                }}
-                            >
+                            <Link to={{
+                                pathname: '/',
+                            }}>
                                 Back to Home
-              </Link>
+                            </Link>
                         </Button>
                     </Col>
                 </Col>
