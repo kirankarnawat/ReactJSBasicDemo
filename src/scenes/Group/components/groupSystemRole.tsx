@@ -51,7 +51,8 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
 
         this.setState({
             ...this.state, selRoleId: value, searchonGroupId: searchonval, isShowGr: true, isRoleActive: false, isRoleSelActive: true, isGroupActive: true,
-            selGroupId: '', isShowPep: false, isRoleSelInactive: false, isGroupSelActive: false, isPeopleActive: false, searchRoleId: '', searchPhrase: '',
+            selGroupId: '', isShowPep: false, isRoleSelInactive: false, isGroupSelActive: false, isPeopleActive: false,
+            searchRoleId: '', searchPhrase: '',
         });
 
         const form = this.quickfilterFormRef.props.form;
@@ -72,12 +73,15 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
         this.setState({
             ...this.state, selGroupId: '', selGroupName: '', isShowPep: false,
             isRoleSelActive: true, isRoleSelInactive: false, isGroupActive: true, isGroupSelActive: false,
-            isPeopleActive: false, searchRoleId: '', searchPhrase: '',
+            isPeopleActive: false, searchRoleId: '', searchPhrase: ''
         });
+
+        const form = this.quickfilterFormRef.props.form;
+        form.resetFields();
     }
 
     onHandleSearchGroupState = async (grpid: string) => {
-        debugger;
+        
         await this.props.groupStore.emptyGroupAdminUsers();
 
         let result = await this.props.groupStore.getSystemHierarchyRoleSearch({ GroupId: grpid, RequesterUserId: this.props.groupStore.userid, SearchPhrase: '' });
@@ -102,11 +106,11 @@ class GroupSystemRole extends React.Component<IGroupProps, IGroupSystemRoleState
     onHandleSearchReState = () => {
 
         this.setState({ ...this.state,
-            selRoleId: '', selGroupId: '', searchonGroupId: '', selGroupName: '', searchRoleId: '', searchPhrase: '',
+            selRoleId: '', selGroupId: '', searchonGroupId: '', selGroupName: '', searchPhrase: '',
             isRoleActive: true, isRoleSelActive: false, isRoleSelInactive: false,
             isGroupActive: false, isGroupSelActive: false,
             isPeopleActive: false,
-            isShowGr: false, isShowPep: false
+            isShowGr: false, isShowPep: false,searchRoleId: '',
         });
     }
 

@@ -57,6 +57,7 @@ class SystemGroup extends React.Component<IGroupProps & ISystemGroupProp, ISyste
             this.setState({ selGroupId: '', lastsearch: '', groupdata: { items: [], totalCount: 0 } });
 
             if (this.props.searchPhrase) await this.handleGroupAutoSearch();
+            else await this.handleGroupSearch('');
         }
     }
 
@@ -77,7 +78,7 @@ class SystemGroup extends React.Component<IGroupProps & ISystemGroupProp, ISyste
     }
 
     handleGroupAutoSearch = async () => {
-        debugger;
+        
         let result = await this.props.groupStore.searchAssignment({ RequesterUserId: this.props.groupStore.userid, SearchPhrase: this.props.searchPhrase, SearchOnGroupId: this.props.searchon });
 
         this.setState({ ...this.state, groupdata: result });
