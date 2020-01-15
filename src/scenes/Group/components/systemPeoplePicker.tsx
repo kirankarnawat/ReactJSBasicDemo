@@ -144,7 +144,7 @@ class SystemPeoplePicker extends React.Component<IGroupProps & ISystemPeoplePick
                         <p>{item.groupName}</p>
                     </span>
                     {
-                        (assignedAdmin && ( assignedAdmin.items.length === 0 || assignedAdmin.items.find(p => p.userId === item.userId) === undefined)) ?
+                        (assignedAdmin && (assignedAdmin.items.length === 0 || assignedAdmin.items.find(p => p.userId === item.userId) === undefined)) ?
                             <Popconfirm title="Are you sure assign this user?" onConfirm={() => this.handleAddGroupUser(item.userId)} okText="Yes" cancelText="No"                            >
                                 <span className="rightCont"><span className="floatright"><span className="icon iconUser" ></span></span></span>
                             </Popconfirm>
@@ -158,7 +158,7 @@ class SystemPeoplePicker extends React.Component<IGroupProps & ISystemPeoplePick
 
         return (
 
-            <Drawer title={'People Picker'} width={340} onClose={this.onHanleResetForm} destroyOnClose={true} visible={visible}>
+            <Drawer className="peoplepickerDrawer" title={'People Picker'} width={340} onClose={this.onHanleResetForm} destroyOnClose={true} visible={visible}>
                 <div className="peopleEditPgs">
 
                     <div className="antd-row">
@@ -175,28 +175,32 @@ class SystemPeoplePicker extends React.Component<IGroupProps & ISystemPeoplePick
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
                             <FormItem>
                                 <label>{'Association/ Brand/ Pharmacy/ NCPDP'} </label>
-                                <AutoComplete placeholder="Association/ Brand/ Pharmacy/ NCPDP" allowClear={true} onChange={this.groupChange} onSearch={this.handleAutoSearch} value={this.state.selGrpid} onSelect={this.handleAutoSelect} >
-                                    {children}
-                                </AutoComplete>
+                                <div className="filtercontainer">
+                                    <ul className="filterlist">
+                                        <li className="width230">
+                                            <AutoComplete placeholder="Association/ Brand/ Pharmacy/ NCPDP" allowClear={true} onChange={this.groupChange} onSearch={this.handleAutoSearch} value={this.state.selGrpid} onSelect={this.handleAutoSelect} >
+                                                {children}
+                                            </AutoComplete>
+                                        </li>
+                                        <li>
+                                            <div className="searchbg" onClick={this.getSystemUsersList} >
+                                                <span className="tabsearchbtn"></span>
+                                            </div>
+                                        </li>
+                                        <li><div className="refreshbg" onClick={this.handleRefreshSearch} ><span className="refreshbtn"></span></div></li>
+                                    </ul>
+                                </div>
                             </FormItem>
                         </Col>
                     </div>
-
-                    <div className="antd-row">
-                        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
-                            <div className="searchbg" onClick={this.getSystemUsersList} >
-                                <span className="tabsearchbtn"></span>
-                            </div>
-                            <div className="refreshbg" onClick={this.handleRefreshSearch} ><span className="refreshbtn"></span></div>
-                        </Col>
-                    </div>
-
                     <Spin spinning={this.state.loading}>
                         <div className="antd-row">
                             <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }}>
+                                <div className="peoplegroupmaxheight">
                                 <ul className="peopleList">
                                     {child}
                                 </ul>
+                                </div>
                             </Col>
                         </div>
                     </Spin>
